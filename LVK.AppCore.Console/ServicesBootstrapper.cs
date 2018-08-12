@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 using DryIoc;
 
@@ -25,12 +24,26 @@ namespace LVK.AppCore.Console
             container.UseInstance<ILoggerFactory>(new LoggerFactory());
             container.Register(typeof(ILogger<>), typeof(Logger<>), Reuse.Singleton);
 
-            var minLevel = LogLevel.Information;
-            if (Environment.GetCommandLineArgs().Contains("--debug"))
-                minLevel = LogLevel.Debug;
-            else if (Environment.GetCommandLineArgs().Contains("--trace"))
-                minLevel = LogLevel.Trace;
-            
+            var minLevel = LogLevel.Warning;
+
+            foreach (var arg in Environment.GetCommandLineArgs())
+            {
+                switch (arg)
+                {
+                    case "--trace":
+                        minLevel = LogLevel.Trace;
+                        break;
+                    
+                    case "--debug":
+                        minLevel = LogLevel.Debug;
+                        break;
+                    
+                    case "--info":
+                        minLevel = LogLevel.Information;
+                        break;
+                }
+            }
+
             container.Resolve<ILoggerFactory>().AddConsole(minLevel, true).AddDebug(LogLevel.Debug);
         }
     }
