@@ -19,6 +19,8 @@ namespace LVK.AppCore.Console
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
+            container.Bootstrap<LVK.AppCore.ServicesBootstrapper>();
+            
             container.Register<IConsoleApplicationEntryPoint, ConsoleApplicationEntryPoint>();
             container.UseInstance<ILoggerFactory>(new LoggerFactory());
             container.Register(typeof(ILogger<>), typeof(Logger<>), Reuse.Singleton);
