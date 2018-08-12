@@ -8,6 +8,7 @@ for /D %%f in (*.*) do (
 )
 
 dotnet build -c Release
+if errorlevel 1 goto end
 
 for /R %%f in (*.nupkg) do call :fixup %%f
 goto end
