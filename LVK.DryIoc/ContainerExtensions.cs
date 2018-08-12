@@ -15,7 +15,7 @@ namespace LVK.DryIoc
             var register = container.Resolve<IContainerBootstrapperRegister>(IfUnresolved.ReturnDefaultIfNotRegistered);
             if (register == null)
             {
-                register = container.New<ContainerBootstrapper>();
+                register = container.New<ContainerBootstrapperRegister>();
                 assume(register != null);
                 
                 container.UseInstance(register);

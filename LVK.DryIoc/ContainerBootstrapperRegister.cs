@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 namespace LVK.DryIoc
 {
     [UsedImplicitly]
-    internal class ContainerBootstrapper : IContainerBootstrapperRegister
+    internal class ContainerBootstrapperRegister : IContainerBootstrapperRegister
     {
         [NotNull, ItemNotNull]
         private readonly HashSet<Type> _AlreadyBootstrapped = new HashSet<Type>();
