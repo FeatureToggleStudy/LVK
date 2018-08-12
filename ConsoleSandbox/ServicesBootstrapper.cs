@@ -15,6 +15,8 @@ namespace ConsoleSandbox
         public void Bootstrap(IContainer container)
         {
             container.Register<IApplicationEntryPoint, MyApplication>();
+            container.Register<IApplicationInitialization, MyInit>();
+            container.Register<IApplicationCleanup, MyCleanup>();
         }
     }
 }

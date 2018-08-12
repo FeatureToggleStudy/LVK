@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using JetBrains.Annotations;
@@ -21,11 +22,14 @@ namespace ConsoleSandbox
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<int> Execute()
+        public async Task<int> Execute(CancellationToken cancellationToken)
         {
             _Logger.LogInformation("before");
-            await Task.Delay(1000);
 
+            Console.WriteLine("waiting 5 seconds");
+            await Task.Delay(5000, cancellationToken);
+            Console.WriteLine("the wait is over");
+            
             _Logger.LogInformation("after");
 
             return 0;

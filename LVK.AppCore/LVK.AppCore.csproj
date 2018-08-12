@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-
     <PackageId>LVK.AppCore</PackageId>
     <Description>LVK Core application framework classes and extensions</Description>
     <PackageLicenseUrl>https://github.com/lassevk/LVK/blob/master/LICENSE</PackageLicenseUrl>
