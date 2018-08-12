@@ -18,20 +18,13 @@ namespace LVK.AppCore.Console
     {
         [NotNull]
         public static Task<int> Execute<T>()
-            where T: class, IServiceBootstrapper
+            where T: class, IServicesBootstrapper
         {
             IContainer container = new Container(rules => rules.WithTrackingDisposableTransients());
-            container.Bootstrap<ServiceBootstrapper>()
-               // .Bootstrap<LVK.Logging.ServiceBootstrapper>()
-               .Bootstrap<LVK.Core.Services.ServiceBootstrapper>()
+            container.Bootstrap<ServicesBootstrapper>()
+               .Bootstrap<LVK.Core.Services.ServicesBootstrapper>()
                .Bootstrap<T>();
 
-            // container.UseInstance<ILoggerFactory>(new LoggerFactory());
-
-            // MethodInfo loggerFactoryMethod = typeof(LoggerFactoryExtensions).GetMethod("CreateLogger", new[] { typeof(ILoggerFactory) });
-            //
-            // container.Register(typeof(ILogger<>), made: Made.Of(loggerFactoryMethod));
-            
             return container.Resolve<IConsoleApplicationEntryPoint>().NotNull().Execute();
         }
     }

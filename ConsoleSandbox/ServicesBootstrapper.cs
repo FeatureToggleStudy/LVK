@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace ConsoleSandbox
 {
     [UsedImplicitly]
-    internal class ServiceBootstrapper : IServiceBootstrapper
+    internal class ServicesBootstrapper : IServicesBootstrapper
     {
         public void Bootstrap(IContainer container)
         {

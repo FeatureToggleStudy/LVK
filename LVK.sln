@@ -18,6 +18,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiSandbox", "WebApiSand
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore.Mvc", "LVK.AppCore.Mvc\LVK.AppCore.Mvc.csproj", "{4CEE4109-6A05-422B-9CA1-4F6B2D596386}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Core.Tests", "LVK.Core.Tests\LVK.Core.Tests.csproj", "{98B4E7D0-ABBC-4AAE-BAA1-0ABCD73C0DBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Core.Services.Tests", "LVK.Core.Services.Tests\LVK.Core.Services.Tests.csproj", "{1938A250-A05F-41D2-A527-5B02B1CACE8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +64,13 @@ Global
 		{4CEE4109-6A05-422B-9CA1-4F6B2D596386}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CEE4109-6A05-422B-9CA1-4F6B2D596386}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CEE4109-6A05-422B-9CA1-4F6B2D596386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98B4E7D0-ABBC-4AAE-BAA1-0ABCD73C0DBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98B4E7D0-ABBC-4AAE-BAA1-0ABCD73C0DBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98B4E7D0-ABBC-4AAE-BAA1-0ABCD73C0DBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98B4E7D0-ABBC-4AAE-BAA1-0ABCD73C0DBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1938A250-A05F-41D2-A527-5B02B1CACE8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1938A250-A05F-41D2-A527-5B02B1CACE8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1938A250-A05F-41D2-A527-5B02B1CACE8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1938A250-A05F-41D2-A527-5B02B1CACE8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

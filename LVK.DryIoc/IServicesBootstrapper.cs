@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 
 namespace LVK.DryIoc
 {
-    public interface IServiceBootstrapper
+    public interface IServicesBootstrapper
     {
         void Bootstrap([NotNull] IContainer container);
     }

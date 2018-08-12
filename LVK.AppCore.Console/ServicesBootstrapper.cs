@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 namespace LVK.AppCore.Console
 {
     [UsedImplicitly]
-    internal class ServiceBootstrapper : IServiceBootstrapper
+    internal class ServicesBootstrapper : IServicesBootstrapper
     {
         public void Bootstrap(IContainer container)
         {

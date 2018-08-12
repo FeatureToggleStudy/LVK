@@ -10,7 +10,7 @@ using LVK.DryIoc;
 namespace LVK.AppCore
 {
     [PublicAPI]
-    public class ServiceBootstrapper : IServiceBootstrapper
+    public class ServicesBootstrapper : IServicesBootstrapper
     {
         public void Bootstrap(IContainer container)
         {

@@ -11,7 +11,7 @@ using NodaTime;
 namespace LVK.Core.Services
 {
     [PublicAPI]
-    public class ServiceBootstrapper : IServiceBootstrapper
+    public class ServicesBootstrapper : IServicesBootstrapper
     {
         public void Bootstrap(IContainer container)
         {

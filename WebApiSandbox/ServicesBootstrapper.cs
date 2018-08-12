@@ -7,7 +7,7 @@ using LVK.DryIoc;
 namespace WebApiSandbox
 {
     [UsedImplicitly]
-    internal class ServiceBootstrapper : IServiceBootstrapper
+    internal class ServicesBootstrapper : IServicesBootstrapper
     {
         public void Bootstrap(IContainer container)
         {

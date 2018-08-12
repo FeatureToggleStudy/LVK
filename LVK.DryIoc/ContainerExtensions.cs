@@ -10,7 +10,7 @@ namespace LVK.DryIoc
     {
         [NotNull]
         public static IContainer Bootstrap<T>([NotNull] this IContainer container)
-            where T: class, IServiceBootstrapper
+            where T: class, IServicesBootstrapper
         {
             var register = container.Resolve<IContainerBootstrapperRegister>(IfUnresolved.ReturnDefaultIfNotRegistered);
             if (register == null)
