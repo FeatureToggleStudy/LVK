@@ -47,33 +47,34 @@ namespace LVK.AppCore.Console
             {
                 try
                 {
-                    var cts = new CancellationTokenSource();
+                    using (var cts = new CancellationTokenSource())
+                    {
+                        var wasCancelledByUser = false;
+                        global::System.Console.CancelKeyPress += (s, e) =>
+                        {
+                            wasCancelledByUser = true;
+                            cts.Cancel();
+                        };
 
-                    var wasCancelledByUser = false;
-                    global::System.Console.CancelKeyPress += (s, e) =>
-                    {
-                        wasCancelledByUser = true;
-                        cts.Cancel();
-                    };
+                        try
+                        {
+                            foreach (IApplicationInitialization init in _Initializers)
+                                await init.Initialize(cts.Token);
 
-                    try
-                    {
-                        foreach (IApplicationInitialization init in _Initializers)
-                            await init.Initialize(cts.Token);
-
-                        var result = await _ApplicationEntryPoint.Execute(cts.Token);
-                        _Logger.LogDebug($"application exited successfully with exit code {result}");
-                        return result;
-                    }
-                    catch (TaskCanceledException) when (wasCancelledByUser)
-                    {
-                        _Logger.LogDebug($"application was aborted by user");
-                        return 1;
-                    }
-                    finally
-                    {
-                        foreach (IApplicationCleanup cleanup in _Cleanups)
-                            await cleanup.Cleanup(wasCancelledByUser, cts.Token);
+                            var result = await _ApplicationEntryPoint.Execute(cts.Token);
+                            _Logger.LogDebug($"application exited successfully with exit code {result}");
+                            return result;
+                        }
+                        catch (TaskCanceledException) when (wasCancelledByUser)
+                        {
+                            _Logger.LogDebug($"application was aborted by user");
+                            return 1;
+                        }
+                        finally
+                        {
+                            foreach (IApplicationCleanup cleanup in _Cleanups)
+                                await cleanup.Cleanup(wasCancelledByUser, cts.Token);
+                        }
                     }
                 }
                 catch (Exception ex)
