@@ -20,7 +20,6 @@
     <ProjectReference Include="..\LVK.AppCore\LVK.AppCore.csproj" />
     <ProjectReference Include="..\LVK.Core.Services\LVK.Core.Services.csproj" />
     <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
-    <ProjectReference Include="..\LVK.DryIoc.Mvc\LVK.DryIoc.Mvc.csproj" />
     <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net47'">
