@@ -2,6 +2,15 @@
   <PropertyGroup>
     <LangVersion>7.2</LangVersion>
     <TargetFramework>netstandard2.0</TargetFramework>
+
+    <PackageId>LVK.DryIoc</PackageId>
+    <Description>LVK DryIoc helper classes</Description>
+    <PackageLicenseUrl>https://github.com/lassevk/LVK/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/lassevk/LVK</PackageProjectUrl>
+    <Version>1.0.0.0</Version>
+    <Authors>Lasse Vågsæther Karlsen</Authors>
+    <IncludeSource>true</IncludeSource>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DryIoc.dll" Version="3.0.2" />
