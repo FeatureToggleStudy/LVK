@@ -1,33 +1,32 @@
 ﻿using System;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 using DryIoc;
+using DryIoc.Microsoft.DependencyInjection;
 
 using JetBrains.Annotations;
 
+using LVK.AppCore.Console;
+using LVK.Core;
 using LVK.DryIoc;
-using LVK.Logging;
 
-using static LVK.Core.JetBrainsHelpers;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace LVK.AppCore.Console
+namespace LVK.AppCore.Mvc
 {
     public static class MvcAppBootstrapper
     {
-        public static IServiceProvider Bootstrap<T>()
+        public static IServiceProvider Bootstrap<T>([NotNull] IServiceCollection services)
             where T: class, IServiceBootstrapper
         {
-            throw new NotImplementedException();
-
-            // IContainer container = new Container();
-            // container.Bootstrap<ServiceBootstrapper>()
-            //    .Bootstrap<LVK.Logging.ServiceBootstrapper>()
-            //    .Bootstrap<LVK.Core.Services.ServiceBootstrapper>()
-            //    .Bootstrap<T>();
-            //
-            // container.Resolve<ILogger>().Warning("TEST");
-            //
-            // return container.Resolve<IConsoleApplicationEntryPoint>().NotNull().Execute();
+            if (services == null)
+                throw new ArgumentNullException(nameof(services));
+            
+            return new Container()
+                .WithDependencyInjectionAdapter(services).NotNull()
+                .Bootstrap<LVK.Core.Services.ServiceBootstrapper>()
+                .Bootstrap<T>()
+                .ConfigureServiceProvider<DummyCompositionRoot>();
         }
     }
 }

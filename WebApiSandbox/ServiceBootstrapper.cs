@@ -2,17 +2,16 @@
 
 using JetBrains.Annotations;
 
-using LVK.AppCore;
 using LVK.DryIoc;
 
-namespace ConsoleSandbox
+namespace WebApiSandbox
 {
     [UsedImplicitly]
-    internal class CompositionRoot : IServiceBootstrapper
+    internal class ServiceBootstrapper : IServiceBootstrapper
     {
         public void Bootstrap(IContainer container)
         {
-            container.Register<IApplicationEntryPoint, MyApplication>();
+            
         }
     }
 }

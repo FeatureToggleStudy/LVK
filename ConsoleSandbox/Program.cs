@@ -6,6 +6,6 @@ namespace ConsoleSandbox
 {
     static class Program
     {
-        static Task<int> Main(string[] args) => ConsoleAppBootstrapper.Execute<CompositionRoot>();
+        static Task<int> Main(string[] args) => ConsoleAppBootstrapper.Execute<ServiceBootstrapper>();
     }
 }

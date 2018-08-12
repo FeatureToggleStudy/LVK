@@ -7,10 +7,19 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DryIoc.dll" Version="3.0.2" />
+    <PackageReference Include="DryIoc.Microsoft.DependencyInjection" Version="2.0.1" />
     <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LVK.AppCore.Mvc\LVK.AppCore.Mvc.csproj" />
+    <ProjectReference Include="..\LVK.AppCore\LVK.AppCore.csproj" />
+    <ProjectReference Include="..\LVK.Core.Services\LVK.Core.Services.csproj" />
+    <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+    <ProjectReference Include="..\LVK.DryIoc.Mvc\LVK.DryIoc.Mvc.csproj" />
+    <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
   </ItemGroup>
 </Project>

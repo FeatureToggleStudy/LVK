@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
-using LVK.Logging;
+using Microsoft.Extensions.Logging;
 
 using static LVK.Core.JetBrainsHelpers;
 
@@ -16,9 +16,9 @@ namespace LVK.AppCore.Console
         private readonly IApplicationEntryPoint _ApplicationEntryPoint;
 
         [NotNull]
-        private readonly ILogger _Logger;
+        private readonly ILogger<ConsoleApplicationEntryPoint> _Logger;
 
-        public ConsoleApplicationEntryPoint([NotNull] IApplicationEntryPoint applicationEntryPoint, [NotNull] ILogger logger)
+        public ConsoleApplicationEntryPoint([NotNull] IApplicationEntryPoint applicationEntryPoint, [NotNull] ILogger<ConsoleApplicationEntryPoint> logger)
         {
             _ApplicationEntryPoint = applicationEntryPoint ?? throw new ArgumentNullException(nameof(applicationEntryPoint));
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -26,17 +26,18 @@ namespace LVK.AppCore.Console
 
         public async Task<int> Execute()
         {
-            using (_Logger.Scope(LogLevel.Debug, "application"))
+            
+            using (_Logger.BeginScope("application"))
             {
                 try
                 {
                     var result = await _ApplicationEntryPoint.Execute();
-                    _Logger.Debug($"application exited successfully with exit code {result}");
+                    _Logger.LogDebug($"application exited successfully with exit code {result}");
                     return result;
                 }
                 catch (Exception ex)
                 {
-                    _Logger.Error($"{ex.GetType().NotNull().Name}: {ex.Message}{Environment.NewLine}{ex.StackTrace}");
+                    _Logger.LogError(ex, $"{ex.GetType().NotNull().Name}");
                     return 1;
                 }
             }

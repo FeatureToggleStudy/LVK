@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
 using LVK.AppCore;
-using LVK.Logging;
+
+using Microsoft.Extensions.Logging;
 
 namespace ConsoleSandbox
 {
@@ -12,18 +14,19 @@ namespace ConsoleSandbox
     internal class MyApplication : IApplicationEntryPoint
     {
         [NotNull]
-        private readonly ILogger _Logger;
+        private readonly ILogger<MyApplication> _Logger;
 
-        public MyApplication([NotNull] ILogger logger)
+        public MyApplication([NotNull] ILogger<MyApplication> logger)
         {
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<int> Execute()
         {
-            _Logger.Information("before");
+            _Logger.LogInformation("before");
             await Task.Delay(1000);
-            _Logger.Information("after");
+
+            _Logger.LogInformation("after");
 
             return 0;
         }
