@@ -21,12 +21,14 @@ namespace LVK.AppCore.Mvc
         {
             if (services == null)
                 throw new ArgumentNullException(nameof(services));
-            
-            return new Container()
-                .WithDependencyInjectionAdapter(services).NotNull()
-                .Bootstrap<LVK.Core.Services.ServicesBootstrapper>()
-                .Bootstrap<T>()
-                .ConfigureServiceProvider<DummyCompositionRoot>();
+
+            return new Container().WithDependencyInjectionAdapter(services)
+               .NotNull()
+               .Bootstrap<LVK.AppCore.ServicesBootstrapper>()
+               .Bootstrap<ServicesBootstrapper>()
+               .Bootstrap<LVK.Core.Services.ServicesBootstrapper>()
+               .Bootstrap<T>()
+               .ConfigureServiceProvider<DummyCompositionRoot>();
         }
     }
 }
