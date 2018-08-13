@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
@@ -21,9 +22,10 @@ namespace WebApiSandbox.Controllers
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<string>> Get()
         {
             _Logger.Log(LogLevel.Information, "Get()");
+            await Task.Delay(5000);
             return new string[] { "value1", "value2" };
         }
 

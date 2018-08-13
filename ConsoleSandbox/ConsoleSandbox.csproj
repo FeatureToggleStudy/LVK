@@ -14,5 +14,6 @@
     <ProjectReference Include="..\LVK.AppCore.Console\LVK.AppCore.Console.csproj" />
     <ProjectReference Include="..\LVK.AppCore\LVK.AppCore.csproj" />
     <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
+    <ProjectReference Include="..\LVK.Net.Http\LVK.Net.Http.csproj" />
   </ItemGroup>
 </Project>

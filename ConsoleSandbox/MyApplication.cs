@@ -17,20 +17,19 @@ namespace ConsoleSandbox
         [NotNull]
         private readonly ILogger<MyApplication> _Logger;
 
-        public MyApplication([NotNull] ILogger<MyApplication> logger)
+        [NotNull]
+        private readonly ITestWebApi _Api;
+
+        public MyApplication([NotNull] ILogger<MyApplication> logger, [NotNull] ITestWebApi api)
         {
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _Api = api ?? throw new ArgumentNullException(nameof(api));
         }
 
         public async Task<int> Execute(CancellationToken cancellationToken)
         {
-            _Logger.LogInformation("before");
-
-            Console.WriteLine("waiting 5 seconds");
-            await Task.Delay(5000, cancellationToken);
-            Console.WriteLine("the wait is over");
-            
-            _Logger.LogInformation("after");
+            foreach (string value in await _Api.GetValuesAsync(cancellationToken))
+                Console.WriteLine(value);
 
             return 0;
         }
