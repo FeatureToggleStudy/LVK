@@ -16,7 +16,12 @@ namespace LVK.Net.Http
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.Register<IHttpClientOptions, HttpClientOptions>(Reuse.Singleton);
+            container.Register<IHttpClientDefaultOptions, HttpClientOptions>(Reuse.Singleton,
+                Made.Of(() => new HttpClientOptions()));
+            
+            container.Register<IHttpClientOptions, HttpClientOptions>(Made.Of(()
+                => new HttpClientOptions(Arg.Of<IHttpClientDefaultOptions>())));
+            
             container.Register<IHttpClientFactory, HttpClientFactory>();
         }
     }

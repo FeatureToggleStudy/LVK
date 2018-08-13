@@ -3,12 +3,7 @@
 namespace LVK.Net.Http
 {
     [PublicAPI]
-    public interface IHttpClientOptions
+    public interface IHttpClientOptions : IHttpClientDefaultOptions
     {
-        [NotNull]
-        IHttpClientOptions Clone();
-
-        [NotNull]
-        string BaseUrl { get; set; }
     }
 }

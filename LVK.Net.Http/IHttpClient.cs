@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 using JetBrains.Annotations;
@@ -7,9 +8,6 @@ namespace LVK.Net.Http
 {
     public interface IHttpClient
     {
-        [NotNull]
-        IHttpClientOptions Options { get; }
-
         [NotNull, ItemNotNull]
         Task<T> GetAsync<T>([NotNull] string query, CancellationToken cancellationToken);
 
@@ -24,5 +22,8 @@ namespace LVK.Net.Http
 
         [NotNull]
         Task DeleteAsync([NotNull] string query, CancellationToken cancellationToken);
+
+        [NotNull, ItemNotNull]
+        Task<HttpResponseMessage> SendAsync([NotNull] HttpRequestMessage request, CancellationToken cancellationToken);
     }
 }

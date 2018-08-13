@@ -5,8 +5,6 @@ using JetBrains.Annotations;
 using LVK.AppCore;
 using LVK.DryIoc;
 
-using Microsoft.Extensions.Logging;
-
 namespace ConsoleSandbox
 {
     [UsedImplicitly]

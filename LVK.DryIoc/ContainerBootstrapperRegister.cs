@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DryIoc;
-
 using JetBrains.Annotations;
 
 namespace LVK.DryIoc

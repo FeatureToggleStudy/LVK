@@ -28,7 +28,7 @@ namespace LVK.Core.Services.Tests
 
             bootstrapper.Bootstrap(container);
 
-            Assert.That(container.Resolve<IClock>(IfUnresolved.Throw), Is.Not.Null);
+            Assert.That(container.Resolve<IClock>(), Is.Not.Null);
         }
     }
 }

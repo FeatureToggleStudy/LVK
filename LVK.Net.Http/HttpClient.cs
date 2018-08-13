@@ -17,6 +17,9 @@ namespace LVK.Net.Http
     internal class HttpClient : IHttpClient
     {
         [NotNull]
+        private readonly IHttpClientOptions _Options;
+
+        [NotNull]
         private readonly ILogger<IHttpClient> _Logger;
 
         [NotNull]
@@ -24,13 +27,14 @@ namespace LVK.Net.Http
 
         public HttpClient([NotNull] IHttpClientOptions options, [NotNull] ILogger<IHttpClient> logger)
         {
+            _Options = options ?? throw new ArgumentNullException(nameof(options));
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            Options = options ?? throw new ArgumentNullException(nameof(options));
-            _Client = new global::System.Net.Http.HttpClient();
+
+            var handler = new HttpClientHandler { Credentials = options.Credentials };
+
+            _Client = new global::System.Net.Http.HttpClient(handler);
             _Client.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
         }
-
-        public IHttpClientOptions Options { get; }
 
         public async Task<T> GetAsync<T>(string query, CancellationToken cancellationToken)
         {
@@ -51,8 +55,7 @@ namespace LVK.Net.Http
             return result;
         }
 
-        [NotNull, ItemNotNull]
-        private async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             _Logger.LogTrace($"{request.Method} {request.RequestUri}");
             Stopwatch stopwatch = Stopwatch.StartNew();
@@ -82,7 +85,7 @@ namespace LVK.Net.Http
             await SendAsync(request, cancellationToken);
         }
 
-        private async Task PostAndPutAsync<T>(string query, HttpMethod method, T payload, CancellationToken cancellationToken)
+        private async Task PostAndPutAsync<T>([NotNull] string query, HttpMethod method, T payload, CancellationToken cancellationToken)
         {
             var fullUrl = GetFullUrl(query);
             var json = JsonConvert.SerializeObject(payload);
@@ -98,10 +101,10 @@ namespace LVK.Net.Http
         [NotNull]
         private string GetFullUrl([NotNull] string query)
         {
-            if (string.IsNullOrWhiteSpace(Options.BaseUrl))
+            if (string.IsNullOrWhiteSpace(_Options.BaseUrl))
                 return query;
 
-            var baseUri = new Uri(Options.BaseUrl);
+            var baseUri = new Uri(_Options.BaseUrl);
             var queryUri = new Uri(query, UriKind.Relative);
             return new Uri(baseUri, queryUri).ToString();
         }

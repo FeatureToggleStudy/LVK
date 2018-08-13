@@ -2,6 +2,9 @@
 
 using NUnit.Framework;
 
+// ReSharper disable ObjectCreationAsStatement
+// ReSharper disable AssignNullToNotNullAttribute
+
 namespace LVK.Core.Tests
 {
     [TestFixture]

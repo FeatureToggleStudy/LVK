@@ -10,18 +10,18 @@ namespace LVK.Net.Http
     internal class HttpClientFactory : IHttpClientFactory
     {
         [NotNull]
-        private readonly IHttpClientOptions _DefaultOptions;
+        private readonly Func<IHttpClientOptions> _OptionsFactory;
 
         [NotNull]
         private readonly ILogger<IHttpClient> _Logger;
 
-        public HttpClientFactory([NotNull] IHttpClientOptions defaultOptions, [NotNull] ILogger<IHttpClient> logger)
+        public HttpClientFactory([NotNull] Func<IHttpClientOptions> optionsFactory, [NotNull] ILogger<IHttpClient> logger)
         {
-            _DefaultOptions = defaultOptions ?? throw new ArgumentNullException(nameof(defaultOptions));
+            _OptionsFactory = optionsFactory ?? throw new ArgumentNullException(nameof(optionsFactory));
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public IHttpClient Create(IHttpClientOptions options) => new HttpClient(options.Clone(), _Logger);
-        public IHttpClient CreateDefault() => Create(_DefaultOptions);
+        public IHttpClient Create(IHttpClientOptions options) => new HttpClient(options, _Logger);
+        public IHttpClient CreateDefault() => Create(_OptionsFactory());
     }
 }

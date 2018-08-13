@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace LVK.AppCore.Console
+namespace LVK.AppCore.Mvc
 {
     [UsedImplicitly]
     internal class DummyCompositionRoot

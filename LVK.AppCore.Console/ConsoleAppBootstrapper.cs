@@ -1,14 +1,10 @@
-﻿using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using DryIoc;
 
 using JetBrains.Annotations;
 
 using LVK.DryIoc;
-
-using Microsoft.Extensions.Logging;
 
 using static LVK.Core.JetBrainsHelpers;
 
