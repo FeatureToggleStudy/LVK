@@ -22,6 +22,7 @@ namespace LVK.AppCore.Console
             
             container.Register<IConsoleApplicationEntryPoint, ConsoleApplicationEntryPoint>();
             container.UseInstance<ILoggerFactory>(new LoggerFactory());
+            container.Register<ILogger, Logger<ConsoleApplicationEntryPoint>>(Reuse.Singleton);
             container.Register(typeof(ILogger<>), typeof(Logger<>), Reuse.Singleton);
 
             var minLevel = LogLevel.Warning;

@@ -1,67 +1,112 @@
 ﻿using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 using JetBrains.Annotations;
+
+using Newtonsoft.Json;
 
 namespace LVK.Net.Http
 {
     [PublicAPI]
     public static class HttpClientExtensions
     {
-        [NotNull, ItemNotNull]
-        public static Task<T> GetAsync<T>([NotNull] this IHttpClient client, [NotNull] string query)
-        {
-            if (client is null)
-                throw new ArgumentNullException(nameof(client));
+        public static Task<string> GetStringAsync([NotNull] this HttpClient httpClient, [NotNull] string requestUri,
+                                                  CancellationToken? cancellationToken = null)
+            => GetStringAsync(httpClient, new Uri(requestUri), cancellationToken);
 
-            return client.GetAsync<T>(query, CancellationToken.None);
+        public static async Task<string> GetStringAsync([NotNull] this HttpClient httpClient, [NotNull] Uri requestUri,
+                                                        CancellationToken? cancellationToken = null)
+        {
+            if (httpClient is null)
+                throw new ArgumentNullException(nameof(httpClient));
+
+            if (requestUri is null)
+                throw new ArgumentNullException(nameof(requestUri));
+
+            var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+            var response = await httpClient.SendAsync(request, cancellationToken ?? CancellationToken.None);
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadAsStringAsync() ?? string.Empty;
         }
 
-        [NotNull, ItemNotNull]
-        public static Task<string> GetStringAsync([NotNull] this IHttpClient client, [NotNull] string query)
-        {
-            if (client is null)
-                throw new ArgumentNullException(nameof(client));
+        public static Task<T> GetFromJsonAsync<T>([NotNull] this HttpClient httpClient, [NotNull] string requestUri,
+                                                  CancellationToken? cancellationToken = null)
+            => GetFromJsonAsync<T>(httpClient, new Uri(requestUri), cancellationToken);
 
-            return client.GetStringAsync(query, CancellationToken.None);
+        public static async Task<T> GetFromJsonAsync<T>([NotNull] this HttpClient httpClient, [NotNull] Uri requestUri,
+                                                        CancellationToken? cancellationToken = null)
+        {
+            if (httpClient is null)
+                throw new ArgumentNullException(nameof(httpClient));
+
+            if (requestUri is null)
+                throw new ArgumentNullException(nameof(requestUri));
+
+            var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+            var response = await httpClient.SendAsync(request, cancellationToken ?? CancellationToken.None);
+            response.EnsureSuccessStatusCode();
+
+            if (response.Content.Headers.ContentType.MediaType != "application/json")
+                throw new InvalidOperationException(
+                    $"Invalid media-type, expected 'application/json', got '{response.Content.Headers.ContentType.MediaType}'");
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(json);
         }
 
-        [NotNull]
-        public static Task PostAsync<T>([NotNull] this IHttpClient client, [NotNull] string query, [NotNull] T payload)
+        public static Task<HttpResponseMessage> PostAsJsonAsync<T>([NotNull] this HttpClient httpClient,
+                                                                   [NotNull] string requestUri, T payload,
+                                                                   CancellationToken? cancellationToken = null)
+            => PostAsJsonAsync(httpClient, new Uri(requestUri), payload, cancellationToken);
+
+        public static Task<HttpResponseMessage> PostAsJsonAsync<T>([NotNull] this HttpClient httpClient,
+                                                                   [NotNull] Uri requestUri, T payload,
+                                                                   CancellationToken? cancellationToken = null)
+            => PostOrPutAsJsonAsync(httpClient, HttpMethod.Post, requestUri, payload, cancellationToken);
+
+        public static Task<HttpResponseMessage> PutAsJsonAsync<T>([NotNull] this HttpClient httpClient,
+                                                                  [NotNull] string requestUri, T payload,
+                                                                  CancellationToken? cancellationToken = null)
+            => PutAsJsonAsync(httpClient, new Uri(requestUri), payload, cancellationToken);
+
+        public static Task<HttpResponseMessage> PutAsJsonAsync<T>([NotNull] this HttpClient httpClient,
+                                                                  [NotNull] Uri requestUri, T payload,
+                                                                  CancellationToken? cancellationToken = null)
+            => PostOrPutAsJsonAsync(httpClient, HttpMethod.Put, requestUri, payload, cancellationToken);
+
+        private static async Task<HttpResponseMessage> PostOrPutAsJsonAsync<T>(
+            [NotNull] HttpClient httpClient, HttpMethod method, [NotNull] Uri requestUri, T payload,
+            CancellationToken? cancellationToken = null)
         {
-            if (client is null)
-                throw new ArgumentNullException(nameof(client));
+            if (httpClient is null)
+                throw new ArgumentNullException(nameof(httpClient));
 
-            return client.PostAsync(query, payload, CancellationToken.None);
-        }
+            if (requestUri is null)
+                throw new ArgumentNullException(nameof(requestUri));
 
-        [NotNull]
-        public static Task PutAsync<T>([NotNull] this IHttpClient client, [NotNull] string query, [NotNull] T payload)
-        {
-            if (client is null)
-                throw new ArgumentNullException(nameof(client));
+            if (payload == null)
+                throw new ArgumentNullException(nameof(payload));
 
-            return client.PutAsync(query, payload, CancellationToken.None);
-        }
+            var json = JsonConvert.SerializeObject(payload);
 
-        [NotNull]
-        public static Task DeleteAsync([NotNull] this IHttpClient client, [NotNull] string query)
-        {
-            if (client is null)
-                throw new ArgumentNullException(nameof(client));
+            var request = new HttpRequestMessage(method, requestUri)
+            {
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
 
-            return client.DeleteAsync(query, CancellationToken.None);
-        }
+            var response = await httpClient.SendAsync(request, cancellationToken ?? CancellationToken.None);
+            response.EnsureSuccessStatusCode();
 
-        [NotNull, ItemNotNull]
-        public static Task<HttpResponseMessage> SendAsync([NotNull] this IHttpClient client, [NotNull] HttpRequestMessage request)
-        {
-            if (client is null)
-                throw new ArgumentNullException(nameof(client));
-
-            return client.SendAsync(request, CancellationToken.None);
+            return response;
         }
     }
 }

@@ -42,7 +42,6 @@ namespace LVK.AppCore.Console
 
         public async Task<int> Execute()
         {
-            using (_Logger.BeginScope("application"))
             using (var cts = new CancellationTokenSource())
             {
                 try

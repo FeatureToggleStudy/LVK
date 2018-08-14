@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 
 using JetBrains.Annotations;
 
@@ -6,22 +7,19 @@ using Microsoft.Extensions.Logging;
 
 namespace LVK.Net.Http
 {
-    [UsedImplicitly]
-    internal class HttpClientFactory : IHttpClientFactory
+    internal static class HttpClientFactory
     {
         [NotNull]
-        private readonly Func<IHttpClientOptions> _OptionsFactory;
-
-        [NotNull]
-        private readonly ILogger<IHttpClient> _Logger;
-
-        public HttpClientFactory([NotNull] Func<IHttpClientOptions> optionsFactory, [NotNull] ILogger<IHttpClient> logger)
+        public static HttpClient Create(HttpMessageHandler httpMessageHandler, [NotNull] ILogger logger)
         {
-            _OptionsFactory = optionsFactory ?? throw new ArgumentNullException(nameof(optionsFactory));
-            _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
+            if (logger is null)
+                throw new ArgumentNullException(nameof(logger));
 
-        public IHttpClient Create(IHttpClientOptions options) => new HttpClient(options, _Logger);
-        public IHttpClient CreateDefault() => Create(_OptionsFactory());
+            HttpClientLoggingHandler handler = httpMessageHandler != null
+                ? new HttpClientLoggingHandler(httpMessageHandler, logger)
+                : new HttpClientLoggingHandler(logger);
+
+            return new HttpClient(handler);
+        }
     }
 }

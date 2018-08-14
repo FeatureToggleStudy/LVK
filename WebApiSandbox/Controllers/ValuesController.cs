@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,10 +29,12 @@ namespace WebApiSandbox.Controllers
 
         // GET api/values
         [HttpGet]
-        public Task<IEnumerable<string>> Get()
+        public Task<IEnumerable<KeyValuePair<int, string>>> Get()
         {
             lock (_Values)
-                return Task.FromResult<IEnumerable<string>>(_Values.Values);
+            {
+                return Task.FromResult<IEnumerable<KeyValuePair<int, string>>>(_Values.ToArray());
+            }
         }
 
         // GET api/values/5
