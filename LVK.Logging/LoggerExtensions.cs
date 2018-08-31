@@ -24,6 +24,9 @@ namespace LVK.Logging
         public static void LogDebug([NotNull] this ILogger logger, [NotNull] string message)
             => Log(logger, LogLevel.Debug, message);
 
+        public static void LogVerbose([NotNull] this ILogger logger, [NotNull] string message)
+            => Log(logger, LogLevel.Verbose, message);
+
         public static void LogInformation([NotNull] this ILogger logger, [NotNull] string message)
             => Log(logger, LogLevel.Information, message);
 

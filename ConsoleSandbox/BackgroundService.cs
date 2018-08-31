@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 using LVK.AppCore;
+using LVK.Core;
 using LVK.Core.Services;
 
 namespace ConsoleSandbox
@@ -24,7 +25,7 @@ namespace ConsoleSandbox
                     return;
 
                 Console.WriteLine("here");
-                await Task.Delay(1000, cancellationToken);
+                await Task.Delay(1000, cancellationToken).NotNull();
             }
 
             SignalGracefulTermination();

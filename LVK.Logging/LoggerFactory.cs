@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
-using Microsoft.Extensions.Configuration;
+using LVK.Configuration;
 
 namespace LVK.Logging
 {
@@ -30,25 +30,6 @@ namespace LVK.Logging
             return new DummyLogger();
         }
 
-        private bool? IsSystemEnabled(string systemName)
-        {
-            IConfigurationSection systemsSection = _Configuration.GetSection("Logging:Systems");
-            IConfigurationSection systemSection = systemsSection?.GetSection(systemName);
-            var value = systemSection?["Enabled"];
-            if (string.IsNullOrWhiteSpace(value))
-                return null;
-
-            switch (value.ToUpperInvariant())
-            {
-                case "YES":
-                    return true;
-
-                case "NO":
-                    return false;
-
-                default:
-                    return null;
-            }
-        }
+        private bool? IsSystemEnabled(string systemName) => _Configuration[$"Logging/Systems/{systemName}/Enabled"].Value<bool?>();
     }
 }

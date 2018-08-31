@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
+using LVK.Core;
 using LVK.Core.Services;
 
 namespace LVK.AppCore
@@ -17,8 +18,10 @@ namespace LVK.AppCore
         [CanBeNull]
         private Task _BackgroundTask;
 
+        [NotNull]
         private readonly CancellationTokenSource _ManualCancellationTokenSource = new CancellationTokenSource();
 
+        [NotNull]
         private readonly CancellationTokenSource _CombinedCancellationTokenSource;
 
         protected BasicBackgroundService([NotNull] IApplicationLifetimeManager applicationLifetimeManager)
@@ -69,7 +72,7 @@ namespace LVK.AppCore
                 Stopping();
                 try
                 {
-                    await _BackgroundTask;
+                    await _BackgroundTask.NotNull();
                 }
                 catch (TaskCanceledException)
                 {

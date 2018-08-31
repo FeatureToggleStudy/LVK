@@ -49,8 +49,8 @@ namespace LVK.AppCore.Console
 
         public async Task<int> RunAsync()
         {
-            var userCancelKeyPressCTS = new CancellationTokenSource();
-            var cts = CancellationTokenSource.CreateLinkedTokenSource(userCancelKeyPressCTS.Token,
+            var userCancelKeyPressCancellationTokenSource = new CancellationTokenSource();
+            var cts = CancellationTokenSource.CreateLinkedTokenSource(userCancelKeyPressCancellationTokenSource.Token,
                 _ApplicationLifetimeManager.GracefulTerminationCancellationToken);
 
             var wasCancelledByUser = false;
@@ -61,7 +61,7 @@ namespace LVK.AppCore.Console
                 if (e != null)
                     e.Cancel = true;
 
-                userCancelKeyPressCTS.Cancel();
+                userCancelKeyPressCancellationTokenSource.Cancel();
             };
 
             using (_Logger.LogScope(LogLevel.Trace, $"{nameof(ConsoleApplicationEntryPoint)}.{nameof(RunAsync)}"))
@@ -71,7 +71,7 @@ namespace LVK.AppCore.Console
                     if (!await StartApplicationRuntimeContexts())
                         return 1;
 
-                    int exitcode = 0;
+                    int exitcode;
                     try
                     {
                         exitcode = await _ApplicationEntryPoint.Execute(cts.Token);

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -8,9 +7,8 @@ using DryIoc;
 
 using JetBrains.Annotations;
 
+using LVK.Configuration;
 using LVK.Core.Services;
-
-using Microsoft.Extensions.Configuration;
 
 namespace LVK.Logging
 {
@@ -35,24 +33,18 @@ namespace LVK.Logging
 
         public Task Initialize(CancellationToken cancellationToken)
         {
-            IConfigurationSection loggingSection = _Configuration.GetSection("Logging:Destinations");
+            var destinationOptions = _Configuration["Logging/Destinations"].Value<Dictionary<string, LoggerDestinationOptions>>();
             var destinations = new List<ILoggerDestination>();
-
-            if (loggingSection != null)
+            
+            if (destinationOptions != null)
             {
-                foreach (IConfigurationSection section in loggingSection.GetChildren()
-                                                       ?? Enumerable.Empty<IConfigurationSection>())
+                foreach (var kvp in destinationOptions)
                 {
-                    LogLevel? minLogLevel = ParseLogLevel(section["LogLevel"]);
-                    if (minLogLevel is null)
+                    if (!kvp.Value?.Enabled ?? true)
                         continue;
-
-                    var isEnabled = ParseEnabled(section["Enabled"]) ?? true;
-                    if (!isEnabled)
-                        continue;
-
+                    
                     ILoggerDestination destination;
-                    switch (section.Key)
+                    switch (kvp.Key)
                     {
                         case "Console":
                             destination = new ConsoleLoggerDestination(_TextLogFormatter);
@@ -66,7 +58,7 @@ namespace LVK.Logging
                             throw new InvalidOperationException("Unknown logging destionation: {section.Key}");
                     }
 
-                    destinations.Add(new LoggerDestinationFilter(destination, minLogLevel.Value));
+                    destinations.Add(new LoggerDestinationFilter(destination, kvp.Value.LogLevel));
                 }
             }
 
@@ -74,28 +66,6 @@ namespace LVK.Logging
                 Made.Of(() => new LoggerFactory(destinations, Arg.Of<IConfiguration>())));
 
             return Task.CompletedTask;
-        }
-
-        private bool? ParseEnabled(string value)
-        {
-            if (value is null)
-                return null;
-
-            if (value.ToUpper() == "YES" || value.ToUpper() == "TRUE")
-                return true;
-
-            return false;
-        }
-
-        private LogLevel? ParseLogLevel(string value)
-        {
-            if (value == null)
-                return null;
-
-            if (Enum.TryParse(value, out LogLevel level))
-                return level;
-
-            return null;
         }
     }
 }

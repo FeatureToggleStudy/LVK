@@ -10,16 +10,20 @@
         <Authors>Lasse Vågsæther Karlsen</Authors>
         <IncludeSource>true</IncludeSource>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DefineConstants>TRACE;DEBUG;NETSTANDARD;NETSTANDARD2_0;JETBRAINS_ANNOTATIONS</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DefineConstants>TRACE;RELEASE;NETSTANDARD;NETSTANDARD2_0;JETBRAINS_ANNOTATIONS</DefineConstants>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="DryIoc.dll" Version="3.0.2" />
       <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
-      <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.1.1" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="2.1.1" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.1.1" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
+      <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,6 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD;NETSTANDARD2_0;JETBRAINS_ANNOTATIONS</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DefineConstants>TRACE;RELEASE;NETSTANDARD;NETSTANDARD2_0;JETBRAINS_ANNOTATIONS</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DryIoc.dll" Version="3.0.2" />

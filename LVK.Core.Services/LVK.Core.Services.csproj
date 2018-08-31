@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <LangVersion>7.2</LangVersion>
     <TargetFramework>netstandard2.0</TargetFramework>
 
     <PackageId>LVK.Core.Services</PackageId>
@@ -11,6 +10,7 @@
     <Authors>Lasse Vågsæther Karlsen</Authors>
     <IncludeSource>true</IncludeSource>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DryIoc.dll" Version="3.0.2" />

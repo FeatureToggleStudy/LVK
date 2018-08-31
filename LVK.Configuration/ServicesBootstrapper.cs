@@ -10,7 +10,6 @@ using JetBrains.Annotations;
 using LVK.Core;
 using LVK.DryIoc;
 
-using Microsoft.Extensions.Configuration;
 
 namespace LVK.Configuration
 {
@@ -20,22 +19,21 @@ namespace LVK.Configuration
         public void Bootstrap(IContainer container)
         {
             var configurationBuilder = new ConfigurationBuilder();
-            var entryAssemblyLocation = Assembly.GetEntryAssembly().NotNull().Location;
-            var entryAssemblyFilename = Path.GetFileName(entryAssemblyLocation);
-            var entryAssemblyDirectory = Path.GetDirectoryName(entryAssemblyLocation);
+            var entryAssemblyLocation = Assembly.GetEntryAssembly().NotNull().Location.NotNull();
+            var entryAssemblyFilename = Path.GetFileNameWithoutExtension(entryAssemblyLocation);
+            var entryAssemblyDirectory = Path.GetDirectoryName(entryAssemblyLocation).NotNull();
             
             configurationBuilder.SetBasePath(entryAssemblyDirectory);
             
-            configurationBuilder.AddJsonFile("appsettings.json", optional: true);
-            configurationBuilder.AddJsonFile("appsettings.debug.json", optional: true);
+            configurationBuilder.AddJsonFile("appsettings.json", isOptional: true);
+            configurationBuilder.AddJsonFile("appsettings.debug.json", isOptional: true);
 
             string[] args = Environment.GetCommandLineArgs().Skip(1).ToArray();
             configurationBuilder.AddCommandLine(args);
             
             configurationBuilder.AddEnvironmentVariables($"{entryAssemblyFilename.ToUpper()}_");
 
-            IConfigurationRoot configuration = configurationBuilder.Build();
-            container.UseInstance<IConfiguration>(configuration);
+            container.UseInstance(configurationBuilder.Build());
         }
     }
 }
