@@ -3,6 +3,7 @@
 using JetBrains.Annotations;
 
 using LVK.AppCore;
+using LVK.Core.Services;
 using LVK.DryIoc;
 
 namespace ConsoleSandbox
@@ -15,6 +16,8 @@ namespace ConsoleSandbox
             container.Bootstrap<LVK.AppCore.Console.ServicesBootstrapper>();
 
             container.Register<IApplicationEntryPoint, MyApplication>();
+
+            container.Register<IApplicationRuntimeContext, BackgroundService>();
         }
     }
 }

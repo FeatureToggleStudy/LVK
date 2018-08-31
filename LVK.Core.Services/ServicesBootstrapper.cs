@@ -19,6 +19,7 @@ namespace LVK.Core.Services
                 throw new ArgumentNullException(nameof(container));
 
             container.UseInstance<IClock>(SystemClock.Instance);
+            container.UseInstance<IApplicationLifetimeManager>(new ApplicationLifetimeManager());
         }
     }
 }

@@ -15,6 +15,8 @@ namespace LVK.AppCore
         {
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
+
+            container.Bootstrap<LVK.Core.Services.ServicesBootstrapper>();
         }
     }
 }

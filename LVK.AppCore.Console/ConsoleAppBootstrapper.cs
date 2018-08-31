@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,25 +29,25 @@ namespace LVK.AppCore.Console
             container.Bootstrap<T>();
             container.UseInstance(args);
 
-            var initializers = container.Resolve<IEnumerable<IApplicationInitialization>>();
-            var cleaners = container.Resolve<IEnumerable<IApplicationCleanup>>();
+            List<IApplicationInitialization> initializers = container.Resolve<IEnumerable<IApplicationInitialization>>()?.ToList()
+                            ?? new List<IApplicationInitialization>();
+
+            List<IApplicationCleanup> cleaners = container.Resolve<IEnumerable<IApplicationCleanup>>()?.ToList()
+                        ?? new List<IApplicationCleanup>();
 
             try
             {
-                if (initializers != null)
+                using (var timeoutCts = new CancellationTokenSource(TimeSpan.FromSeconds(40)))
                 {
-                    using (var startupCts = new CancellationTokenSource(TimeSpan.FromSeconds(10)))
+                    try
                     {
-                        try
-                        {
-                            foreach (IApplicationInitialization initializer in initializers)
-                                await initializer.Initialize(startupCts.Token);
-                        }
-                        catch (TaskCanceledException)
-                        {
-                            System.Console.Error.WriteLine("application took to long to initialize, terminating");
-                            return 1;
-                        }
+                        foreach (IApplicationInitialization initializer in initializers)
+                            await initializer.Initialize(timeoutCts.Token);
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        System.Console.Error.WriteLine(
+                            "application took to long to initialize, terminating abornmaly");
                     }
                 }
 
@@ -76,20 +77,17 @@ namespace LVK.AppCore.Console
             }
             finally
             {
-                if (cleaners != null)
+                using (var timeoutCts = new CancellationTokenSource(TimeSpan.FromSeconds(40)))
                 {
-                    using (var timeoutCts = new CancellationTokenSource(TimeSpan.FromSeconds(40)))
+                    try
                     {
-                        try
-                        {
-                            foreach (var cleaner in cleaners)
-                                await cleaner.Cleanup(timeoutCts.Token);
-                        }
-                        catch (TaskCanceledException)
-                        {
-                            System.Console.Error.WriteLine(
-                                "application took to long to terminate gracefully, terminating abornmaly");
-                        }
+                        foreach (IApplicationCleanup cleanup in cleaners)
+                            await cleanup.Cleanup(timeoutCts.Token);
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        System.Console.Error.WriteLine(
+                            "application took to long to clean up, terminating abornmaly");
                     }
                 }
             }

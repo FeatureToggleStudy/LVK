@@ -18,20 +18,21 @@ namespace LVK.Logging
                                     [CallerFilePath] string callerFilePath = null,
                                     [CallerMemberName] string callerMemberName = null,
                                     [CallerLineNumber] int callerLineNumber = 0)
-            => Log(logger, LogLevel.Trace, $"{(!string.IsNullOrWhiteSpace(message) ? message + " @ " : "")}{callerMemberName} @ {callerFilePath} #{callerLineNumber}");
+            => Log(logger, LogLevel.Trace,
+                $"{(!string.IsNullOrWhiteSpace(message) ? message + " @ " : "")}{callerMemberName} @ {callerFilePath} #{callerLineNumber}");
 
         public static void LogDebug([NotNull] this ILogger logger, [NotNull] string message)
             => Log(logger, LogLevel.Debug, message);
 
         public static void LogInformation([NotNull] this ILogger logger, [NotNull] string message)
             => Log(logger, LogLevel.Information, message);
-        
+
         public static void LogWarning([NotNull] this ILogger logger, [NotNull] string message)
             => Log(logger, LogLevel.Warning, message);
-        
+
         public static void LogError([NotNull] this ILogger logger, [NotNull] string message)
             => Log(logger, LogLevel.Error, message);
-        
+
         public static void LogException([NotNull] this ILogger logger, [NotNull] Exception ex)
         {
             var sb = new StringBuilder();
@@ -40,7 +41,7 @@ namespace LVK.Logging
             {
                 Type exType = ex.GetType();
                 assume(exType != null);
-                
+
                 sb.AppendLine($"{exType.Name}: {ex.Message}");
                 if (!string.IsNullOrWhiteSpace((ex.StackTrace)))
                     sb.AppendLine(ex.StackTrace);
@@ -63,14 +64,18 @@ namespace LVK.Logging
 
         public static IDisposable LogScope([NotNull] this ILogger logger, LogLevel logLevel, [NotNull] string scopeName)
         {
-            if (logger == null) throw new ArgumentNullException(nameof(logger));
-            if (scopeName == null) throw new ArgumentNullException(nameof(scopeName));
+            if (logger == null)
+                throw new ArgumentNullException(nameof(logger));
+
+            if (scopeName == null)
+                throw new ArgumentNullException(nameof(scopeName));
 
             Stopwatch sw = null;
+
             void openScope()
             {
-                logger.Log(logLevel, $"start: {scopeName}");
-                
+                logger.Log(logLevel, $"{scopeName}");
+
                 sw = Stopwatch.StartNew();
             }
 
@@ -79,7 +84,7 @@ namespace LVK.Logging
                 assume(sw != null);
                 sw.Stop();
 
-                logger.Log(logLevel, $"end: {scopeName} in {sw.ElapsedMilliseconds} ms");
+                logger.Log(logLevel, $"{scopeName}, finished in {sw.ElapsedMilliseconds} ms");
             }
 
             return new ActionDisposable(openScope, closeScope);

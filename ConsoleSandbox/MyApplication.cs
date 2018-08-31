@@ -16,7 +16,7 @@ namespace ConsoleSandbox
         public async Task<int> Execute(CancellationToken cancellationToken)
         {
             Console.WriteLine("before");
-            await Task.Delay(2500, cancellationToken);
+            await Task.Delay(10000, cancellationToken);
             Console.WriteLine("after");
             return 0;
         }
