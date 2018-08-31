@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
-namespace LVK.AppCore
+namespace LVK.Core.Services
 {
     public interface IApplicationCleanup
     {
         [NotNull]
-        Task Cleanup(bool wasCancelledByUser, CancellationToken cancellationToken);
+        Task Cleanup(CancellationToken cancellationToken);
     }
 }

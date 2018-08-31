@@ -20,7 +20,7 @@ namespace LVK.DryIoc
                 
                 container.UseInstance(register);
             }
-            
+
             if (register.TryAddBootstrapper<T>())
                 container.New<T>().NotNull().Bootstrap(container);                
             return container;

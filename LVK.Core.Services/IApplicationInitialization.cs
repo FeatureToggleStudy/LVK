@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
-namespace LVK.AppCore
+namespace LVK.Core.Services
 {
     public interface IApplicationInitialization
     {

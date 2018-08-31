@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
+using LVK.Core;
+
 namespace LVK.Net.Http
 {
     [PublicAPI]
@@ -48,6 +50,6 @@ namespace LVK.Net.Http
         [NotNull, ItemNotNull]
         protected Task<HttpResponseMessage> DeleteAsync([NotNull] string query,
                                                         CancellationToken? cancellationToken = null)
-            => _HttpClient.DeleteAsync(_BaseUri.Append(query), cancellationToken ?? CancellationToken.None);
+            => _HttpClient.DeleteAsync(_BaseUri.Append(query), cancellationToken ?? CancellationToken.None).NotNull();
     }
 }

@@ -9,6 +9,8 @@ using JetBrains.Annotations;
 
 using Newtonsoft.Json;
 
+// ReSharper disable PossibleNullReferenceException
+
 namespace LVK.Net.Http
 {
     [PublicAPI]
@@ -68,16 +70,19 @@ namespace LVK.Net.Http
                                                                    CancellationToken? cancellationToken = null)
             => PostAsJsonAsync(httpClient, new Uri(requestUri), payload, cancellationToken);
 
+        [NotNull]
         public static Task<HttpResponseMessage> PostAsJsonAsync<T>([NotNull] this HttpClient httpClient,
                                                                    [NotNull] Uri requestUri, T payload,
                                                                    CancellationToken? cancellationToken = null)
             => PostOrPutAsJsonAsync(httpClient, HttpMethod.Post, requestUri, payload, cancellationToken);
 
+        [NotNull]
         public static Task<HttpResponseMessage> PutAsJsonAsync<T>([NotNull] this HttpClient httpClient,
                                                                   [NotNull] string requestUri, T payload,
                                                                   CancellationToken? cancellationToken = null)
             => PutAsJsonAsync(httpClient, new Uri(requestUri), payload, cancellationToken);
 
+        [NotNull]
         public static Task<HttpResponseMessage> PutAsJsonAsync<T>([NotNull] this HttpClient httpClient,
                                                                   [NotNull] Uri requestUri, T payload,
                                                                   CancellationToken? cancellationToken = null)

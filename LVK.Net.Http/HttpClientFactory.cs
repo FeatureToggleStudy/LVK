@@ -3,7 +3,7 @@ using System.Net.Http;
 
 using JetBrains.Annotations;
 
-using Microsoft.Extensions.Logging;
+using LVK.Logging;
 
 namespace LVK.Net.Http
 {

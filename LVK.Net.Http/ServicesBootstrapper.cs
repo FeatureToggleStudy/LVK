@@ -6,8 +6,7 @@ using DryIoc;
 using JetBrains.Annotations;
 
 using LVK.DryIoc;
-
-using Microsoft.Extensions.Logging;
+using LVK.Logging;
 
 namespace LVK.Net.Http
 {

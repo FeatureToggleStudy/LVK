@@ -12,10 +12,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore", "LVK.AppCore\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Core.Services", "LVK.Core.Services\LVK.Core.Services.csproj", "{A612668F-44F1-4369-875F-54F6C06D400B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiSandbox", "WebApiSandbox\WebApiSandbox.csproj", "{DB144B2A-8C95-491E-80EE-CEBD0C6AFC35}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore.Mvc", "LVK.AppCore.Mvc\LVK.AppCore.Mvc.csproj", "{4CEE4109-6A05-422B-9CA1-4F6B2D596386}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Core.Tests", "LVK.Core.Tests\LVK.Core.Tests.csproj", "{98B4E7D0-ABBC-4AAE-BAA1-0ABCD73C0DBB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Core.Services.Tests", "LVK.Core.Services.Tests\LVK.Core.Services.Tests.csproj", "{1938A250-A05F-41D2-A527-5B02B1CACE8B}"
@@ -32,6 +28,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Net", "LVK.Net\LVK.Net.csproj", "{50ED9450-26B5-4C8E-BD4F-19DFC26073B3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Net.Http", "LVK.Net.Http\LVK.Net.Http.csproj", "{29755D4D-5010-417C-A041-274AA315F5B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Configuration", "LVK.Configuration\LVK.Configuration.csproj", "{BFF3EEF6-DE18-46B9-B088-E76F89A45802}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Logging", "LVK.Logging\LVK.Logging.csproj", "{72AB113E-EBBB-4EA7-99B7-7884748D8AEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,14 +63,6 @@ Global
 		{A612668F-44F1-4369-875F-54F6C06D400B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A612668F-44F1-4369-875F-54F6C06D400B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A612668F-44F1-4369-875F-54F6C06D400B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DB144B2A-8C95-491E-80EE-CEBD0C6AFC35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DB144B2A-8C95-491E-80EE-CEBD0C6AFC35}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DB144B2A-8C95-491E-80EE-CEBD0C6AFC35}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DB144B2A-8C95-491E-80EE-CEBD0C6AFC35}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4CEE4109-6A05-422B-9CA1-4F6B2D596386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4CEE4109-6A05-422B-9CA1-4F6B2D596386}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4CEE4109-6A05-422B-9CA1-4F6B2D596386}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4CEE4109-6A05-422B-9CA1-4F6B2D596386}.Release|Any CPU.Build.0 = Release|Any CPU
 		{98B4E7D0-ABBC-4AAE-BAA1-0ABCD73C0DBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{98B4E7D0-ABBC-4AAE-BAA1-0ABCD73C0DBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98B4E7D0-ABBC-4AAE-BAA1-0ABCD73C0DBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -87,5 +79,13 @@ Global
 		{29755D4D-5010-417C-A041-274AA315F5B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29755D4D-5010-417C-A041-274AA315F5B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29755D4D-5010-417C-A041-274AA315F5B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFF3EEF6-DE18-46B9-B088-E76F89A45802}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFF3EEF6-DE18-46B9-B088-E76F89A45802}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFF3EEF6-DE18-46B9-B088-E76F89A45802}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFF3EEF6-DE18-46B9-B088-E76F89A45802}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72AB113E-EBBB-4EA7-99B7-7884748D8AEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72AB113E-EBBB-4EA7-99B7-7884748D8AEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72AB113E-EBBB-4EA7-99B7-7884748D8AEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72AB113E-EBBB-4EA7-99B7-7884748D8AEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

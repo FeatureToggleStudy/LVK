@@ -12,13 +12,9 @@ namespace ConsoleSandbox
     {
         public void Bootstrap(IContainer container)
         {
-            container.Bootstrap<LVK.Net.Http.ServicesBootstrapper>();
-            
-            container.Register<IApplicationEntryPoint, MyApplication>();
-            container.Register<IApplicationInitialization, MyInit>();
-            container.Register<IApplicationCleanup, MyCleanup>();
+            container.Bootstrap<LVK.AppCore.Console.ServicesBootstrapper>();
 
-            container.Register<ITestWebApi, TestWebApi>();
+            container.Register<IApplicationEntryPoint, MyApplication>();
         }
     }
 }
