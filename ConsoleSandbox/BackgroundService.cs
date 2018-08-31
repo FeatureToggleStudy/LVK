@@ -7,14 +7,19 @@ using JetBrains.Annotations;
 using LVK.AppCore;
 using LVK.Core;
 using LVK.Core.Services;
+using LVK.Logging;
 
 namespace ConsoleSandbox
 {
     internal class BackgroundService : BasicBackgroundService
     {
-        public BackgroundService([NotNull] IApplicationLifetimeManager applicationLifetimeManager)
+        [NotNull]
+        private readonly ILogger _Logger;
+
+        public BackgroundService([NotNull] IApplicationLifetimeManager applicationLifetimeManager, [NotNull] ILogger<BackgroundService> logger)
             : base(applicationLifetimeManager)
         {
+            _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         protected override async Task BackgroundTask(CancellationToken cancellationToken)
@@ -24,7 +29,7 @@ namespace ConsoleSandbox
                 if (cancellationToken.IsCancellationRequested)
                     return;
 
-                Console.WriteLine("here");
+                _Logger.WriteLine("here");
                 await Task.Delay(1000, cancellationToken).NotNull();
             }
 

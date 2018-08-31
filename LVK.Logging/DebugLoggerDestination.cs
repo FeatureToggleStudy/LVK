@@ -24,5 +24,11 @@ namespace LVK.Logging
                 lock (_Lock)
                     Debug.WriteLine(output);
         }
+
+        public void WriteLine(string line)
+        {
+            lock (_Lock)
+                Debug.WriteLine(line);
+        }
     }
 }

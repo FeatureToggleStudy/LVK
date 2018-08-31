@@ -24,5 +24,7 @@ namespace LVK.Logging
 
             _Destination.Log(level, message);
         }
+
+        public void WriteLine(string line) => _Destination.WriteLine(line);
     }
 }

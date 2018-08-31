@@ -39,5 +39,11 @@ namespace LVK.Logging
                             throw new ArgumentOutOfRangeException(nameof(level), level, null);
                     }
         }
+
+        public void WriteLine(string line)
+        {
+            lock (_Lock)
+                Console.Out.WriteLine(line);
+        }
     }
 }

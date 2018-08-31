@@ -15,21 +15,28 @@ namespace LVK.Logging
         [NotNull]
         private readonly IConfiguration _Configuration;
 
-        public LoggerFactory([NotNull, ItemNotNull] IEnumerable<ILoggerDestination> loggerDestinations, [NotNull] IConfiguration configuration)
+        public LoggerFactory([NotNull, ItemNotNull] IEnumerable<ILoggerDestination> loggerDestinations,
+                             [NotNull] IConfiguration configuration)
         {
             _LoggerDestinations = loggerDestinations ?? throw new ArgumentNullException(nameof(loggerDestinations));
             _Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
-        public ILogger CreateLogger(string systemName)
+        public ILogger CreateLogger(string systemName) => CreateLogger<string>(systemName);
+
+        public ILogger<T> CreateLogger<T>() => CreateLogger<T>(typeof(T).Name);
+
+        [NotNull]
+        private ILogger<T> CreateLogger<T>(string systemName)
         {
             var isEnabled = IsSystemEnabled(systemName) ?? IsSystemEnabled("Default") ?? true;
             if (isEnabled)
-                return new Logger(_LoggerDestinations);
+                return new Logger<T>(_LoggerDestinations);
 
-            return new DummyLogger();
+            return new DummyLogger<T>();
         }
 
-        private bool? IsSystemEnabled(string systemName) => _Configuration[$"Logging/Systems/{systemName}/Enabled"].Value<bool?>();
+        private bool? IsSystemEnabled(string systemName)
+            => _Configuration[$"Logging/Systems/{systemName}/Enabled"].Value<bool?>();
     }
 }

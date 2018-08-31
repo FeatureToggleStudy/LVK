@@ -6,5 +6,8 @@ namespace LVK.Logging
     {
         [NotNull]
         ILogger CreateLogger([NotNull] string systemName);
+
+        [NotNull]
+        ILogger<T> CreateLogger<T>();
     }
 }
