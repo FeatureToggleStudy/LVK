@@ -143,15 +143,12 @@ namespace LVK.Configuration
 
         public void AddEnvironmentVariables([NotNull] string prefix)
         {
-            Console.WriteLine("> " + prefix);
             IDictionary environmentVariables = Environment.GetEnvironmentVariables();
             foreach (string key in environmentVariables.Keys)
             {
                 if (!key.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                     continue;
 
-                Console.WriteLine(": " + key);
-                
                 var path = key.Substring(prefix.Length);
                 string value = environmentVariables[key]?.ToString() ?? string.Empty;
                 
