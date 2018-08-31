@@ -32,7 +32,9 @@ namespace LVK.AppCore
 
         Task IApplicationRuntimeContext.Start(CancellationToken cancellationToken)
         {
+            Starting();
             _BackgroundTask = BackgroundTask(_CombinedCancellationTokenSource.Token);
+            Started();
             return Task.CompletedTask;
         }
 
@@ -41,12 +43,30 @@ namespace LVK.AppCore
             _ApplicationLifetimeManager.SignalGracefulTermination();
         }
 
+        protected virtual void Starting()
+        {
+        }
+
+        protected virtual void Started()
+        {
+        }
+
         protected abstract Task BackgroundTask(CancellationToken cancellationToken);
+
+        protected virtual void Stopping()
+        {
+        }
+
+        protected virtual void Stopped()
+        {
+        }
 
         async Task IApplicationRuntimeContext.Stop(CancellationToken cancellationToken)
         {
             _ManualCancellationTokenSource.Cancel();
             if (_BackgroundTask != null)
+            {
+                Stopping();
                 try
                 {
                     await _BackgroundTask;
@@ -54,6 +74,11 @@ namespace LVK.AppCore
                 catch (TaskCanceledException)
                 {
                 }
+                finally
+                {
+                    Stopped();
+                }
+            }
         }
     }
 }
