@@ -20,6 +20,10 @@ namespace LVK.AppCore.Console
     [PublicAPI]
     public class ConsoleAppBootstrapper
     {
+        public static Task<int> RunDaemonAsync<T>([NotNull] string[] args)
+            where T: class, IServicesBootstrapper, new()
+            => RunAsync<DaemonServicesBootstrapper<T>>(args);
+
         [NotNull]
         public static async Task<int> RunAsync<T>([NotNull] string[] args)
             where T: class, IServicesBootstrapper, new()
@@ -29,11 +33,12 @@ namespace LVK.AppCore.Console
             container.Bootstrap<T>();
             container.UseInstance(args);
 
-            List<IApplicationInitialization> initializers = container.Resolve<IEnumerable<IApplicationInitialization>>()?.ToList()
-                            ?? new List<IApplicationInitialization>();
+            List<IApplicationInitialization> initializers =
+                container.Resolve<IEnumerable<IApplicationInitialization>>()?.ToList()
+             ?? new List<IApplicationInitialization>();
 
             List<IApplicationCleanup> cleaners = container.Resolve<IEnumerable<IApplicationCleanup>>()?.ToList()
-                        ?? new List<IApplicationCleanup>();
+                                              ?? new List<IApplicationCleanup>();
 
             try
             {
@@ -46,8 +51,7 @@ namespace LVK.AppCore.Console
                     }
                     catch (TaskCanceledException)
                     {
-                        System.Console.Error.WriteLine(
-                            "application took to long to initialize, terminating abornmaly");
+                        System.Console.Error.WriteLine("application took to long to initialize, terminating abornmaly");
                     }
                 }
 
@@ -63,7 +67,7 @@ namespace LVK.AppCore.Console
                 {
                     Type exType = ex.GetType();
                     assume(exType != null);
-                    
+
                     System.Console.Error.WriteLine($"{exType.Name}: {ex.Message}");
                     if (!string.IsNullOrWhiteSpace(ex.StackTrace))
                         System.Console.Error.WriteLine(ex.StackTrace);
@@ -86,8 +90,7 @@ namespace LVK.AppCore.Console
                     }
                     catch (TaskCanceledException)
                     {
-                        System.Console.Error.WriteLine(
-                            "application took to long to clean up, terminating abornmaly");
+                        System.Console.Error.WriteLine("application took to long to clean up, terminating abornmaly");
                     }
                 }
             }

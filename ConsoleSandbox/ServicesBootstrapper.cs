@@ -15,8 +15,6 @@ namespace ConsoleSandbox
         {
             container.Bootstrap<LVK.AppCore.Console.ServicesBootstrapper>();
 
-            container.Register<IApplicationEntryPoint, MyApplication>();
-
             container.Register<IApplicationRuntimeContext, BackgroundService>();
         }
     }
