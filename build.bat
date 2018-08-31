@@ -18,7 +18,7 @@ if errorlevel 1 goto error
 dotnet restore
 if errorlevel 1 goto error
 
-msbuild "%PROJECT%.sln" /target:Clean,Rebuild /p:Configuration=%CONFIGURATION% /p:Version=%VERSION%%SUFFIX% /p:AssemblyVersion=%VERSION% /p:FileVersion=%VERSION% /p:DefineConstants="%CONFIGURATION%;%RELEASE_KEY%" /verbosity:minimal
+msbuild "%PROJECT%.sln" /target:Clean,Rebuild /p:Configuration=%CONFIGURATION% /p:Version=%VERSION%%SUFFIX% /p:AssemblyVersion=%VERSION% /p:FileVersion=%VERSION% /p:DefineConstants="TRACE;%CONFIGURATION%;%RELEASE_KEY%;NETSTANDARD2_0;JETBRAINS_ANNOTATIONS" /verbosity:minimal
 if errorlevel 1 goto error
 
 for /D %%f in (*.*) do call :test %%f
