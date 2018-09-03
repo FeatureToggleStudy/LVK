@@ -8,7 +8,7 @@ using LVK.DryIoc;
 
 namespace LVK.AppCore.Console
 {
-    [UsedImplicitly]
+    [PublicAPI]
     public class ServicesBootstrapper : IServicesBootstrapper
     {
         public void Bootstrap(IContainer container)

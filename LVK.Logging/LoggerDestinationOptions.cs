@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 
 namespace LVK.Logging
 {
-    public class LoggerDestinationOptions
+    internal class LoggerDestinationOptions
     {
         [NotNull]
         public static readonly LoggerDestinationOptions Default = new LoggerDestinationOptions();

@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 
 namespace LVK.Core.Services
 {
+    [PublicAPI]
     public interface IApplicationRuntimeContext
     {
         [NotNull]

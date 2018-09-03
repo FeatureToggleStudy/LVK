@@ -1,5 +1,8 @@
-﻿namespace LVK.Logging
+﻿using JetBrains.Annotations;
+
+namespace LVK.Logging
 {
+    [PublicAPI]
     public enum LogLevel
     {
         Trace,

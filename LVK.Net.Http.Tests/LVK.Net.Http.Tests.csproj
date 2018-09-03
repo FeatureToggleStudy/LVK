@@ -6,15 +6,12 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
-      <PackageReference Include="NodaTime" Version="2.4.0" />
-      <PackageReference Include="NodaTime.Testing" Version="2.4.0" />
       <PackageReference Include="NUnit" Version="3.10.1" />
       <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
-      <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
+      <ProjectReference Include="..\LVK.Net.Http\LVK.Net.Http.csproj" />
       <ProjectReference Include="..\LVK.Tests.Framework\LVK.Tests.Framework.csproj" />
     </ItemGroup>
 

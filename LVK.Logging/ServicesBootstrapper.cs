@@ -8,7 +8,7 @@ using LVK.DryIoc;
 
 namespace LVK.Logging
 {
-    [UsedImplicitly]
+    [PublicAPI]
     public class ServicesBootstrapper : IServicesBootstrapper
     {
         public void Bootstrap(IContainer container)

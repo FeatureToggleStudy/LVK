@@ -2,6 +2,7 @@
 
 namespace LVK.Logging
 {
+    [PublicAPI]
     public interface ILoggerFactory
     {
         [NotNull]

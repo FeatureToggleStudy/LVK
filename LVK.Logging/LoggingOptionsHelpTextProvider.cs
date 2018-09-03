@@ -4,7 +4,7 @@ using LVK.AppCore;
 
 namespace LVK.Logging
 {
-    public class LoggingOptionsHelpTextProvider : IOptionsHelpTextProvider
+    internal class LoggingOptionsHelpTextProvider : IOptionsHelpTextProvider
     {
         public IEnumerable<(IEnumerable<string> paths, string description)> GetHelpText()
         {
