@@ -40,7 +40,7 @@ namespace LVK.Configuration
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
 
-            var fullPath = Path.Combine(_BasePath, filename);
+            var fullPath = GetFullPath(filename);
             if (!File.Exists(fullPath))
             {
                 if (isOptional)
@@ -50,6 +50,14 @@ namespace LVK.Configuration
             }
 
             AddJson(File.ReadAllText(fullPath, encoding ?? Encoding.UTF8));
+        }
+
+        private string GetFullPath(string filename)
+        {
+            if (Path.IsPathRooted(filename))
+                return filename;
+            
+            return Path.Combine(_BasePath, filename);
         }
 
         public void AddJson([NotNull] string json)
@@ -126,19 +134,31 @@ namespace LVK.Configuration
 
         public void AddCommandLine([NotNull, ItemNotNull] string[] args)
         {
-            var re = new Regex("--(?<path>[a-z_][a-z0-9_/]*)=(?<value>.*)", RegexOptions.IgnoreCase);
+            var reExplicitValue = new Regex("--(?<path>[a-z_][a-z0-9_/]*)=(?<value>.*)", RegexOptions.IgnoreCase);
+            var reJsonFile = new Regex("@(?<filename>.*)");
             foreach (var arg in args)
             {
-                Match ma = re.Match(arg);
-                if (!ma.Success)
-                    continue;
+                Match ma = reExplicitValue.Match(arg);
+                if (ma.Success)
+                {
+                    var path = ma.Groups["path"]?.Value ?? string.Empty;
+                    if (string.IsNullOrWhiteSpace(path))
+                        continue;
 
-                var path = ma.Groups["path"]?.Value ?? string.Empty;
-                if (string.IsNullOrWhiteSpace(path))
+                    JToken value = ValueFromString(ma.Groups["value"]?.Value ?? string.Empty);
+                    Apply(Construct(path.Split('/'), value), _Root);
                     continue;
+                }
 
-                JToken value = ValueFromString(ma.Groups["value"]?.Value ?? string.Empty);
-                Apply(Construct(path.Split('/'), value), _Root);
+                ma = reJsonFile.Match(arg);
+                if (ma.Success)
+                {
+                    var filename = ma.Groups["filename"]?.Value ?? string.Empty;
+                    if (string.IsNullOrWhiteSpace(filename))
+                        continue;
+                    
+                    AddJsonFile(filename);
+                }
             }
         }
 

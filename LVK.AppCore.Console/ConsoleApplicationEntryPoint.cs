@@ -82,6 +82,7 @@ namespace LVK.AppCore.Console
                         if (!await StopApplicationRuntimeContexts())
                             exitcode = 1;
                     }
+
                     return exitcode;
                 }
                 catch (TaskCanceledException)
