@@ -1,14 +1,26 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 
 using JetBrains.Annotations;
+
+using NodaTime;
 
 namespace LVK.Logging
 {
     [UsedImplicitly]
     internal class TextLogFormatter : ITextLogFormatter
     {
+        [NotNull]
+        private readonly IClock _Clock;
+
+        [NotNull]
+        private readonly DateTimeZone _SystemTimeZone;
+
+        [NotNull]
+        private readonly IFormatProvider _InvariantCulture = CultureInfo.InvariantCulture;
+
         [NotNull]
         private readonly Dictionary<LogLevel, string> _LogLevelNames = new Dictionary<LogLevel, string>
         {
@@ -20,6 +32,12 @@ namespace LVK.Logging
             [LogLevel.Error] = "ERROR"
         };
 
+        public TextLogFormatter([NotNull] IClock clock, [NotNull] DateTimeZone systemTimeZone)
+        {
+            _Clock = clock ?? throw new ArgumentNullException(nameof(clock));
+            _SystemTimeZone = systemTimeZone ?? throw new ArgumentNullException(nameof(systemTimeZone));
+        }
+
         public IEnumerable<string> Format(LogLevel level, string message)
         {
             using (var reader =
@@ -27,7 +45,10 @@ namespace LVK.Logging
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
-                    yield return $"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} {_LogLevelNames[level],-5}: {line}";
+                {
+                    ZonedDateTime now = _Clock.GetCurrentInstant().InZone(_SystemTimeZone);
+                    yield return $"{now.ToString("yyyy-MM-dd HH:mm:ss.fff", _InvariantCulture)} {_LogLevelNames[level],-5}: {line}";
+                }
             }
         }
     }
