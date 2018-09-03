@@ -11,6 +11,7 @@ using static LVK.Core.JetBrainsHelpers;
 
 using LVK.Core;
 
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace LVK.Configuration
@@ -33,7 +34,8 @@ namespace LVK.Configuration
             _BasePath = basePath ?? throw new ArgumentNullException(nameof(basePath));
         }
 
-        public void AddJsonFile([NotNull] string filename, [CanBeNull] Encoding encoding = null, bool isOptional = false)
+        public void AddJsonFile([NotNull] string filename, [CanBeNull] Encoding encoding = null,
+                                bool isOptional = false)
         {
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
@@ -47,13 +49,22 @@ namespace LVK.Configuration
                 throw new InvalidOperationException();
             }
 
-            JObject additional = JObject.Parse(File.ReadAllText(fullPath, encoding ?? Encoding.UTF8));
+            AddJson(File.ReadAllText(fullPath, encoding ?? Encoding.UTF8));
+        }
+
+        public void AddJson([NotNull] string json)
+        {
+            if (json == null)
+                throw new ArgumentNullException(nameof(json));
+
+            JObject additional = JObject.Parse(json);
             if (additional == null)
                 return;
 
             Apply(additional, _Root);
         }
 
+        [NotNull]
         public IConfiguration Build() => new Configuration(_Root.DeepClone().NotNull());
 
         private void Apply([NotNull] JObject source, [NotNull] JObject target)
@@ -61,48 +72,55 @@ namespace LVK.Configuration
             var child = source.First;
             while (child != null)
             {
-                switch (child)
-                {
-                    case JProperty prop:
-                        assume(prop.Name != null);
-                        
-                        if (!target.ContainsKey(prop.Name))
-                            target[prop.Name] = prop.Value;
-                        else
-                        {
-                            assume(target[prop.Name] != null);
-                            if (prop.Value?.GetType() != target[prop.Name].GetType())
-                                target[prop.Name] = prop.Value;
-                            else
-                            {
-                                switch (prop.Value)
-                                {
-                                    case JValue val:
-                                        target[prop.Name] = val;
-                                        break;
-
-                                    case JArray a:
-                                        target[prop.Name] = a;
-                                        break;
-
-                                    case JObject obj:
-                                        Apply(obj, (JObject)target[prop.Name]);
-                                        break;
-
-                                    default:
-                                        throw new InvalidOperationException(
-                                            $"unknown value-type: '{prop.Value.GetType().Name}'");
-                                }
-                            }
-                        }
-
-                        break;
-
-                    default:
-                        throw new InvalidOperationException($"unknown: '{child.GetType().Name}'");
-                }
+                if (child is JProperty prop)
+                    OverrideProperty(target, prop);
+                else
+                    throw new InvalidOperationException($"unknown: '{child.GetType().Name}'");
 
                 child = child.Next;
+            }
+        }
+
+        private void OverrideProperty([NotNull] JObject target, [NotNull] JProperty prop)
+        {
+            assume(prop.Name != null);
+
+            if (!target.ContainsKey(prop.Name))
+            {
+                target[prop.Name] = prop.Value;
+                return;
+            }
+
+            assume(target[prop.Name] != null);
+            if (prop.Value?.GetType() != target[prop.Name].GetType())
+                target[prop.Name] = prop.Value;
+            else
+                OverrideValue(target, prop);
+        }
+
+        private void OverrideValue([NotNull] JObject target, [NotNull] JProperty prop)
+        {
+            assume(prop.Name != null);
+
+            switch (prop.Value)
+            {
+                case null:
+                    break;
+
+                case JValue val:
+                    target[prop.Name] = val;
+                    break;
+
+                case JArray a:
+                    target[prop.Name] = a;
+                    break;
+
+                case JObject obj:
+                    Apply(obj, (JObject)target[prop.Name].NotNull());
+                    break;
+
+                default:
+                    throw new InvalidOperationException($"unknown value-type: '{prop.Value.GetType().Name}'");
             }
         }
 
@@ -119,14 +137,25 @@ namespace LVK.Configuration
                 if (string.IsNullOrWhiteSpace(path))
                     continue;
 
-                var value = ma.Groups["value"]?.Value ?? string.Empty;
-
+                JToken value = ValueFromString(ma.Groups["value"]?.Value ?? string.Empty);
                 Apply(Construct(path.Split('/'), value), _Root);
             }
         }
 
+        private JToken ValueFromString(string value)
+        {
+            try
+            {
+                return JToken.Parse(value);
+            }
+            catch (JsonReaderException)
+            {
+                return new JValue(value);
+            }
+        }
+
         [NotNull]
-        private JObject Construct([NotNull, ItemNotNull] string[] path, [NotNull] string value)
+        private JObject Construct([NotNull, ItemNotNull] string[] path, [NotNull] JToken value)
         {
             var root = new JObject();
             var current = root;
@@ -150,8 +179,8 @@ namespace LVK.Configuration
                     continue;
 
                 var path = key.Substring(prefix.Length);
-                string value = environmentVariables[key]?.ToString() ?? string.Empty;
-                
+                var value = ValueFromString(environmentVariables[key]?.ToString() ?? string.Empty);
+
                 Apply(Construct(path.Split('/'), value), _Root);
             }
         }

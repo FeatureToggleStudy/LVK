@@ -46,7 +46,7 @@ namespace LVK.Configuration
         public T Value<T>()
         {
             if (!(_Root is JObject obj))
-                return _Root.Value<T>();
+                return _Root.ToObject<T>();
 
             try
             {
