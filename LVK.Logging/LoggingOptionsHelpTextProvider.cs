@@ -17,14 +17,36 @@ namespace LVK.Logging
   Error
 
 example:
-  --Logging/Destinations/Console/LogLevel=Warning");
+  --Logging/Destinations/Console/LogLevel=Warning
+
+example appsettings.json:
+  {
+    ""Logging"": {
+      ""Destinations"": {
+        ""Console"": {
+          ""LogLevel"": ""Warning""
+        }
+      }
+    }
+  }");
 
             yield return (new[] { "Logging/Destinations/Console/Enabled" },
                 @"true = logging to console enabled (default)
 false = logging to console disabled
 
 example:
-  --Logging/Destinations/Console/Enabled=false");
+  --Logging/Destinations/Console/Enabled=false
+
+example appsettings.json:
+  {
+    ""Logging"": {
+      ""Destinations"": {
+        ""Console"": {
+          ""Enabled"": false
+        }
+      }
+    }
+  }");
         }
     }
 }
