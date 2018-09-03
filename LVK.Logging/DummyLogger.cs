@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LVK.Logging
+﻿namespace LVK.Logging
 {
     internal class DummyLogger<T> : ILogger<T>
     {

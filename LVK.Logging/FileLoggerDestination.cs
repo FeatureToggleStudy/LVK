@@ -29,7 +29,7 @@ namespace LVK.Logging
                 File.AppendAllLines(GetLogFilename(), _TextLogFormatter.Format(level, message));
         }
 
-        private string GetLogFilename() => Path.Combine(_Options.Path, string.Format(_Options.Filename, DateTime.Now));
+        [NotNull] private string GetLogFilename() => Path.Combine(_Options.Path, string.Format(_Options.Filename, DateTime.Now));
 
         public void WriteLine(string line) => Log(LogLevel.Information, line);
     }

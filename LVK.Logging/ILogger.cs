@@ -9,7 +9,7 @@ namespace LVK.Logging
         void WriteLine([NotNull] string line);
     }
 
-    public interface ILogger<T> : ILogger
+    public interface ILogger<[UsedImplicitly] T> : ILogger
     {
     }
 }

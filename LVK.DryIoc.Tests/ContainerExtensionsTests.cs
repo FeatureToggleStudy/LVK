@@ -1,6 +1,4 @@
-﻿using System;
-
-using DryIoc;
+﻿using DryIoc;
 
 using JetBrains.Annotations;
 

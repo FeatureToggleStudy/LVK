@@ -52,7 +52,8 @@ namespace LVK.Configuration
             AddJson(File.ReadAllText(fullPath, encoding ?? Encoding.UTF8));
         }
 
-        private string GetFullPath(string filename)
+        [NotNull]
+        private string GetFullPath([NotNull] string filename)
         {
             if (Path.IsPathRooted(filename))
                 return filename;
@@ -134,6 +135,9 @@ namespace LVK.Configuration
 
         public void AddCommandLine([NotNull, ItemNotNull] string[] args)
         {
+            if (args == null)
+                throw new ArgumentNullException(nameof(args));
+
             var reExplicitValue = new Regex("--(?<path>[a-z_][a-z0-9_/]*)=(?<value>.*)", RegexOptions.IgnoreCase);
             var reJsonFile = new Regex("@(?<filename>.*)");
             foreach (var arg in args)
@@ -141,32 +145,41 @@ namespace LVK.Configuration
                 Match ma = reExplicitValue.Match(arg);
                 if (ma.Success)
                 {
-                    var path = ma.Groups["path"]?.Value ?? string.Empty;
-                    if (string.IsNullOrWhiteSpace(path))
-                        continue;
-
-                    JToken value = ValueFromString(ma.Groups["value"]?.Value ?? string.Empty);
-                    Apply(Construct(path.Split('/'), value), _Root);
+                    ApplyCommandLineValueOverride(ma);
                     continue;
                 }
 
                 ma = reJsonFile.Match(arg);
                 if (ma.Success)
-                {
-                    var filename = ma.Groups["filename"]?.Value ?? string.Empty;
-                    if (string.IsNullOrWhiteSpace(filename))
-                        continue;
-                    
-                    AddJsonFile(filename);
-                }
+                    ApplyCommandLineOptionsFileOverride(ma);
             }
         }
 
+        private void ApplyCommandLineOptionsFileOverride([NotNull] Match match)
+        {
+            var filename = match.Groups["filename"]?.Value ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(filename))
+                return;
+
+            AddJsonFile(filename);
+        }
+
+        private void ApplyCommandLineValueOverride([NotNull] Match match)
+        {
+            var path = match.Groups["path"]?.Value ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(path))
+                return;
+
+            JToken value = ValueFromString(match.Groups["value"]?.Value ?? string.Empty);
+            Apply(Construct(path.Split('/'), value), _Root);
+        }
+
+        [NotNull]
         private JToken ValueFromString(string value)
         {
             try
             {
-                return JToken.Parse(value);
+                return JToken.Parse(value) ?? new JValue(string.Empty);
             }
             catch (JsonReaderException)
             {

@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace LVK.Logging
+﻿namespace LVK.Logging
 {
     internal interface ILoggerDestination : ILogger
     {

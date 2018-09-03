@@ -61,7 +61,7 @@ namespace LVK.Logging
 
                         case "File":
                             destination = new FileLoggerDestination(_TextLogFormatter,
-                                kvp.Value?.ToObject<FileLoggerDestinationOptions>());
+                                kvp.Value?.ToObject<FileLoggerDestinationOptions>() ?? new FileLoggerDestinationOptions());
 
                             break;
 
@@ -78,7 +78,7 @@ namespace LVK.Logging
 
             _Container.Register(typeof(ILogger<>),
                 made: Made.Of(
-                    typeof(ILoggerFactory).GetMethods().First(m => m.IsGenericMethod && m.Name == "CreateLogger"),
+                    typeof(ILoggerFactory).GetMethods().First(m => (m?.IsGenericMethod ?? false) && m.Name == "CreateLogger"),
                     ServiceInfo.Of(typeof(ILoggerFactory))));
 
             return Task.CompletedTask;

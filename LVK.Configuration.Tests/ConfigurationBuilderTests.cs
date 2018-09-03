@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 
 using NUnit.Framework;
 
+// ReSharper disable PossibleNullReferenceException
 // ReSharper disable AssignNullToNotNullAttribute
 
 namespace LVK.Configuration.Tests

@@ -19,7 +19,7 @@ namespace LVK.Core.Services
                 throw new ArgumentNullException(nameof(container));
 
             container.UseInstance<IClock>(SystemClock.Instance);
-            container.UseInstance<DateTimeZone>(DateTimeZoneProviders.Tzdb.GetSystemDefault());
+            container.UseInstance(DateTimeZoneProviders.Tzdb.GetSystemDefault());
             container.UseInstance<IApplicationLifetimeManager>(new ApplicationLifetimeManager());
         }
     }
