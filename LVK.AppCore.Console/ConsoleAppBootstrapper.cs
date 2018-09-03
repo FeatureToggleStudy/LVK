@@ -29,16 +29,25 @@ namespace LVK.AppCore.Console
             where T: class, IServicesBootstrapper, new()
         {
             var container = new Container();
-            container.Bootstrap<ServicesBootstrapper>();
-            container.Bootstrap<T>();
-            container.UseInstance(args);
+            List<IApplicationInitialization> initializers;
+            List<IApplicationCleanup> cleaners;
+            try
+            {
+                container.Bootstrap<ServicesBootstrapper>();
+                container.Bootstrap<T>();
+                container.UseInstance(args);
 
-            List<IApplicationInitialization> initializers =
-                container.Resolve<IEnumerable<IApplicationInitialization>>()?.ToList()
-             ?? new List<IApplicationInitialization>();
+                initializers = container.Resolve<IEnumerable<IApplicationInitialization>>()?.ToList()
+                            ?? new List<IApplicationInitialization>();
 
-            List<IApplicationCleanup> cleaners = container.Resolve<IEnumerable<IApplicationCleanup>>()?.ToList()
-                                              ?? new List<IApplicationCleanup>();
+                cleaners = container.Resolve<IEnumerable<IApplicationCleanup>>()?.ToList()
+                        ?? new List<IApplicationCleanup>();
+            }
+            catch (Exception ex) when (!Debugger.IsAttached)
+            {
+                OutputExceptionToConsole(ex);
+                return 1;
+            }
 
             try
             {
@@ -63,20 +72,7 @@ namespace LVK.AppCore.Console
             }
             catch (Exception ex) when (!Debugger.IsAttached)
             {
-                while (ex != null)
-                {
-                    Type exType = ex.GetType();
-                    assume(exType != null);
-
-                    System.Console.Error.WriteLine($"{exType.Name}: {ex.Message}");
-                    if (!string.IsNullOrWhiteSpace(ex.StackTrace))
-                        System.Console.Error.WriteLine(ex.StackTrace);
-
-                    ex = ex.InnerException;
-                    if (ex != null)
-                        System.Console.Error.WriteLine();
-                }
-
+                OutputExceptionToConsole(ex);
                 return 1;
             }
             finally
@@ -93,6 +89,23 @@ namespace LVK.AppCore.Console
                         System.Console.Error.WriteLine("application took to long to clean up, terminating abornmaly");
                     }
                 }
+            }
+        }
+
+        private static void OutputExceptionToConsole(Exception ex)
+        {
+            while (ex != null)
+            {
+                Type exType = ex.GetType();
+                assume(exType != null);
+
+                System.Console.Error.WriteLine($"{exType.Name}: {ex.Message}");
+                if (!string.IsNullOrWhiteSpace(ex.StackTrace))
+                    System.Console.Error.WriteLine(ex.StackTrace);
+
+                ex = ex.InnerException;
+                if (ex != null)
+                    System.Console.Error.WriteLine();
             }
         }
     }
