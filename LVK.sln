@@ -23,6 +23,10 @@ ProjectSection(SolutionItems) = preProject
 	.editorconfig = .editorconfig
 	.gitattributes = .gitattributes
 	.gitignore = .gitignore
+	build.bat = build.bat
+	project.bat = project.bat
+	release.bat = release.bat
+	run.bat = run.bat
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Net", "LVK.Net\LVK.Net.csproj", "{50ED9450-26B5-4C8E-BD4F-19DFC26073B3}"

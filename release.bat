@@ -2,6 +2,15 @@
 
 setlocal
 
+set GITBRANCH=
+for /f %%f in ('git rev-parse --abbrev-ref HEAD') do set GITBRANCH=%%f
+
+if not "%GITBRANCH%" == "master" (
+    echo Can only release from the 'master' branch
+    exit /B 1
+)
+
+
 for /f "tokens=*" %%i in ('where git.exe') do set GIT_CONSOLE=%%i
 if "%GIT_CONSOLE%" == "" goto NO_GIT
 if "%SIGNINGKEYS%" == "" goto setup
