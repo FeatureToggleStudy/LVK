@@ -5,9 +5,9 @@ using System.Text;
 
 using JetBrains.Annotations;
 
-using static LVK.Core.JetBrainsHelpers;
-
 using LVK.Core;
+
+using static LVK.Core.JetBrainsHelpers;
 
 namespace LVK.Logging
 {

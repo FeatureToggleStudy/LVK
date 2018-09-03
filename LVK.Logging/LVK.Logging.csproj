@@ -26,6 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\LVK.AppCore\LVK.AppCore.csproj" />
       <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
     </ItemGroup>
 

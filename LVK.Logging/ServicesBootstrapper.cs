@@ -2,6 +2,7 @@
 
 using JetBrains.Annotations;
 
+using LVK.AppCore;
 using LVK.Core.Services;
 using LVK.DryIoc;
 
@@ -16,6 +17,8 @@ namespace LVK.Logging
 
             container.Register<ITextLogFormatter, TextLogFormatter>();
             container.Register<IApplicationInitialization, LoggingInitialization>();
+
+            container.Register<IOptionsHelpTextProvider, LoggingOptionsHelpTextProvider>();
         }
     }
 }

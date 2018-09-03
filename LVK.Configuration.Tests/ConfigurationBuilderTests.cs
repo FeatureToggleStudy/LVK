@@ -130,6 +130,19 @@ namespace LVK.Configuration.Tests
         }
 
         [Test]
+        public void AddCommandLine_KeyWithoutValue_IsAddedAsBooleanTrue()
+        {
+            var builder = new ConfigurationBuilder();
+
+            builder.AddCommandLine(new[] { "--help" });
+
+            IConfiguration configuration = builder.Build();
+            var help = configuration["help"].Value<bool>();
+
+            Assert.That(help, Is.True);
+        }
+
+        [Test]
         public void AddEnvironmentVariables_NullPrefix_ThrowsArgumentNullException()
         {
             var builder = new ConfigurationBuilder();

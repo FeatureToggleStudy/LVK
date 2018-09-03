@@ -138,7 +138,7 @@ namespace LVK.Configuration
             if (args == null)
                 throw new ArgumentNullException(nameof(args));
 
-            var reExplicitValue = new Regex("--(?<path>[a-z_][a-z0-9_/]*)=(?<value>.*)", RegexOptions.IgnoreCase);
+            var reExplicitValue = new Regex("--(?<path>[a-z_][a-z0-9_/]*)(=(?<value>.*))?", RegexOptions.IgnoreCase);
             var reJsonFile = new Regex("@(?<filename>.*)");
             foreach (var arg in args)
             {
@@ -170,7 +170,13 @@ namespace LVK.Configuration
             if (string.IsNullOrWhiteSpace(path))
                 return;
 
-            JToken value = ValueFromString(match.Groups["value"]?.Value ?? string.Empty);
+            string stringValue;
+            var group = match.Groups["value"];
+            if (group.Success)
+                stringValue = group.Value;
+            else
+                stringValue = "true";
+            JToken value = ValueFromString(stringValue);
             Apply(Construct(path.Split('/'), value), _Root);
         }
 

@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 
 namespace LVK.Configuration
 {
+    [PublicAPI]
     public interface IConfiguration
     {
         [NotNull]

@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
+using LVK.Configuration;
 using LVK.Core.Services;
 using LVK.Logging;
 
@@ -21,19 +24,33 @@ namespace LVK.AppCore.Console
         private readonly IApplicationLifetimeManager _ApplicationLifetimeManager;
 
         [NotNull]
+        private readonly IConfiguration _Configuration;
+
+        [NotNull, ItemNotNull]
+        private readonly List<IOptionsHelpTextProvider> _OptionsHelpTextProviders;
+
+        [NotNull]
         private readonly ILogger _Logger;
 
         [NotNull, ItemNotNull]
         private readonly List<IApplicationRuntimeContext> _ApplicationRuntimeContexts;
 
-        public ConsoleApplicationEntryPoint([NotNull] IApplicationEntryPoint applicationEntryPoint,
-                                            [NotNull] ILoggerFactory loggerFactory,
-                                            [NotNull]
-                                            IEnumerable<IApplicationRuntimeContext> applicationRuntimeContexts,
-                                            [NotNull] IApplicationLifetimeManager applicationLifetimeManager)
+        private bool _WasCancelledByUser;
+
+        public ConsoleApplicationEntryPoint(
+            [NotNull] IApplicationEntryPoint applicationEntryPoint, [NotNull] ILoggerFactory loggerFactory,
+            [NotNull] IEnumerable<IApplicationRuntimeContext> applicationRuntimeContexts,
+            [NotNull] IApplicationLifetimeManager applicationLifetimeManager, [NotNull] IConfiguration configuration,
+            [NotNull, ItemNotNull] IEnumerable<IOptionsHelpTextProvider> optionsHelpTextProviders)
         {
             if (loggerFactory == null)
                 throw new ArgumentNullException(nameof(loggerFactory));
+
+            if (applicationRuntimeContexts == null)
+                throw new ArgumentNullException(nameof(applicationRuntimeContexts));
+
+            if (optionsHelpTextProviders == null)
+                throw new ArgumentNullException(nameof(optionsHelpTextProviders));
 
             _ApplicationEntryPoint =
                 applicationEntryPoint ?? throw new ArgumentNullException(nameof(applicationEntryPoint));
@@ -41,23 +58,24 @@ namespace LVK.AppCore.Console
             _ApplicationLifetimeManager = applicationLifetimeManager
                                        ?? throw new ArgumentNullException(nameof(applicationLifetimeManager));
 
+            _Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _OptionsHelpTextProviders = optionsHelpTextProviders.ToList();
+
             _Logger = loggerFactory.CreateLogger("Application");
-            _ApplicationRuntimeContexts = (applicationRuntimeContexts
-                                        ?? throw new ArgumentNullException(nameof(applicationRuntimeContexts)))
-               .ToList();
+            _ApplicationRuntimeContexts = applicationRuntimeContexts.ToList();
         }
 
         public async Task<int> RunAsync()
         {
             var userCancelKeyPressCancellationTokenSource = new CancellationTokenSource();
-            var cts = CancellationTokenSource.CreateLinkedTokenSource(userCancelKeyPressCancellationTokenSource.Token,
+            var cts = CancellationTokenSource.CreateLinkedTokenSource(
+                userCancelKeyPressCancellationTokenSource.Token,
                 _ApplicationLifetimeManager.GracefulTerminationCancellationToken);
 
-            var wasCancelledByUser = false;
             System.Console.CancelKeyPress += (s, e) =>
             {
                 _Logger.Log(LogLevel.Debug, "User cancelled application with Ctrl+C");
-                wasCancelledByUser = true;
+                _WasCancelledByUser = true;
                 if (e != null)
                     e.Cancel = true;
 
@@ -66,38 +84,98 @@ namespace LVK.AppCore.Console
 
             using (_Logger.LogScope(LogLevel.Trace, $"{nameof(ConsoleApplicationEntryPoint)}.{nameof(RunAsync)}"))
             {
+                if (ShowHelp())
+                    return 0;
+
+                return await RunApplicationEntryPoint(cts);
+            }
+        }
+
+        private bool ShowHelp()
+        {
+            if (!_Configuration["help"].Value<bool>())
+                return false;
+
+            var command = Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location);
+            System.Console.WriteLine($"help: {command.ToLowerInvariant()} --key[=value]");
+            System.Console.WriteLine("notes:");
+            System.Console.WriteLine("  * if =value is omitted, a value of 'true' is substituted");
+            System.Console.WriteLine(
+                "  * configuration can be stored in appsettings.json as json. Paths denoted below are paths into similarly configured json files.");
+
+            System.Console.WriteLine(
+                "  * to read additional configuration files, use '@filename.json' syntax as a separate command line argument.");
+
+            var helpTexts =
+                from optionsHelpTextProvider in _OptionsHelpTextProviders
+                from optionsHelpText in optionsHelpTextProvider.GetHelpText()
+                let paths = optionsHelpText.paths.ToList()
+                where paths.Count > 0
+                orderby paths.First()
+                select optionsHelpText;
+            
+            foreach (var optionsHelpText in helpTexts)
+            {
+                System.Console.WriteLine();
+
+                var paths = optionsHelpText.paths.ToList();
+                if (paths.Count == 1)
+                    System.Console.WriteLine(paths[0]);
+                else
+                {
+                    System.Console.WriteLine("paths:");
+
+                    foreach (var path in paths)
+                        System.Console.WriteLine($"  {path}");
+                }
+
+                if (paths.Count > 1)
+                    System.Console.WriteLine("description:");
+                using (var reader = new StringReader(optionsHelpText.description))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                        System.Console.WriteLine($"  {line}");
+                }
+            }
+
+            return true;
+        }
+
+        [NotNull]
+        private async Task<int> RunApplicationEntryPoint(CancellationTokenSource cts)
+        {
+            try
+            {
+                if (!await StartApplicationRuntimeContexts())
+                    return 1;
+
+                int exitcode;
                 try
                 {
-                    if (!await StartApplicationRuntimeContexts())
-                        return 1;
-
-                    int exitcode;
-                    try
-                    {
-                        exitcode = await _ApplicationEntryPoint.Execute(cts.Token);
-                        _ApplicationLifetimeManager.SignalGracefulTermination();
-                    }
-                    finally
-                    {
-                        if (!await StopApplicationRuntimeContexts())
-                            exitcode = 1;
-                    }
-
-                    return exitcode;
+                    exitcode = await _ApplicationEntryPoint.Execute(cts.Token);
+                    _ApplicationLifetimeManager.SignalGracefulTermination();
                 }
-                catch (TaskCanceledException)
+                finally
                 {
-                    if (!wasCancelledByUser
-                     && !_ApplicationLifetimeManager.GracefulTerminationCancellationToken.IsCancellationRequested)
-                        System.Console.Error.WriteLine("program terminated early, unknown reason");
+                    if (!await StopApplicationRuntimeContexts())
+                        exitcode = 1;
+                }
 
-                    return 1;
-                }
-                catch (Exception ex) when (!Debugger.IsAttached)
-                {
-                    _Logger.LogException(ex);
-                    throw;
-                }
+                return exitcode;
+            }
+            catch (TaskCanceledException)
+            {
+                if (!_WasCancelledByUser
+                 && !_ApplicationLifetimeManager.GracefulTerminationCancellationToken.IsCancellationRequested)
+                    System.Console.Error.WriteLine("program terminated early, unknown reason");
+
+                return 1;
+            }
+            catch (Exception ex) when (!Debugger.IsAttached)
+            {
+                _Logger.LogException(ex);
+                throw;
             }
         }
 

@@ -20,6 +20,7 @@ namespace LVK.AppCore.Console
             container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
             
             container.Register<IConsoleApplicationEntryPoint, ConsoleApplicationEntryPoint>();
+            container.Register<IOptionsHelpTextProvider, ConsoleApplicationEntryPointOptionsHelpTextProvider>();
         }
     }
 }
