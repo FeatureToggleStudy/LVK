@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.DryIoc.Tests", "LVK.Dry
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Logging.Tests", "LVK.Logging.Tests\LVK.Logging.Tests.csproj", "{E0DA05B8-8B53-4D03-B6E7-90083A45BE3E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Configuration.Tests", "LVK.Configuration.Tests\LVK.Configuration.Tests.csproj", "{9B69693E-5A25-4688-9319-E12970360505}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,5 +101,9 @@ Global
 		{E0DA05B8-8B53-4D03-B6E7-90083A45BE3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0DA05B8-8B53-4D03-B6E7-90083A45BE3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0DA05B8-8B53-4D03-B6E7-90083A45BE3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B69693E-5A25-4688-9319-E12970360505}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B69693E-5A25-4688-9319-E12970360505}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B69693E-5A25-4688-9319-E12970360505}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B69693E-5A25-4688-9319-E12970360505}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

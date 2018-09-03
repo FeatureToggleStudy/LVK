@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 using JetBrains.Annotations;
 
@@ -6,7 +7,8 @@ using Newtonsoft.Json.Linq;
 
 namespace LVK.Configuration
 {
-    class Configuration : IConfiguration
+    [DebuggerDisplay("Configuration: {" + nameof(_Root) + "}")]
+    internal class Configuration : IConfiguration
     {
         [NotNull]
         private readonly JToken _Root;
@@ -26,7 +28,7 @@ namespace LVK.Configuration
             if (path == null)
                 throw new ArgumentNullException(nameof(path));
 
-            var current = _Root;
+            JToken current = _Root;
             foreach (var element in path)
             {
                 var child = current[element];
@@ -57,7 +59,5 @@ namespace LVK.Configuration
                 return default;
             }
         }
-
-        public override string ToString() => _Root.ToString();
     }
 }
