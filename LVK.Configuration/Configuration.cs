@@ -3,6 +3,8 @@ using System.Diagnostics;
 
 using JetBrains.Annotations;
 
+using LVK.Core;
+
 using Newtonsoft.Json.Linq;
 
 namespace LVK.Configuration
@@ -18,7 +20,7 @@ namespace LVK.Configuration
             _Root = root ?? throw new ArgumentNullException(nameof(root));
         }
 
-        public IConfiguration this[string path] => GetSection(path.Split('/'));
+        public IConfiguration this[string path] => GetSection(path.NotNull().Split('/'));
 
         public IConfiguration this[string[] path] => GetSection(path);
 
