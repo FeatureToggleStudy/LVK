@@ -42,7 +42,7 @@ namespace LVK.Logging
 
             if (destinationOptions != null)
             {
-                foreach (var kvp in destinationOptions)
+                foreach (KeyValuePair<string, JObject> kvp in destinationOptions)
                 {
                     var options = kvp.Value?.ToObject<LoggerDestinationOptions>() ?? LoggerDestinationOptions.Default;
                     if (!options.Enabled)
@@ -66,7 +66,7 @@ namespace LVK.Logging
                             break;
 
                         default:
-                            throw new InvalidOperationException("Unknown logging destionation: {section.Key}");
+                            throw new InvalidOperationException("Unknown logging destination: {section.Key}");
                     }
 
                     destinations.Add(new LoggerDestinationFilter(destination, options.LogLevel));
