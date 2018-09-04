@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 
 namespace LVK.Core
 {
+    [PublicAPI]
     public class ActionDisposable : IDisposable
     {
         [CanBeNull]

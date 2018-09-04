@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 
 namespace LVK.AppCore
 {
+    [PublicAPI]
     public interface IApplicationEntryPoint
     {
         [NotNull]

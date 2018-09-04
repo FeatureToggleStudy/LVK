@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 
 namespace LVK.Core
 {
+    [PublicAPI]
     public static class JetBrainsHelpers
     {
         [ContractAnnotation("instance:null => halt")]

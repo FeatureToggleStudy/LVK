@@ -5,12 +5,12 @@ using LVK.Tests.Framework;
 
 using NUnit.Framework;
 
-namespace LVK.AppCore.Tests
+namespace LVK.DryIoc.Tests
 {
     [TestFixture]
     public class PublicApiTests : PublicApiTestsBase
     {
-        public static IEnumerable<TestCaseData> PublicTypes() => GetPublicTypesOfAssembly(typeof(ServicesBootstrapper));
+        public static IEnumerable<TestCaseData> PublicTypes() => GetPublicTypesOfAssembly(typeof(ContainerExtensions));
 
         [Test]
         [TestCaseSource(nameof(PublicTypes))]

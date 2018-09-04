@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+    <ProjectReference Include="..\LVK.Tests.Framework\LVK.Tests.Framework.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />

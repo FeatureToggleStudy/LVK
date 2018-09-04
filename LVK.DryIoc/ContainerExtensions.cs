@@ -6,6 +6,7 @@ using static LVK.Core.JetBrainsHelpers;
 
 namespace LVK.DryIoc
 {
+    [PublicAPI]
     public static class ContainerExtensions
     {
         [NotNull]

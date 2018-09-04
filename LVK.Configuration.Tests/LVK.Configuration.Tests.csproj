@@ -15,6 +15,7 @@
     <ItemGroup>
       <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
       <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+      <ProjectReference Include="..\LVK.Tests.Framework\LVK.Tests.Framework.csproj" />
     </ItemGroup>
 
 </Project>
