@@ -7,6 +7,7 @@ using NSubstitute;
 using NSubstitute.ClearExtensions;
 
 using NUnit.Framework;
+// ReSharper disable AssignNullToNotNullAttribute
 
 namespace LVK.Reflection.Tests.NameRules
 {

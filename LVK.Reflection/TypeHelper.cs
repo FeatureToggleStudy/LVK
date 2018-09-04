@@ -4,8 +4,6 @@ using System.Linq;
 
 using JetBrains.Annotations;
 
-using LVK.Core;
-
 namespace LVK.Reflection
 {
     internal class TypeHelper : ITypeHelper
