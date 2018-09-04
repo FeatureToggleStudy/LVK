@@ -1,3 +1,3 @@
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("LVK.logging.Tests")]
+[assembly: InternalsVisibleTo("LVK.Logging.Tests")]
