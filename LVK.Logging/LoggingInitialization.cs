@@ -37,6 +37,9 @@ namespace LVK.Logging
             var destinationOptions = _Configuration["Logging/Destinations"].Value<Dictionary<string, JObject>>();
             var destinations = new List<ILoggerDestination>();
 
+            bool debugAdded = false;
+            bool consoleAdded = false;
+
             if (destinationOptions != null)
             {
                 foreach (KeyValuePair<string, JObject> kvp in destinationOptions)
@@ -50,10 +53,12 @@ namespace LVK.Logging
                     {
                         case "Console":
                             destination = new ConsoleLoggerDestination(_TextLogFormatter);
+                            consoleAdded = true;
                             break;
 
                         case "Debug":
                             destination = new DebugLoggerDestination(_TextLogFormatter);
+                            debugAdded = true;
                             break;
 
                         case "File":
@@ -69,6 +74,11 @@ namespace LVK.Logging
                     destinations.Add(new LoggerDestinationFilter(destination, options.LogLevel));
                 }
             }
+            
+            if (!consoleAdded)
+                destinations.Add(new ConsoleLoggerDestination(_TextLogFormatter));
+            if (!debugAdded)
+                destinations.Add(new DebugLoggerDestination(_TextLogFormatter));
 
             container.Register<ILoggerFactory>(Reuse.Singleton,
                 Made.Of(() => new LoggerFactory(destinations, Arg.Of<IConfiguration>())));
