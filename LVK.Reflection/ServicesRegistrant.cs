@@ -28,6 +28,8 @@ namespace LVK.Reflection
             container.Register<ITypeNameRule, NullableTypeNameRule>();
             container.Register<ITypeNameRule, GenericTypeNameRule>();
             container.Register<ITypeNameRule, NormalTypeNameRule>();
+
+            container.Register<IContainerInitializer, ReflectionContainerInitializer>();
         }
     }
 }

@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DryIoc;
-
 using JetBrains.Annotations;
 
-using LVK.Core;
 using LVK.DryIoc;
 
 namespace LVK.Conversion
@@ -25,6 +22,12 @@ namespace LVK.Conversion
         [NotNull, ItemNotNull]
         private readonly List<IValueConversionProvider> _ValueConversionProviders;
 
+        // ReSharper disable once NotNullMemberIsNotInitialized
+        static ValueConverter()
+        {
+            new ContainerBuilder().Register<ServicesRegistrant>().Build();
+        }
+
         public ValueConverter([NotNull] IEnumerable<IValueConversionProvider> valueConversionProviders)
         {
             if (valueConversionProviders is null)
@@ -34,11 +37,7 @@ namespace LVK.Conversion
         }
 
         [NotNull]
-        public static IValueConverter DefaultInstance { get; } = BootstrapValueConverter();
-
-        [NotNull]
-        private static IValueConverter BootstrapValueConverter()
-            => new ContainerBuilder().Register<ServicesRegistrant>().Build().Resolve<IValueConverter>().NotNull();
+        public static IValueConverter Instance { get; internal set; }
 
         public Func<object, IFormatProvider, object> TryGetConverter(Type sourceType, Type targetType)
         {

@@ -16,6 +16,8 @@ namespace LVK.Conversion
         {
             if (containerBuilder is null)
                 throw new ArgumentNullException(nameof(containerBuilder));
+
+            containerBuilder.Register<LVK.Core.Services.ServicesRegistrant>();
         }
 
         public void Register(IContainer container)
@@ -25,6 +27,7 @@ namespace LVK.Conversion
 
             container.Register<IValueConverter, ValueConverter>(Reuse.Singleton);
             container.Register<IValueConversionProvider, BasicTypesValueConversionProvider>();
+            container.Register<IContainerInitializer, ConversionContainerInitializer>();
         }
     }
 }

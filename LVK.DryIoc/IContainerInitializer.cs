@@ -1,11 +1,10 @@
-﻿using DryIoc;
-
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
 namespace LVK.DryIoc
 {
-    internal interface IContainerInitializer
+    [PublicAPI]
+    public interface IContainerInitializer
     {
-        void Initialize([NotNull] Container container);
+        void Initialize();
     }
 }

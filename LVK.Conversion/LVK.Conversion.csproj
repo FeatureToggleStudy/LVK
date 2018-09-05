@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\LVK.Core.Services\LVK.Core.Services.csproj" />
       <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
       <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
       <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj" />
