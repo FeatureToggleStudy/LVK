@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 namespace LVK.DryIoc
 {
     [PublicAPI]
-    public interface IContainerInitializer
+    public interface IConfigurationInitializer
     {
         void Initialize([NotNull] IContainer container);
     }

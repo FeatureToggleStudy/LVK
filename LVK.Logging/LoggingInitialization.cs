@@ -20,23 +20,19 @@ namespace LVK.Logging
     internal class LoggingContainerInitializer : IContainerInitializer
     {
         [NotNull]
-        private readonly IContainer _Container;
-
-        [NotNull]
         private readonly IConfiguration _Configuration;
 
         [NotNull]
         private readonly ITextLogFormatter _TextLogFormatter;
 
-        public LoggingContainerInitializer([NotNull] IContainer container, [NotNull] IConfiguration configuration,
+        public LoggingContainerInitializer([NotNull] IConfiguration configuration,
                                      [NotNull] ITextLogFormatter textLogFormatter)
         {
-            _Container = container ?? throw new ArgumentNullException(nameof(container));
             _Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _TextLogFormatter = textLogFormatter ?? throw new ArgumentNullException(nameof(textLogFormatter));
         }
 
-        public void Initialize()
+        public void Initialize(IContainer container)
         {
             var destinationOptions = _Configuration["Logging/Destinations"].Value<Dictionary<string, JObject>>();
             var destinations = new List<ILoggerDestination>();
@@ -74,10 +70,10 @@ namespace LVK.Logging
                 }
             }
 
-            _Container.Register<ILoggerFactory>(Reuse.Singleton,
+            container.Register<ILoggerFactory>(Reuse.Singleton,
                 Made.Of(() => new LoggerFactory(destinations, Arg.Of<IConfiguration>())));
-
-            _Container.Register(typeof(ILogger<>),
+            
+            container.Register(typeof(ILogger<>),
                 made: Made.Of(
                     typeof(ILoggerFactory).GetMethods().First(m => (m?.IsGenericMethod ?? false) && m.Name == "CreateLogger"),
                     ServiceInfo.Of(typeof(ILoggerFactory))));

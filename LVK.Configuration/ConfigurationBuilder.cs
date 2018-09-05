@@ -16,7 +16,7 @@ using Newtonsoft.Json.Linq;
 
 namespace LVK.Configuration
 {
-    internal class ConfigurationBuilder
+    internal class ConfigurationBuilder : IConfigurationBuilder
     {
         [NotNull]
         private string _BasePath;
@@ -27,18 +27,16 @@ namespace LVK.Configuration
         public ConfigurationBuilder()
         {
             Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
-            assume(assembly != null);
-            assembly.NotNull();
             
             _BasePath = Path.GetDirectoryName(assembly.Location).NotNull();
         }
 
-        public void SetBasePath([NotNull] string basePath)
+        public void SetBasePath(string basePath)
         {
             _BasePath = basePath ?? throw new ArgumentNullException(nameof(basePath));
         }
 
-        public void AddJsonFile([NotNull] string filename, [CanBeNull] Encoding encoding = null,
+        public void AddJsonFile(string filename, Encoding encoding = null,
                                 bool isOptional = false)
         {
             if (filename == null)
@@ -65,7 +63,7 @@ namespace LVK.Configuration
             return Path.Combine(_BasePath, filename);
         }
 
-        public void AddJson([NotNull] string json)
+        public void AddJson(string json)
         {
             if (json == null)
                 throw new ArgumentNullException(nameof(json));
@@ -213,7 +211,7 @@ namespace LVK.Configuration
             return root;
         }
 
-        public void AddEnvironmentVariables([NotNull] string prefix)
+        public void AddEnvironmentVariables(string prefix)
         {
             IDictionary environmentVariables = Environment.GetEnvironmentVariables();
             foreach (string key in environmentVariables.Keys)

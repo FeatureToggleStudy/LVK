@@ -34,8 +34,11 @@ namespace LVK.DryIoc
             foreach (var registrant in _Registrants)
                 registrant.Register(container);
 
+            foreach (var initializer in container.Resolve<IEnumerable<IConfigurationInitializer>>())
+                initializer.Initialize(container);
+
             foreach (var initializer in container.Resolve<IEnumerable<IContainerInitializer>>())
-                initializer.Initialize();
+                initializer.Initialize(container);
 
             return container;
         }
