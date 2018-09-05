@@ -21,20 +21,23 @@ namespace LVK.AppCore.Console
     public class ConsoleAppBootstrapper
     {
         public static Task<int> RunDaemonAsync<T>([NotNull] string[] args)
-            where T: class, IServicesBootstrapper, new()
-            => RunAsync<DaemonServicesBootstrapper<T>>(args);
+            where T: class, IServicesRegistrant, new()
+            => RunAsync<DaemonServicesRegistrant<T>>(args);
 
         [NotNull]
         public static async Task<int> RunAsync<T>([NotNull] string[] args)
-            where T: class, IServicesBootstrapper, new()
+            where T: class, IServicesRegistrant, new()
         {
-            var container = new Container();
+            IContainer container;
             List<IApplicationInitialization> initializers;
             List<IApplicationCleanup> cleaners;
             try
             {
-                container.Bootstrap<ServicesBootstrapper>();
-                container.Bootstrap<T>();
+                var containerBuilder = new ContainerBuilder();
+                containerBuilder.Register<ServicesRegistrant>();
+                containerBuilder.Register<T>();
+
+                container = containerBuilder.Build();
                 container.UseInstance(args);
 
                 initializers = container.Resolve<IEnumerable<IApplicationInitialization>>()?.ToList()

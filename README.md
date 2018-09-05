@@ -22,8 +22,9 @@ one of them, you *probably* need to upgrade them all. As I said, they're not int
  
            return MvcAppBootstrapper.Bootstrap<ServicesBootstrapper>(services);
        }
-4. Add a new class for ServicesBootstrapper, implementing IServicesBootstrapper
+4. Add a new class for ServicesRegistrant, implementing IServicesRegistrant
 
    You can leave it empty for now if you don't have any services
+   (remove the `throw new NotImplementedException();` methods)
     
 That's it

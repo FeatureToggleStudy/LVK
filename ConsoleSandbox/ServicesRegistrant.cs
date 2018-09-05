@@ -1,20 +1,20 @@
 ﻿using DryIoc;
 
-using JetBrains.Annotations;
-
 using LVK.AppCore;
 using LVK.Core.Services;
 using LVK.DryIoc;
 
 namespace ConsoleSandbox
 {
-    [UsedImplicitly]
-    internal class ServicesBootstrapper : IServicesBootstrapper
+    internal class ServicesRegistrant : IServicesRegistrant
     {
-        public void Bootstrap(IContainer container)
+        public void Register(IContainerBuilder containerBuilder)
         {
-            container.Bootstrap<LVK.AppCore.Console.ServicesBootstrapper>();
+            containerBuilder.Register<LVK.AppCore.Console.ServicesRegistrant>();
+        }
 
+        public void Register(IContainer container)
+        {
             container.Register<IApplicationRuntimeContext, BackgroundService>();
             container.Register<IApplicationEntryPoint, ApplicationEntryPoint>();
         }

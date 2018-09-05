@@ -9,16 +9,22 @@ using LVK.DryIoc;
 namespace LVK.AppCore.Console
 {
     [PublicAPI]
-    public class ServicesBootstrapper : IServicesBootstrapper
+    public class ServicesRegistrant : IServicesRegistrant
     {
-        public void Bootstrap(IContainer container)
+        public void Register(IContainerBuilder containerBuilder)
+        {
+            if (containerBuilder is null)
+                throw new ArgumentNullException(nameof(containerBuilder));
+            
+            containerBuilder.Register<LVK.AppCore.ServicesRegistrant>();
+            containerBuilder.Register<LVK.Logging.ServicesRegistrant>();
+        }
+
+        public void Register(IContainer container)
         {
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.Bootstrap<LVK.AppCore.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
-            
             container.Register<IConsoleApplicationEntryPoint, ConsoleApplicationEntryPoint>();
             container.Register<IOptionsHelpTextProvider, ConsoleApplicationEntryPointOptionsHelpTextProvider>();
         }

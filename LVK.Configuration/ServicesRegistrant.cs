@@ -14,10 +14,19 @@ using LVK.DryIoc;
 namespace LVK.Configuration
 {
     [PublicAPI]
-    public class ServicesBootstrapper : IServicesBootstrapper
+    public class ServicesRegistrant : IServicesRegistrant
     {
-        public void Bootstrap(IContainer container)
+        public void Register(IContainerBuilder containerBuilder)
         {
+            if (containerBuilder is null)
+                throw new ArgumentNullException(nameof(containerBuilder));
+        }
+
+        public void Register(IContainer container)
+        {
+            if (container is null)
+                throw new ArgumentNullException(nameof(container));
+
             var configurationBuilder = new ConfigurationBuilder();
             var entryAssemblyLocation = Assembly.GetEntryAssembly().NotNull().Location.NotNull();
             var entryAssemblyFilename = Path.GetFileNameWithoutExtension(entryAssemblyLocation);
