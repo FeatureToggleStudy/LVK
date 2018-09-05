@@ -11,6 +11,7 @@ namespace ConsoleSandbox
         public void Register(IContainerBuilder containerBuilder)
         {
             containerBuilder.Register<LVK.AppCore.Console.ServicesRegistrant>();
+            containerBuilder.Register<LVK.Conversion.ServicesRegistrant>();
         }
 
         public void Register(IContainer container)

@@ -22,6 +22,9 @@ namespace LVK.Conversion
         [NotNull, ItemNotNull]
         private readonly List<IValueConversionProvider> _ValueConversionProviders;
 
+        [NotNull]
+        private readonly Func<object, IFormatProvider, object> _NoConversionConverter;
+
         // ReSharper disable once NotNullMemberIsNotInitialized
         static ValueConverter()
         {
@@ -34,6 +37,7 @@ namespace LVK.Conversion
                 throw new ArgumentNullException(nameof(valueConversionProviders));
 
             _ValueConversionProviders = valueConversionProviders.ToList();
+            _NoConversionConverter = (o, fp) => o;
         }
 
         [NotNull]
@@ -41,6 +45,9 @@ namespace LVK.Conversion
 
         public Func<object, IFormatProvider, object> TryGetConverter(Type sourceType, Type targetType)
         {
+            if (sourceType == targetType)
+                return _NoConversionConverter;
+            
             Func<object, IFormatProvider, object> converter;
 
             var key = (sourceType, targetType);
