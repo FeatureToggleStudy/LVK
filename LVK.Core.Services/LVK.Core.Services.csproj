@@ -21,7 +21,6 @@
   <ItemGroup>
     <PackageReference Include="DryIoc.dll" Version="3.0.2" />
     <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
-    <PackageReference Include="NodaTime" Version="2.3.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />

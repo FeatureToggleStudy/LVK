@@ -26,7 +26,11 @@ namespace LVK.Configuration
 
         public ConfigurationBuilder()
         {
-            _BasePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().NotNull().Location).NotNull();
+            Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+            assume(assembly != null);
+            assembly.NotNull();
+            
+            _BasePath = Path.GetDirectoryName(assembly.Location).NotNull();
         }
 
         public void SetBasePath([NotNull] string basePath)

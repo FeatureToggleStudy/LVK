@@ -11,7 +11,7 @@ using NUnit.Framework;
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable AssignNullToNotNullAttribute
 
-namespace LVK.Core.Services.Tests
+namespace LVK.NodaTime.Tests
 {
     [TestFixture]
     public class ServicesRegistrantTests

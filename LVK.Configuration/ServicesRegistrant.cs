@@ -10,6 +10,7 @@ using JetBrains.Annotations;
 using LVK.Core;
 using LVK.DryIoc;
 
+using static LVK.Core.JetBrainsHelpers;
 
 namespace LVK.Configuration
 {
@@ -28,7 +29,11 @@ namespace LVK.Configuration
                 throw new ArgumentNullException(nameof(container));
 
             var configurationBuilder = new ConfigurationBuilder();
-            var entryAssemblyLocation = Assembly.GetEntryAssembly().NotNull().Location.NotNull();
+            
+            Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+            assume(assembly != null);
+            
+            var entryAssemblyLocation = assembly.NotNull().Location.NotNull();
             var entryAssemblyFilename = Path.GetFileNameWithoutExtension(entryAssemblyLocation);
             var entryAssemblyDirectory = Path.GetDirectoryName(entryAssemblyLocation).NotNull();
             

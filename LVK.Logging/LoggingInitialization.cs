@@ -10,13 +10,14 @@ using JetBrains.Annotations;
 
 using LVK.Configuration;
 using LVK.Core.Services;
+using LVK.DryIoc;
 
 using Newtonsoft.Json.Linq;
 
 namespace LVK.Logging
 {
     [UsedImplicitly]
-    internal class LoggingInitialization : IApplicationInitialization
+    internal class LoggingContainerInitializer : IContainerInitializer
     {
         [NotNull]
         private readonly IContainer _Container;
@@ -27,7 +28,7 @@ namespace LVK.Logging
         [NotNull]
         private readonly ITextLogFormatter _TextLogFormatter;
 
-        public LoggingInitialization([NotNull] IContainer container, [NotNull] IConfiguration configuration,
+        public LoggingContainerInitializer([NotNull] IContainer container, [NotNull] IConfiguration configuration,
                                      [NotNull] ITextLogFormatter textLogFormatter)
         {
             _Container = container ?? throw new ArgumentNullException(nameof(container));
@@ -35,7 +36,7 @@ namespace LVK.Logging
             _TextLogFormatter = textLogFormatter ?? throw new ArgumentNullException(nameof(textLogFormatter));
         }
 
-        public Task Initialize(CancellationToken cancellationToken)
+        public void Initialize()
         {
             var destinationOptions = _Configuration["Logging/Destinations"].Value<Dictionary<string, JObject>>();
             var destinations = new List<ILoggerDestination>();
@@ -80,8 +81,6 @@ namespace LVK.Logging
                 made: Made.Of(
                     typeof(ILoggerFactory).GetMethods().First(m => (m?.IsGenericMethod ?? false) && m.Name == "CreateLogger"),
                     ServiceInfo.Of(typeof(ILoggerFactory))));
-
-            return Task.CompletedTask;
         }
     }
 }
