@@ -2,6 +2,8 @@
 
 using JetBrains.Annotations;
 
+using LVK.Reflection;
+
 namespace LVK.Conversion
 {
     [PublicAPI]
@@ -54,7 +56,7 @@ namespace LVK.Conversion
         public static TTarget Convert<TSource, TTarget>([NotNull] this IValueConverter valueConverter, [CanBeNull] TSource sourceValue, [CanBeNull] IFormatProvider formatProvider = null)
         {
             if (!TryConvert(valueConverter, sourceValue, out TTarget targetValue, formatProvider))
-                throw new FormatException($"Unable to get converter from '{typeof(TSource)}' to '{typeof(TTarget)}'");
+                throw new FormatException($"Unable to get converter from '{TypeHelper.Instance.NameOf<TSource>()}' to '{TypeHelper.Instance.NameOf<TTarget>()}'");
 
             return targetValue;
         }

@@ -12,5 +12,10 @@ namespace LVK.Reflection
         public static string NameOf(
             this ITypeHelper typeHelper, Type type, NameOfTypeOptions options = NameOfTypeOptions.Default)
             => typeHelper.TryGetNameOf(type, options) ?? type.FullName.NotNull();
+
+        public static string NameOf<T>(
+            this ITypeHelper typeHelper, NameOfTypeOptions options = NameOfTypeOptions.Default)
+            => NameOf(typeHelper, typeof(T), options);
+
     }
 }
