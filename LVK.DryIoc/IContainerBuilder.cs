@@ -7,7 +7,8 @@ namespace LVK.DryIoc
     [PublicAPI]
     public interface IContainerBuilder
     {
-        void Register<[MeansImplicitUse] T>()
+        [NotNull]
+        IContainerBuilder Register<[MeansImplicitUse] T>()
             where T: class, IServicesRegistrant, new();
 
         [NotNull]

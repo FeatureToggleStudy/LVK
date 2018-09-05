@@ -10,7 +10,7 @@ namespace LVK.Conversion.Tests
     [TestFixture]
     public class PublicApiTests : PublicApiTestsBase
     {
-        public static IEnumerable<TestCaseData> PublicTypes() => GetPublicTypesOfAssembly(typeof(ServicesBootstrapper));
+        public static IEnumerable<TestCaseData> PublicTypes() => GetPublicTypesOfAssembly(typeof(ServicesRegistrant));
 
         [Test]
         [TestCaseSource(nameof(PublicTypes))]

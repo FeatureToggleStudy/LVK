@@ -16,15 +16,17 @@ namespace LVK.DryIoc
         [NotNull, ItemNotNull]
         private readonly List<IServicesRegistrant> _Registrants = new List<IServicesRegistrant>();
         
-        public void Register<T>()
-            where T : class, IServicesRegistrant, new()
+        public IContainerBuilder Register<T>()
+            where T: class, IServicesRegistrant, new()
         {
-            if (!_RegistrantTypes.Add(typeof(T)))
-                return;
+            if (_RegistrantTypes.Add(typeof(T)))
+            {
+                var registrant = new T();
+                _Registrants.Add(registrant);
+                registrant.Register(this);
+            }
 
-            var registrant = new T();
-            _Registrants.Add(registrant);
-            registrant.Register(this);
+            return this;
         }
 
         public IContainer Build()

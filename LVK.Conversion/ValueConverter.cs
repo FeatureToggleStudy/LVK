@@ -38,7 +38,7 @@ namespace LVK.Conversion
 
         [NotNull]
         private static IValueConverter BootstrapValueConverter()
-            => new Container().Bootstrap<ServicesBootstrapper>().Resolve<IValueConverter>().NotNull();
+            => new ContainerBuilder().Register<ServicesRegistrant>().Build().Resolve<IValueConverter>().NotNull();
 
         public Func<object, IFormatProvider, object> TryGetConverter(Type sourceType, Type targetType)
         {
