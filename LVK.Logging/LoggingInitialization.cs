@@ -62,8 +62,10 @@ namespace LVK.Logging
                             break;
 
                         case "File":
-                            destination = new FileLoggerDestination(_TextLogFormatter,
-                                kvp.Value?.ToObject<FileLoggerDestinationOptions>() ?? new FileLoggerDestinationOptions());
+                            destination = new FileLoggerDestination(
+                                _TextLogFormatter,
+                                kvp.Value?.ToObject<FileLoggerDestinationOptions>()
+                             ?? new FileLoggerDestinationOptions());
 
                             break;
 
@@ -74,18 +76,23 @@ namespace LVK.Logging
                     destinations.Add(new LoggerDestinationFilter(destination, options.LogLevel));
                 }
             }
-            
-            if (!consoleAdded)
-                destinations.Add(new ConsoleLoggerDestination(_TextLogFormatter));
-            if (!debugAdded)
-                destinations.Add(new DebugLoggerDestination(_TextLogFormatter));
 
-            container.Register<ILoggerFactory>(Reuse.Singleton,
-                Made.Of(() => new LoggerFactory(destinations, Arg.Of<IConfiguration>())));
-            
-            container.Register(typeof(ILogger<>),
+            if (!consoleAdded)
+                destinations.Add(
+                    new LoggerDestinationFilter(new ConsoleLoggerDestination(_TextLogFormatter), LogLevel.Information));
+
+            if (!debugAdded)
+                destinations.Add(
+                    new LoggerDestinationFilter(new DebugLoggerDestination(_TextLogFormatter), LogLevel.Debug));
+
+            container.Register<ILoggerFactory>(
+                Reuse.Singleton, Made.Of(() => new LoggerFactory(destinations, Arg.Of<IConfiguration>())));
+
+            container.Register(
+                typeof(ILogger<>),
                 made: Made.Of(
-                    typeof(ILoggerFactory).GetMethods().First(m => (m?.IsGenericMethod ?? false) && m.Name == "CreateLogger"),
+                    typeof(ILoggerFactory).GetMethods()
+                       .First(m => (m?.IsGenericMethod ?? false) && m.Name == "CreateLogger"),
                     ServiceInfo.Of(typeof(ILoggerFactory))));
         }
     }
