@@ -10,7 +10,7 @@ namespace LVK.Net.Http.Tests
     [TestFixture]
     public class PublicApiTests : PublicApiTestsBase
     {
-        public static IEnumerable<TestCaseData> PublicTypes() => GetPublicTypesOfAssembly(typeof(Logging.ServicesRegistrant));
+        public static IEnumerable<TestCaseData> PublicTypes() => GetPublicTypesOfAssembly(typeof(Logging.ServicesBootstrapper));
 
         [Test]
         [TestCaseSource(nameof(PublicTypes))]

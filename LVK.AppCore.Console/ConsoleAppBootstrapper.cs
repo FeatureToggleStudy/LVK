@@ -17,21 +17,21 @@ namespace LVK.AppCore.Console
     public class ConsoleAppBootstrapper
     {
         public static Task<int> RunDaemonAsync<T>([NotNull] string[] args)
-            where T: class, IServicesRegistrant, new()
-            => RunAsync<DaemonServicesRegistrant<T>>(args);
+            where T: class, IServicesBootstrapper
+            => RunAsync<DaemonServicesBootstrapper<T>>(args);
 
         [NotNull]
         public static async Task<int> RunAsync<T>([NotNull] string[] args)
-            where T: class, IServicesRegistrant, new()
+            where T: class, IServicesBootstrapper
         {
             IConsoleApplicationEntryPoint entryPoint;
             try
             {
-                var containerBuilder = new ContainerBuilder();
-                containerBuilder.Register<ServicesRegistrant>();
-                containerBuilder.Register<T>();
+                var container = new Container();
+                container.Bootstrap<ServicesBootstrapper>();
+                container.Bootstrap<T>();
 
-                entryPoint = containerBuilder.Build().Resolve<IConsoleApplicationEntryPoint>();
+                entryPoint = container.Resolve<IConsoleApplicationEntryPoint>();
             }
             catch (Exception ex) when (!Debugger.IsAttached)
             {

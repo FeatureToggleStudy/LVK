@@ -10,7 +10,7 @@ namespace LVK.DryIoc.Tests
     [TestFixture]
     public class PublicApiTests : PublicApiTestsBase
     {
-        public static IEnumerable<TestCaseData> PublicTypes() => GetPublicTypesOfAssembly(typeof(IServicesRegistrant));
+        public static IEnumerable<TestCaseData> PublicTypes() => GetPublicTypesOfAssembly(typeof(ContainerExtensions));
 
         [Test]
         [TestCaseSource(nameof(PublicTypes))]

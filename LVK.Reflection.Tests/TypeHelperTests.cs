@@ -30,7 +30,7 @@ namespace LVK.Reflection.Tests
         public void NameOf_SmokeTests(Type type, NameOfTypeOptions options, string expected)
         {
             var container = new Container();
-            new ServicesRegistrant().Register(container);
+            new ServicesBootstrapper().Bootstrap(container);
             var typeHelper = container.Resolve<ITypeHelper>();
 
             string output = typeHelper.TryGetNameOf(type, options);

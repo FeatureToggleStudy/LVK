@@ -10,20 +10,14 @@ using LVK.DryIoc;
 namespace LVK.Conversion
 {
     [PublicAPI]
-    public class ServicesRegistrant : IServicesRegistrant
+    public class ServicesBootstrapper : IServicesBootstrapper
     {
-        public void Register(IContainerBuilder containerBuilder)
-        {
-            if (containerBuilder is null)
-                throw new ArgumentNullException(nameof(containerBuilder));
-
-            containerBuilder.Register<LVK.Core.Services.ServicesRegistrant>();
-        }
-
-        public void Register(IContainer container)
+        public void Bootstrap(IContainer container)
         {
             if (container is null)
                 throw new ArgumentNullException(nameof(container));
+
+            container.Bootstrap<LVK.Core.Services.ServicesBootstrapper>();
 
             container.Register<IValueConverter, ValueConverter>(Reuse.Singleton);
             container.Register<IValueConversionProvider, BasicTypesValueConversionProvider>();

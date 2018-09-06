@@ -10,15 +10,9 @@ using LVK.Reflection.NameRules;
 namespace LVK.Reflection
 {
     [PublicAPI]
-    public class ServicesRegistrant : IServicesRegistrant
+    public class ServicesBootstrapper : IServicesBootstrapper
     {
-        public void Register(IContainerBuilder containerBuilder)
-        {
-            if (containerBuilder is null)
-                throw new ArgumentNullException(nameof(containerBuilder));
-        }
-
-        public void Register(IContainer container)
+        public void Bootstrap(IContainer container)
         {
             if (container is null)
                 throw new ArgumentNullException(nameof(container));

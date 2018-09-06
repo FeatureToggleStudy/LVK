@@ -10,21 +10,15 @@ using LVK.DryIoc;
 namespace LVK.Logging
 {
     [PublicAPI]
-    public class ServicesRegistrant : IServicesRegistrant
+    public class ServicesBootstrapper : IServicesBootstrapper
     {
-        public void Register(IContainerBuilder containerBuilder)
-        {
-            if (containerBuilder is null)
-                throw new ArgumentNullException(nameof(containerBuilder));
-
-            containerBuilder.Register<LVK.Configuration.ServicesRegistrant>();
-            containerBuilder.Register<LVK.NodaTime.ServicesRegistrant>();
-        }
-
-        public void Register(IContainer container)
+        public void Bootstrap(IContainer container)
         {
             if (container is null)
                 throw new ArgumentNullException(nameof(container));
+
+            container.Bootstrap<LVK.Configuration.ServicesBootstrapper>();
+            container.Bootstrap<LVK.NodaTime.ServicesBootstrapper>();
 
             container.Register<ITextLogFormatter, TextLogFormatter>();
             container.Register<IOptionsHelpTextProvider, LoggingOptionsHelpTextProvider>();

@@ -10,7 +10,7 @@ namespace LVK.NodaTime.Tests
     [TestFixture]
     public class PublicApiTests : PublicApiTestsBase
     {
-        public static IEnumerable<TestCaseData> PublicTypes() => GetPublicTypesOfAssembly(typeof(ServicesRegistrant));
+        public static IEnumerable<TestCaseData> PublicTypes() => GetPublicTypesOfAssembly(typeof(ServicesBootstrapper));
 
         [Test]
         [TestCaseSource(nameof(PublicTypes))]
