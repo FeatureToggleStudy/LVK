@@ -1,16 +1,11 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
 
 using DryIoc;
 
 using JetBrains.Annotations;
 
 using LVK.Configuration.StandardConfigurators;
-using LVK.Core;
 using LVK.DryIoc;
-
-using static LVK.Core.JetBrainsHelpers;
 
 namespace LVK.Configuration
 {
@@ -28,7 +23,10 @@ namespace LVK.Configuration
             if (container is null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.Register<IConfigurationInitializer, ConfigurationInitializer>();
+            container.Register<IConfigurationBuilderFactory, ConfigurationBuilderFactory>();
+            container.Register(Made.Of(r => ServiceInfo.Of<IConfigurationBuilderFactory>(), f => f.Create()));
+            container.Register(Made.Of(r => ServiceInfo.Of<IConfigurationBuilder>(), f => f.Build()));
+            
             container.Register<IConfigurationConfigurator, AppSettingsConfigurator>();
             container.Register<IConfigurationConfigurator, CommandLineArgumentsConfigurator>();
             container.Register<IConfigurationConfigurator, EnvironmentVariablesConfigurator>();

@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 using DryIoc;
@@ -12,7 +9,6 @@ using JetBrains.Annotations;
 using static LVK.Core.JetBrainsHelpers;
 
 using LVK.Core;
-using LVK.Core.Services;
 using LVK.DryIoc;
 
 namespace LVK.AppCore.Console
@@ -28,23 +24,14 @@ namespace LVK.AppCore.Console
         public static async Task<int> RunAsync<T>([NotNull] string[] args)
             where T: class, IServicesRegistrant, new()
         {
-            IContainer container;
-            List<IApplicationInitialization> initializers;
-            List<IApplicationCleanup> cleaners;
+            IConsoleApplicationEntryPoint entryPoint;
             try
             {
                 var containerBuilder = new ContainerBuilder();
                 containerBuilder.Register<ServicesRegistrant>();
                 containerBuilder.Register<T>();
 
-                container = containerBuilder.Build();
-                container.UseInstance(args);
-
-                initializers = container.Resolve<IEnumerable<IApplicationInitialization>>()?.ToList()
-                            ?? new List<IApplicationInitialization>();
-
-                cleaners = container.Resolve<IEnumerable<IApplicationCleanup>>()?.ToList()
-                        ?? new List<IApplicationCleanup>();
+                entryPoint = containerBuilder.Build().Resolve<IConsoleApplicationEntryPoint>();
             }
             catch (Exception ex) when (!Debugger.IsAttached)
             {
@@ -54,20 +41,7 @@ namespace LVK.AppCore.Console
 
             try
             {
-                using (var timeoutCts = new CancellationTokenSource(TimeSpan.FromSeconds(40)))
-                {
-                    try
-                    {
-                        foreach (IApplicationInitialization initializer in initializers)
-                            await initializer.Initialize(timeoutCts.Token);
-                    }
-                    catch (TaskCanceledException)
-                    {
-                        System.Console.Error.WriteLine("application took to long to initialize, terminating abornmaly");
-                    }
-                }
-
-                return await container.Resolve<IConsoleApplicationEntryPoint>().NotNull().RunAsync().NotNull();
+                return await entryPoint.RunAsync().NotNull();
             }
             catch (TaskCanceledException)
             {
@@ -77,21 +51,6 @@ namespace LVK.AppCore.Console
             {
                 OutputExceptionToConsole(ex);
                 return 1;
-            }
-            finally
-            {
-                using (var timeoutCts = new CancellationTokenSource(TimeSpan.FromSeconds(40)))
-                {
-                    try
-                    {
-                        foreach (IApplicationCleanup cleanup in cleaners)
-                            await cleanup.Cleanup(timeoutCts.Token);
-                    }
-                    catch (TaskCanceledException)
-                    {
-                        System.Console.Error.WriteLine("application took to long to clean up, terminating abornmaly");
-                    }
-                }
             }
         }
 

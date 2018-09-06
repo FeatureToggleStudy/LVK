@@ -3,6 +3,8 @@ using System.IO;
 
 using JetBrains.Annotations;
 
+using LVK.Configuration;
+
 namespace LVK.Logging
 {
     internal class FileLoggerDestination : ILoggerDestination
@@ -17,14 +19,19 @@ namespace LVK.Logging
         private readonly object _Lock = new object();
 
         public FileLoggerDestination([NotNull] ITextLogFormatter textLogFormatter,
-                                     [NotNull] FileLoggerDestinationOptions options)
+                                     [NotNull] IConfiguration configuration)
         {
             _TextLogFormatter = textLogFormatter ?? throw new ArgumentNullException(nameof(textLogFormatter));
-            _Options = options ?? throw new ArgumentNullException(nameof(options));
+            _Options = configuration["Logging/Destinations/File"].Value<FileLoggerDestinationOptions>()
+                    ?? new FileLoggerDestinationOptions();
+
         }
 
         public void Log(LogLevel level, string message)
         {
+            if (level < _Options.LogLevel || !_Options.Enabled || string.IsNullOrWhiteSpace(_Options.Filename))
+                return;
+            
             lock (_Lock)
                 File.AppendAllLines(GetLogFilename(), _TextLogFormatter.Format(level, message));
         }

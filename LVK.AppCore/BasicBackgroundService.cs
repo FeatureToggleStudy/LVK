@@ -10,7 +10,7 @@ using LVK.Core.Services;
 namespace LVK.AppCore
 {
     [PublicAPI]
-    public abstract class BasicBackgroundService : IApplicationRuntimeContext
+    public abstract class BasicBackgroundService : IBackgroundService
     {
         [NotNull]
         private readonly IApplicationLifetimeManager _ApplicationLifetimeManager;
@@ -33,7 +33,7 @@ namespace LVK.AppCore
                 _ApplicationLifetimeManager.GracefulTerminationCancellationToken, _ManualCancellationTokenSource.Token);
         }
 
-        Task IApplicationRuntimeContext.Start(CancellationToken cancellationToken)
+        Task IBackgroundService.Start(CancellationToken cancellationToken)
         {
             Starting();
             _BackgroundTask = BackgroundTask(_CombinedCancellationTokenSource.Token);
@@ -64,7 +64,7 @@ namespace LVK.AppCore
         {
         }
 
-        async Task IApplicationRuntimeContext.Stop(CancellationToken cancellationToken)
+        async Task IBackgroundService.Stop(CancellationToken cancellationToken)
         {
             _ManualCancellationTokenSource.Cancel();
             if (_BackgroundTask != null)

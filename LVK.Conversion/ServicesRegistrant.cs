@@ -27,7 +27,6 @@ namespace LVK.Conversion
 
             container.Register<IValueConverter, ValueConverter>(Reuse.Singleton);
             container.Register<IValueConversionProvider, BasicTypesValueConversionProvider>();
-            container.Register<IContainerInitializer, ConversionContainerInitializer>();
         }
     }
 }

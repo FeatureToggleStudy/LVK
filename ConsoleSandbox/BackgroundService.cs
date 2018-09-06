@@ -16,7 +16,7 @@ namespace ConsoleSandbox
         [NotNull]
         private readonly ILogger _Logger;
 
-        public BackgroundService([NotNull] IApplicationLifetimeManager applicationLifetimeManager, [NotNull] ILogger<BackgroundService> logger)
+        public BackgroundService([NotNull] IApplicationLifetimeManager applicationLifetimeManager, [NotNull] ILogger logger)
             : base(applicationLifetimeManager)
         {
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DryIoc;
+
 using JetBrains.Annotations;
 
 using LVK.DryIoc;
@@ -40,6 +42,7 @@ namespace LVK.Conversion
 
             _ValueConversionProviders = valueConversionProviders.ToList();
             _NoConversionConverter = (o, fp) => o;
+            Instance = this;
         }
 
         [NotNull]
@@ -52,8 +55,11 @@ namespace LVK.Conversion
                     lock (_InstanceLock)
                     {
                         if (_Instance is null)
+                        {
                             // ReSharper disable once HeuristicUnreachableCode
-                            new ContainerBuilder().Register<ServicesRegistrant>().Build();
+                            IContainer container = new ContainerBuilder().Register<ServicesRegistrant>().Build();
+                            container.Resolve<IValueConverter>();
+                        }
                     }
 
                     assume(_Instance != null);

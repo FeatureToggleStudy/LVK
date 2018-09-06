@@ -3,7 +3,7 @@
 namespace LVK.Logging
 {
     [UsedImplicitly]
-    internal class FileLoggerDestinationOptions
+    internal class FileLoggerDestinationOptions : LoggerDestinationOptions
     {
         [NotNull]
         public string Path { get; set; } = string.Empty;

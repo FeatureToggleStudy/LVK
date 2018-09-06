@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DryIoc;
+
 using JetBrains.Annotations;
 
 using LVK.DryIoc;
@@ -25,6 +27,7 @@ namespace LVK.Reflection
         public TypeHelper([NotNull, ItemNotNull] IEnumerable<ITypeNameRule> nameOfRules)
         {
             _NameOfRules = nameOfRules.OrderBy(r => r.Priority).ToList();
+            Instance = this;
         }
 
         string ITypeHelper.TryGetNameOf(Type type, NameOfTypeOptions options)
@@ -45,8 +48,11 @@ namespace LVK.Reflection
                     lock (_InstanceLock)
                     {
                         if (_Instance is null)
+                        {
                             // ReSharper disable once HeuristicUnreachableCode
-                            new ContainerBuilder().Register<ServicesRegistrant>().Build();
+                            IContainer container = new ContainerBuilder().Register<ServicesRegistrant>().Build();
+                            container.Resolve<ITypeHelper>();
+                        }
                     }
 
                     assume(_Instance != null);

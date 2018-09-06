@@ -2,6 +2,8 @@ using System;
 
 using JetBrains.Annotations;
 
+using LVK.Configuration;
+
 namespace LVK.Logging
 {
     internal class ConsoleLoggerDestination : ILoggerDestination
@@ -12,13 +14,21 @@ namespace LVK.Logging
         [NotNull]
         private readonly object _Lock = new object();
 
-        public ConsoleLoggerDestination([NotNull] ITextLogFormatter textLogFormatter)
+        [NotNull]
+        private readonly LoggerDestinationOptions _Options;
+
+        public ConsoleLoggerDestination([NotNull] ITextLogFormatter textLogFormatter, [NotNull] IConfiguration configuration)
         {
             _TextLogFormatter = textLogFormatter ?? throw new ArgumentNullException(nameof(textLogFormatter));
+            _Options = configuration["Logging/Destinations/Console"].Value<LoggerDestinationOptions>()
+                    ?? new LoggerDestinationOptions();
         }
 
         public void Log(LogLevel level, string message)
         {
+            if (level < _Options.LogLevel || !_Options.Enabled)
+                return;
+            
             foreach (var output in _TextLogFormatter.Format(level, message))
                 lock (_Lock)
                     switch (level)

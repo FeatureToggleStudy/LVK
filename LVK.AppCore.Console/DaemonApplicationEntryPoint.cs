@@ -14,7 +14,7 @@ namespace LVK.AppCore.Console
         [NotNull]
         private readonly ILogger _Logger;
 
-        public DaemonApplicationEntryPoint([NotNull] ILogger<DaemonApplicationEntryPoint> logger)
+        public DaemonApplicationEntryPoint([NotNull] ILogger logger)
         {
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }

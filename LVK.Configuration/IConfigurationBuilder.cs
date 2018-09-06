@@ -7,10 +7,10 @@ namespace LVK.Configuration
     [PublicAPI]
     public interface IConfigurationBuilder
     {
-        void SetBasePath([NotNull] string basePath);
+        [NotNull]
+        IConfiguration Build();
 
-        void AddJsonFile([NotNull] string filename, [CanBeNull] Encoding encoding = null,
-                         bool isOptional = false);
+        void AddJsonFile([NotNull] string filename, [CanBeNull] Encoding encoding = null, bool isOptional = false);
 
         void AddJson([NotNull] string json);
         void AddEnvironmentVariables([NotNull] string prefix);

@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 namespace LVK.Core.Services
 {
     [PublicAPI]
-    public interface IApplicationRuntimeContext
+    public interface IBackgroundService
     {
         [NotNull]
         Task Start(CancellationToken cancellationToken);

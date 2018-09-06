@@ -5,7 +5,6 @@ using DryIoc;
 using JetBrains.Annotations;
 
 using LVK.AppCore;
-using LVK.Core.Services;
 using LVK.DryIoc;
 
 namespace LVK.Logging
@@ -28,9 +27,13 @@ namespace LVK.Logging
                 throw new ArgumentNullException(nameof(container));
 
             container.Register<ITextLogFormatter, TextLogFormatter>();
-            container.Register<IContainerInitializer, LoggingContainerInitializer>();
-
             container.Register<IOptionsHelpTextProvider, LoggingOptionsHelpTextProvider>();
+
+            container.Register<ILogger, Logger>(Reuse.Singleton);
+            container.Register(typeof(ILogger<>), typeof(Logger<>));
+
+            container.Register<ILoggerDestination, ConsoleLoggerDestination>();
+            container.Register<ILoggerDestination, FileLoggerDestination>();
         }
     }
 }

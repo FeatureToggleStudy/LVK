@@ -28,7 +28,7 @@ namespace ConsoleSandbox
         private readonly ITypeHelper _TypeHelper;
 
         public ApplicationEntryPoint(
-            [NotNull] IConfiguration configuration, [NotNull] ILogger<ApplicationEntryPoint> logger,
+            [NotNull] IConfiguration configuration, [NotNull] ILogger logger,
             [NotNull] IValueConverter valueConverter, [NotNull] ITypeHelper typeHelper)
         {
             _Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
@@ -39,6 +39,7 @@ namespace ConsoleSandbox
 
         public Task<int> Execute(CancellationToken cancellationToken)
         {
+            _Logger.Log(LogLevel.Trace, "ApplicationEntryPoint.Execute");
             int a = _Configuration["a"].Value<int>();
             int b = _Configuration["b"].Value<int>();
 

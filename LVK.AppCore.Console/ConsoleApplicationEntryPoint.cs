@@ -33,21 +33,18 @@ namespace LVK.AppCore.Console
         private readonly ILogger _Logger;
 
         [NotNull, ItemNotNull]
-        private readonly List<IApplicationRuntimeContext> _ApplicationRuntimeContexts;
+        private readonly List<IBackgroundService> _BackgroundServices;
 
         private bool _WasCancelledByUser;
 
         public ConsoleApplicationEntryPoint(
-            [NotNull] IApplicationEntryPoint applicationEntryPoint, [NotNull] ILoggerFactory loggerFactory,
-            [NotNull] IEnumerable<IApplicationRuntimeContext> applicationRuntimeContexts,
+            [NotNull] IApplicationEntryPoint applicationEntryPoint, [NotNull] ILogger logger,
+            [NotNull] IEnumerable<IBackgroundService> backgroundServices,
             [NotNull] IApplicationLifetimeManager applicationLifetimeManager, [NotNull] IConfiguration configuration,
             [NotNull, ItemNotNull] IEnumerable<IOptionsHelpTextProvider> optionsHelpTextProviders)
         {
-            if (loggerFactory == null)
-                throw new ArgumentNullException(nameof(loggerFactory));
-
-            if (applicationRuntimeContexts == null)
-                throw new ArgumentNullException(nameof(applicationRuntimeContexts));
+            if (backgroundServices == null)
+                throw new ArgumentNullException(nameof(backgroundServices));
 
             if (optionsHelpTextProviders == null)
                 throw new ArgumentNullException(nameof(optionsHelpTextProviders));
@@ -61,8 +58,8 @@ namespace LVK.AppCore.Console
             _Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _OptionsHelpTextProviders = optionsHelpTextProviders.ToList();
 
-            _Logger = loggerFactory.CreateLogger("Application");
-            _ApplicationRuntimeContexts = applicationRuntimeContexts.ToList();
+            _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _BackgroundServices = backgroundServices.ToList();
         }
 
         public async Task<int> RunAsync()
@@ -147,7 +144,7 @@ namespace LVK.AppCore.Console
         {
             try
             {
-                if (!await StartApplicationRuntimeContexts())
+                if (!await StartBackgroundServices())
                     return 1;
 
                 int exitcode;
@@ -158,7 +155,7 @@ namespace LVK.AppCore.Console
                 }
                 finally
                 {
-                    if (!await StopApplicationRuntimeContexts())
+                    if (!await StopBackgroundServices())
                         exitcode = 1;
                 }
 
@@ -179,13 +176,13 @@ namespace LVK.AppCore.Console
             }
         }
 
-        private async Task<bool> StartApplicationRuntimeContexts()
+        private async Task<bool> StartBackgroundServices()
         {
             using (var startupCts = new CancellationTokenSource(TimeSpan.FromSeconds(10)))
             {
                 try
                 {
-                    foreach (IApplicationRuntimeContext arc in _ApplicationRuntimeContexts)
+                    foreach (IBackgroundService arc in _BackgroundServices)
                         using (_Logger.LogScope(LogLevel.Debug, $"starting runtime context {arc.GetType().Name}"))
                             await arc.Start(startupCts.Token);
 
@@ -199,16 +196,16 @@ namespace LVK.AppCore.Console
             }
         }
 
-        private async Task<bool> StopApplicationRuntimeContexts()
+        private async Task<bool> StopBackgroundServices()
         {
             using (var stopCts = new CancellationTokenSource(TimeSpan.FromSeconds(10)))
             {
                 try
                 {
-                    List<IApplicationRuntimeContext> arcs = _ApplicationRuntimeContexts.ToList();
+                    List<IBackgroundService> arcs = _BackgroundServices.ToList();
                     arcs.Reverse();
 
-                    foreach (IApplicationRuntimeContext arc in arcs)
+                    foreach (IBackgroundService arc in arcs)
                         using (_Logger.LogScope(LogLevel.Debug, $"stopping runtime context {arc.GetType().Name}"))
                             try
                             {

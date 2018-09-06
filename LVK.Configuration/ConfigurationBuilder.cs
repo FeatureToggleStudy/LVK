@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -29,11 +30,6 @@ namespace LVK.Configuration
             Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
             
             _BasePath = Path.GetDirectoryName(assembly.Location).NotNull();
-        }
-
-        public void SetBasePath(string basePath)
-        {
-            _BasePath = basePath ?? throw new ArgumentNullException(nameof(basePath));
         }
 
         public void AddJsonFile(string filename, Encoding encoding = null,
@@ -75,7 +71,6 @@ namespace LVK.Configuration
             Apply(additional, _Root);
         }
 
-        [NotNull]
         public IConfiguration Build() => new Configuration(_Root.DeepClone().NotNull());
 
         private void Apply([NotNull] JObject source, [NotNull] JObject target)
@@ -135,11 +130,13 @@ namespace LVK.Configuration
             }
         }
 
-        public void AddCommandLine([NotNull, ItemNotNull] string[] args)
+        public void AddCommandLine(string[] args)
         {
             if (args == null)
                 throw new ArgumentNullException(nameof(args));
 
+            Apply(new JObject { ["CommandLineArguments"] = new JArray(args.OfType<object>().ToArray()) }, _Root);
+            
             var reExplicitValue = new Regex("--(?<path>[a-z_][a-z0-9_/]*)(=(?<value>.*))?", RegexOptions.IgnoreCase);
             var reJsonFile = new Regex("@(?<filename>.*)");
             foreach (var arg in args)
@@ -172,12 +169,8 @@ namespace LVK.Configuration
             if (string.IsNullOrWhiteSpace(path))
                 return;
 
-            string stringValue;
             var group = match.Groups["value"];
-            if (group.Success)
-                stringValue = group.Value;
-            else
-                stringValue = "true";
+            var stringValue = group.Success ? group.Value : "true";
             JToken value = ValueFromString(stringValue);
             Apply(Construct(path.Split('/'), value), _Root);
         }

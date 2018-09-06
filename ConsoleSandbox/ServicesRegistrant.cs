@@ -17,7 +17,7 @@ namespace ConsoleSandbox
 
         public void Register(IContainer container)
         {
-            container.Register<IApplicationRuntimeContext, BackgroundService>();
+            container.Register<IBackgroundService, BackgroundService>();
             container.Register<IApplicationEntryPoint, ApplicationEntryPoint>();
         }
     }
