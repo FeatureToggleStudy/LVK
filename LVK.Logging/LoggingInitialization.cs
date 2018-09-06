@@ -10,13 +10,14 @@ using JetBrains.Annotations;
 
 using LVK.Configuration;
 using LVK.Core.Services;
+using LVK.DryIoc;
 
 using Newtonsoft.Json.Linq;
 
 namespace LVK.Logging
 {
     [UsedImplicitly]
-    internal class LoggingInitialization : IApplicationInitialization
+    internal class LoggingContainerInitializer : IContainerInitializer
     {
         [NotNull]
         private readonly IContainer _Container;
@@ -27,18 +28,22 @@ namespace LVK.Logging
         [NotNull]
         private readonly ITextLogFormatter _TextLogFormatter;
 
-        public LoggingInitialization([NotNull] IContainer container, [NotNull] IConfiguration configuration,
-                                     [NotNull] ITextLogFormatter textLogFormatter)
+        public LoggingContainerInitializer(
+            [NotNull] IContainer container, [NotNull] IConfiguration configuration,
+            [NotNull] ITextLogFormatter textLogFormatter)
         {
             _Container = container ?? throw new ArgumentNullException(nameof(container));
             _Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _TextLogFormatter = textLogFormatter ?? throw new ArgumentNullException(nameof(textLogFormatter));
         }
 
-        public Task Initialize(CancellationToken cancellationToken)
+        public void Initialize()
         {
             var destinationOptions = _Configuration["Logging/Destinations"].Value<Dictionary<string, JObject>>();
             var destinations = new List<ILoggerDestination>();
+
+            bool debugAdded = false;
+            bool consoleAdded = false;
 
             if (destinationOptions != null)
             {
@@ -53,15 +58,19 @@ namespace LVK.Logging
                     {
                         case "Console":
                             destination = new ConsoleLoggerDestination(_TextLogFormatter);
+                            consoleAdded = true;
                             break;
 
                         case "Debug":
                             destination = new DebugLoggerDestination(_TextLogFormatter);
+                            debugAdded = true;
                             break;
 
                         case "File":
-                            destination = new FileLoggerDestination(_TextLogFormatter,
-                                kvp.Value?.ToObject<FileLoggerDestinationOptions>() ?? new FileLoggerDestinationOptions());
+                            destination = new FileLoggerDestination(
+                                _TextLogFormatter,
+                                kvp.Value?.ToObject<FileLoggerDestinationOptions>()
+                             ?? new FileLoggerDestinationOptions());
 
                             break;
 
@@ -73,15 +82,23 @@ namespace LVK.Logging
                 }
             }
 
-            _Container.Register<ILoggerFactory>(Reuse.Singleton,
-                Made.Of(() => new LoggerFactory(destinations, Arg.Of<IConfiguration>())));
+            if (!consoleAdded)
+                destinations.Add(
+                    new LoggerDestinationFilter(new ConsoleLoggerDestination(_TextLogFormatter), LogLevel.Information));
 
-            _Container.Register(typeof(ILogger<>),
+            if (!debugAdded)
+                destinations.Add(
+                    new LoggerDestinationFilter(new DebugLoggerDestination(_TextLogFormatter), LogLevel.Debug));
+
+            _Container.Register<ILoggerFactory>(
+                Reuse.Singleton, Made.Of(() => new LoggerFactory(destinations, Arg.Of<IConfiguration>())));
+
+            _Container.Register(
+                typeof(ILogger<>),
                 made: Made.Of(
-                    typeof(ILoggerFactory).GetMethods().First(m => (m?.IsGenericMethod ?? false) && m.Name == "CreateLogger"),
+                    typeof(ILoggerFactory).GetMethods()
+                       .First(m => (m?.IsGenericMethod ?? false) && m.Name == "CreateLogger"),
                     ServiceInfo.Of(typeof(ILoggerFactory))));
-
-            return Task.CompletedTask;
         }
     }
 }

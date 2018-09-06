@@ -19,6 +19,7 @@ namespace LVK.Logging
                 throw new ArgumentNullException(nameof(containerBuilder));
 
             containerBuilder.Register<LVK.Configuration.ServicesRegistrant>();
+            containerBuilder.Register<LVK.NodaTime.ServicesRegistrant>();
         }
 
         public void Register(IContainer container)
@@ -27,7 +28,7 @@ namespace LVK.Logging
                 throw new ArgumentNullException(nameof(container));
 
             container.Register<ITextLogFormatter, TextLogFormatter>();
-            container.Register<IApplicationInitialization, LoggingInitialization>();
+            container.Register<IContainerInitializer, LoggingContainerInitializer>();
 
             container.Register<IOptionsHelpTextProvider, LoggingOptionsHelpTextProvider>();
         }

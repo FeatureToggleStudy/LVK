@@ -28,6 +28,7 @@
     <ItemGroup>
       <ProjectReference Include="..\LVK.AppCore\LVK.AppCore.csproj" />
       <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
+      <ProjectReference Include="..\LVK.NodaTime\LVK.NodaTime.csproj" />
     </ItemGroup>
 
 </Project>

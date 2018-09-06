@@ -6,7 +6,9 @@ using JetBrains.Annotations;
 
 using LVK.DryIoc;
 
-namespace LVK.Core.Services
+using NodaTime;
+
+namespace LVK.NodaTime
 {
     [PublicAPI]
     public class ServicesRegistrant : IServicesRegistrant
@@ -22,7 +24,8 @@ namespace LVK.Core.Services
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.UseInstance<IApplicationLifetimeManager>(new ApplicationLifetimeManager());
+            container.UseInstance<IClock>(SystemClock.Instance);
+            container.UseInstance(DateTimeZoneProviders.Tzdb.GetSystemDefault());
         }
     }
 }
