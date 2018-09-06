@@ -1,4 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+
+using JetBrains.Annotations;
 
 namespace LVK.Logging
 {
@@ -6,6 +8,7 @@ namespace LVK.Logging
     public interface ILogger
     {
         void Log(LogLevel level, [NotNull] string message);
+        void Log(LogLevel level, [NotNull] Func<string> getMessage);
         
         void WriteLine([NotNull] string line);
     }

@@ -23,6 +23,12 @@ namespace LVK.Logging
                 destination.Log(level, message);
         }
 
+        public void Log(LogLevel level, Func<string> getMessage)
+        {
+            foreach (ILoggerDestination destination in _LoggerDestinations)
+                destination.Log(level, getMessage);
+        }
+
         public void WriteLine(string line)
         {
             foreach (ILoggerDestination destination in _LoggerDestinations)
@@ -50,6 +56,12 @@ namespace LVK.Logging
         {
             if (_Options.Enabled)
                 _Logger.Log(level, message);
+        }
+
+        public void Log(LogLevel level, Func<string> getMessage)
+        {
+            if (_Options.Enabled)
+                _Logger.Log(level, getMessage);
         }
 
         public void WriteLine(string line)

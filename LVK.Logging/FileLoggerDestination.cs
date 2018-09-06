@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 using JetBrains.Annotations;
@@ -7,37 +8,24 @@ using LVK.Configuration;
 
 namespace LVK.Logging
 {
-    internal class FileLoggerDestination : ILoggerDestination
+    internal class FileLoggerDestination : LoggerDestinationBase<FileLoggerDestinationOptions>
     {
-        [NotNull]
-        private readonly ITextLogFormatter _TextLogFormatter;
-
-        [NotNull]
-        private readonly FileLoggerDestinationOptions _Options;
-
-        [NotNull]
-        private readonly object _Lock = new object();
-
-        public FileLoggerDestination([NotNull] ITextLogFormatter textLogFormatter,
-                                     [NotNull] IConfiguration configuration)
+        public FileLoggerDestination(
+            [NotNull] ITextLogFormatter textLogFormatter, [NotNull] IConfiguration configuration)
+            : base(textLogFormatter, configuration)
         {
-            _TextLogFormatter = textLogFormatter ?? throw new ArgumentNullException(nameof(textLogFormatter));
-            _Options = configuration["Logging/Destinations/File"].Value<FileLoggerDestinationOptions>()
-                    ?? new FileLoggerDestinationOptions();
 
         }
 
-        public void Log(LogLevel level, string message)
+        protected override void OutputLinesToLog(LogLevel level, IEnumerable<string> lines)
         {
-            if (level < _Options.LogLevel || !_Options.Enabled || string.IsNullOrWhiteSpace(_Options.Filename))
-                return;
-            
-            lock (_Lock)
-                File.AppendAllLines(GetLogFilename(), _TextLogFormatter.Format(level, message));
+            File.AppendAllLines(GetLogFilename(), lines);
         }
 
-        [NotNull] private string GetLogFilename() => Path.Combine(_Options.Path, string.Format(_Options.Filename, DateTime.Now));
+        protected override bool IsEnabled(LogLevel level)
+            => base.IsEnabled(level) && !string.IsNullOrWhiteSpace(Options.Filename);
 
-        public void WriteLine(string line) => Log(LogLevel.Information, line);
+        [NotNull]
+        private string GetLogFilename() => Path.Combine(Options.Path, string.Format(Options.Filename, DateTime.Now));
     }
 }
