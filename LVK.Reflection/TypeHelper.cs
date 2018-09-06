@@ -6,6 +6,8 @@ using JetBrains.Annotations;
 
 using LVK.DryIoc;
 
+using static LVK.Core.JetBrainsHelpers;
+
 namespace LVK.Reflection
 {
     [PublicAPI]
@@ -14,11 +16,11 @@ namespace LVK.Reflection
         [NotNull, ItemNotNull]
         private readonly List<ITypeNameRule> _NameOfRules;
 
-        // ReSharper disable once NotNullMemberIsNotInitialized
-        static TypeHelper()
-        {
-            new ContainerBuilder().Register<ServicesRegistrant>().Build();
-        }
+        [NotNull]
+        private static readonly object _InstanceLock = new object();
+
+        [CanBeNull]
+        private static ITypeHelper _Instance;
 
         public TypeHelper([NotNull, ItemNotNull] IEnumerable<ITypeNameRule> nameOfRules)
         {
@@ -34,6 +36,25 @@ namespace LVK.Reflection
         }
 
         [NotNull]
-        public static ITypeHelper Instance { get; internal set; }
+        public static ITypeHelper Instance
+        {
+            get
+            {
+                if (_Instance is null)
+                {
+                    lock (_InstanceLock)
+                    {
+                        if (_Instance is null)
+                            // ReSharper disable once HeuristicUnreachableCode
+                            new ContainerBuilder().Register<ServicesRegistrant>().Build();
+                    }
+
+                    assume(_Instance != null);
+                }
+
+                return _Instance;
+            }
+            internal set => _Instance = value;
+        }
     }
 }

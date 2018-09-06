@@ -6,6 +6,8 @@ using JetBrains.Annotations;
 
 using LVK.DryIoc;
 
+using static LVK.Core.JetBrainsHelpers;
+
 namespace LVK.Conversion
 {
     [PublicAPI]
@@ -25,11 +27,11 @@ namespace LVK.Conversion
         [NotNull]
         private readonly Func<object, IFormatProvider, object> _NoConversionConverter;
 
-        // ReSharper disable once NotNullMemberIsNotInitialized
-        static ValueConverter()
-        {
-            new ContainerBuilder().Register<ServicesRegistrant>().Build();
-        }
+        [NotNull]
+        private static readonly object _InstanceLock = new object();
+
+        [CanBeNull]
+        private static IValueConverter _Instance;
 
         public ValueConverter([NotNull] IEnumerable<IValueConversionProvider> valueConversionProviders)
         {
@@ -41,7 +43,26 @@ namespace LVK.Conversion
         }
 
         [NotNull]
-        public static IValueConverter Instance { get; internal set; }
+        public static IValueConverter Instance
+        {
+            get
+            {
+                if (_Instance is null)
+                {
+                    lock (_InstanceLock)
+                    {
+                        if (_Instance is null)
+                            // ReSharper disable once HeuristicUnreachableCode
+                            new ContainerBuilder().Register<ServicesRegistrant>().Build();
+                    }
+
+                    assume(_Instance != null);
+                }
+
+                return _Instance;
+            }
+            internal set => _Instance = value;
+        }
 
         public Func<object, IFormatProvider, object> TryGetConverter(Type sourceType, Type targetType)
         {

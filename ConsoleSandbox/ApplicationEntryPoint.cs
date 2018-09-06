@@ -9,6 +9,7 @@ using LVK.Configuration;
 using LVK.Conversion;
 using LVK.Core;
 using LVK.Logging;
+using LVK.Reflection;
 
 namespace ConsoleSandbox
 {
@@ -23,11 +24,17 @@ namespace ConsoleSandbox
         [NotNull]
         private readonly IValueConverter _ValueConverter;
 
-        public ApplicationEntryPoint([NotNull] IConfiguration configuration, [NotNull] ILogger<ApplicationEntryPoint> logger, [NotNull] IValueConverter valueConverter)
+        [NotNull]
+        private readonly ITypeHelper _TypeHelper;
+
+        public ApplicationEntryPoint(
+            [NotNull] IConfiguration configuration, [NotNull] ILogger<ApplicationEntryPoint> logger,
+            [NotNull] IValueConverter valueConverter, [NotNull] ITypeHelper typeHelper)
         {
             _Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _ValueConverter = valueConverter ?? throw new ArgumentNullException(nameof(valueConverter));
+            _TypeHelper = typeHelper;
         }
 
         public Task<int> Execute(CancellationToken cancellationToken)
@@ -38,9 +45,9 @@ namespace ConsoleSandbox
             var c = a + b;
             _Logger.WriteLine($"{a} + {b} = {c}");
 
-            _Logger.WriteLine(c.GetType().FullName);
-            _Logger.WriteLine(_ValueConverter.Convert<int, char>(c).GetType().FullName);
-            
+            _Logger.WriteLine(_TypeHelper.NameOf(c.GetType()));
+            _Logger.WriteLine(_TypeHelper.NameOf(_ValueConverter.Convert<int, char>(c).GetType()));
+
             return Task.FromResult(0).NotNull();
         }
     }
