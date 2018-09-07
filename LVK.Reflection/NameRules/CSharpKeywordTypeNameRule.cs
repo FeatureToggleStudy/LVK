@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using JetBrains.Annotations;
+
 namespace LVK.Reflection.NameRules
 {
     internal class CSharpKeywordTypeNameRule : ITypeNameRule
     {
+        [NotNull]
         private readonly Dictionary<Type, string> _CSharpKeywordTypeNames = new Dictionary<Type, string>
         {
             [typeof(sbyte)] = "sbyte",

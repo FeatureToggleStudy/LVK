@@ -7,6 +7,7 @@ namespace LVK.Core.Services
     [PublicAPI]
     public static class BusExtensions
     {
+        [NotNull]
         public static IDisposable Subscribe<T>([NotNull] this IBus bus, [NotNull] Action<T> subscriber)
         {
             if (bus == null)

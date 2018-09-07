@@ -4,6 +4,8 @@ using LVK.DryIoc;
 
 using NUnit.Framework;
 
+using static LVK.Core.JetBrainsHelpers;
+
 namespace LVK.Conversion.Tests
 {
     [TestFixture]
@@ -15,6 +17,7 @@ namespace LVK.Conversion.Tests
             var container = new Container().Bootstrap<ServicesBootstrapper>();
 
             var valueConverter = container.Resolve<IValueConverter>();
+            assume(valueConverter != null);
 
             Assert.That(valueConverter.Convert<int, uint>(10), Is.EqualTo(10));
             Assert.That(valueConverter.Convert<uint, int>(10), Is.EqualTo(10));

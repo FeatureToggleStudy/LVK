@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DryIoc;
 
 using LVK.AppCore;
+using LVK.Core;
 using LVK.Core.Services;
 using LVK.DryIoc;
 
@@ -33,7 +34,7 @@ namespace ConsoleSandbox
         public Task<int> TryExecute()
         {
             Console.WriteLine("list test");
-            return Task.FromResult(0);
+            return Task.FromResult(0).NotNull();
         }
     }
 }

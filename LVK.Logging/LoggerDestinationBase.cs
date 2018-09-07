@@ -5,6 +5,8 @@ using JetBrains.Annotations;
 
 using LVK.Configuration;
 
+using static LVK.Core.JetBrainsHelpers;
+
 namespace LVK.Logging
 {
     internal abstract class LoggerDestinationBase<TOptions> : ILoggerDestination
@@ -39,10 +41,13 @@ namespace LVK.Logging
             if (!IsEnabled(level))
                 return;
 
-            OutputToLog(level, getMessage());
+            var message = getMessage();
+            assume(message != null);
+            
+            OutputToLog(level, message);
         }
 
-        private void OutputToLog(LogLevel level, string message)
+        private void OutputToLog(LogLevel level, [NotNull] string message)
         {
             lock (Lock)
                 OutputLinesToLog(level, _TextLogFormatter.Format(level, message));

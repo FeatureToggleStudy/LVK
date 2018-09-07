@@ -4,6 +4,8 @@ using DryIoc;
 
 using JetBrains.Annotations;
 
+using static LVK.Core.JetBrainsHelpers;
+
 namespace LVK.DryIoc
 {
     [PublicAPI]
@@ -15,16 +17,21 @@ namespace LVK.DryIoc
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
-            IServicesBootstrapperRegister register = container.Resolve<IServicesBootstrapperRegister>(IfUnresolved.ReturnDefault);
+            var register = container.Resolve<IServicesBootstrapperRegister>(IfUnresolved.ReturnDefault);
             if (register == null)
             {
                 register = new ServicesBootstrapperRegister();
                 container.UseInstance(register);
             }
-            
+
             if (register.TryAdd<T>())
-                container.New<T>().Bootstrap(container);
-            
+            {
+                var instance = container.New<T>();
+                assume(instance != null);
+                
+                instance.Bootstrap(container);
+            }
+
             return container;
         }
     }

@@ -170,6 +170,8 @@ namespace LVK.Configuration
                 return;
 
             var group = match.Groups["value"];
+            assume(group != null);
+            
             var stringValue = group.Success ? group.Value : "true";
             JToken value = ValueFromString(stringValue);
             Apply(Construct(path.Split('/'), value), _Root);

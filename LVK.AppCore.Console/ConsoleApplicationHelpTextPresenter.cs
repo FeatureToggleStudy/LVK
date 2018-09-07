@@ -6,6 +6,8 @@ using System.Reflection;
 
 using JetBrains.Annotations;
 
+using LVK.Core;
+
 namespace LVK.AppCore.Console
 {
     internal class ConsoleApplicationHelpTextPresenter : IConsoleApplicationHelpTextPresenter
@@ -20,7 +22,9 @@ namespace LVK.AppCore.Console
 
         public void Present()
         {
-            var command = Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location);
+            Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+            
+            var command = Path.GetFileNameWithoutExtension(assembly.Location);
             System.Console.WriteLine($"help: {command.ToLowerInvariant()} [commands/arguments] --key[=value]");
             System.Console.WriteLine("notes:");
             System.Console.WriteLine("  * if =value is omitted, a value of 'true' is substituted");
@@ -33,12 +37,13 @@ namespace LVK.AppCore.Console
             var helpTexts =
                 from optionsHelpTextProvider in _OptionsHelpTextProviders
                 from optionsHelpText in optionsHelpTextProvider.GetHelpText()
-                let paths = optionsHelpText.paths.ToList()
-                where paths.Count > 0
-                orderby paths.First()
+                let paths = optionsHelpText.paths.NotNull().ToList()
+                where paths != null
+                where paths.NotNull().Count > 0
+                orderby paths.NotNull().First()
                 select optionsHelpText;
             
-            foreach (var optionsHelpText in helpTexts)
+            foreach ((IEnumerable<string> paths, bool isConfiguration, string description) optionsHelpText in helpTexts)
             {
                 System.Console.WriteLine();
 

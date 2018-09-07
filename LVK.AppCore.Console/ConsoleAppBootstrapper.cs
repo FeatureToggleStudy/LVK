@@ -41,6 +41,7 @@ namespace LVK.AppCore.Console
                 container.Bootstrap<T>();
 
                 entryPoint = container.Resolve<IConsoleApplicationEntryPoint>();
+                assume(entryPoint != null);
             }
             catch (Exception ex) when (!Debugger.IsAttached)
             {

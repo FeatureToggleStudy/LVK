@@ -6,6 +6,9 @@ using JetBrains.Annotations;
 
 using NUnit.Framework;
 
+// ReSharper disable AssignNullToNotNullAttribute
+// ReSharper disable PossibleNullReferenceException
+
 namespace LVK.Tests.Framework
 {
     public abstract class PublicApiTestsBase

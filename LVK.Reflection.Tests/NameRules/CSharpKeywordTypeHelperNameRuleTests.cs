@@ -6,6 +6,7 @@ using NSubstitute;
 
 using NUnit.Framework;
 // ReSharper disable AssignNullToNotNullAttribute
+// ReSharper disable PossibleNullReferenceException
 
 namespace LVK.Reflection.Tests.NameRules
 {

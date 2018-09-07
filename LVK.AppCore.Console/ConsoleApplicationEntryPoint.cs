@@ -93,7 +93,7 @@ namespace LVK.AppCore.Console
         }
 
         [NotNull]
-        private async Task<int> RunApplicationEntryPoint(CancellationTokenSource cts)
+        private async Task<int> RunApplicationEntryPoint([NotNull] CancellationTokenSource cts)
         {
             try
             {

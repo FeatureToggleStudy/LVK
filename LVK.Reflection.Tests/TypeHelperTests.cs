@@ -5,6 +5,9 @@ using DryIoc;
 
 using NUnit.Framework;
 
+// ReSharper disable PossibleNullReferenceException
+// ReSharper disable AssignNullToNotNullAttribute
+
 namespace LVK.Reflection.Tests
 {
     [TestFixture]
