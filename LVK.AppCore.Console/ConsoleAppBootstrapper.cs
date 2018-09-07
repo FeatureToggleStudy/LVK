@@ -19,10 +19,12 @@ namespace LVK.AppCore.Console
     [PublicAPI]
     public class ConsoleAppBootstrapper
     {
+        [NotNull]
         public static Task<int> RunCommandAsync<T>([NotNull] string[] args)
             where T: class, IServicesBootstrapper
             => RunAsync<CommandBasedServicesBootstrapper<T>>(args);
         
+        [NotNull]
         public static Task<int> RunDaemonAsync<T>([NotNull] string[] args)
             where T: class, IServicesBootstrapper
             => RunAsync<DaemonServicesBootstrapper<T>>(args);
