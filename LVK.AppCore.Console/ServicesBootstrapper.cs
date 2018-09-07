@@ -21,6 +21,8 @@ namespace LVK.AppCore.Console
 
             container.Register<IConsoleApplicationEntryPoint, ConsoleApplicationEntryPoint>();
             container.Register<IOptionsHelpTextProvider, ConsoleApplicationEntryPointOptionsHelpTextProvider>();
+
+            container.Register<IConsoleApplicationHelpTextPresenter, ConsoleApplicationHelpTextPresenter>();
         }
     }
 }

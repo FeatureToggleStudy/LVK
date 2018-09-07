@@ -6,6 +6,9 @@ using DryIoc;
 
 using JetBrains.Annotations;
 
+using LVK.AppCore.Console.CommandBased;
+using LVK.AppCore.Console.Daemons;
+
 using static LVK.Core.JetBrainsHelpers;
 
 using LVK.Core;
@@ -16,6 +19,10 @@ namespace LVK.AppCore.Console
     [PublicAPI]
     public class ConsoleAppBootstrapper
     {
+        public static Task<int> RunCommandAsync<T>([NotNull] string[] args)
+            where T: class, IServicesBootstrapper
+            => RunAsync<CommandBasedServicesBootstrapper<T>>(args);
+        
         public static Task<int> RunDaemonAsync<T>([NotNull] string[] args)
             where T: class, IServicesBootstrapper
             => RunAsync<DaemonServicesBootstrapper<T>>(args);

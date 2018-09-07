@@ -1,4 +1,7 @@
-﻿using DryIoc;
+﻿using System;
+using System.Threading.Tasks;
+
+using DryIoc;
 
 using LVK.AppCore;
 using LVK.Core.Services;
@@ -15,7 +18,22 @@ namespace ConsoleSandbox
             container.Bootstrap<LVK.Reflection.ServicesBootstrapper>();
 
             container.Register<IBackgroundService, BackgroundService>();
-            container.Register<IApplicationEntryPoint, ApplicationEntryPoint>();
+            container.Register<IApplicationCommand, ListCommand>();
+
+            // container.Register<IApplicationEntryPoint, ApplicationEntryPoint>();
+        }
+    }
+
+    internal class ListCommand : IApplicationCommand
+    {
+        public string[] CommandNames => new[] { "list" };
+
+        public string Description => "Shows a list";
+
+        public Task<int> TryExecute()
+        {
+            Console.WriteLine("list test");
+            return Task.FromResult(0);
         }
     }
 }

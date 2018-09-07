@@ -4,7 +4,7 @@ using DryIoc;
 
 using LVK.DryIoc;
 
-namespace LVK.AppCore.Console
+namespace LVK.AppCore.Console.Daemons
 {
     internal class DaemonServicesBootstrapper<T> : IServicesBootstrapper
         where T: class, IServicesBootstrapper

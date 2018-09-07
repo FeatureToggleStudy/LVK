@@ -8,6 +8,6 @@ namespace LVK.AppCore
     public interface IOptionsHelpTextProvider
     {
         [NotNull]
-        IEnumerable<(IEnumerable<string> paths, string description)> GetHelpText();
+        IEnumerable<(IEnumerable<string> paths, bool isConfiguration, string description)> GetHelpText();
     }
 }

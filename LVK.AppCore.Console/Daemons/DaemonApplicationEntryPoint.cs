@@ -7,7 +7,7 @@ using JetBrains.Annotations;
 using LVK.Core;
 using LVK.Logging;
 
-namespace LVK.AppCore.Console
+namespace LVK.AppCore.Console.Daemons
 {
     internal class DaemonApplicationEntryPoint : IApplicationEntryPoint
     {
