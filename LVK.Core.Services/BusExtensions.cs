@@ -1,0 +1,22 @@
+using System;
+
+using JetBrains.Annotations;
+
+namespace LVK.Core.Services
+{
+    [PublicAPI]
+    public static class BusExtensions
+    {
+        public static IDisposable Subscribe<T>([NotNull] this IBus bus, [NotNull] Action<T> subscriber)
+        {
+            if (bus == null)
+                throw new ArgumentNullException(nameof(bus));
+
+            if (subscriber == null)
+                throw new ArgumentNullException(nameof(subscriber));
+
+            var subscriberObject = new ActionSubscriber<T>(subscriber);
+            return bus.Subscribe(subscriberObject);
+        }
+    }
+}
