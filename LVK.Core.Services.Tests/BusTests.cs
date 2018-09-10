@@ -47,5 +47,76 @@ namespace LVK.Core.Services.Tests
 
             Assert.That(message, Is.Null);
         }
+
+        [Test]
+        public void Publish_SubscriberThatHasNotBeenCollected_CallsThatSubscriber()
+        {
+            var bus = new Bus();
+            Subscriber.LastMessage = null;
+            var subscriber = new Subscriber();
+            bus.Subscribe(subscriber);
+            
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+
+            bus.Publish("Test");
+
+            Assert.That(Subscriber.LastMessage, Is.EqualTo("Test"));
+            GC.KeepAlive(subscriber);
+        }
+
+        [Test]
+        public void Publish_SubscriberThatHasNotBeenCollectedThroughSubscription_CallsThatSubscriber()
+        {
+            var bus = new Bus();
+            Subscriber.LastMessage = null;
+            var subscription = SubscribeAndReturnSubscription(bus);
+            
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+
+            bus.Publish("Test");
+
+            Assert.That(Subscriber.LastMessage, Is.EqualTo("Test"));
+            GC.KeepAlive(subscription);
+        }
+        
+        [Test]
+        public void Publish_SubscriberThatHasBeenCollected_DoesNotCallThatSubscriber()
+        {
+            var bus = new Bus();
+            Subscriber.LastMessage = null;
+            Subscribe(bus);
+            
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+
+            bus.Publish("Test");
+
+            Assert.That(Subscriber.LastMessage, Is.Null);
+        }
+
+        private void Subscribe(Bus bus)
+        {
+            bus.Subscribe(new Subscriber());
+        }
+
+        private IDisposable SubscribeAndReturnSubscription(Bus bus)
+        {
+            return bus.Subscribe(new Subscriber());
+        }
+        
+        private class Subscriber : ISubscriber<string>
+        {
+            public static string LastMessage;
+
+            public void Notify(string message)
+            {
+                LastMessage = message;
+            }
+        }
     }
 }

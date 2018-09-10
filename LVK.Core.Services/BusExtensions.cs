@@ -16,8 +16,7 @@ namespace LVK.Core.Services
             if (subscriber == null)
                 throw new ArgumentNullException(nameof(subscriber));
 
-            var subscriberObject = new ActionSubscriber<T>(subscriber);
-            return bus.Subscribe(subscriberObject);
+            return bus.Subscribe(new ActionSubscriber<T>(subscriber));
         }
     }
 }

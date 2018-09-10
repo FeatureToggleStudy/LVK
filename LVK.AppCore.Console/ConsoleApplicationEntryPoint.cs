@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
+using LVK.AppCore.Console.BusMessages;
 using LVK.Configuration;
 using LVK.Core.Services;
 using LVK.Logging;
@@ -28,6 +29,9 @@ namespace LVK.AppCore.Console
         private readonly IConsoleApplicationHelpTextPresenter _ConsoleApplicationHelpTextPresenter;
 
         [NotNull]
+        private readonly IBus _Bus;
+
+        [NotNull]
         private readonly ILogger _Logger;
 
         [NotNull, ItemNotNull]
@@ -39,7 +43,7 @@ namespace LVK.AppCore.Console
             [NotNull] IApplicationEntryPoint applicationEntryPoint, [NotNull] ILogger logger,
             [NotNull] IEnumerable<IBackgroundService> backgroundServices,
             [NotNull] IApplicationLifetimeManager applicationLifetimeManager, [NotNull] IConfiguration configuration,
-            [NotNull] IConsoleApplicationHelpTextPresenter consoleApplicationHelpTextPresenter)
+            [NotNull] IConsoleApplicationHelpTextPresenter consoleApplicationHelpTextPresenter, [NotNull] IBus bus)
         {
             if (backgroundServices == null)
                 throw new ArgumentNullException(nameof(backgroundServices));
@@ -52,6 +56,7 @@ namespace LVK.AppCore.Console
 
             _Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _ConsoleApplicationHelpTextPresenter = consoleApplicationHelpTextPresenter ?? throw new ArgumentNullException(nameof(consoleApplicationHelpTextPresenter));
+            _Bus = bus ?? throw new ArgumentNullException(nameof(bus));
 
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _BackgroundServices = backgroundServices.ToList();
@@ -72,6 +77,7 @@ namespace LVK.AppCore.Console
                     e.Cancel = true;
 
                 userCancelKeyPressCancellationTokenSource.Cancel();
+                _Bus.Publish(new UserCancellationKeypressMessage());
             };
 
             using (_Logger.LogScope(LogLevel.Trace, $"{nameof(ConsoleApplicationEntryPoint)}.{nameof(RunAsync)}"))
