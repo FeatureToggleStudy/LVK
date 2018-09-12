@@ -17,20 +17,20 @@ using LVK.DryIoc;
 namespace LVK.AppCore.Console
 {
     [PublicAPI]
-    public class ConsoleAppBootstrapper
+    public static class ConsoleAppBootstrapper
     {
         [NotNull]
-        public static Task<int> RunCommandAsync<T>([NotNull] string[] args)
+        public static Task<int> RunCommandAsync<T>()
             where T: class, IServicesBootstrapper
-            => RunAsync<CommandBasedServicesBootstrapper<T>>(args);
+            => RunAsync<CommandBasedServicesBootstrapper<T>>();
         
         [NotNull]
-        public static Task<int> RunDaemonAsync<T>([NotNull] string[] args)
+        public static Task<int> RunDaemonAsync<T>()
             where T: class, IServicesBootstrapper
-            => RunAsync<DaemonServicesBootstrapper<T>>(args);
+            => RunAsync<DaemonServicesBootstrapper<T>>();
 
         [NotNull]
-        public static async Task<int> RunAsync<T>([NotNull] string[] args)
+        public static async Task<int> RunAsync<T>()
             where T: class, IServicesBootstrapper
         {
             IConsoleApplicationEntryPoint entryPoint;

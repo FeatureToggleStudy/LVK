@@ -16,7 +16,7 @@ namespace LVK.Core.Services
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.Register<IApplicationLifetimeManager>(Reuse.Singleton);
+            container.Register<IApplicationLifetimeManager, ApplicationLifetimeManager>(Reuse.Singleton);
             container.Register<IBus, Bus>(Reuse.Singleton);
         }
     }

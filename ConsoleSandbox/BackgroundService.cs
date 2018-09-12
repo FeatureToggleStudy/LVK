@@ -33,7 +33,7 @@ namespace ConsoleSandbox
                 await Task.Delay(1000, cancellationToken).NotNull();
             }
 
-            SignalGracefulTermination();
+            throw new InvalidOperationException("TEST");
         }
     }
 }

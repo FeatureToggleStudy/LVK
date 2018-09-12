@@ -1,13 +1,11 @@
 ﻿using System.Threading.Tasks;
 
-using JetBrains.Annotations;
-
-using LVK.AppCore.Console;
+using LVK.AppCore.Tray;
 
 namespace ConsoleSandbox
 {
     static class Program
     {
-        static async Task<int> Main([NotNull] string[] args) => await ConsoleAppBootstrapper.RunCommandAsync<ServicesBootstrapper>(args);
+        static async Task<int> Main() => await TrayAppBootstrapper.RunAsync<ServicesBootstrapper>();
     }
 }
