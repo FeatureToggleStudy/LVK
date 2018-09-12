@@ -26,6 +26,10 @@ if errorlevel 1 goto error
 rem "%GIT_CONSOLE%" checkout "%PROJECT%\Lasse V. Karlsen.snk"
 rem if errorlevel 1 goto error
 
+for /d %%f in (*.*) do (
+    if exist %%f\bin\Release\*.nupkg copy %%f\bin\Release\*.nupkg /Y %DROPBOX%\Development\nuget 
+)
+
 echo=
 echo================================================
 set /P PUSHYESNO=Push packages to nuget? [y/N]

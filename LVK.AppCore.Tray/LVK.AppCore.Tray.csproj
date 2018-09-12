@@ -2,6 +2,15 @@
 
     <PropertyGroup>
         <TargetFramework>net47</TargetFramework>
+        <PackageId>LVK.AppCore.Tray</PackageId>
+        <Description>LVK core tray application framework classes and extensions</Description>
+        <PackageLicenseUrl>https://github.com/lassevk/LVK/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageProjectUrl>https://github.com/lassevk/LVK</PackageProjectUrl>
+        <Version>1.0.0.0</Version>
+        <Authors>Lasse Vågsæther Karlsen</Authors>
+        <IncludeSource>true</IncludeSource>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

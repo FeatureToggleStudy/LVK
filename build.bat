@@ -30,6 +30,7 @@ set fname1=%1
 set fname2=%fname1:.Tests=%
 
 if "%fname1%"=="%fname2%" goto end
+if "%fname1%"=="LVK.Tests.Framework" goto end
 dotnet test %1 --no-build --no-restore
 goto end
 
