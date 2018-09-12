@@ -4,6 +4,7 @@ using DryIoc;
 
 using JetBrains.Annotations;
 
+using LVK.Core;
 using LVK.DryIoc;
 
 namespace LVK.AppCore.Tray
@@ -11,14 +12,17 @@ namespace LVK.AppCore.Tray
     [PublicAPI]
     public static class TrayAppBootstrapper
     {
-        public static Task<int> RunAsync<T>()
+        [NotNull]
+        public static async Task<int> RunAsync<T>()
             where T : class, IServicesBootstrapper
         {
+            await Task.Yield();
+            
             var container = new Container();
             container.Bootstrap<ServicesBootstrapper>();
             container.Bootstrap<T>();
 
-            return container.New<TrayApp>().RunAsync();
+            return await container.New<TrayApp>().NotNull().RunAsync();
         }
     }
 }

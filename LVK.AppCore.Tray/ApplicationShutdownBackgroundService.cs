@@ -32,15 +32,12 @@ namespace LVK.AppCore.Tray
             return Task.CompletedTask;
         }
 
-        private void SessionEnding(object sender, SessionEndingEventArgs e)
+        private void SessionEnding(object sender, [NotNull] SessionEndingEventArgs e)
         {
             _Logger.Log(LogLevel.Information, $"Session is ending with reason '{e.Reason}', application gracefully shutting down");
             _ApplicationLifetimeManager.SignalGracefulTermination();
         }
 
-        public Task Stop(CancellationToken cancellationToken)
-        {
-            return Task.CompletedTask;
-        }
+        public Task Stop(CancellationToken cancellationToken) => Task.CompletedTask;
     }
 }

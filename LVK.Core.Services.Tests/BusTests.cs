@@ -2,6 +2,7 @@ using System;
 
 using NUnit.Framework;
 
+// ReSharper disable PossibleNullReferenceException
 // ReSharper disable AssignNullToNotNullAttribute
 
 namespace LVK.Core.Services.Tests

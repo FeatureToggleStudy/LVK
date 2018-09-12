@@ -47,7 +47,7 @@ namespace LVK.Core.Services
 
         private void Cleanup([NotNull] HashSet<WeakReference> subscribers, [CanBeNull] object subscriber)
         {
-            var matches = subscribers.Where(wr => wr.Target == subscriber || wr.Target is null).ToList();
+            var matches = subscribers.Where(wr => wr?.Target == subscriber || wr?.Target is null).ToList();
             foreach (var match in matches)
                 subscribers.Remove(match);
         }

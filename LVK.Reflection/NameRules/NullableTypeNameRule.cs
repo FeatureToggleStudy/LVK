@@ -1,5 +1,7 @@
 using System;
 
+using LVK.Core;
+
 namespace LVK.Reflection.NameRules
 {
     internal class NullableTypeNameRule : ITypeNameRule
@@ -24,7 +26,7 @@ namespace LVK.Reflection.NameRules
             if (openGenericType != typeof(Nullable<>))
                 return null;
 
-            Type underlyingType = type.GetGenericArguments()[0];
+            Type underlyingType = type.GetGenericArguments()[0].NotNull();
             return typeHelper.NameOf(underlyingType) + "?";
         }
     }

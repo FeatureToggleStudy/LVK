@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using LVK.Core;
+
 namespace LVK.Reflection.NameRules
 {
     internal class GenericTypeNameRule : ITypeNameRule
@@ -21,7 +23,7 @@ namespace LVK.Reflection.NameRules
                 return null;
 
             Type[] arguments = type.GetGenericArguments();
-            List<string> argumentTypeNames = arguments.Select(t => typeHelper.NameOf(t, options)).ToList();
+            List<string> argumentTypeNames = arguments.Select(t => typeHelper.NameOf(t.NotNull(), options)).ToList();
 
             var baseName = type.Name.Substring(0, type.Name.IndexOf('`'));
 

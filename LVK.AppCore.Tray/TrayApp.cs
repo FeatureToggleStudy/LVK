@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 using JetBrains.Annotations;
 
+using LVK.Core;
 using LVK.Core.Services;
 using LVK.Logging;
 
@@ -42,15 +42,9 @@ namespace LVK.AppCore.Tray
                 await StartBackgroundServices();
                 try
                 {
-                    var ctx = new ApplicationContext();
-                    _ApplicationLifetimeManager.GracefulTerminationCancellationToken.Register(
-                        delegate
-                        {
-                            ctx.ExitThread();
-                        });
-
-                    Application.Run(ctx);
-
+                    var tcs = new TaskCompletionSource<bool>();
+                    _ApplicationLifetimeManager.GracefulTerminationCancellationToken.Register(() => tcs.SetResult(true));
+                    await tcs.Task.NotNull();
                     return 0;
                 }
                 catch (Exception ex)
@@ -69,14 +63,28 @@ namespace LVK.AppCore.Tray
         {
             var cts = new CancellationTokenSource(TimeSpan.FromSeconds(40));
             foreach (var service in _BackgroundServices)
-                await service.Start(cts.Token);
+                using (_Logger.LogScope(
+                    LogLevel.Debug, $"awaiting background service startup of {service.GetType().Name}"))
+                    await service.Start(cts.Token);
         }
 
         private async Task StopBackgroundServices()
         {
             var cts = new CancellationTokenSource(TimeSpan.FromSeconds(40));
             foreach (var service in _BackgroundServices)
-                await service.Stop(cts.Token);
+            {
+                using (_Logger.LogScope(
+                    LogLevel.Debug, $"awaiting background service stop of {service.GetType().Name}"))
+                {
+                    try
+                    {
+                        await service.Stop(cts.Token);
+                    }
+                    catch (TaskCanceledException)
+                    {
+                    }
+                }
+            }
         }
     }
 }

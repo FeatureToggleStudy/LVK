@@ -26,8 +26,9 @@ if errorlevel 1 goto error
 rem "%GIT_CONSOLE%" checkout "%PROJECT%\Lasse V. Karlsen.snk"
 rem if errorlevel 1 goto error
 
+md %DROPBOX%\Development\nuget\%VERSION%%SUFFIX%
 for /d %%f in (*.*) do (
-    if exist %%f\bin\Release\*.nupkg copy %%f\bin\Release\*.nupkg /Y %DROPBOX%\Development\nuget 
+    if exist %%f\bin\Release\*.nupkg copy %%f\bin\Release\*.nupkg /Y %DROPBOX%\Development\nuget\%VERSION%%SUFFIX%
 )
 
 echo=
