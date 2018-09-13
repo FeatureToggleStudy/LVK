@@ -1,22 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using LVK.AppCore.Tray;
+using LVK.AppCore.Console;
 
 namespace ConsoleSandbox
 {
     static class Program
     {
-        static async Task<int> Main()
-        {
-            try
-            {
-                return await TrayAppBootstrapper.RunAsync<ServicesBootstrapper>();
-            }
-            finally
-            {
-                Console.WriteLine("Here");
-            }
-        }
+        static async Task<int> Main() => await ConsoleAppBootstrapper.RunAsync<ServicesBootstrapper>();
     }
 }

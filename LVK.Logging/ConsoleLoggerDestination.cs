@@ -11,7 +11,7 @@ namespace LVK.Logging
     {
         public ConsoleLoggerDestination(
             [NotNull] ITextLogFormatter textLogFormatter, [NotNull] IConfiguration configuration)
-            : base(textLogFormatter, configuration)
+            : base(textLogFormatter, configuration, "Console")
         {
         }
 

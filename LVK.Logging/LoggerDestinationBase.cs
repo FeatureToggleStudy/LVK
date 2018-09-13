@@ -16,10 +16,14 @@ namespace LVK.Logging
         private readonly ITextLogFormatter _TextLogFormatter;
 
         protected LoggerDestinationBase(
-            [NotNull] ITextLogFormatter textLogFormatter, [NotNull] IConfiguration configuration)
+            [NotNull] ITextLogFormatter textLogFormatter, [NotNull] IConfiguration configuration,
+            [NotNull] string identifier)
         {
+            if (identifier == null)
+                throw new ArgumentNullException(nameof(identifier));
+
             _TextLogFormatter = textLogFormatter ?? throw new ArgumentNullException(nameof(textLogFormatter));
-            Options = configuration["Logging/Destinations/File"].Value<TOptions>() ?? new TOptions();
+            Options = configuration[$"Logging/Destinations/{identifier}"].Value<TOptions>() ?? new TOptions();
         }
 
         [NotNull]

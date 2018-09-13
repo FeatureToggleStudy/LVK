@@ -12,7 +12,7 @@ namespace LVK.Logging
     {
         public FileLoggerDestination(
             [NotNull] ITextLogFormatter textLogFormatter, [NotNull] IConfiguration configuration)
-            : base(textLogFormatter, configuration)
+            : base(textLogFormatter, configuration, "File")
         {
 
         }
