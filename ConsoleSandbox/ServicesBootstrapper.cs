@@ -17,11 +17,12 @@ namespace ConsoleSandbox
             container.Bootstrap<LVK.AppCore.Console.ServicesBootstrapper>();
             container.Bootstrap<LVK.Conversion.ServicesBootstrapper>();
             container.Bootstrap<LVK.Reflection.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Persistence.ServicesBootstrapper>();
 
             container.Register<IBackgroundService, BackgroundService>();
             container.Register<IApplicationCommand, ListCommand>();
 
-            // container.Register<IApplicationEntryPoint, ApplicationEntryPoint>();
+            container.Register<IApplicationEntryPoint, ApplicationEntryPoint>();
         }
     }
 

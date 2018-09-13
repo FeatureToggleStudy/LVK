@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net471</TargetFramework>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -15,6 +15,7 @@
     <ProjectReference Include="..\LVK.Conversion\LVK.Conversion.csproj" />
     <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
     <ProjectReference Include="..\LVK.Net.Http\LVK.Net.Http.csproj" />
+    <ProjectReference Include="..\LVK.Persistence\LVK.Persistence.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">
