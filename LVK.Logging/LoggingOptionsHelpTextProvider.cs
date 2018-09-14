@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using LVK.AppCore;
+using LVK.Core.Services;
 
 namespace LVK.Logging
 {

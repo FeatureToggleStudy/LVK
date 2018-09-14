@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
-namespace LVK.AppCore
+namespace LVK.Core.Services
 {
     [PublicAPI]
     public interface IOptionsHelpTextProvider

@@ -4,6 +4,8 @@ using System.Linq;
 
 using JetBrains.Annotations;
 
+using LVK.Core.Services;
+
 namespace LVK.AppCore.Console.CommandBased
 {
     internal class CommandsHelpTextProvider : IOptionsHelpTextProvider

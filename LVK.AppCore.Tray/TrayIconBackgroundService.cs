@@ -25,9 +25,6 @@ namespace LVK.AppCore.Tray
         [NotNull, ItemNotNull]
         private readonly List<ITrayIconMenuItem> _MenuItems;
 
-        [CanBeNull]
-        private Thread _Thread;
-
         public TrayIconBackgroundService(
             [NotNull] IEnumerable<ITrayIconMenuItem> menuItems,
             [NotNull] IApplicationLifetimeManager applicationLifetimeManager, [NotNull] ILogger logger)
@@ -41,15 +38,6 @@ namespace LVK.AppCore.Tray
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
             _MenuItems = menuItems.ToList();
-        }
-
-        public Task Start(CancellationToken cancellationToken)
-        {
-            var thread = new Thread(BackgroundThread);
-            thread.Start();
-            _Thread = thread;
-            
-            return Task.CompletedTask;
         }
 
         private void BackgroundThread()
@@ -89,9 +77,12 @@ namespace LVK.AppCore.Tray
             }
         }
 
-        public async Task Stop(CancellationToken cancellationToken)
+        public async Task Execute(CancellationToken cancellationToken)
         {
-            await Task.Run(() => _Thread?.Join(), cancellationToken);
+            var thread = new Thread(BackgroundThread);
+            thread.Start();
+ 
+            await Task.Run(() => thread.Join(), cancellationToken);
         }
     }
 }

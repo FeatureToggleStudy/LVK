@@ -4,7 +4,7 @@ using DryIoc;
 
 using JetBrains.Annotations;
 
-using LVK.AppCore;
+using LVK.Core.Services;
 using LVK.DryIoc;
 
 namespace LVK.Logging

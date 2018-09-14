@@ -9,9 +9,6 @@ namespace LVK.Core.Services
     public interface IBackgroundService
     {
         [NotNull]
-        Task Start(CancellationToken cancellationToken);
-
-        [NotNull]
-        Task Stop(CancellationToken cancellationToken);
+        Task Execute(CancellationToken cancellationToken);
     }
 }

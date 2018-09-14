@@ -7,6 +7,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 
 using LVK.Core;
+using LVK.Core.Services;
 
 namespace LVK.AppCore.Console
 {

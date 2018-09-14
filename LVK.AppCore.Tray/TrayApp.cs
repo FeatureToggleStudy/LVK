@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 
 using JetBrains.Annotations;
@@ -15,7 +13,7 @@ namespace LVK.AppCore.Tray
     internal class TrayApp
     {
         [NotNull]
-        private readonly IEnumerable<IBackgroundService> _BackgroundServices;
+        private readonly IBackgroundServicesManager _BackgroundServicesManager;
 
         [NotNull]
         private readonly IApplicationLifetimeManager _ApplicationLifetimeManager;
@@ -24,10 +22,10 @@ namespace LVK.AppCore.Tray
         private readonly ILogger _Logger;
 
         public TrayApp(
-            [NotNull] IEnumerable<IBackgroundService> backgroundServices,
+            [NotNull] IBackgroundServicesManager backgroundServicesManager,
             [NotNull] IApplicationLifetimeManager applicationLifetimeManager, [NotNull] ILogger logger)
         {
-            _BackgroundServices = backgroundServices ?? throw new ArgumentNullException(nameof(backgroundServices));
+            _BackgroundServicesManager = backgroundServicesManager ?? throw new ArgumentNullException(nameof(backgroundServicesManager));
             _ApplicationLifetimeManager = applicationLifetimeManager
                                        ?? throw new ArgumentNullException(nameof(applicationLifetimeManager));
 
@@ -39,12 +37,10 @@ namespace LVK.AppCore.Tray
         {
             using (_Logger.LogScope(LogLevel.Trace, "TrayApp.RunAsync"))
             {
-                await StartBackgroundServices();
+                _BackgroundServicesManager.StartBackgroundServices();
                 try
                 {
-                    var tcs = new TaskCompletionSource<bool>();
-                    _ApplicationLifetimeManager.GracefulTerminationCancellationToken.Register(() => tcs.SetResult(true));
-                    await tcs.Task.NotNull();
+                    await _ApplicationLifetimeManager.GracefulTerminationCancellationToken.AsTask();
                     return 0;
                 }
                 catch (Exception ex)
@@ -54,35 +50,7 @@ namespace LVK.AppCore.Tray
                 }
                 finally
                 {
-                    await StopBackgroundServices();
-                }
-            }
-        }
-
-        private async Task StartBackgroundServices()
-        {
-            var cts = new CancellationTokenSource(TimeSpan.FromSeconds(40));
-            foreach (var service in _BackgroundServices)
-                using (_Logger.LogScope(
-                    LogLevel.Debug, $"awaiting background service startup of {service.GetType().Name}"))
-                    await service.Start(cts.Token);
-        }
-
-        private async Task StopBackgroundServices()
-        {
-            var cts = new CancellationTokenSource(TimeSpan.FromSeconds(40));
-            foreach (var service in _BackgroundServices)
-            {
-                using (_Logger.LogScope(
-                    LogLevel.Debug, $"awaiting background service stop of {service.GetType().Name}"))
-                {
-                    try
-                    {
-                        await service.Stop(cts.Token);
-                    }
-                    catch (TaskCanceledException)
-                    {
-                    }
+                    await _BackgroundServicesManager.WaitForBackgroundServicesToStop();
                 }
             }
         }

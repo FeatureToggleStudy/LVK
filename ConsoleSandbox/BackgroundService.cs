@@ -4,25 +4,23 @@ using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
-using LVK.AppCore;
 using LVK.Core;
 using LVK.Core.Services;
 using LVK.Logging;
 
 namespace ConsoleSandbox
 {
-    internal class BackgroundService : BasicBackgroundService
+    internal class BackgroundService : IBackgroundService
     {
         [NotNull]
         private readonly ILogger _Logger;
 
-        public BackgroundService([NotNull] IApplicationLifetimeManager applicationLifetimeManager, [NotNull] ILogger logger)
-            : base(applicationLifetimeManager)
+        public BackgroundService([NotNull] ILogger logger)
         {
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        protected override async Task BackgroundTask(CancellationToken cancellationToken)
+        public async Task Execute(CancellationToken cancellationToken)
         {
             for (int index = 0; index < 3; index++)
             {

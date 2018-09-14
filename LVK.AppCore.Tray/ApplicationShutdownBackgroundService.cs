@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
+using LVK.Core;
 using LVK.Core.Services;
 using LVK.Logging;
 
@@ -25,19 +26,23 @@ namespace LVK.AppCore.Tray
             _ApplicationLifetimeManager = applicationLifetimeManager ?? throw new ArgumentNullException(nameof(applicationLifetimeManager));
         }
 
-        public Task Start(CancellationToken cancellationToken)
-        {
-            SystemEvents.SessionEnding += SessionEnding;
-
-            return Task.CompletedTask;
-        }
-
         private void SessionEnding(object sender, [NotNull] SessionEndingEventArgs e)
         {
             _Logger.Log(LogLevel.Information, $"Session is ending with reason '{e.Reason}', application gracefully shutting down");
             _ApplicationLifetimeManager.SignalGracefulTermination();
         }
 
-        public Task Stop(CancellationToken cancellationToken) => Task.CompletedTask;
+        public async Task Execute(CancellationToken cancellationToken)
+        {
+            SystemEvents.SessionEnding += SessionEnding;
+            try
+            {
+                await cancellationToken.AsTask();
+            }
+            finally
+            {
+                SystemEvents.SessionEnding -= SessionEnding;
+            }
+        }
     }
 }

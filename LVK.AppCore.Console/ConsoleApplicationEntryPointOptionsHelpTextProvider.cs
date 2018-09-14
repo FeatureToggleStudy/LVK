@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using LVK.Core.Services;
+
 namespace LVK.AppCore.Console
 {
     public class ConsoleApplicationEntryPointOptionsHelpTextProvider : IOptionsHelpTextProvider
