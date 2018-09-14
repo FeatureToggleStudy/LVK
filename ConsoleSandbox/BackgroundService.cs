@@ -30,6 +30,8 @@ namespace ConsoleSandbox
                 _Logger.WriteLine("here");
                 await Task.Delay(1000, cancellationToken).NotNull();
             }
+
+            throw new Exception("Test");
         }
     }
 }
