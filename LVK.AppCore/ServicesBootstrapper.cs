@@ -17,6 +17,8 @@ namespace LVK.AppCore
                 throw new ArgumentNullException(nameof(container));
 
             container.Bootstrap<LVK.Core.Services.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Reflection.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
 
             container.Register<IBackgroundServicesManager, BackgroundServicesManager>(Reuse.Singleton);
         }
