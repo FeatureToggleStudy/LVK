@@ -65,6 +65,7 @@ namespace LVK.AppCore
 
         private async Task RunBackgroundService([NotNull] IBackgroundService backgroundService)
         {
+            await Task.Yield();
             try
             {
                 await backgroundService.Execute(_ApplicationLifetimeManager.GracefulTerminationCancellationToken);
