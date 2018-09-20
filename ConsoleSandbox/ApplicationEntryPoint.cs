@@ -5,45 +5,35 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 using LVK.AppCore;
+using LVK.Configuration;
 using LVK.Core;
 using LVK.Core.Services;
-using LVK.Logging;
-using LVK.Persistence;
 
 namespace ConsoleSandbox
 {
     internal class ApplicationEntryPoint : IApplicationEntryPoint
     {
         [NotNull]
-        private readonly ILogger _Logger;
-
-        [NotNull]
-        private readonly IPersistentData<PersistentModel> _PersistentModel;
-
-        [NotNull]
         private readonly IApplicationLifetimeManager _ApplicationLifetimeManager;
 
+        [NotNull]
+        private readonly IConfiguration _Configuration;
+
         public ApplicationEntryPoint(
-            [NotNull] ILogger logger,
-            [NotNull] IPersistentData<PersistentModel> persistentModel,
-            [NotNull] IApplicationLifetimeManager applicationLifetimeManager)
+            [NotNull] IApplicationLifetimeManager applicationLifetimeManager,
+            [NotNull] IConfiguration configuration)
         {
-            _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _PersistentModel = persistentModel ?? throw new ArgumentNullException(nameof(persistentModel));
             _ApplicationLifetimeManager = applicationLifetimeManager ?? throw new ArgumentNullException(nameof(applicationLifetimeManager));
+            _Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
         public async Task<int> Execute(CancellationToken cancellationToken)
         {
-            _Logger.Log(LogLevel.Trace, "ApplicationEntryPoint.Execute");
-
+            var conf = _Configuration["Test"].Element<string>().WithDefault("<dummy>");
             while (!_ApplicationLifetimeManager.GracefulTerminationCancellationToken.IsCancellationRequested)
             {
                 await Task.Delay(500, _ApplicationLifetimeManager.GracefulTerminationCancellationToken).NotNull();
-                using (_PersistentModel.UpdateScope())
-                    for (int index = 0; index < 100; index++)
-                        _PersistentModel.Value.Count++;
-                _Logger.Log(LogLevel.Information, $"Counter = {_PersistentModel.Value.Count}");
+                Console.WriteLine(conf.Value());
             }
 
             return 0;

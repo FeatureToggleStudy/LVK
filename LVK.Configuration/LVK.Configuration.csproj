@@ -30,6 +30,14 @@
       <ProjectReference Include="..\LVK.Core.Services\LVK.Core.Services.csproj" />
       <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
       <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
+      <ProjectReference Include="..\LVK.Json\LVK.Json.csproj" />
+      <ProjectReference Include="..\LVK.NodaTime\LVK.NodaTime.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="NodaTime, Version=2.4.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1">
+        <HintPath>..\..\..\Users\lasse.karlsen\.nuget\packages\nodatime\2.4.0\lib\netstandard2.0\NodaTime.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

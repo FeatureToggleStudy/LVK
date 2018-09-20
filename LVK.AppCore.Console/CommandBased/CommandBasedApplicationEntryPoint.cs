@@ -60,7 +60,7 @@ namespace LVK.AppCore.Console.CommandBased
         private string GetCommandName()
         {
             return (
-                from arg in _Configuration["CommandLineArguments"].Value<string[]>()
+                from arg in _Configuration["CommandLineArguments"].Element<string[]>().WithDefault(new string[0]).Value()
                 where !arg.StartsWith("-")
                 select arg).FirstOrDefault();
         }

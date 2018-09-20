@@ -43,30 +43,31 @@ namespace LVK.Logging
         private readonly ILogger _Logger;
 
         [NotNull]
-        private readonly LoggerSystemOptions _Options;
+        private readonly IConfigurationElement<LoggerSystemOptions> _Options;
 
         public Logger([NotNull] ILogger logger, [NotNull] IConfiguration configuration)
         {
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _Options = configuration[$"Logging/Systems/{typeof(T).Name}"].Value<LoggerSystemOptions>()
-                    ?? new LoggerSystemOptions();
+            _Options = configuration[$"Logging/Systems/{typeof(T).Name}"]
+               .Element<LoggerSystemOptions>()
+               .WithDefault(() => new LoggerSystemOptions());
         }
 
         public void Log(LogLevel level, string message)
         {
-            if (_Options.Enabled)
+            if (_Options.Value().Enabled)
                 _Logger.Log(level, message);
         }
 
         public void Log(LogLevel level, Func<string> getMessage)
         {
-            if (_Options.Enabled)
+            if (_Options.Value().Enabled)
                 _Logger.Log(level, getMessage);
         }
 
         public void WriteLine(string line)
         {
-            if (_Options.Enabled)
+            if (_Options.Value().Enabled)
                 _Logger.WriteLine(line);
         }
     }

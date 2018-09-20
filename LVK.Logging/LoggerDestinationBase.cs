@@ -15,6 +15,9 @@ namespace LVK.Logging
         [NotNull]
         private readonly ITextLogFormatter _TextLogFormatter;
 
+        [NotNull]
+        private readonly IConfigurationElement<TOptions> _Options;
+
         protected LoggerDestinationBase(
             [NotNull] ITextLogFormatter textLogFormatter, [NotNull] IConfiguration configuration,
             [NotNull] string identifier)
@@ -23,11 +26,13 @@ namespace LVK.Logging
                 throw new ArgumentNullException(nameof(identifier));
 
             _TextLogFormatter = textLogFormatter ?? throw new ArgumentNullException(nameof(textLogFormatter));
-            Options = configuration[$"Logging/Destinations/{identifier}"].Value<TOptions>() ?? new TOptions();
+            _Options = configuration[$"Logging/Destinations/{identifier}"]
+               .Element<TOptions>()
+               .WithDefault(() => new TOptions());
         }
 
         [NotNull]
-        protected TOptions Options { get; }
+        protected TOptions Options => _Options.Value();
 
         [NotNull]
         protected object Lock { get; } = new object();
@@ -47,7 +52,7 @@ namespace LVK.Logging
 
             var message = getMessage();
             assume(message != null);
-            
+
             OutputToLog(level, message);
         }
 

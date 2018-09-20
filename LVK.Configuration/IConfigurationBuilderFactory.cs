@@ -4,6 +4,7 @@ namespace LVK.Configuration
 {
     internal interface IConfigurationBuilderFactory
     {
-        [NotNull] IConfigurationBuilder Create();
+        [NotNull]
+        IConfigurationBuilder Create();
     }
 }

@@ -86,7 +86,7 @@ namespace LVK.AppCore.Console
 
         private bool ShowHelp()
         {
-            if (!_Configuration["help"].Value<bool>())
+            if (!_Configuration["help"].Element<bool>().ValueOrDefault())
                 return false;
             
             _ConsoleApplicationHelpTextPresenter.Present();

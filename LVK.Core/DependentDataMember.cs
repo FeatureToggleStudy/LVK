@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using JetBrains.Annotations;
 
@@ -10,10 +9,8 @@ namespace LVK.Core
 {
     internal class DependentDataMember
     {
-        [NotNull]
-        private readonly DependentData _DependentData;
-
         private readonly DependentDataKey _Key;
+
         [NotNull]
         private readonly DependentDataDependencyTracker _DependencyTracker;
 
@@ -21,23 +18,19 @@ namespace LVK.Core
 
         [CanBeNull]
         private Func<object> _ValueGetter;
-        
-        [NotNull]
-        private readonly HashSet<DependentDataKey> _Dependencies = new HashSet<DependentDataKey>();
-        
+
         private bool _IsCached;
-        
+
         [CanBeNull]
         private object _Value;
 
-        public DependentDataMember([NotNull] DependentData dependentData, DependentDataKey key, [NotNull] DependentDataDependencyTracker dependencyTracker)
+        public DependentDataMember(DependentDataKey key, [NotNull] DependentDataDependencyTracker dependencyTracker)
         {
-            _DependentData = dependentData ?? throw new ArgumentNullException(nameof(dependentData));
             _Key = key;
             _DependencyTracker = dependencyTracker ?? throw new ArgumentNullException(nameof(dependencyTracker));
         }
 
-        [CanBeNull]        
+        [CanBeNull]
         public T Get<T>()
         {
             _DependencyTracker.RegisterRead(_Key);

@@ -11,7 +11,7 @@ namespace LVK.Configuration
         [NotNull]
         IConfiguration this[[NotNull, ItemNotNull] string[] path] { get; }
 
-        [CanBeNull]
-        T Value<T>();
+        [NotNull]
+        IConfigurationElement<T> Element<T>();
     }
 }

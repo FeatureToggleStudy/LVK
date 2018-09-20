@@ -11,7 +11,6 @@ namespace LVK.Configuration
         IConfiguration Build();
 
         void AddJsonFile([NotNull] string filename, [CanBeNull] Encoding encoding = null, bool isOptional = false);
-
         void AddJson([NotNull] string json);
         void AddEnvironmentVariables([NotNull] string prefix);
         void AddCommandLine([NotNull, ItemNotNull] string[] args);

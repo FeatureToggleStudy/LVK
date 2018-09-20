@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using JetBrains.Annotations;
 
@@ -19,7 +18,7 @@ namespace LVK.Core
         public DependentData() => _DependencyTracker = new DependentDataDependencyTracker(this);
 
         private DependentDataMember GetMember(DependentDataKey key)
-            => _MembersByKey.GetOrAdd(key, () => new DependentDataMember(this, key, _DependencyTracker));
+            => _MembersByKey.GetOrAdd(key, () => new DependentDataMember(key, _DependencyTracker));
 
         internal void Invalidate(DependentDataKey key) => GetMember(key).Invalidate();
 
