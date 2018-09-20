@@ -44,7 +44,11 @@ namespace LVK.Configuration
         public IConfiguration Build()
         {
             var layers = from layerProvider in _LayerProviders from layer in layerProvider.Provide() select layer;
-            return new RootConfiguration(new ConfigurationProvider(layers), string.Empty);
+            var configurationProvider = new ConfigurationProvider(layers);
+            var throttlingConfigurationProvider = new ThrottlingConfigurationProvider(
+                _Clock, Duration.FromSeconds(10), configurationProvider);
+
+            return new RootConfiguration(throttlingConfigurationProvider, string.Empty);
         }
     }
 }
