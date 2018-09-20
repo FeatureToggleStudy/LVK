@@ -34,7 +34,7 @@ namespace LVK.Configuration.Layers.JsonFile
             if (_IsOptional)
                 yield return new OptionalJsonFileConfigurationLayer(_Clock, _Filename, _Encoding);
             else
-                yield return new RequiredJsonFileConfigurationLayer(_Filename, _Encoding);
+                yield return new RequiredJsonFileConfigurationLayer(_Clock, _Filename, _Encoding);
         }
     }
 }

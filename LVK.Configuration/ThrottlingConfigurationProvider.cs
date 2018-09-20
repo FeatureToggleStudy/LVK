@@ -18,7 +18,6 @@ namespace LVK.Configuration
         private readonly ConfigurationProvider _ConfigurationProvider;
 
         private JObject _LastRefreshedConfiguration;
-        private Instant _LastRefreshedLastUpdatedAt;
         private Instant _WhenToRefreshNext;
 
         public ThrottlingConfigurationProvider([NotNull] IClock clock, Duration duration, [NotNull] ConfigurationProvider configurationProvider)
@@ -35,22 +34,12 @@ namespace LVK.Configuration
             return _LastRefreshedConfiguration;
         }
 
-        public Instant LastUpdatedAt
-        {
-            get
-            {
-                RefreshIfNeeded();
-                return _LastRefreshedLastUpdatedAt;
-            }
-        }
-
         private void RefreshIfNeeded()
         {
             var now = _Clock.GetCurrentInstant();
             if (now < _WhenToRefreshNext)
                 return;
 
-            _LastRefreshedLastUpdatedAt = _ConfigurationProvider.LastUpdatedAt;
             _LastRefreshedConfiguration = _ConfigurationProvider.GetConfiguration();
             _WhenToRefreshNext = now.Plus(_Duration);
         }

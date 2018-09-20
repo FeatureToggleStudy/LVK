@@ -2,8 +2,6 @@
 
 using Newtonsoft.Json.Linq;
 
-using NodaTime;
-
 using NSubstitute;
 
 using NUnit.Framework;
@@ -23,7 +21,6 @@ namespace LVK.Configuration.Tests
         public void SetUp()
         {
             _ConfigurationProvider = Substitute.For<IConfigurationProvider>();
-            _ConfigurationProvider.LastUpdatedAt.Returns(Instant.FromUtc(2018, 1, 1, 0, 0, 0));
             _ConfigurationProvider.GetConfiguration().Returns(new JObject());
         }
 

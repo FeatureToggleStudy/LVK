@@ -7,9 +7,12 @@ using JetBrains.Annotations;
 
 using LVK.Configuration.Layers;
 using LVK.Configuration.Layers.CommandLine;
+using LVK.Configuration.Layers.Dynamic;
 using LVK.Configuration.Layers.EnvironmentVariables;
 using LVK.Configuration.Layers.Json;
 using LVK.Configuration.Layers.JsonFile;
+
+using Newtonsoft.Json.Linq;
 
 using NodaTime;
 
@@ -31,22 +34,23 @@ namespace LVK.Configuration
         public void AddJsonFile(string filename, Encoding encoding = null, bool isOptional = false)
             => _LayerProviders.Add(new JsonFileConfigurationLayersProvider(_Clock, filename, encoding, isOptional));
 
-        public void AddJson(string json)
-            => _LayerProviders.Add(new JsonConfigurationLayersProvider(_Clock.GetCurrentInstant(), json));
+        public void AddJson(string json) => _LayerProviders.Add(new JsonConfigurationLayersProvider(json));
+
+        public void AddDynamic(Func<JObject> getConfiguration)
+            => _LayerProviders.Add(new DynamicConfigurationLayersProvider(getConfiguration));
 
         public void AddCommandLine(string[] arguments)
-            => _LayerProviders.Add(new CommandLineConfigurationLayersProvider(_Clock.GetCurrentInstant(), arguments));
+            => _LayerProviders.Add(new CommandLineConfigurationLayersProvider(_Clock, arguments));
 
         public void AddEnvironmentVariables(string prefix)
-            => _LayerProviders.Add(
-                new EnvironmentVariablesConfigurationLayerProvider(_Clock.GetCurrentInstant(), prefix));
+            => _LayerProviders.Add(new EnvironmentVariablesConfigurationLayersProvider(prefix));
 
         public IConfiguration Build()
         {
             var layers = from layerProvider in _LayerProviders from layer in layerProvider.Provide() select layer;
             var configurationProvider = new ConfigurationProvider(layers);
             var throttlingConfigurationProvider = new ThrottlingConfigurationProvider(
-                _Clock, Duration.FromSeconds(10), configurationProvider);
+                _Clock, Duration.FromSeconds(1), configurationProvider);
 
             return new RootConfiguration(throttlingConfigurationProvider, string.Empty);
         }

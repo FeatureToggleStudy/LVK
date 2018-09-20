@@ -66,7 +66,7 @@ namespace LVK.Configuration
 
         private JToken GetElement()
         {
-            var currentRootElement = Root.GetElement();
+            var currentRootElement = Root.Element;
             if (ReferenceEquals(currentRootElement, _PreviousRootElement))
                 return _PreviousElement;
 

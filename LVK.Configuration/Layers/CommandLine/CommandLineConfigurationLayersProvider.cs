@@ -19,21 +19,21 @@ namespace LVK.Configuration.Layers.CommandLine
 {
     internal class CommandLineConfigurationLayersProvider : IConfigurationLayersProvider
     {
-        private readonly Instant _WhenCreated;
+        [NotNull]
+        private readonly IClock _Clock;
 
         [NotNull, ItemNotNull]
         private readonly string[] _Arguments;
 
-        public CommandLineConfigurationLayersProvider(Instant whenCreated, [NotNull, ItemNotNull] string[] arguments)
+        public CommandLineConfigurationLayersProvider([NotNull] IClock clock, [NotNull, ItemNotNull] string[] arguments)
         {
-            _WhenCreated = whenCreated;
+            _Clock = clock ?? throw new ArgumentNullException(nameof(clock));
             _Arguments = arguments ?? throw new ArgumentNullException(nameof(arguments));
         }
 
         public IEnumerable<IConfigurationLayer> Provide()
         {
             yield return new StaticConfigurationLayer(
-                _WhenCreated,
                 new JObject { ["CommandLineArguments"] = new JArray(_Arguments.OfType<object>().ToArray()) });
 
             JObject configuration = null;
@@ -44,10 +44,10 @@ namespace LVK.Configuration.Layers.CommandLine
                 if (argument.StartsWith("@"))
                 {
                     if (configuration != null)
-                        yield return new StaticConfigurationLayer(_WhenCreated, configuration);
+                        yield return new StaticConfigurationLayer(configuration);
 
                     configuration = null;
-                    yield return new RequiredJsonFileConfigurationLayer(argument.Substring(1), Encoding.Default);
+                    yield return new RequiredJsonFileConfigurationLayer(_Clock, argument.Substring(1), Encoding.Default);
                 }
                 else
                 {
@@ -60,7 +60,7 @@ namespace LVK.Configuration.Layers.CommandLine
                 }
             }
             if (configuration != null)
-                yield return new StaticConfigurationLayer(_WhenCreated, configuration);
+                yield return new StaticConfigurationLayer(configuration);
         }
         
         private void ApplyCommandLineValueOverride(JObject configuration, [NotNull] Match match)

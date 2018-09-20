@@ -9,20 +9,15 @@ using LVK.Json;
 
 using Newtonsoft.Json.Linq;
 
-using NodaTime;
-
 namespace LVK.Configuration.Layers.EnvironmentVariables
 {
-    internal class EnvironmentVariablesConfigurationLayerProvider : IConfigurationLayersProvider
+    internal class EnvironmentVariablesConfigurationLayersProvider : IConfigurationLayersProvider
     {
-        private readonly Instant _WhenCreated;
-
         [NotNull]
         private readonly string _Prefix;
 
-        public EnvironmentVariablesConfigurationLayerProvider(Instant whenCreated, [NotNull] string prefix)
+        public EnvironmentVariablesConfigurationLayersProvider([NotNull] string prefix)
         {
-            _WhenCreated = whenCreated;
             _Prefix = prefix ?? throw new ArgumentNullException(nameof(prefix));
         }
 
@@ -43,7 +38,7 @@ namespace LVK.Configuration.Layers.EnvironmentVariables
                 JsonBuilder.Apply(variableConfiguration, configuration);
             }
 
-            yield return new StaticConfigurationLayer(_WhenCreated, configuration);
+            yield return new StaticConfigurationLayer(configuration);
         }
     }
 }
