@@ -1,11 +1,13 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 using JetBrains.Annotations;
 
 using LVK.Configuration.Helpers;
 
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using NodaTime;
@@ -14,6 +16,10 @@ namespace LVK.Configuration.Layers.JsonFile
 {
     internal abstract class BaseJsonFileConfigurationLayer : IConfigurationLayer
     {
+        // ReSharper disable InconsistentNaming
+        private const int ERROR_SHARING_VIOLATION = -2147024864;
+        // ReSharper restore InconsistentNaming
+
         [NotNull]
         private readonly IClock _Clock;
 
@@ -69,7 +75,33 @@ namespace LVK.Configuration.Layers.JsonFile
 
         private void LoadConfigurationFromFile()
         {
-            _Configuration = JObject.Parse(File.ReadAllText(Filename, _Encoding));
+            bool retry = true;
+            int retryCount = 0;
+            while (retry)
+            {
+                retry = false;
+                
+                try
+                {
+                    _Configuration = JObject.Parse(File.ReadAllText(Filename, _Encoding));
+                }
+                catch (JsonReaderException)
+                {
+                    _Configuration = null;
+                }
+                catch (IOException ex) when (ex.HResult == ERROR_SHARING_VIOLATION)
+                {
+                    retryCount++;
+                    if (retryCount < 10)
+                    {
+                        retry = true;
+                        Thread.Sleep(10);
+                    }
+                    else
+                        _Configuration = null;
+                }
+            }
+
             _PreviousLastWriteTime = Instant.Max(GetFileLastWriteTime(), _PreviousLastWriteTime);
         }
 
