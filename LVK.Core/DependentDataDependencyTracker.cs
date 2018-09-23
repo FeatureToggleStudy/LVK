@@ -34,6 +34,7 @@ namespace LVK.Core
         internal void EndReadScopeFor(DependentDataKey key)
         {
             var dependenciesForKey = _ReadScopes.Pop();
+            assume(dependenciesForKey != null);
 
             var existingDependenciesForKey = _Dependencies.GetOrAdd(key, () => new HashSet<DependentDataKey>());
             assume(existingDependenciesForKey != null);

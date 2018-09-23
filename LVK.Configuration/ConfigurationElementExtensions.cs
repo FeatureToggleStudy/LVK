@@ -9,20 +9,21 @@ namespace LVK.Configuration
     {
         [NotNull]
         public static IConfigurationElement<T> WithDefault<T>(
-            this IConfigurationElement<T> element, Func<T> getDefaultValue)
+            [NotNull] this IConfigurationElement<T> element, [NotNull] Func<T> getDefaultValue)
             => new ConfigurationElementWithDefaultValue<T>(element, getDefaultValue);
 
         [NotNull]
         public static IConfigurationElement<T> WithDefault<T>(
-            this IConfigurationElement<T> element, T defaultValue)
+            [NotNull] this IConfigurationElement<T> element, [NotNull] T defaultValue)
             => new ConfigurationElementWithDefaultValue<T>(element, () => defaultValue);
-        
+
         [NotNull]
-        public static T ValueOrDefault<T>(this IConfigurationElement<T> element, [NotNull] Func<T> getDefaultValue)
+        public static T ValueOrDefault<T>(
+            [NotNull] this IConfigurationElement<T> element, [NotNull] Func<T> getDefaultValue)
             => new ConfigurationElementWithDefaultValue<T>(element, getDefaultValue).Value();
 
         [NotNull]
-        public static T ValueOrDefault<T>(this IConfigurationElement<T> element, T defaultValue = default)
+        public static T ValueOrDefault<T>([NotNull] this IConfigurationElement<T> element, T defaultValue = default)
             => new ConfigurationElementWithDefaultValue<T>(element, () => defaultValue).Value();
     }
 }

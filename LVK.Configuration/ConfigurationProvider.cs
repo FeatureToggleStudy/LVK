@@ -38,9 +38,7 @@ namespace LVK.Configuration
             lock (_Lock)
             {
                 DetectChange();
-                if (_Configuration == null)
-                    CalculateConfiguration();
-
+                _Configuration = _Configuration ?? CalculateConfiguration();
                 return _Configuration;
             }
         }
@@ -58,14 +56,15 @@ namespace LVK.Configuration
             }
         }
 
-        private void CalculateConfiguration()
+        [NotNull]
+        private JObject CalculateConfiguration()
         {
             var configuration = new JObject();
             foreach (var layerConfiguration in _Configurations)
                 if (layerConfiguration != null)
                     JsonBuilder.Apply(layerConfiguration, configuration);
 
-            _Configuration = configuration;
+            return configuration;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace LVK.Configuration
         }
 
         public void AddJsonFile(string filename, Encoding encoding = null, bool isOptional = false)
-            => _LayerProviders.Add(new JsonFileConfigurationLayersProvider(_Clock, filename, encoding, isOptional));
+            => _LayerProviders.Add(new JsonFileConfigurationLayersProvider(filename, encoding, isOptional));
 
         public void AddJson(string json) => _LayerProviders.Add(new JsonConfigurationLayersProvider(json));
 
@@ -40,7 +40,7 @@ namespace LVK.Configuration
             => _LayerProviders.Add(new DynamicConfigurationLayersProvider(getConfiguration));
 
         public void AddCommandLine(string[] arguments)
-            => _LayerProviders.Add(new CommandLineConfigurationLayersProvider(_Clock, arguments));
+            => _LayerProviders.Add(new CommandLineConfigurationLayersProvider(arguments));
 
         public void AddEnvironmentVariables(string prefix)
             => _LayerProviders.Add(new EnvironmentVariablesConfigurationLayersProvider(prefix));

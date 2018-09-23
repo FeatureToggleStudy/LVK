@@ -7,6 +7,8 @@ using LVK.Configuration.Layers.Static;
 
 using Newtonsoft.Json.Linq;
 
+using static LVK.Core.JetBrainsHelpers;
+
 namespace LVK.Configuration.Layers.Json
 {
     internal class JsonConfigurationLayersProvider : IConfigurationLayersProvider
@@ -22,6 +24,7 @@ namespace LVK.Configuration.Layers.Json
         public IEnumerable<IConfigurationLayer> Provide()
         {
             var configuration = JObject.Parse(_Json);
+            assume(configuration != null);
             yield return new StaticConfigurationLayer(configuration);
         }
     }

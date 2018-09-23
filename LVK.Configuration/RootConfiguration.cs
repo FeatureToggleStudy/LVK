@@ -20,6 +20,7 @@ namespace LVK.Configuration
 
         protected override RootConfiguration Root => this;
 
+        [NotNull]
         public JObject Element => _ConfigurationProvider.GetConfiguration();
     }
 }

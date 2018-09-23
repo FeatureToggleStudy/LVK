@@ -2,6 +2,8 @@ using System;
 
 using JetBrains.Annotations;
 
+using static LVK.Core.JetBrainsHelpers;
+
 namespace LVK.Configuration
 {
     internal class ConfigurationElementWithDefaultValue<T> : IConfigurationElement<T>
@@ -20,18 +22,22 @@ namespace LVK.Configuration
 
         public T Value()
         {
+            T result;
             try
             {
-                return _Element.Value();
+                result = _Element.Value();
             }
             catch (ArgumentException)
             {
-                return _GetDefaultValue();
+                result = _GetDefaultValue();
             }
             catch (InvalidCastException)
             {
-                return _GetDefaultValue();
+                result = _GetDefaultValue();
             }
+
+            assume(result != null);
+            return result;
         }
     }
 }

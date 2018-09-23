@@ -6,6 +6,8 @@ using Newtonsoft.Json.Linq;
 
 using NodaTime;
 
+using static LVK.Core.JetBrainsHelpers;
+
 namespace LVK.Configuration
 {
     internal class ThrottlingConfigurationProvider : IConfigurationProvider
@@ -31,13 +33,14 @@ namespace LVK.Configuration
         public JObject GetConfiguration()
         {
             RefreshIfNeeded();
+            assume(_LastRefreshedConfiguration != null);
             return _LastRefreshedConfiguration;
         }
 
         private void RefreshIfNeeded()
         {
             var now = _Clock.GetCurrentInstant();
-            if (now < _WhenToRefreshNext)
+            if (now < _WhenToRefreshNext && _LastRefreshedConfiguration != null)
                 return;
 
             _LastRefreshedConfiguration = _ConfigurationProvider.GetConfiguration();

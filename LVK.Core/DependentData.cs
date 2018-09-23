@@ -17,8 +17,9 @@ namespace LVK.Core
 
         public DependentData() => _DependencyTracker = new DependentDataDependencyTracker(this);
 
+        [NotNull]
         private DependentDataMember GetMember(DependentDataKey key)
-            => _MembersByKey.GetOrAdd(key, () => new DependentDataMember(key, _DependencyTracker));
+            => _MembersByKey.GetOrAdd(key, () => new DependentDataMember(key, _DependencyTracker)).NotNull();
 
         internal void Invalidate(DependentDataKey key) => GetMember(key).Invalidate();
 

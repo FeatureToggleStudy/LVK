@@ -4,6 +4,8 @@ using JetBrains.Annotations;
 
 using Newtonsoft.Json.Linq;
 
+using static LVK.Core.JetBrainsHelpers;
+
 namespace LVK.Configuration
 {
     internal class ConfigurationElement<T> : IConfigurationElement<T>
@@ -18,11 +20,17 @@ namespace LVK.Configuration
 
         public T Value()
         {
-            var element = _GetElement();
-            if (!(element is JObject obj))
-                return element.ToObject<T>();
+            JToken element = _GetElement();
+            assume(element != null);
 
-            return obj.ToObject<T>();
+            T result;
+            if (element is JObject obj)
+                result = obj.ToObject<T>();
+            else
+                result = element.ToObject<T>();
+
+            assume(result != null);
+            return result;
         }
     }
 }

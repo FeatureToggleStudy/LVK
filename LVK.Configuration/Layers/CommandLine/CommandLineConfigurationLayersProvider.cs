@@ -13,21 +13,15 @@ using LVK.Json;
 
 using Newtonsoft.Json.Linq;
 
-using NodaTime;
-
 namespace LVK.Configuration.Layers.CommandLine
 {
     internal class CommandLineConfigurationLayersProvider : IConfigurationLayersProvider
     {
-        [NotNull]
-        private readonly IClock _Clock;
-
         [NotNull, ItemNotNull]
         private readonly string[] _Arguments;
 
-        public CommandLineConfigurationLayersProvider([NotNull] IClock clock, [NotNull, ItemNotNull] string[] arguments)
+        public CommandLineConfigurationLayersProvider([NotNull, ItemNotNull] string[] arguments)
         {
-            _Clock = clock ?? throw new ArgumentNullException(nameof(clock));
             _Arguments = arguments ?? throw new ArgumentNullException(nameof(arguments));
         }
 
@@ -47,7 +41,7 @@ namespace LVK.Configuration.Layers.CommandLine
                         yield return new StaticConfigurationLayer(configuration);
 
                     configuration = null;
-                    yield return new RequiredJsonFileConfigurationLayer(_Clock, argument.Substring(1), Encoding.Default);
+                    yield return new JsonFileConfigurationLayer(argument.Substring(1), Encoding.Default, false);
                 }
                 else
                 {
@@ -63,7 +57,7 @@ namespace LVK.Configuration.Layers.CommandLine
                 yield return new StaticConfigurationLayer(configuration);
         }
         
-        private void ApplyCommandLineValueOverride(JObject configuration, [NotNull] Match match)
+        private void ApplyCommandLineValueOverride([NotNull] JObject configuration, [NotNull] Match match)
         {
             var path = match.Groups["path"]?.Value ?? string.Empty;
             if (string.IsNullOrWhiteSpace(path))
