@@ -10,7 +10,7 @@ using LVK.Configuration;
 
 namespace LVK.AppCore.Console.CommandBased
 {
-    public class CommandBasedApplicationEntryPoint : IApplicationEntryPoint
+    internal class CommandBasedApplicationEntryPoint : IApplicationEntryPoint
     {
         [NotNull]
         private readonly IConfiguration _Configuration;

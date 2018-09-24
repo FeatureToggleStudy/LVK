@@ -5,7 +5,7 @@ using LVK.Tests.Framework;
 
 using NUnit.Framework;
 
-namespace LVK.AppCore.Console.Tests
+namespace LVK.Persistence.Tests
 {
     [TestFixture]
     public class PublicApiTests : PublicApiTestsBase<ServicesBootstrapper>

@@ -4,7 +4,7 @@ using LVK.Core.Services;
 
 namespace LVK.AppCore.Console
 {
-    public class ConsoleApplicationEntryPointOptionsHelpTextProvider : IOptionsHelpTextProvider
+    internal class ConsoleApplicationEntryPointOptionsHelpTextProvider : IOptionsHelpTextProvider
     {
         public IEnumerable<(IEnumerable<string> paths, bool isConfiguration, string description)> GetHelpText()
         {

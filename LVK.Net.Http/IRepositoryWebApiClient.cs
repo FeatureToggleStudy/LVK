@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 
 namespace LVK.Net.Http
 {
+    [PublicAPI]
     public interface IRepositoryWebApiClient<TKey, TValue>
     {
         [NotNull, ItemNotNull]

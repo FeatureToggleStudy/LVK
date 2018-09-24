@@ -11,6 +11,7 @@ using LVK.Logging;
 
 namespace LVK.Net.Http
 {
+    [PublicAPI]
     public class HttpClientLoggingHandler : DelegatingHandler
     {
         [NotNull]

@@ -8,12 +8,7 @@ using NUnit.Framework;
 namespace LVK.Logging.Tests
 {
     [TestFixture]
-    public class PublicApiTests : PublicApiTestsBase
+    public class PublicApiTests : PublicApiTestsBase<ILogger>
     {
-        public static IEnumerable<TestCaseData> PublicTypes() => GetPublicTypesOfAssembly(typeof(TextLogFormatter));
-
-        [Test]
-        [TestCaseSource(nameof(PublicTypes))]
-        public void PublicType_IsTaggedWithPublicApi(Type publicType) => VerifyPublicApi(publicType);
     }
 }

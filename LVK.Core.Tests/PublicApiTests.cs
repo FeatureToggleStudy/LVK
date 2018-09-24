@@ -8,12 +8,7 @@ using NUnit.Framework;
 namespace LVK.Core.Tests
 {
     [TestFixture]
-    public class PublicApiTests : PublicApiTestsBase
+    public class PublicApiTests : PublicApiTestsBase<ActionDisposable>
     {
-        public static IEnumerable<TestCaseData> PublicTypes() => GetPublicTypesOfAssembly(typeof(ActionDisposable));
-
-        [Test]
-        [TestCaseSource(nameof(PublicTypes))]
-        public void PublicType_IsTaggedWithPublicApi(Type publicType) => VerifyPublicApi(publicType);
     }
 }

@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 
 namespace LVK.Net.Http
 {
-    public class RepositoryWebApiClient<TKey, TPayload> : WebApiClient, IRepositoryWebApiClient<TKey, TPayload>
+    internal class RepositoryWebApiClient<TKey, TPayload> : WebApiClient, IRepositoryWebApiClient<TKey, TPayload>
     {
         public RepositoryWebApiClient([NotNull] HttpClient httpClient, [NotNull] string uri)
             : base(httpClient, uri)
