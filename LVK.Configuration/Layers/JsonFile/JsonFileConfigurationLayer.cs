@@ -24,10 +24,13 @@ namespace LVK.Configuration.Layers.JsonFile
         private readonly bool _IsOptional;
 
         private DateTime _PreviousLastWriteTime = DateTime.MinValue;
-        private JObject _Configuration = new JObject();
+        private JObject _Configuration;
 
         [NotNull]
         private Action _StateCheck;
+
+        [NotNull]
+        private readonly string _Filename;
 
         public JsonFileConfigurationLayer(
             [NotNull] string filename, [NotNull] Encoding encoding, bool isOptional)
@@ -35,28 +38,32 @@ namespace LVK.Configuration.Layers.JsonFile
             if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
 
-            Filename = ConfigurationFilePath.GetFullPath(filename);
+            _Filename = ConfigurationFilePath.GetFullPath(filename);
             _Encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
             _IsOptional = isOptional;
 
             _StateCheck = StateCheckForFileComingIntoExistence;
         }
 
-        [NotNull]
-        protected string Filename { get; }
-
         private void StateCheckForFileComingIntoExistence()
         {
-            if (File.Exists(Filename))
+            if (File.Exists(_Filename))
             {
-                _StateCheck = StateCheckForFileModification;
-                LoadConfigurationFromFile();
+                var configuration = LoadConfigurationFromFile();
+                if (configuration != null)
+                {
+                    _Configuration = configuration;
+                    _PreviousLastWriteTime = File.GetLastWriteTimeUtc(_Filename);
+                    _StateCheck = StateCheckForFileModification;
+                }
             }
+            else
+                ThrowIfNotOptional();
         }
 
         private void StateCheckForFileModification()
         {
-            if (!File.Exists(Filename))
+            if (!File.Exists(_Filename))
             {
                 _StateCheck = StateCheckForFileComingIntoExistence;
                 _Configuration = null;
@@ -64,7 +71,7 @@ namespace LVK.Configuration.Layers.JsonFile
             }
             else
             {
-                var lastWriteTime = File.GetLastWriteTimeUtc(Filename); 
+                var lastWriteTime = File.GetLastWriteTimeUtc(_Filename); 
                 if (lastWriteTime != _PreviousLastWriteTime)
                 {
                     _PreviousLastWriteTime = lastWriteTime;
@@ -81,7 +88,7 @@ namespace LVK.Configuration.Layers.JsonFile
         private void ThrowIfNotOptional()
         {
             if (!_IsOptional)
-                throw new InvalidOperationException($"configuration file '{Filename}' does not exist");
+                throw new InvalidOperationException($"configuration file '{_Filename}' does not exist");
         }
 
         private JObject LoadConfigurationFromFile()
@@ -91,7 +98,7 @@ namespace LVK.Configuration.Layers.JsonFile
             {
                 try
                 {
-                    return JObject.Parse(File.ReadAllText(Filename, _Encoding));
+                    return JObject.Parse(File.ReadAllText(_Filename, _Encoding));
                 }
                 catch (JsonReaderException)
                 {

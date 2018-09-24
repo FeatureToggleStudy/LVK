@@ -282,7 +282,7 @@ resharper_int_align = false
 
 # ReSharper - C# - Line Breaks - General
 resharper_keep_existing_linebreaks = false
-max_line_length = 120
+max_line_length = 160
 resharper_wrap_before_comma = false
 resharper_special_else_if_treatment = true
 insert_final_newline = false
