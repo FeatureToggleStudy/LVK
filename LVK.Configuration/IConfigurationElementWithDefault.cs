@@ -3,9 +3,9 @@ using JetBrains.Annotations;
 namespace LVK.Configuration
 {
     [PublicAPI]
-    public interface IConfigurationElement<out T>
+    public interface IConfigurationElementWithDefault<out T>
     {
-        [CanBeNull]
+        [NotNull]
         T Value();
     }
 }

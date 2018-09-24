@@ -6,7 +6,7 @@ using static LVK.Core.JetBrainsHelpers;
 
 namespace LVK.Configuration
 {
-    internal class ConfigurationElementWithDefaultValue<T> : IConfigurationElement<T>
+    internal class ConfigurationElementWithDefaultValue<T> : IConfigurationElementWithDefault<T>
     {
         [NotNull]
         private readonly IConfigurationElement<T> _Element;
@@ -26,6 +26,8 @@ namespace LVK.Configuration
             try
             {
                 result = _Element.Value();
+                if (result == null)
+                    result = _GetDefaultValue();
             }
             catch (ArgumentException)
             {

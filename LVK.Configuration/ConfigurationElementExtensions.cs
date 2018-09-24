@@ -8,12 +8,12 @@ namespace LVK.Configuration
     public static class ConfigurationElementExtensions
     {
         [NotNull]
-        public static IConfigurationElement<T> WithDefault<T>(
+        public static IConfigurationElementWithDefault<T> WithDefault<T>(
             [NotNull] this IConfigurationElement<T> element, [NotNull] Func<T> getDefaultValue)
             => new ConfigurationElementWithDefaultValue<T>(element, getDefaultValue);
 
         [NotNull]
-        public static IConfigurationElement<T> WithDefault<T>(
+        public static IConfigurationElementWithDefault<T> WithDefault<T>(
             [NotNull] this IConfigurationElement<T> element, [NotNull] T defaultValue)
             => new ConfigurationElementWithDefaultValue<T>(element, () => defaultValue);
 

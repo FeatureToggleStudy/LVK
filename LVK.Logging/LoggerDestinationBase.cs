@@ -16,7 +16,7 @@ namespace LVK.Logging
         private readonly ITextLogFormatter _TextLogFormatter;
 
         [NotNull]
-        private readonly IConfigurationElement<TOptions> _Options;
+        private readonly IConfigurationElementWithDefault<TOptions> _Options;
 
         protected LoggerDestinationBase(
             [NotNull] ITextLogFormatter textLogFormatter, [NotNull] IConfiguration configuration,

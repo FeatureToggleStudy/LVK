@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 using LVK.Configuration;
+using LVK.Core;
 
 namespace LVK.AppCore.Console.CommandBased
 {

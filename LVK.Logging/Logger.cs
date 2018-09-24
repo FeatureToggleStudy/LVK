@@ -43,7 +43,7 @@ namespace LVK.Logging
         private readonly ILogger _Logger;
 
         [NotNull]
-        private readonly IConfigurationElement<LoggerSystemOptions> _Options;
+        private readonly IConfigurationElementWithDefault<LoggerSystemOptions> _Options;
 
         public Logger([NotNull] ILogger logger, [NotNull] IConfiguration configuration)
         {

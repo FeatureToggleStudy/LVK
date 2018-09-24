@@ -21,8 +21,9 @@ namespace LVK.Configuration
         public T Value()
         {
             JToken element = _GetElement();
-            assume(element != null);
-
+            if (element == null)
+                return default;
+                
             T result;
             if (element is JObject obj)
                 result = obj.ToObject<T>();
