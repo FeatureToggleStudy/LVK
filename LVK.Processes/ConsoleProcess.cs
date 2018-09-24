@@ -15,10 +15,10 @@ namespace LVK.Processes
         [NotNull]
         private readonly IConsoleProcessMonitor[] _Monitors;
 
-        [NotNull]
-        private readonly TaskCompletionSource<int> _ProcessExitedTaskCompletionSource;
-
         private Stopwatch _Stopwatch;
+        
+        [NotNull]
+        private readonly TaskCompletionSource<bool> _ProcessCompletedTaskCompletionSource;
 
         public ConsoleProcess([NotNull] ProcessStartInfo processStartInfo, [NotNull] IConsoleProcessMonitor[] monitors)
         {
@@ -38,17 +38,9 @@ namespace LVK.Processes
             _Process.EnableRaisingEvents = true;
             _Process.OutputDataReceived += ProcessOnOutputDataReceived;
             _Process.ErrorDataReceived += ProcessOnErrorDataReceived;
-            _Process.Exited += ProcessOnExited;
 
-            _ProcessExitedTaskCompletionSource = new TaskCompletionSource<int>();
-        }
-
-        private void ProcessOnExited(object sender, EventArgs eventArgs)
-        {
-            _Process.WaitForExit();
-            foreach (var monitor in _Monitors)
-                monitor?.Exited(this, _Process.ExitCode);
-            _ProcessExitedTaskCompletionSource.SetResult(_Process.ExitCode);
+            _ProcessCompletedTaskCompletionSource = new TaskCompletionSource<bool>();
+            _Process.Exited += (s, e) => _ProcessCompletedTaskCompletionSource.SetResult(true);
         }
 
         private void ProcessOnErrorDataReceived(object sender, DataReceivedEventArgs dataReceivedEventArgs)
@@ -99,17 +91,25 @@ namespace LVK.Processes
 
         public int Id { get; private set; }
 
-        public Task<int> StartAsync()
+        public async Task<int> StartAsync()
         {
+            _Stopwatch = Stopwatch.StartNew();
+
             _Process.Start();
             Id = _Process.Id;
-            _Process.BeginErrorReadLine();
-            _Process.BeginOutputReadLine();
-            _Stopwatch = Stopwatch.StartNew();
             foreach (var monitor in _Monitors)
                 monitor?.Started(this);
 
-            return _ProcessExitedTaskCompletionSource.Task;
+            _Process.BeginErrorReadLine();
+            _Process.BeginOutputReadLine();
+            
+            await _ProcessCompletedTaskCompletionSource.Task;
+
+            _Process.WaitForExit();
+            foreach (var monitor in _Monitors)
+                monitor?.Exited(this, _Process.ExitCode);
+
+            return _Process.ExitCode;
         }
     }
 }
