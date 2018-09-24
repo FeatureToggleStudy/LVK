@@ -10,18 +10,18 @@ namespace LVK.Net.Http
     public interface IRepositoryWebApiClient<TKey, TValue>
     {
         [NotNull, ItemNotNull]
-        Task<KeyValuePair<TKey, TValue>[]> GetAllAsync(CancellationToken? cancellationToken = null);
+        Task<KeyValuePair<TKey, TValue>[]> GetAllAsync([CanBeNull] CancellationToken? cancellationToken = null);
+
+        [NotNull, ItemNotNull]
+        Task<TValue> GetAsync([NotNull] TKey key, [CanBeNull] CancellationToken? cancellationToken = null);
 
         [NotNull]
-        Task<TValue> GetAsync(TKey key, CancellationToken? cancellationToken = null);
+        Task<bool> DeleteAsync([NotNull] TKey key, [CanBeNull] CancellationToken? cancellationToken = null);
 
         [NotNull]
-        Task<bool> DeleteAsync(TKey key, CancellationToken? cancellationToken = null);
-
-        [NotNull]
-        Task<bool> PutAsync(TKey key, TValue payload, CancellationToken? cancellationToken = null);
+        Task<bool> PutAsync([NotNull] TKey key, [NotNull] TValue payload, [CanBeNull] CancellationToken? cancellationToken = null);
         
         [NotNull]
-        Task<bool> PostAsync(TValue payload, CancellationToken? cancellationToken = null);
+        Task<bool> PostAsync([NotNull] TValue payload, [CanBeNull] CancellationToken? cancellationToken = null);
     }
 }

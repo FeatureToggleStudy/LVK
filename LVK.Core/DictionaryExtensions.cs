@@ -26,7 +26,7 @@ namespace LVK.Core
 
         [CanBeNull]
         public static TValue GetOrAdd<TKey, TValue>(
-            [NotNull] this IDictionary<TKey, TValue> dictionary, [NotNull] TKey key, TValue defaultValue)
+            [NotNull] this IDictionary<TKey, TValue> dictionary, [NotNull] TKey key, [CanBeNull] TValue defaultValue)
             => GetOrAdd(dictionary, key, () => defaultValue);
 
         [CanBeNull]

@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 
 using NUnit.Framework;
 
+// ReSharper disable AssignmentIsFullyDiscarded
+// ReSharper disable PossibleNullReferenceException
 // ReSharper disable AssignNullToNotNullAttribute
 // ReSharper disable ObjectCreationAsStatement
 

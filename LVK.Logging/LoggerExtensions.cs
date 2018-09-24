@@ -15,17 +15,16 @@ namespace LVK.Logging
     public static class LoggerExtensions
     {
         // ReSharper disable ExplicitCallerInfoArgument
-        public static void LogTrace([NotNull] this ILogger logger, [CanBeNull] string message = null,
-                                    [CallerFilePath] string callerFilePath = null,
-                                    [CallerMemberName] string callerMemberName = null,
-                                    [CallerLineNumber] int callerLineNumber = 0)
-            => LogTrace(logger, () => message, callerFilePath, callerMemberName, callerLineNumber);
-        // ReSharper restore ExplicitCallerInfoArgument
-        
         public static void LogTrace(
-            [NotNull] this ILogger logger, [NotNull] Func<string> getMessage,
-            [CallerFilePath] string callerFilePath = null, [CallerMemberName] string callerMemberName = null,
-            [CallerLineNumber] int callerLineNumber = 0)
+            [NotNull] this ILogger logger, [CanBeNull] string message = null, [CallerFilePath, CanBeNull] string callerFilePath = null,
+            [CallerMemberName, CanBeNull] string callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
+            => LogTrace(logger, () => message, callerFilePath, callerMemberName, callerLineNumber);
+
+        // ReSharper restore ExplicitCallerInfoArgument
+
+        public static void LogTrace(
+            [NotNull] this ILogger logger, [NotNull] Func<string> getMessage, [CallerFilePath, CanBeNull] string callerFilePath = null,
+            [CallerMemberName, CanBeNull] string callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
         {
             if (getMessage == null)
                 throw new ArgumentNullException(nameof(getMessage));
@@ -34,41 +33,30 @@ namespace LVK.Logging
                 logger, LogLevel.Trace, () =>
                 {
                     string message = getMessage();
-                    return
-                        $"{(!string.IsNullOrWhiteSpace(message) ? message + " @ " : "")}{callerMemberName} @ {callerFilePath} #{callerLineNumber}";
+                    return $"{(!string.IsNullOrWhiteSpace(message) ? message + " @ " : "")}{callerMemberName} @ {callerFilePath} #{callerLineNumber}";
                 });
         }
 
-        public static void LogDebug([NotNull] this ILogger logger, [NotNull] string message)
-            => Log(logger, LogLevel.Debug, message);
+        public static void LogDebug([NotNull] this ILogger logger, [NotNull] string message) => Log(logger, LogLevel.Debug, message);
 
-        public static void LogDebug([NotNull] this ILogger logger, [NotNull] Func<string> getMessage)
-            => Log(logger, LogLevel.Debug, getMessage);
-        
-        public static void LogVerbose([NotNull] this ILogger logger, [NotNull] string message)
-            => Log(logger, LogLevel.Verbose, message);
+        public static void LogDebug([NotNull] this ILogger logger, [NotNull] Func<string> getMessage) => Log(logger, LogLevel.Debug, getMessage);
 
-        public static void LogVerbose([NotNull] this ILogger logger, [NotNull] Func<string> getMessage)
-            => Log(logger, LogLevel.Verbose, getMessage);
-        
-        public static void LogInformation([NotNull] this ILogger logger, [NotNull] string message)
-            => Log(logger, LogLevel.Information, message);
+        public static void LogVerbose([NotNull] this ILogger logger, [NotNull] string message) => Log(logger, LogLevel.Verbose, message);
 
-        public static void LogInformation([NotNull] this ILogger logger, [NotNull] Func<string> getMessage)
-            => Log(logger, LogLevel.Information, getMessage);
-        
-        public static void LogWarning([NotNull] this ILogger logger, [NotNull] string message)
-            => Log(logger, LogLevel.Warning, message);
+        public static void LogVerbose([NotNull] this ILogger logger, [NotNull] Func<string> getMessage) => Log(logger, LogLevel.Verbose, getMessage);
 
-        public static void LogWarning([NotNull] this ILogger logger, [NotNull] Func<string> getMessage)
-            => Log(logger, LogLevel.Warning, getMessage);
-        
-        public static void LogError([NotNull] this ILogger logger, [NotNull] string message)
-            => Log(logger, LogLevel.Error, message);
+        public static void LogInformation([NotNull] this ILogger logger, [NotNull] string message) => Log(logger, LogLevel.Information, message);
 
-        public static void LogError([NotNull] this ILogger logger, [NotNull] Func<string> getMessage)
-            => Log(logger, LogLevel.Error, getMessage);
-        
+        public static void LogInformation([NotNull] this ILogger logger, [NotNull] Func<string> getMessage) => Log(logger, LogLevel.Information, getMessage);
+
+        public static void LogWarning([NotNull] this ILogger logger, [NotNull] string message) => Log(logger, LogLevel.Warning, message);
+
+        public static void LogWarning([NotNull] this ILogger logger, [NotNull] Func<string> getMessage) => Log(logger, LogLevel.Warning, getMessage);
+
+        public static void LogError([NotNull] this ILogger logger, [NotNull] string message) => Log(logger, LogLevel.Error, message);
+
+        public static void LogError([NotNull] this ILogger logger, [NotNull] Func<string> getMessage) => Log(logger, LogLevel.Error, getMessage);
+
         public static void LogException([NotNull] this ILogger logger, [NotNull] Exception ex)
         {
             var sb = new StringBuilder();

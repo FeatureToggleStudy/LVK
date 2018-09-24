@@ -36,7 +36,7 @@ namespace LVK.Conversion
         }
 
         public static bool TryConvert<TSource, TTarget>(
-            [NotNull] this IValueConverter valueConverter, [CanBeNull] TSource sourceValue, out TTarget targetValue,
+            [NotNull] this IValueConverter valueConverter, [CanBeNull] TSource sourceValue, [CanBeNull] out TTarget targetValue,
             [CanBeNull] IFormatProvider formatProvider = null)
         {
             if (valueConverter is null)

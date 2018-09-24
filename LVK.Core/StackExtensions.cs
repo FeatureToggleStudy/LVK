@@ -9,7 +9,7 @@ namespace LVK.Core
     public static class StackExtensions
     {
         [CanBeNull]
-        public static T PeekOrDefault<T>([NotNull] this Stack<T> stack, T defaultValue = default)
+        public static T PeekOrDefault<T>([NotNull] this Stack<T> stack, [CanBeNull] T defaultValue = default)
         {
             if (stack == null)
                 throw new ArgumentNullException(nameof(stack));

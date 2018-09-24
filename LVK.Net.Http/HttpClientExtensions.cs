@@ -18,12 +18,12 @@ namespace LVK.Net.Http
     {
         [NotNull]
         public static Task<string> GetStringAsync([NotNull] this HttpClient httpClient, [NotNull] string requestUri,
-                                                  CancellationToken? cancellationToken = null)
+                                                  [CanBeNull] CancellationToken? cancellationToken = null)
             => GetStringAsync(httpClient, new Uri(requestUri), cancellationToken);
 
         [NotNull]
         public static async Task<string> GetStringAsync([NotNull] this HttpClient httpClient, [NotNull] Uri requestUri,
-                                                        CancellationToken? cancellationToken = null)
+                                                        [CanBeNull] CancellationToken? cancellationToken = null)
         {
             if (httpClient is null)
                 throw new ArgumentNullException(nameof(httpClient));
@@ -42,12 +42,12 @@ namespace LVK.Net.Http
 
         [NotNull]
         public static Task<T> GetFromJsonAsync<T>([NotNull] this HttpClient httpClient, [NotNull] string requestUri,
-                                                  CancellationToken? cancellationToken = null)
+                                                  [CanBeNull] CancellationToken? cancellationToken = null)
             => GetFromJsonAsync<T>(httpClient, new Uri(requestUri), cancellationToken);
 
         [NotNull]
         public static async Task<T> GetFromJsonAsync<T>([NotNull] this HttpClient httpClient, [NotNull] Uri requestUri,
-                                                        CancellationToken? cancellationToken = null)
+                                                        [CanBeNull] CancellationToken? cancellationToken = null)
         {
             if (httpClient is null)
                 throw new ArgumentNullException(nameof(httpClient));
@@ -72,30 +72,31 @@ namespace LVK.Net.Http
         [NotNull]
         public static Task<HttpResponseMessage> PostAsJsonAsync<T>([NotNull] this HttpClient httpClient,
                                                                    [NotNull] string requestUri, T payload,
-                                                                   CancellationToken? cancellationToken = null)
+                                                                   [CanBeNull] CancellationToken? cancellationToken = null)
             => PostAsJsonAsync(httpClient, new Uri(requestUri), payload, cancellationToken);
 
         [NotNull]
         public static Task<HttpResponseMessage> PostAsJsonAsync<T>([NotNull] this HttpClient httpClient,
                                                                    [NotNull] Uri requestUri, T payload,
-                                                                   CancellationToken? cancellationToken = null)
+                                                                   [CanBeNull] CancellationToken? cancellationToken = null)
             => PostOrPutAsJsonAsync(httpClient, HttpMethod.Post, requestUri, payload, cancellationToken);
 
         [NotNull]
         public static Task<HttpResponseMessage> PutAsJsonAsync<T>([NotNull] this HttpClient httpClient,
-                                                                  [NotNull] string requestUri, T payload,
-                                                                  CancellationToken? cancellationToken = null)
+                                                                  [NotNull] string requestUri, [NotNull] T payload,
+                                                                  [CanBeNull] CancellationToken? cancellationToken = null)
             => PutAsJsonAsync(httpClient, new Uri(requestUri), payload, cancellationToken);
 
         [NotNull]
         public static Task<HttpResponseMessage> PutAsJsonAsync<T>([NotNull] this HttpClient httpClient,
-                                                                  [NotNull] Uri requestUri, T payload,
-                                                                  CancellationToken? cancellationToken = null)
+                                                                  [NotNull] Uri requestUri, [NotNull] T payload,
+                                                                  [CanBeNull] CancellationToken? cancellationToken = null)
             => PostOrPutAsJsonAsync(httpClient, HttpMethod.Put, requestUri, payload, cancellationToken);
 
+        [NotNull]
         private static async Task<HttpResponseMessage> PostOrPutAsJsonAsync<T>(
             [NotNull] HttpClient httpClient, HttpMethod method, [NotNull] Uri requestUri, T payload,
-            CancellationToken? cancellationToken = null)
+            [CanBeNull] CancellationToken? cancellationToken = null)
         {
             if (httpClient is null)
                 throw new ArgumentNullException(nameof(httpClient));

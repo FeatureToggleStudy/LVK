@@ -23,7 +23,7 @@ namespace LVK.Configuration
             => new ConfigurationElementWithDefaultValue<T>(element, getDefaultValue).Value();
 
         [NotNull]
-        public static T ValueOrDefault<T>([NotNull] this IConfigurationElement<T> element, T defaultValue = default)
+        public static T ValueOrDefault<T>([NotNull] this IConfigurationElement<T> element, [CanBeNull] T defaultValue = default)
             => new ConfigurationElementWithDefaultValue<T>(element, () => defaultValue).Value();
     }
 }
