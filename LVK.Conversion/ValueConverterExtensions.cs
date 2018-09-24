@@ -53,6 +53,7 @@ namespace LVK.Conversion
             return true;
         }
 
+        [CanBeNull]
         public static TTarget Convert<TSource, TTarget>([NotNull] this IValueConverter valueConverter, [CanBeNull] TSource sourceValue, [CanBeNull] IFormatProvider formatProvider = null)
         {
             if (!TryConvert(valueConverter, sourceValue, out TTarget targetValue, formatProvider))

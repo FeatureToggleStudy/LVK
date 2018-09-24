@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 using JetBrains.Annotations;
 
@@ -16,7 +17,14 @@ namespace LVK.Tests.Framework
     {
         public static IEnumerable<Type> PublicTypes() => typeof(T).Assembly.GetTypes().Where(t => t.IsPublic);
 
-        public static IEnumerable<MethodInfo> PublicMethods() => PublicTypes().SelectMany(type => type.GetMethods(BindingFlags.Public));
+        public static IEnumerable<MethodInfo> PublicMethods()
+            =>
+                from type in PublicTypes()
+                from method in type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
+                where method.GetCustomAttribute<CompilerGeneratedAttribute>() == null
+                where (method.Attributes & MethodAttributes.SpecialName) == 0
+                where method.DeclaringType == type
+                select method;
 
         public static IEnumerable<MethodInfo> PublicMethodsWithReferenceTypeReturnTypes() => PublicMethods().Where(method => method.ReturnType.IsClass);
 
@@ -35,7 +43,7 @@ namespace LVK.Tests.Framework
             var hasNotNull = method.GetCustomAttribute<NotNullAttribute>() != null;
             var hasCanBeNull = method.GetCustomAttribute<CanBeNullAttribute>() != null;
 
-            Assert.That(hasCanBeNull || hasNotNull, Is.True);
+            Assert.That(hasCanBeNull || hasNotNull, Is.True, $"Method {method.DeclaringType}.{method.Name} does not have [CanBeNull] or [NotNull]");
         }
     }
 }

@@ -7,6 +7,7 @@ namespace LVK.Net.Http
     [PublicAPI]
     public static class UriExtensions
     {
+        [NotNull]
         public static Uri Append([NotNull] this Uri baseUri, [NotNull, ItemNotNull] params Uri[] additionalUris)
         {
             if (baseUri is null)

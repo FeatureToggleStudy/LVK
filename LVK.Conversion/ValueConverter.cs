@@ -12,8 +12,7 @@ using static LVK.Core.JetBrainsHelpers;
 
 namespace LVK.Conversion
 {
-    [PublicAPI]
-    public class ValueConverter : IValueConverter
+    internal class ValueConverter : IValueConverter
     {
         [NotNull]
         private readonly Dictionary<(Type sourceType, Type targetType), Func<object, IFormatProvider, object>>

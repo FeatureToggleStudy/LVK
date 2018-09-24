@@ -16,10 +16,12 @@ namespace LVK.Net.Http
     [PublicAPI]
     public static class HttpClientExtensions
     {
+        [NotNull]
         public static Task<string> GetStringAsync([NotNull] this HttpClient httpClient, [NotNull] string requestUri,
                                                   CancellationToken? cancellationToken = null)
             => GetStringAsync(httpClient, new Uri(requestUri), cancellationToken);
 
+        [NotNull]
         public static async Task<string> GetStringAsync([NotNull] this HttpClient httpClient, [NotNull] Uri requestUri,
                                                         CancellationToken? cancellationToken = null)
         {
@@ -38,10 +40,12 @@ namespace LVK.Net.Http
             return await response.Content.ReadAsStringAsync() ?? string.Empty;
         }
 
+        [NotNull]
         public static Task<T> GetFromJsonAsync<T>([NotNull] this HttpClient httpClient, [NotNull] string requestUri,
                                                   CancellationToken? cancellationToken = null)
             => GetFromJsonAsync<T>(httpClient, new Uri(requestUri), cancellationToken);
 
+        [NotNull]
         public static async Task<T> GetFromJsonAsync<T>([NotNull] this HttpClient httpClient, [NotNull] Uri requestUri,
                                                         CancellationToken? cancellationToken = null)
         {
@@ -65,6 +69,7 @@ namespace LVK.Net.Http
             return JsonConvert.DeserializeObject<T>(json);
         }
 
+        [NotNull]
         public static Task<HttpResponseMessage> PostAsJsonAsync<T>([NotNull] this HttpClient httpClient,
                                                                    [NotNull] string requestUri, T payload,
                                                                    CancellationToken? cancellationToken = null)

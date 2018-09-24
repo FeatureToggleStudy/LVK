@@ -15,8 +15,13 @@ namespace LVK.Net.Http
         [NotNull]
         Task<TValue> GetAsync(TKey key, CancellationToken? cancellationToken = null);
 
+        [NotNull]
         Task<bool> DeleteAsync(TKey key, CancellationToken? cancellationToken = null);
+
+        [NotNull]
         Task<bool> PutAsync(TKey key, TValue payload, CancellationToken? cancellationToken = null);
+        
+        [NotNull]
         Task<bool> PostAsync(TValue payload, CancellationToken? cancellationToken = null);
     }
 }
