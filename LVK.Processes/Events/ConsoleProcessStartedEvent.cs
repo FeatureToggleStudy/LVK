@@ -13,7 +13,7 @@ namespace LVK.Processes.Events
         {
         }
 
-        [PublicAPI, NotNull]
+        [PublicAPI]
         public override string ToString()
         {
             return $"{base.ToString()}: <started>";

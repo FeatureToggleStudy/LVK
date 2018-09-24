@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
 using JetBrains.Annotations;
-
-using LVK.Core;
 
 using NUnit.Framework;
 
@@ -38,6 +35,7 @@ namespace LVK.Tests.Framework
                 where method.GetCustomAttribute<CompilerGeneratedAttribute>() == null
                 where (method.Attributes & MethodAttributes.SpecialName) == 0
                 where method.DeclaringType == type
+                where !method.IsVirtual || method.GetBaseDefinition() == method
                 select method;
 
         public static IEnumerable<PropertyInfo> PublicProperties()

@@ -26,7 +26,7 @@ namespace LVK.Processes.Events
             get;
         }
 
-        [PublicAPI, NotNull]
+        [PublicAPI]
         public override string ToString()
         {
             return $"{Timestamp} (+{RelativeTimestamp})";

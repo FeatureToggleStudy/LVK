@@ -29,10 +29,10 @@ namespace LVK.Net.Http
         public async Task<bool> DeleteAsync(TKey key, CancellationToken? cancellationToken = null)
             => (await DeleteAsync($"{key}", cancellationToken)).IsSuccessStatusCode;
 
-        public async Task<bool> PutAsync(TKey key, [NotNull] TPayload payload, CancellationToken? cancellationToken = null)
+        public async Task<bool> PutAsync(TKey key, TPayload payload, CancellationToken? cancellationToken = null)
             => (await PutAsync($"{key}", payload, cancellationToken)).IsSuccessStatusCode;
 
-        public async Task<bool> PostAsync([NotNull] TPayload payload, CancellationToken? cancellationToken = null)
+        public async Task<bool> PostAsync(TPayload payload, CancellationToken? cancellationToken = null)
             => (await PostAsync("", payload, cancellationToken)).IsSuccessStatusCode;
     }
 }
