@@ -4,6 +4,7 @@ using DryIoc;
 
 using JetBrains.Annotations;
 
+using LVK.Core.Services;
 using LVK.DryIoc;
 
 namespace LVK.AppCore
@@ -21,6 +22,7 @@ namespace LVK.AppCore
             container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
 
             container.Register<IBackgroundServicesManager, BackgroundServicesManager>(Reuse.Singleton);
+            container.Register<IBackgroundService, AssemblyLoadMonitorBackgroundService>();
         }
     }
 }
