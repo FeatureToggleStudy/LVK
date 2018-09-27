@@ -13,8 +13,6 @@ namespace ConsoleSandbox
             container.Bootstrap<LVK.Conversion.ServicesBootstrapper>();
             container.Bootstrap<LVK.Reflection.ServicesBootstrapper>();
             container.Bootstrap<LVK.Persistence.ServicesBootstrapper>();
-
-            container.Register<IApplicationEntryPoint, ApplicationEntryPoint>();
         }
     }
 }

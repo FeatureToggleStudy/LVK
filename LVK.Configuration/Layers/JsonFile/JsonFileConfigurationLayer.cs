@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace LVK.Configuration.Layers.JsonFile
 {
-    internal class JsonFileConfigurationLayer : IConfigurationLayer
+    internal class JsonFileConfigurationLayer : IConfigurationLayer, IJsonFileConfigurationLayer
     {
         // ReSharper disable InconsistentNaming
         private const int ERROR_SHARING_VIOLATION = -2147024864;
@@ -20,8 +20,6 @@ namespace LVK.Configuration.Layers.JsonFile
 
         [NotNull]
         private readonly Encoding _Encoding;
-
-        private readonly bool _IsOptional;
 
         private DateTime _PreviousLastWriteTime = DateTime.MinValue;
         private JObject _Configuration;
@@ -40,7 +38,7 @@ namespace LVK.Configuration.Layers.JsonFile
 
             _Filename = ConfigurationFilePath.GetFullPath(filename);
             _Encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
-            _IsOptional = isOptional;
+            IsOptional = isOptional;
 
             _StateCheck = StateCheckForFileComingIntoExistence;
         }
@@ -87,7 +85,7 @@ namespace LVK.Configuration.Layers.JsonFile
 
         private void ThrowIfNotOptional()
         {
-            if (!_IsOptional)
+            if (!IsOptional)
                 throw new InvalidOperationException($"configuration file '{_Filename}' does not exist");
         }
 
@@ -133,5 +131,9 @@ namespace LVK.Configuration.Layers.JsonFile
                 return _Configuration;
             }
         }
+
+        public string GetJsonFilename() => _Filename;
+
+        public bool IsOptional { get; }
     }
 }

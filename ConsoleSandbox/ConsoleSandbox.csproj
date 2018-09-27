@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\LVK.AppCore.Console\LVK.AppCore.Console.csproj" />
     <ProjectReference Include="..\LVK.AppCore.Tray\LVK.AppCore.Tray.csproj" />
+    <ProjectReference Include="..\LVK.AppCore.Web\LVK.AppCore.Web.csproj" />
     <ProjectReference Include="..\LVK.AppCore\LVK.AppCore.csproj" />
     <ProjectReference Include="..\LVK.Conversion\LVK.Conversion.csproj" />
     <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
