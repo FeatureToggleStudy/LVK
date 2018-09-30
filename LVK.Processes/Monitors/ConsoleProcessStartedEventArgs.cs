@@ -8,7 +8,7 @@ namespace LVK.Processes.Monitors
     public class ConsoleProcessStartedEventArgs : ConsoleProcessEventArgs
     {
         [PublicAPI]
-        public ConsoleProcessStartedEventArgs(DateTime timestamp, TimeSpan relativeTimestamp, IConsoleProcess process)
+        public ConsoleProcessStartedEventArgs(DateTime timestamp, TimeSpan relativeTimestamp, [NotNull] IConsoleProcess process)
             : base(timestamp, relativeTimestamp, process)
         {
         }

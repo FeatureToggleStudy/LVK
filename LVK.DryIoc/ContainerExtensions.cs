@@ -11,6 +11,7 @@ namespace LVK.DryIoc
     [PublicAPI]
     public static class ContainerExtensions
     {
+        [NotNull]
         public static IContainer Bootstrap<T>([NotNull] this IContainer container)
             where T: class, IServicesBootstrapper
         {

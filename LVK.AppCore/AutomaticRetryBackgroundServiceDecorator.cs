@@ -6,6 +6,7 @@ using Humanizer;
 
 using JetBrains.Annotations;
 
+using LVK.Core;
 using LVK.Core.Services;
 using LVK.Logging;
 using LVK.Reflection;
@@ -62,7 +63,7 @@ namespace LVK.AppCore
                     _Logger.LogVerbose(
                         $"background service {_TypeHelper.NameOf(_DecoratedService.GetType())} terminated due to an exception, restarting it in {restartDelay.Humanize()}");
 
-                    await Task.Delay(restartDelay, cancellationToken);
+                    await Task.Delay(restartDelay, cancellationToken).NotNull();
                 }
             }
         }

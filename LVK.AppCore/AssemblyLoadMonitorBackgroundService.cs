@@ -38,13 +38,13 @@ namespace LVK.AppCore
 
         private Assembly CurrentDomainOnAssemblyResolve(object sender, ResolveEventArgs args)
         {
-            _Logger.LogDebug($"assembly-resolution failed: {args.Name}");
+            _Logger.LogDebug($"assembly-resolution failed: {args?.Name ?? "<null>"}");
             return null;
         }
 
         private void CurrentDomainOnAssemblyLoad(object sender, AssemblyLoadEventArgs args)
         {
-            _Logger.LogDebug($"assembly-load: {args.LoadedAssembly.FullName}");
+            _Logger.LogDebug($"assembly-load: {args?.LoadedAssembly?.FullName ?? "<null>"}");
         }
     }
 }

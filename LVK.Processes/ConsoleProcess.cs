@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
+using LVK.Core;
+
 namespace LVK.Processes
 {
     internal class ConsoleProcess : IDisposable, IConsoleProcess
@@ -24,7 +26,7 @@ namespace LVK.Processes
         {
             _Monitors = monitors;
 
-            var standardOutputEncoding = Encoding.GetEncoding(850);
+            Encoding standardOutputEncoding = Encoding.GetEncoding(850);
 
             _Process = new Process();
             _Process.StartInfo = processStartInfo;
@@ -45,7 +47,7 @@ namespace LVK.Processes
 
         private void ProcessOnErrorDataReceived(object sender, DataReceivedEventArgs dataReceivedEventArgs)
         {
-            if (dataReceivedEventArgs.Data != null)
+            if (dataReceivedEventArgs?.Data != null)
             {
                 foreach (var monitor in _Monitors)
                     monitor?.Error(this, dataReceivedEventArgs.Data);
@@ -54,7 +56,7 @@ namespace LVK.Processes
 
         private void ProcessOnOutputDataReceived(object sender, DataReceivedEventArgs dataReceivedEventArgs)
         {
-            if (dataReceivedEventArgs.Data != null)
+            if (dataReceivedEventArgs?.Data != null)
             {
                 foreach (var monitor in _Monitors)
                     monitor?.Output(this, dataReceivedEventArgs.Data);
@@ -87,7 +89,7 @@ namespace LVK.Processes
             _Process.Kill();
         }
 
-        public TimeSpan ExecutionDuration => _Stopwatch.Elapsed;
+        public TimeSpan ExecutionDuration => _Stopwatch?.Elapsed ?? TimeSpan.Zero;
 
         public int Id { get; private set; }
 
@@ -103,7 +105,7 @@ namespace LVK.Processes
             _Process.BeginErrorReadLine();
             _Process.BeginOutputReadLine();
             
-            await _ProcessCompletedTaskCompletionSource.Task;
+            await _ProcessCompletedTaskCompletionSource.Task.NotNull();
 
             _Process.WaitForExit();
             foreach (var monitor in _Monitors)

@@ -40,10 +40,11 @@ namespace LVK.Processes
             }
         }
 
-        private ProcessStartInfo CreateProcessStartInfo(string executableFilename, string[] parameters, string workingDirectory)
+        [NotNull]
+        private ProcessStartInfo CreateProcessStartInfo([NotNull] string executableFilename, [NotNull] string[] parameters, [CanBeNull] string workingDirectory)
             => new ProcessStartInfo(executableFilename)
             {
-                Arguments = string.Join(" ", parameters.Select(EscapeParameter)), WorkingDirectory = workingDirectory ?? string.Empty
+                Arguments = string.Join(" ", parameters.Select(EscapeParameter)), WorkingDirectory = workingDirectory ?? String.Empty
             };
 
         [NotNull]

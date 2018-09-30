@@ -13,6 +13,8 @@ namespace LVK.Processes.Monitors
         private readonly TimeSpan _Timeout;
         private readonly bool _ResetOnOutput;
         private IConsoleProcess _Process;
+        
+        [NotNull]
         private readonly object _Lock = new object();
         private Timer _Timer;
 
