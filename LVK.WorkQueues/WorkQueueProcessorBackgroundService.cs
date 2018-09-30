@@ -9,6 +9,7 @@ using DryIoc;
 
 using JetBrains.Annotations;
 
+using LVK.Configuration;
 using LVK.Core;
 using LVK.Core.Services;
 using LVK.Logging;
@@ -29,13 +30,18 @@ namespace LVK.WorkQueues
         [NotNull]
         private readonly IContainer _Container;
 
+        [NotNull]
+        private readonly IConfigurationElementWithDefault<WorkQueueProcessorConfiguration> _Configuration;
+
         public WorkQueueProcessorBackgroundService(
-            [NotNull] IBus bus, [NotNull] IWorkQueueRepositoryManager workQueueRepositoryManager, [NotNull] ILogger logger, [NotNull] IContainer container)
+            [NotNull] IBus bus, [NotNull] IWorkQueueRepositoryManager workQueueRepositoryManager, [NotNull] ILogger logger, [NotNull] IContainer container,
+            [NotNull] IConfiguration configuration)
         {
             _Bus = bus;
             _WorkQueueRepositoryManager = workQueueRepositoryManager ?? throw new ArgumentNullException(nameof(workQueueRepositoryManager));
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _Container = container ?? throw new ArgumentNullException(nameof(container));
+            _Configuration = configuration.Element<WorkQueueProcessorConfiguration>("WorkQueues").WithDefault(() => new WorkQueueProcessorConfiguration());
         }
 
         public async Task Execute(CancellationToken cancellationToken)
@@ -64,7 +70,9 @@ namespace LVK.WorkQueues
                         if (cancellationToken.IsCancellationRequested)
                             break;
 
-                        await ProcessMessages(cancellationToken);
+                        IEnumerable<Task> workerThreads = Enumerable.Range(1, _Configuration.Value().WorkerThreads).Select(_ => ProcessMessages(cancellationToken));
+
+                        await Task.WhenAll(workerThreads).NotNull();
                     }
                 }
             }
