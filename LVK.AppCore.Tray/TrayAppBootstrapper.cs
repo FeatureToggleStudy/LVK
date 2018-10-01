@@ -17,8 +17,8 @@ namespace LVK.AppCore.Tray
             where T : class, IServicesBootstrapper
         {
             await Task.Yield();
-            
-            var container = new Container();
+
+            var container = ContainerFactory.Create();
             container.Bootstrap<ServicesBootstrapper>();
             container.Bootstrap<T>();
 

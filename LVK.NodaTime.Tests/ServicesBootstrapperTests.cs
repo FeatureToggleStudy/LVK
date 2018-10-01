@@ -2,6 +2,8 @@
 
 using DryIoc;
 
+using LVK.DryIoc;
+
 using NodaTime;
 
 using NUnit.Framework;
@@ -25,7 +27,7 @@ namespace LVK.NodaTime.Tests
         public void Register_WithContainer_RegistersClock()
         {
             var bootstrapper = new ServicesBootstrapper();
-            var container = new Container();
+            var container = ContainerFactory.Create();
 
             bootstrapper.Bootstrap(container);
 

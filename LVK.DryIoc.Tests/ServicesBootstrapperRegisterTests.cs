@@ -16,7 +16,7 @@ namespace LVK.DryIoc.Tests
         [Test]
         public void Bootstrap_SameBootstrapperRegisteredTwice_OnlyCallsBootstrapOnce()
         {
-            var container = new Container();
+            var container = ContainerFactory.Create();
             
             container.Bootstrap<DummyBootstrapper>();
             container.Bootstrap<DummyBootstrapper>();

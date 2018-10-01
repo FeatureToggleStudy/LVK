@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using DryIoc;
 
+using LVK.DryIoc;
+
 using NUnit.Framework;
 
 // ReSharper disable PossibleNullReferenceException
@@ -32,7 +34,7 @@ namespace LVK.Reflection.Tests
         [TestCase(typeof(List<int?>), NameOfTypeOptions.Default, "System.Collections.Generic.List<int?>")]
         public void NameOf_SmokeTests(Type type, NameOfTypeOptions options, string expected)
         {
-            var container = new Container();
+            var container = ContainerFactory.Create();
             new ServicesBootstrapper().Bootstrap(container);
             var typeHelper = container.Resolve<ITypeHelper>();
 

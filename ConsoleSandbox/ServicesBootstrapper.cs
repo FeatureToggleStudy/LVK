@@ -1,4 +1,6 @@
-﻿using DryIoc;
+﻿using ConsoleSandbox.Controllers;
+
+using DryIoc;
 
 using LVK.DryIoc;
 
@@ -12,6 +14,8 @@ namespace ConsoleSandbox
             container.Bootstrap<LVK.Conversion.ServicesBootstrapper>();
             container.Bootstrap<LVK.Reflection.ServicesBootstrapper>();
             container.Bootstrap<LVK.Persistence.ServicesBootstrapper>();
+
+            container.Register<ITestService, TestService>();
         }
     }
 }

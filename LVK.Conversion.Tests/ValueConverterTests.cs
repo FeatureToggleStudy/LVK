@@ -14,7 +14,7 @@ namespace LVK.Conversion.Tests
         [Test]
         public void Convert_SmokeTests()
         {
-            var container = new Container().Bootstrap<ServicesBootstrapper>();
+            var container = ContainerFactory.Create().Bootstrap<ServicesBootstrapper>();
 
             var valueConverter = container.Resolve<IValueConverter>();
             assume(valueConverter != null);

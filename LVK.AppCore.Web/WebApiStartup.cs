@@ -28,23 +28,7 @@ namespace LVK.AppCore.Web
 
         static WebApiStartup()
         {
-            Container = new Container().Bootstrap<WebApiApplicationBootstrapper<T>>();
-        }
-
-        public WebApiStartup()
-        {
-            AddJsonConfigurationFiles();
-        }
-
-        private void AddJsonConfigurationFiles()
-        {
-            var builder = new ConfigurationBuilder();
-            var target = new ConfigurationConfiguratorTarget();
-            foreach (var configurator in Container.Resolve<IEnumerable<IConfigurationConfigurator>>())
-                configurator.Configure(target);
-
-            foreach (var configurationFile in target.JsonFiles)
-                builder.AddJsonFile(configurationFile.Filename, configurationFile.IsOptional);
+            Container = ContainerFactory.Create().Bootstrap<WebApiApplicationBootstrapper<T>>();
         }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -56,7 +40,7 @@ namespace LVK.AppCore.Web
                 mvc = mvc.AddApplicationPart(assembly);
 
             Container = Container.WithDependencyInjectionAdapter(services);
-            return Container.Resolve<IServiceProvider>();
+            return new WrapServiceProvider(Container.Resolve<IServiceProvider>());
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

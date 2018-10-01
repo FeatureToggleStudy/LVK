@@ -36,7 +36,7 @@ namespace LVK.AppCore.Console
             IConsoleApplicationEntryPoint entryPoint;
             try
             {
-                var container = new Container();
+                var container = ContainerFactory.Create();
                 container.Bootstrap<ServicesBootstrapper>();
                 container.Bootstrap<T>();
 
