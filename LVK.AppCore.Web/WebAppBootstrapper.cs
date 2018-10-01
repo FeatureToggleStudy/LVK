@@ -1,7 +1,10 @@
 using System.Threading.Tasks;
 
+using DryIoc;
+
 using JetBrains.Annotations;
 
+using LVK.Core.Services;
 using LVK.DryIoc;
 
 using Microsoft.AspNetCore;
@@ -14,18 +17,30 @@ namespace LVK.AppCore.Web
     public static class WebAppBootstrapper
     {
         [NotNull]
-        public static Task RunWebApiAsync<T>([NotNull] string[] arguments)
+        public static async Task RunWebApiAsync<T>([NotNull] string[] arguments)
             where T: class, IServicesBootstrapper
         {
             var configuration = new ConfigurationBuilder().AddCommandLine(arguments)
                .Build();
 
-            return WebHost.CreateDefaultBuilder(arguments)
+            var webHost = WebHost.CreateDefaultBuilder(arguments)
                .UseConfiguration(configuration)
                .UseStartup<WebApiStartup<T>>()
                .UseKestrel()
-               .Build()
-               .RunAsync();
+               .Build();
+
+            var bsm = WebApiStartup<T>.Container.Resolve<IBackgroundServicesManager>();
+            var alm = WebApiStartup<T>.Container.Resolve<IApplicationLifetimeManager>();
+            bsm.StartBackgroundServices();
+            try
+            {
+                await webHost.RunAsync();
+                alm.SignalGracefulTermination();
+            }
+            finally
+            {
+                await bsm.WaitForBackgroundServicesToStop();
+            }
         }
     }
 }

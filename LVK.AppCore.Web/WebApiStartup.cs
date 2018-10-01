@@ -23,13 +23,16 @@ namespace LVK.AppCore.Web
         where T: class, IServicesBootstrapper
     {
         [NotNull]
-        private readonly IContainer _Container;
+        // ReSharper disable once StaticMemberInGenericType
+        public static IContainer Container { get; private set; }
+
+        static WebApiStartup()
+        {
+            Container = new Container().Bootstrap<WebApiApplicationBootstrapper<T>>();
+        }
 
         public WebApiStartup()
         {
-            _Container = new Container()
-               .Bootstrap<WebApiApplicationBootstrapper<T>>();
-
             AddJsonConfigurationFiles();
         }
 
@@ -37,7 +40,7 @@ namespace LVK.AppCore.Web
         {
             var builder = new ConfigurationBuilder();
             var target = new ConfigurationConfiguratorTarget();
-            foreach (var configurator in _Container.Resolve<IEnumerable<IConfigurationConfigurator>>())
+            foreach (var configurator in Container.Resolve<IEnumerable<IConfigurationConfigurator>>())
                 configurator.Configure(target);
 
             foreach (var configurationFile in target.JsonFiles)
@@ -52,7 +55,8 @@ namespace LVK.AppCore.Web
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
                 mvc = mvc.AddApplicationPart(assembly);
 
-            return _Container.WithDependencyInjectionAdapter(services).Resolve<IServiceProvider>();
+            Container = Container.WithDependencyInjectionAdapter(services);
+            return Container.Resolve<IServiceProvider>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

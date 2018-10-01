@@ -1,5 +1,6 @@
 using DryIoc;
 
+using LVK.Core.Services;
 using LVK.DryIoc;
 
 namespace LVK.AppCore.Web
@@ -11,6 +12,8 @@ namespace LVK.AppCore.Web
         {
             container.Bootstrap<ServicesBootstrapper>();
             container.Bootstrap<T>();
+
+            container.Register<IBackgroundService, ApplicationLifetimeBackgroundService>();
         }
     }
 }
