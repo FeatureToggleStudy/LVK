@@ -109,7 +109,7 @@ namespace LVK.Logging
 
             void openScope()
             {
-                logger.Log(logLevel, getScopeName);
+                logger.Log(logLevel, () => $"\x00BB {getScopeName()}");
 
                 sw = Stopwatch.StartNew();
             }
@@ -119,7 +119,7 @@ namespace LVK.Logging
                 assume(sw != null);
                 sw.Stop();
 
-                logger.Log(logLevel, () => $"{getScopeName()}, finished in {sw.ElapsedMilliseconds} ms");
+                logger.Log(logLevel, () => $"\x00AB {getScopeName()}, finished in {sw.ElapsedMilliseconds} ms");
             }
 
             return new ActionDisposable(openScope, closeScope);
