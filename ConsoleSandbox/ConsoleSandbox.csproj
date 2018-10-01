@@ -7,22 +7,21 @@
   <ItemGroup>
     <PackageReference Include="DryIoc.dll" Version="3.0.2" />
     <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
+    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3.v110_xp" Version="1.1.11" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LVK.AppCore.Console\LVK.AppCore.Console.csproj" />
     <ProjectReference Include="..\LVK.AppCore.Tray\LVK.AppCore.Tray.csproj" />
-    <ProjectReference Include="..\LVK.AppCore.Web\LVK.AppCore.Web.csproj" />
     <ProjectReference Include="..\LVK.AppCore\LVK.AppCore.csproj" />
     <ProjectReference Include="..\LVK.Conversion\LVK.Conversion.csproj" />
+    <ProjectReference Include="..\LVK.Data.Sqlite\LVK.Data.Sqlite.csproj" />
+    <ProjectReference Include="..\LVK.Data\LVK.Data.csproj" />
     <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
     <ProjectReference Include="..\LVK.Net.Http\LVK.Net.Http.csproj" />
     <ProjectReference Include="..\LVK.Persistence\LVK.Persistence.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="hosting.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="hosting.json">

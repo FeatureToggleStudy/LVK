@@ -104,10 +104,10 @@ namespace LVK.AppCore.Console
                 try
                 {
                     exitcode = await _ApplicationEntryPoint.Execute(cts.Token);
-                    _ApplicationLifetimeManager.SignalGracefulTermination();
                 }
                 finally
                 {
+                    _ApplicationLifetimeManager.SignalGracefulTermination();
                     await _BackgroundServicesManager.WaitForBackgroundServicesToStop();
                 }
 

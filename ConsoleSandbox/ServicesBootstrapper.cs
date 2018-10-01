@@ -1,7 +1,6 @@
-﻿using ConsoleSandbox.Controllers;
+﻿using DryIoc;
 
-using DryIoc;
-
+using LVK.AppCore;
 using LVK.DryIoc;
 
 namespace ConsoleSandbox
@@ -14,8 +13,10 @@ namespace ConsoleSandbox
             container.Bootstrap<LVK.Conversion.ServicesBootstrapper>();
             container.Bootstrap<LVK.Reflection.ServicesBootstrapper>();
             container.Bootstrap<LVK.Persistence.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Data.Sqlite.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Data.ServicesBootstrapper>();
 
-            container.Register<ITestService, TestService>();
+            container.Register<IApplicationEntryPoint, ApplicationEntryPoint>();
         }
     }
 }

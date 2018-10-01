@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-using LVK.AppCore.Web;
+using LVK.AppCore.Console;
 
 namespace ConsoleSandbox
 {
@@ -8,7 +8,9 @@ namespace ConsoleSandbox
     {
         public static Task Main(string[] args)
         {
-            return WebAppBootstrapper.RunWebApiAsync<ServicesBootstrapper>(args);
+            SQLitePCL.Batteries.Init();
+            
+            return ConsoleAppBootstrapper.RunAsync<ServicesBootstrapper>();
         }
     }
 }
