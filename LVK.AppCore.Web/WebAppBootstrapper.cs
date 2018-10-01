@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -29,18 +28,18 @@ namespace LVK.AppCore.Web
             var container = ContainerFactory.Create()
                .Bootstrap<WebApiApplicationBootstrapper<T>>();
 
-            WebApiStartup<T>.Container = container;
+            WebApiStartup.Container = container;
 
             var configuration = CreateMicrosoftConfiguration(container, arguments);
 
             var webHost = WebHost.CreateDefaultBuilder(arguments)
                .UseConfiguration(configuration)
-               .UseStartup<WebApiStartup<T>>()
+               .UseStartup<WebApiStartup>()
                .UseKestrel()
                .Build();
 
-            var bsm = WebApiStartup<T>.Container.Resolve<IBackgroundServicesManager>();
-            var alm = WebApiStartup<T>.Container.Resolve<IApplicationLifetimeManager>();
+            var bsm = container.Resolve<IBackgroundServicesManager>();
+            var alm = container.Resolve<IApplicationLifetimeManager>();
             bsm.StartBackgroundServices();
             try
             {

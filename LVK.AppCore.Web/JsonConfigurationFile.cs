@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace LVK.AppCore.Web
 {
     internal class JsonConfigurationFile

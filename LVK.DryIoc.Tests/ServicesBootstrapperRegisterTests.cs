@@ -1,5 +1,3 @@
-using DryIoc;
-
 using NUnit.Framework;
 
 namespace LVK.DryIoc.Tests

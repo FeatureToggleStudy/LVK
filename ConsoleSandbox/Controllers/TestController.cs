@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 using JetBrains.Annotations;
 
@@ -32,7 +33,7 @@ namespace ConsoleSandbox.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            // _ApplicationLifetimeManager.SignalGracefulTermination();
+            _ApplicationLifetimeManager.SignalGracefulTermination();
             return Ok(_Configuration.Value() + ": " + _TestService.Now());
         }
     }
@@ -44,7 +45,7 @@ namespace ConsoleSandbox.Controllers
 
     internal class TestService : ITestService, IDisposable
     {
-        public string Now() => DateTime.Now.ToString();
+        public string Now() => DateTime.Now.ToString(CultureInfo.InvariantCulture);
 
         public void Dispose()
         {

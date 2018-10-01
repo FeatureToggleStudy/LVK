@@ -1,28 +1,20 @@
 using System;
-using System.Collections.Generic;
 
 using DryIoc;
 using DryIoc.Microsoft.DependencyInjection;
 
 using JetBrains.Annotations;
 
-using LVK.Configuration;
-using LVK.DryIoc;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
-using ConfigurationBuilder = Microsoft.Extensions.Configuration.ConfigurationBuilder;
 
 namespace LVK.AppCore.Web
 {
-    internal class WebApiStartup<T>
-        where T: class, IServicesBootstrapper
+    internal class WebApiStartup
     {
-        [NotNull]
+        [CanBeNull]
         // ReSharper disable once StaticMemberInGenericType
         public static IContainer Container { get; set; }
 
@@ -35,7 +27,7 @@ namespace LVK.AppCore.Web
                 mvc = mvc.AddApplicationPart(assembly);
 
             Container = Container.WithDependencyInjectionAdapter(services);
-            return new WrapServiceProvider(Container.Resolve<IServiceProvider>());
+            return Container.Resolve<IServiceProvider>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
