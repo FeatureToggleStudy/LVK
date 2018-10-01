@@ -11,7 +11,7 @@ using LVK.Logging;
 
 namespace LVK.AppCore
 {
-    public class AssemblyLoadMonitorBackgroundService : IBackgroundService
+    internal class AssemblyLoadMonitorBackgroundService : IBackgroundService
     {
         [NotNull]
         private readonly ILogger _Logger;

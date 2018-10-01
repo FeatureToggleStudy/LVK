@@ -33,6 +33,7 @@ namespace LVK.AppCore
             _DecoratedService = decoratedService ?? throw new ArgumentNullException(nameof(decoratedService));
         }
 
+        [NotNull]
         public async Task Execute(CancellationToken cancellationToken)
         {
             int restartCount = 0;
