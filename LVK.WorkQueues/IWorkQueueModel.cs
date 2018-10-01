@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace LVK.WorkQueues
 {
+    [PublicAPI]
     public interface IWorkQueueModel
     {
         [NotNull]

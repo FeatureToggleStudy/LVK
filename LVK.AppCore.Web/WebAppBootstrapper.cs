@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 
 using JetBrains.Annotations;
@@ -14,7 +13,8 @@ namespace LVK.AppCore.Web
     [PublicAPI]
     public static class WebAppBootstrapper
     {
-        public static Task RunWebApiAsync<T>(Type type, [NotNull] string[] arguments)
+        [NotNull]
+        public static Task RunWebApiAsync<T>([NotNull] string[] arguments)
             where T: class, IServicesBootstrapper
         {
             var configuration = new ConfigurationBuilder().AddCommandLine(arguments)

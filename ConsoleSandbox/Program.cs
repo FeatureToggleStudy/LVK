@@ -8,7 +8,7 @@ namespace ConsoleSandbox
     {
         public static Task Main(string[] args)
         {
-            return WebAppBootstrapper.RunWebApiAsync<ServicesBootstrapper>(typeof(Program), args);
+            return WebAppBootstrapper.RunWebApiAsync<ServicesBootstrapper>(args);
         }
     }
 }

@@ -33,6 +33,7 @@ namespace LVK.AppCore
             _DecoratedService = decoratedService ?? throw new ArgumentNullException(nameof(decoratedService));
         }
 
+        // ReSharper disable once AnnotationRedundancyInHierarchy
         [NotNull]
         public async Task Execute(CancellationToken cancellationToken)
         {

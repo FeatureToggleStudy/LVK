@@ -19,7 +19,7 @@ using ConfigurationBuilder = Microsoft.Extensions.Configuration.ConfigurationBui
 
 namespace LVK.AppCore.Web
 {
-    public class WebApiStartup<T>
+    internal class WebApiStartup<T>
         where T: class, IServicesBootstrapper
     {
         [NotNull]
