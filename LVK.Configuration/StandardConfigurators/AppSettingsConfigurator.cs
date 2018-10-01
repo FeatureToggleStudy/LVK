@@ -19,11 +19,11 @@ namespace LVK.Configuration.StandardConfigurators
 
         public void Configure(IConfigurationBuilder configurationBuilder)
         {
+            configurationBuilder.AddJsonFile("hosting.json", isOptional: true);
             foreach (string[] combination in GetCombinations())
             {
                 string filename = string.Join(".", new[] { "appsettings" }.Concat(combination));
 
-                configurationBuilder.AddJsonFile("hosting.json", isOptional: true);
                 configurationBuilder.AddJsonFile(filename + ".json", isOptional: true);
                 configurationBuilder.AddJsonFile(filename + ".debug.json", isOptional: true);
             }

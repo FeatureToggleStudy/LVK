@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace LVK.AppCore.Web
 {
     internal class JsonConfigurationFile
@@ -11,5 +13,7 @@ namespace LVK.AppCore.Web
         public string Filename { get; }
 
         public bool IsOptional { get; }
+
+        public override string ToString() => $"json-file: {Filename}, {(IsOptional ? "optional" : "required")}";
     }
 }

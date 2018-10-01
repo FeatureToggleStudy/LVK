@@ -24,12 +24,7 @@ namespace LVK.AppCore.Web
     {
         [NotNull]
         // ReSharper disable once StaticMemberInGenericType
-        public static IContainer Container { get; private set; }
-
-        static WebApiStartup()
-        {
-            Container = ContainerFactory.Create().Bootstrap<WebApiApplicationBootstrapper<T>>();
-        }
+        public static IContainer Container { get; set; }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
