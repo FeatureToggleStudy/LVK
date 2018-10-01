@@ -8,8 +8,6 @@ namespace ConsoleSandbox
     {
         public static Task Main(string[] args)
         {
-            SQLitePCL.Batteries.Init();
-            
             return ConsoleAppBootstrapper.RunAsync<ServicesBootstrapper>();
         }
     }

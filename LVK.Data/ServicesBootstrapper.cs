@@ -4,7 +4,6 @@ using DryIoc;
 
 using JetBrains.Annotations;
 
-using LVK.Core.Services;
 using LVK.DryIoc;
 
 namespace LVK.Data
@@ -18,6 +17,7 @@ namespace LVK.Data
                 throw new ArgumentNullException(nameof(container));
 
             container.Register<IDatabaseConnectionFactory, DatabaseConnectionFactory>();
+            container.Register<IDatabaseMigrator, DatabaseMigrator>();
         }
     }
 }

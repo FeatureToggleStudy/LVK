@@ -6,6 +6,8 @@ using JetBrains.Annotations;
 
 using LVK.DryIoc;
 
+using Microsoft.Data.Sqlite;
+
 namespace LVK.Data.Sqlite
 {
     [PublicAPI]
@@ -21,6 +23,7 @@ namespace LVK.Data.Sqlite
             container.Bootstrap<LVK.Configuration.ServicesBootstrapper>();
 
             container.Register<IDatabaseConnectionProvider, SqliteDatabaseConnectionProvider>();
+            container.Register<IDatabaseVersionHandler<SqliteConnection>, SqliteDatabaseVersionHandler>();
         }
     }
 }

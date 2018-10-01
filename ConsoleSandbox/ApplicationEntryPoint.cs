@@ -14,20 +14,24 @@ namespace ConsoleSandbox
         [NotNull]
         private readonly IDatabaseConnectionFactory _DatabaseConnectionFactory;
 
-        public ApplicationEntryPoint([NotNull] IDatabaseConnectionFactory databaseConnectionFactory)
+        [NotNull]
+        private readonly IDatabaseMigrator _DatabaseMigrator;
+
+        public ApplicationEntryPoint([NotNull] IDatabaseConnectionFactory databaseConnectionFactory, [NotNull] IDatabaseMigrator databaseMigrator)
         {
             _DatabaseConnectionFactory = databaseConnectionFactory ?? throw new ArgumentNullException(nameof(databaseConnectionFactory));
+            _DatabaseMigrator = databaseMigrator ?? throw new ArgumentNullException(nameof(databaseMigrator));
         }
 
-        public Task<int> Execute(CancellationToken cancellationToken)
+        public async Task<int> Execute(CancellationToken cancellationToken)
         {
-            using (var connection = _DatabaseConnectionFactory.TryCreate("main"))
+            using (var connection = _DatabaseConnectionFactory.Create("main").AsOpen())
             {
-                connection.Open();
+                await _DatabaseMigrator.Migrate(connection, "main");
                 Console.WriteLine("Test");
             }
 
-            return Task.FromResult(0);
+            return 0;
         }
     }
 }
