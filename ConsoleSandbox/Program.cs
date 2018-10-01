@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using DryIoc;
-using DryIoc.Microsoft.DependencyInjection;
+﻿using System.Threading.Tasks;
 
 using LVK.AppCore.Web;
-using LVK.DryIoc;
-
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace ConsoleSandbox
 {

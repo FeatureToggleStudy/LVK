@@ -1,6 +1,5 @@
 ﻿using DryIoc;
 
-using LVK.AppCore;
 using LVK.DryIoc;
 
 namespace ConsoleSandbox

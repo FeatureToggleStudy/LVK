@@ -11,8 +11,6 @@ namespace LVK.AppCore.Web
         {
             container.Bootstrap<ServicesBootstrapper>();
             container.Bootstrap<T>();
-
-            // container.Register<IApplicationEntryPoint, WebApiApplicationEntryPoint>();
         }
     }
 }
