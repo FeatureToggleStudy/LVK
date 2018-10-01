@@ -38,8 +38,8 @@ namespace LVK.AppCore.Web
                .UseKestrel()
                .Build();
 
-            var bsm = container.Resolve<IBackgroundServicesManager>();
-            var alm = container.Resolve<IApplicationLifetimeManager>();
+            var bsm = WebApiStartup.Container.Resolve<IBackgroundServicesManager>();
+            var alm = WebApiStartup.Container.Resolve<IApplicationLifetimeManager>();
             bsm.StartBackgroundServices();
             try
             {

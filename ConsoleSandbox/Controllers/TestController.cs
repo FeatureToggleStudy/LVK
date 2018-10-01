@@ -1,8 +1,11 @@
 using System;
 using System.Globalization;
+using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
+using LVK.AppCore.Commands;
+using LVK.Commands;
 using LVK.Configuration;
 using LVK.Core.Services;
 
@@ -15,25 +18,25 @@ namespace ConsoleSandbox.Controllers
     public class TestController : ControllerBase
     {
         [NotNull]
-        private readonly IApplicationLifetimeManager _ApplicationLifetimeManager;
+        private readonly ITestService _TestService;
 
         [NotNull]
-        private readonly ITestService _TestService;
+        private readonly ICommandDispatcher _CommandDispatcher;
 
         [NotNull]
         private readonly IConfigurationElement<string> _Configuration;
 
-        public TestController([NotNull] IConfiguration configuration, [NotNull] IApplicationLifetimeManager applicationLifetimeManager, [NotNull] ITestService testService)
+        public TestController([NotNull] IConfiguration configuration, [NotNull] ITestService testService, [NotNull] ICommandDispatcher commandDispatcher)
         {
-            _ApplicationLifetimeManager = applicationLifetimeManager ?? throw new ArgumentNullException(nameof(applicationLifetimeManager));
             _TestService = testService ?? throw new ArgumentNullException(nameof(testService));
+            _CommandDispatcher = commandDispatcher ?? throw new ArgumentNullException(nameof(commandDispatcher));
             _Configuration = configuration.Element<string>("Test");
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            _ApplicationLifetimeManager.SignalGracefulTermination();
+            await _CommandDispatcher.Dispatch(new StopApplicationCommand());
             return Ok(_Configuration.Value() + ": " + _TestService.Now());
         }
     }
