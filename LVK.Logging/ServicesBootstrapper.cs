@@ -19,6 +19,7 @@ namespace LVK.Logging
 
             container.Bootstrap<LVK.Configuration.ServicesBootstrapper>();
             container.Bootstrap<LVK.NodaTime.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Core.Services.ServicesBootstrapper>();
 
             container.Register<ITextLogFormatter, TextLogFormatter>();
             container.Register<IOptionsHelpTextProvider, LoggingOptionsHelpTextProvider>();

@@ -18,6 +18,8 @@ namespace LVK.Net.Http
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
+            container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
+
             container.Register(Made.Of(()
                 => HttpClientFactory.Create(Arg.Of<HttpMessageHandler>(IfUnresolved.ReturnDefaultIfNotRegistered),
                     Arg.Of<ILogger>())));

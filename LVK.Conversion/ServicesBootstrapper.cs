@@ -18,6 +18,7 @@ namespace LVK.Conversion
                 throw new ArgumentNullException(nameof(container));
 
             container.Bootstrap<LVK.Core.Services.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Reflection.ServicesBootstrapper>();
 
             container.Register<IValueConverter, ValueConverter>(Reuse.Singleton);
             container.Register<IValueConversionProvider, BasicTypesValueConversionProvider>();

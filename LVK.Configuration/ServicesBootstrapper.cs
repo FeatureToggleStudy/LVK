@@ -17,6 +17,8 @@ namespace LVK.Configuration
             if (container is null)
                 throw new ArgumentNullException(nameof(container));
 
+            container.Bootstrap<LVK.Json.ServicesBootstrapper>();
+
             container.Register<IConfigurationBuilderFactory, ConfigurationBuilderFactory>();
             container.Register(Made.Of(r => ServiceInfo.Of<IConfigurationBuilderFactory>(), f => f.Create()));
             container.Register(Made.Of(r => ServiceInfo.Of<IConfigurationBuilder>(), f => f.Build()), Reuse.Singleton);

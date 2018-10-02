@@ -25,7 +25,7 @@ namespace LVK.DryIoc
                 container.UseInstance(register);
             }
 
-            if (register.TryAdd<T>())
+            if (register.TryAdd(typeof(T)))
             {
                 var instance = container.New<T>();
                 assume(instance != null);

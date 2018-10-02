@@ -16,6 +16,9 @@ namespace LVK.Commands
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
+            container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Reflection.ServicesBootstrapper>();
+
             container.Register<ICommandDispatcher, CommandDispatcher>();
         }
     }

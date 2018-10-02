@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net47</TargetFramework>
+        <TargetFramework>net472</TargetFramework>
         <PackageId>LVK.AppCore.Tray</PackageId>
         <Description>LVK core tray application framework classes and extensions</Description>
         <PackageLicenseUrl>https://github.com/lassevk/LVK/blob/master/LICENSE</PackageLicenseUrl>
