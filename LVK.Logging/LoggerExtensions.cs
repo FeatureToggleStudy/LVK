@@ -75,7 +75,7 @@ namespace LVK.Logging
                     sb.AppendLine();
             }
 
-            Log(logger, LogLevel.Debug, sb.ToString());
+            Log(logger, LogLevel.Error, sb.ToString());
         }
 
         private static void Log([NotNull] ILogger logger, LogLevel logLevel, [NotNull] string message)

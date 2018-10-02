@@ -15,6 +15,10 @@ namespace LVK.Data
 
         int To { get; }
 
-        [NotNull] Task PerformMigration([NotNull] IDbConnection connection, [NotNull] IDbTransaction transaction);
+        [NotNull]
+        Task PerformMigration([NotNull] IDbConnection connection);
+
+        [NotNull]
+        Task PerformMigration([NotNull] IDbConnection connection, [NotNull] IDbTransaction transaction);
     }
 }

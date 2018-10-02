@@ -11,7 +11,8 @@ namespace LVK.Data
     public static class DbConnectionExtensions
     {
         [NotNull]
-        public static IDbConnection AsOpen([NotNull] this IDbConnection connection)
+        public static T AsOpen<T>([NotNull] this T connection)
+            where T: class, IDbConnection
         {
             if (connection is null)
                 throw new ArgumentNullException(nameof(connection));

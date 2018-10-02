@@ -61,11 +61,15 @@ namespace LVK.Data
                 foreach (var migration in upgradeMigrations)
                 {
                     using (_Logger.LogScope(LogLevel.Information, $"migrating database from version {migration.From} to {migration.To}"))
-                    using (IDbTransaction transaction = connection.BeginTransaction())
                     {
-                        await migration.PerformMigration(connection, transaction);
-                        await versionHandler.SetCurrentVersion(connection, transaction, migration.To);
-                        transaction.Commit();
+                        await migration.PerformMigration(connection);
+
+                        using (IDbTransaction transaction = connection.BeginTransaction())
+                        {
+                            await migration.PerformMigration(connection, transaction);
+                            await versionHandler.SetCurrentVersion(connection, transaction, migration.To);
+                            transaction.Commit();
+                        }
                     }
                 }
             }

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using DryIoc;
+
 using JetBrains.Annotations;
 
 using static LVK.Core.JetBrainsHelpers;
@@ -11,10 +13,18 @@ namespace LVK.Core.Services
     internal class Bus : IBus
     {
         [NotNull]
+        private readonly IContainer _Container;
+
+        [NotNull]
         private readonly object _Lock = new object();
 
         [NotNull]
         private readonly Dictionary<Type, HashSet<WeakReference>> _Subscribers = new Dictionary<Type, HashSet<WeakReference>>();
+
+        public Bus([NotNull] IContainer container)
+        {
+            _Container = container ?? throw new ArgumentNullException(nameof(container));
+        }
 
         public IDisposable Subscribe<T>(ISubscriber<T> subscriber)
         {
@@ -67,6 +77,9 @@ namespace LVK.Core.Services
                         (subscriberReference.Target as ISubscriber<T>)?.Notify(message);
                 }
             }
+
+            foreach (var subscriber in _Container.Resolve<IEnumerable<ISubscriber<T>>>())
+                subscriber.Notify(message);
         }
     }
 }

@@ -19,6 +19,8 @@
     <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
     <ProjectReference Include="..\LVK.Net.Http\LVK.Net.Http.csproj" />
     <ProjectReference Include="..\LVK.Persistence\LVK.Persistence.csproj" />
+    <ProjectReference Include="..\LVK.WorkQueues.Sqlite\LVK.WorkQueues.Sqlite.csproj" />
+    <ProjectReference Include="..\LVK.WorkQueues\LVK.WorkQueues.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

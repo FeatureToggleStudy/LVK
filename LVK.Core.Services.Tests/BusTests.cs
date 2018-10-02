@@ -1,4 +1,7 @@
 using System;
+using System.Threading.Tasks;
+
+using LVK.DryIoc;
 
 using NUnit.Framework;
 
@@ -13,14 +16,16 @@ namespace LVK.Core.Services.Tests
         [Test]
         public void Publish_NullMessage_ThrowsArgumentNullException()
         {
-            var bus = new Bus();
+            var container = ContainerFactory.Create();
+            var bus = new Bus(container);
             Assert.Throws<ArgumentNullException>(() => bus.Publish<string>(null));
         }
 
         [Test]
         public void Publish_ActualMessageButNoSubscribers_DoesntThrownException()
         {
-            var bus = new Bus();
+            var container = ContainerFactory.Create();
+            var bus = new Bus(container);
             
             Assert.DoesNotThrow(() => bus.Publish("test"));
         }
@@ -28,7 +33,8 @@ namespace LVK.Core.Services.Tests
         [Test]
         public void Publish_OneSubscriber_CallsThatSubscriber()
         {
-            var bus = new Bus();
+            var container = ContainerFactory.Create();
+            var bus = new Bus(container);
             string message = null;
             bus.Subscribe<string>(m => message = m);
 
@@ -40,7 +46,8 @@ namespace LVK.Core.Services.Tests
         [Test]
         public void Publish_OneSubscriberThatHasBeenUnsubscribed_DoesNotCallThatSubscriber()
         {
-            var bus = new Bus();
+            var container = ContainerFactory.Create();
+            var bus = new Bus(container);
             string message = null;
             bus.Subscribe<string>(m => message = m).Dispose();
 
@@ -52,7 +59,8 @@ namespace LVK.Core.Services.Tests
         [Test]
         public void Publish_SubscriberThatHasNotBeenCollected_CallsThatSubscriber()
         {
-            var bus = new Bus();
+            var container = ContainerFactory.Create();
+            var bus = new Bus(container);
             Subscriber.LastMessage = null;
             var subscriber = new Subscriber();
             bus.Subscribe(subscriber);
@@ -70,7 +78,8 @@ namespace LVK.Core.Services.Tests
         [Test]
         public void Publish_SubscriberThatHasNotBeenCollectedThroughSubscription_CallsThatSubscriber()
         {
-            var bus = new Bus();
+            var container = ContainerFactory.Create();
+            var bus = new Bus(container);
             Subscriber.LastMessage = null;
             var subscription = SubscribeAndReturnSubscription(bus);
             
@@ -87,7 +96,8 @@ namespace LVK.Core.Services.Tests
         [Test]
         public void Publish_SubscriberThatHasBeenCollected_DoesNotCallThatSubscriber()
         {
-            var bus = new Bus();
+            var container = ContainerFactory.Create();
+            var bus = new Bus(container);
             Subscriber.LastMessage = null;
             Subscribe(bus);
             
@@ -114,9 +124,10 @@ namespace LVK.Core.Services.Tests
         {
             public static string LastMessage;
 
-            public void Notify(string message)
+            public Task Notify(string message)
             {
                 LastMessage = message;
+                return Task.CompletedTask;
             }
         }
     }

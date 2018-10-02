@@ -13,6 +13,7 @@ using LVK.Core;
 using LVK.Configuration;
 using LVK.Core.Services;
 using LVK.Logging;
+using LVK.WorkQueues.Messages;
 
 namespace LVK.WorkQueues
 {
@@ -56,6 +57,7 @@ namespace LVK.WorkQueues
 
                 using (_Bus.Subscribe<WorkQueueItemAddedMessage>(notify))
                 {
+                    bool workerQueueIsEmpty = false;
                     while (!cancellationToken.IsCancellationRequested)
                     {
                         evt.Reset();
@@ -70,30 +72,42 @@ namespace LVK.WorkQueues
                         if (cancellationToken.IsCancellationRequested)
                             break;
 
-                        IEnumerable<Task> workerThreads = Enumerable.Range(1, _Configuration.Value().WorkerThreads).Select(_ => ProcessMessages(cancellationToken));
+                        IEnumerable<Task<bool>> workerThreads = Enumerable.Range(1, _Configuration.Value().WorkerThreads).Select(_ => ProcessMessages(cancellationToken));
 
-                        await Task.WhenAll(workerThreads).NotNull();
+                        bool[] workerThreadProcessedMessages = await Task.WhenAll(workerThreads).NotNull();
+                        if (workerThreadProcessedMessages.Any(b => b))
+                            workerQueueIsEmpty = false;
+                        else
+                        {
+                            if (!workerQueueIsEmpty)
+                            {
+                                workerQueueIsEmpty = true;
+                                _Bus.Publish(WorkQueueEmptyMessage.Instance);
+                            }
+                        }
                     }
                 }
             }
         }
 
         [NotNull]
-        private Task ProcessMessages(CancellationToken cancellationToken)
+        private async Task<bool> ProcessMessages(CancellationToken cancellationToken)
         {
             using (_Logger.LogScope(LogLevel.Trace, "WorkQueueProcessorBackgroundService.ProcessMessages"))
             {
-                IWorkQueueModel model;
-                while ((model = _WorkQueueRepositoryManager.Dequeue()) != null)
+                WorkQueueItem? item;
+                bool any = false;
+                while ((item = await _WorkQueueRepositoryManager.DequeueAsync()) != null)
                 {
-                    _Logger.Log(LogLevel.Debug, $"work queue model '{model.Type}'");
+                    any = true;
+                    _Logger.Log(LogLevel.Debug, $"work queue model '{item.Value.Type}'");
 
-                    Type itemType = ResolveItemType(model.Type);
+                    Type itemType = ResolveItemType(item.Value.Type);
                     MethodInfo processMethod = GetType().GetMethod("Process", BindingFlags.Instance | BindingFlags.NonPublic).NotNull().MakeGenericMethod(itemType);
-                    processMethod.Invoke(this, new object[] { model, cancellationToken });
+                    processMethod.Invoke(this, new object[] { item, cancellationToken });
                 }
 
-                return Task.CompletedTask;
+                return any;
             }
         }
 
@@ -109,33 +123,33 @@ namespace LVK.WorkQueues
             return types.FirstOrDefault();
         }
 
-        private async Task Process<T>([NotNull] IWorkQueueModel model, CancellationToken cancellationToken)
+        private async Task Process<T>(WorkQueueItem item, CancellationToken cancellationToken)
             where T: class
         {
-            T item = model.Payload.ToObject<T>().NotNull();
+            T payload = item.Payload.ToObject<T>().NotNull();
             var processor = _Container.Resolve<IWorkQueueProcessor<T>>(IfUnresolved.ReturnDefaultIfNotRegistered);
             if (processor == null)
             {
-                _Logger.LogError($"work queue item '{model.Type}' has no processor, item faulted");
-                _WorkQueueRepositoryManager.Faulted(model.Type, model.Payload);
+                _Logger.LogError($"work queue item '{item.Type}' has no processor, item faulted");
+                await _WorkQueueRepositoryManager.FaultedAsync(item);
                 return;
             }
 
-            using (_Logger.LogScope(LogLevel.Verbose, $"processing work queue item '{model.Type}'"))
+            using (_Logger.LogScope(LogLevel.Verbose, $"processing work queue item '{item.Type}'"))
             {
                 try
                 {
-                    await processor.Process(item, cancellationToken);
+                    await processor.Process(payload, cancellationToken);
                 }
                 catch (TaskCanceledException)
                 {
-                    _WorkQueueRepositoryManager.Enqueue(model.Type, model.Payload, model.WhenToProcess, model.RetryCount);
+                    await _WorkQueueRepositoryManager.EnqueueManyAsync(new[] { item });
                     throw;
                 }
                 catch (Exception ex)
                 {
                     _Logger.LogException(ex);
-                    _WorkQueueRepositoryManager.Retry(model);
+                    await _WorkQueueRepositoryManager.RetryAsync(item);
                 }
             }
         }

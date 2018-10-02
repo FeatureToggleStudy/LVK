@@ -1,21 +1,24 @@
-using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using JetBrains.Annotations;
-
-using Newtonsoft.Json.Linq;
 
 namespace LVK.WorkQueues
 {
     internal interface IWorkQueueRepositoryManager
     {
-        void Enqueue([NotNull] string type, [NotNull] JObject  payload, DateTime whenToProcess, int retryCount);
-        void Faulted([NotNull] string type, [NotNull] JObject  payload);
+        [NotNull]
+        Task EnqueueManyAsync([NotNull] IEnumerable<WorkQueueItem> items);
 
-        [CanBeNull]
-        IWorkQueueModel Dequeue();
+        [NotNull]
+        Task FaultedAsync(WorkQueueItem item);
+
+        [NotNull]
+        Task<WorkQueueItem?> DequeueAsync();
+
+        [NotNull]
+        Task RetryAsync(WorkQueueItem item);
 
         bool IsEnabled { get; }
-
-        void Retry([NotNull] IWorkQueueModel model);
     }
 }

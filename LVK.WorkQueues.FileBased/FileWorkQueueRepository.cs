@@ -2,17 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
 using LVK.Configuration;
 using LVK.Core;
-using LVK.Core.Services;
+using LVK.Security.Cryptography;
 
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace LVK.WorkQueues.FileBased
 {
@@ -20,69 +19,66 @@ namespace LVK.WorkQueues.FileBased
     public class FileWorkQueueRepository : IWorkQueueRepository
     {
         [NotNull]
-        private readonly IBus _Bus;
+        private readonly IHasher _Hasher;
 
         [NotNull]
         private readonly IConfigurationElementWithDefault<FileWorkQueueConfiguration> _Configuration;
 
-        public FileWorkQueueRepository([NotNull] IConfiguration configuration, [NotNull] IBus bus)
+        public FileWorkQueueRepository([NotNull] IConfiguration configuration, [NotNull] IHasher hasher)
         {
             if (configuration == null)
                 throw new ArgumentNullException(nameof(configuration));
 
-            _Bus = bus ?? throw new ArgumentNullException(nameof(bus));
+            _Hasher = hasher ?? throw new ArgumentNullException(nameof(hasher));
 
             _Configuration = configuration.Element<FileWorkQueueConfiguration>("WorkQueues/FileBased").WithDefault(() => new FileWorkQueueConfiguration());
         }
 
-        public void Enqueue(string type, JObject payload, DateTime whenToProcess, int retryCount)
+        // ReSharper disable once AnnotationRedundancyInHierarchy
+        [NotNull]
+        public Task EnqueueManyAsync(IEnumerable<WorkQueueItem> items)
         {
             if (!IsEnabled)
-                return;
+                return Task.CompletedTask;
 
-            var model = new WorkQueueModel { Type = type, Payload = payload, WhenToProcess = whenToProcess, RetryCount = retryCount };
-            var json = JsonConvert.SerializeObject(model, Formatting.Indented).NotNull();
-            var hash = Hash(json);
+            foreach (var item in items)
+            {
+                string filename = WriteToFile(item, ".json");
+                File.SetCreationTime(filename, item.WhenToProcess);
+                File.SetLastWriteTime(filename, item.WhenToProcess);
+            }
 
-            var filename = Path.Combine(_Configuration.Value().Path, hash + ".json");
-            if (File.Exists(filename))
-                return;
-
-            File.WriteAllText(filename, json, Encoding.UTF8);
-            File.SetCreationTime(filename, whenToProcess);
-            File.SetLastWriteTime(filename, whenToProcess);
-
-            _Bus.Publish(new WorkQueueItemAddedMessage());
+            return Task.CompletedTask;
         }
 
-        public void Faulted(string type, JObject payload)
+        // ReSharper disable once AnnotationRedundancyInHierarchy
+        [NotNull]
+        public Task FaultedAsync(WorkQueueItem item)
         {
             if (!IsEnabled)
-                return;
+                return Task.CompletedTask;
 
-            var model = new WorkQueueFaultedModel { Type = type, Payload = payload };
-            var json = JsonConvert.SerializeObject(model, Formatting.Indented).NotNull();
-            var hash = Hash(json);
+            WriteToFile(new { item.Type, item.Payload }, ".faulted");
 
-            var filename = Path.Combine(_Configuration.Value().Path, hash + ".faulted");
+            return Task.CompletedTask;
+        }
+
+        private string WriteToFile(object obj, string extension)
+        {
+            var json = JsonConvert.SerializeObject(obj, Formatting.Indented).NotNull();
+            var hash = _Hasher.Hash(json);
+
+            var filename = Path.Combine(_Configuration.Value().Path, hash + extension);
             if (!File.Exists(filename))
                 File.WriteAllText(filename, json, Encoding.UTF8);
+
+            return filename;
         }
 
-        [NotNull]
-        private string Hash([NotNull] string json)
-        {
-            using (SHA1 sha = SHA1.Create().NotNull())
-            {
-                byte[] hashBytes = sha.ComputeHash(Encoding.UTF8.GetBytes(json));
-                return BitConverter.ToString(hashBytes).Replace("-", "");
-            }
-        }
-
-        public IWorkQueueModel Dequeue()
+        Task<WorkQueueItem?> IWorkQueueRepository.DequeueAsync()
         {
             if (!IsEnabled)
-                return null;
+                return Task.FromResult<WorkQueueItem?>(null);
 
             IEnumerable<string> itemFiles =
                 from file in new DirectoryInfo(_Configuration.Value().Path).GetFiles("*.json")
@@ -91,12 +87,12 @@ namespace LVK.WorkQueues.FileBased
 
             var firstItem = itemFiles.FirstOrDefault();
             if (firstItem == null)
-                return null;
+                return Task.FromResult<WorkQueueItem?>(null);
 
             var json = File.ReadAllText(firstItem, Encoding.UTF8);
-            var model = JsonConvert.DeserializeObject<WorkQueueModel>(json);
+            var item = JsonConvert.DeserializeObject<WorkQueueItem>(json);
             File.Delete(firstItem);
-            return model;
+            return Task.FromResult<WorkQueueItem?>(item);
         }
 
         public bool IsEnabled

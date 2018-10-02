@@ -4,9 +4,10 @@ using DryIoc;
 
 using JetBrains.Annotations;
 
+using LVK.Data;
 using LVK.DryIoc;
 
-namespace LVK.WorkQueues.FileBased
+namespace LVK.WorkQueues.Sqlite
 {
     [PublicAPI]
     public class ServicesBootstrapper : IServicesBootstrapper
@@ -21,9 +22,12 @@ namespace LVK.WorkQueues.FileBased
                .Bootstrap<LVK.Configuration.ServicesBootstrapper>()
                .Bootstrap<LVK.Json.ServicesBootstrapper>()
                .Bootstrap<LVK.Core.Services.ServicesBootstrapper>()
+               .Bootstrap<LVK.Data.Sqlite.ServicesBootstrapper>()
+               .Bootstrap<LVK.Data.ServicesBootstrapper>()
                .Bootstrap<LVK.Security.Cryptography.ServicesBootstrapper>();
 
-            container.Register<IWorkQueueRepository, FileWorkQueueRepository>();
+            container.RegisterAll<IDatabaseMigration>(GetType().Assembly);
+            container.Register<IWorkQueueRepository, SqliteWorkQueueRepository>();
         }
     }
 }

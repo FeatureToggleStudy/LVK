@@ -75,6 +75,7 @@ namespace LVK.AppCore
             }
             catch (Exception ex)
             {
+                _Logger.LogException(ex);
                 _Logger.LogError(
                     $"background service '{_TypeHelper.NameOf(backgroundService.GetType())}' threw an exception, terminating program");
 

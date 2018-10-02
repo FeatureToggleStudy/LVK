@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 using DryIoc;
 
@@ -34,6 +35,26 @@ namespace LVK.DryIoc
             }
 
             return container;
+        }
+
+        public static void RegisterAll<T>([NotNull] this IContainer container, [NotNull] Assembly assembly, [CanBeNull] IReuse reuse = null)
+        {
+            if (container is null)
+                throw new ArgumentNullException(nameof(container));
+
+            if (assembly is null)
+                throw new ArgumentNullException(nameof(assembly));
+
+            foreach (Type type in assembly.GetTypes())
+            {
+                if (!typeof(T).IsAssignableFrom(type))
+                    continue;
+
+                if (type.IsAbstract)
+                    continue;
+
+                container.Register(typeof(T), type, reuse);
+            }
         }
     }
 }

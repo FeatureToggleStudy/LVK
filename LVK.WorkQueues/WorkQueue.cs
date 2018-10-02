@@ -1,8 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
 using LVK.Core;
+using LVK.Core.Services;
 
 using Newtonsoft.Json.Linq;
 
@@ -13,15 +17,25 @@ namespace LVK.WorkQueues
         [NotNull]
         private readonly IWorkQueueRepositoryManager _WorkQueueRepositoryManager;
 
-        public WorkQueue([NotNull] IWorkQueueRepositoryManager workQueueRepositoryManager)
+        [NotNull]
+        private readonly IBus _Bus;
+
+        public WorkQueue([NotNull] IWorkQueueRepositoryManager workQueueRepositoryManager, [NotNull] IBus bus)
         {
             _WorkQueueRepositoryManager = workQueueRepositoryManager;
+            _Bus = bus ?? throw new ArgumentNullException(nameof(bus));
         }
 
-        public void Enqueue<T>(T item)
-            where T: class
+        public async Task EnqueueManyAsync(IEnumerable<object> items, DateTime? whenToProcess)
         {
-            _WorkQueueRepositoryManager.Enqueue(typeof(T).FullName.NotNull(), JObject.FromObject(item).NotNull(), DateTime.Now, 0);
+            IEnumerable<WorkQueueItem> workQueueItems =
+                from item in items
+                where item != null
+                select new WorkQueueItem(item.GetType().FullName.NotNull(), JObject.FromObject(item), whenToProcess ?? DateTime.Now, 0);
+
+            await _WorkQueueRepositoryManager.EnqueueManyAsync(workQueueItems);
+
+            _Bus.Publish(new WorkQueueItemAddedMessage());
         }
     }
 }

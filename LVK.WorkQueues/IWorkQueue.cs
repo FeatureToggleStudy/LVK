@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using JetBrains.Annotations;
 
 namespace LVK.WorkQueues
@@ -5,7 +9,7 @@ namespace LVK.WorkQueues
     [PublicAPI]
     public interface IWorkQueue
     {
-        void Enqueue<T>([NotNull] T item)
-            where T: class;
+        [NotNull]
+        Task EnqueueManyAsync(IEnumerable<object> items, [CanBeNull] DateTime? whenToProcess = null);
     }
 }

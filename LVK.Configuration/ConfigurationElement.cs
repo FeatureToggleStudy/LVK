@@ -26,7 +26,16 @@ namespace LVK.Configuration
                 
             T result;
             if (element is JObject obj)
-                result = obj.ToObject<T>();
+            {
+                try
+                {
+                    result = obj.ToObject<T>();
+                }
+                catch (ArgumentException)
+                {
+                    return default(T);
+                }
+            }
             else
                 result = element.ToObject<T>();
 
