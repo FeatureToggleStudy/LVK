@@ -5,12 +5,10 @@ using JetBrains.Annotations;
 namespace LVK.Data
 {
     [PublicAPI]
-    public interface IDatabaseConnectionProvider
+    public interface IDatabaseConnectionProvider<out T>
+        where T: class, IDbConnection
     {
         [NotNull]
-        string Type { get; }
-
-        [NotNull]
-        IDbConnection Create([NotNull] string connectionString);
+        T Create([NotNull] string connectionString);
     }
 }

@@ -22,7 +22,7 @@ namespace LVK.Data.Sqlite
             container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
             container.Bootstrap<LVK.Configuration.ServicesBootstrapper>();
 
-            container.Register<IDatabaseConnectionProvider, SqliteDatabaseConnectionProvider>();
+            container.Register<IDatabaseConnectionProvider<SqliteConnection>, SqliteDatabaseConnectionProvider>();
             container.Register<IDatabaseVersionHandler<SqliteConnection>, SqliteDatabaseVersionHandler>();
         }
     }

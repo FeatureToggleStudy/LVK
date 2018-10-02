@@ -9,7 +9,9 @@ namespace LVK.Data
     public static class DatabaseConnectionFactoryExtensions
     {
         [NotNull]
-        public static IDbConnection Create([NotNull] this IDatabaseConnectionFactory databaseConnectionFactory, [NotNull] string name)
-            => databaseConnectionFactory.TryCreate(name) ?? throw new InvalidOperationException($"Unable to create database connection for '{name}'");
+        public static T Create<T>([NotNull] this IDatabaseConnectionFactory databaseConnectionFactory, [NotNull] string name, bool autoMigrate = true)
+            where T: class, IDbConnection
+            => databaseConnectionFactory.TryCreate<T>(name, autoMigrate)
+            ?? throw new InvalidOperationException($"Unable to create database connection for '{name}'");
     }
 }
