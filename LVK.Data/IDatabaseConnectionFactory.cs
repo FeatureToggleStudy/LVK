@@ -8,6 +8,6 @@ namespace LVK.Data
     public interface IDatabaseConnectionFactory
     {
         [CanBeNull]
-        IDbConnection TryCreate([NotNull] string name);
+        IDbConnection TryCreate([NotNull] string name, bool autoMigrate = true);
     }
 }

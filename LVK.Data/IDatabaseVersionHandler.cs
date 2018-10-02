@@ -16,6 +16,7 @@ namespace LVK.Data
     }
 
     [PublicAPI]
+    // ReSharper disable once UnusedTypeParameter
     public interface IDatabaseVersionHandler<in T> : IDatabaseVersionHandler
         where T: class, IDbConnection
     {

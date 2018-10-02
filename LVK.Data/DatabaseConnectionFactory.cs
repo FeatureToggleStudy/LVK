@@ -19,22 +19,26 @@ namespace LVK.Data
         private readonly ILogger _Logger;
 
         [NotNull]
+        private readonly IDatabaseMigrator _DatabaseMigrator;
+
+        [NotNull]
         private readonly Dictionary<string, IDatabaseConnectionProvider> _ProvidersByType =
             new Dictionary<string, IDatabaseConnectionProvider>(StringComparer.InvariantCultureIgnoreCase);
 
-        public DatabaseConnectionFactory([NotNull, ItemNotNull] IEnumerable<IDatabaseConnectionProvider> providers, [NotNull] IConfiguration configuration, [NotNull] ILogger logger)
+        public DatabaseConnectionFactory([NotNull, ItemNotNull] IEnumerable<IDatabaseConnectionProvider> providers, [NotNull] IConfiguration configuration, [NotNull] ILogger logger, [NotNull] IDatabaseMigrator databaseMigrator)
         {
             if (providers is null)
                 throw new ArgumentNullException(nameof(providers));
 
             _Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _DatabaseMigrator = databaseMigrator ?? throw new ArgumentNullException(nameof(databaseMigrator));
 
             foreach (var provider in providers)
                 _ProvidersByType[provider.Type] = provider;
         }
 
-        public IDbConnection TryCreate(string name)
+        public IDbConnection TryCreate(string name, bool autoMigrate)
         {
             using (_Logger.LogScope(LogLevel.Trace, nameof(DatabaseConnectionFactory) + "." + nameof(TryCreate)))
             {
@@ -59,7 +63,11 @@ namespace LVK.Data
                     return null;
                 }
                 
-                return provider.Create(connectionString);
+                var connection = provider.Create(connectionString);
+                if (autoMigrate)
+                    _DatabaseMigrator.Migrate(connection, name);
+
+                return connection;
             }
         }
 
