@@ -6,9 +6,6 @@ namespace PerformanceSandbox
 {
     static class Program
     {
-        static async Task Main()
-        {
-            await ConsoleAppBootstrapper.RunAsync<ServicesBootstrapper>();
-        }
+        static async Task<int> Main() => await ConsoleAppBootstrapper.RunAsync<ServicesBootstrapper>();
     }
 }
