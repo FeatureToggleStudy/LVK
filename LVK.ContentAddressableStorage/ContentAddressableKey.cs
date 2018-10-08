@@ -20,11 +20,14 @@ namespace LVK.ContentAddressableStorage
 
         [JsonConstructor]
         public ContentAddressableKey(
-            [NotNull, JsonProperty(HashPropertyName)]
+            [CanBeNull, JsonProperty(HashPropertyName)]
             string hash)
         {
             if (hash == null)
-                throw new ArgumentNullException(nameof(hash));
+            {
+                _Hash = null;
+                return;
+            }
 
             if (!IsHashValid(hash))
                 throw new ArgumentException("hash must be 40 characters and consist of 0-9 or a-f symbols", nameof(hash));
@@ -32,6 +35,8 @@ namespace LVK.ContentAddressableStorage
             _Hash = hash.ToLowerInvariant();
         }
 
+        public bool ShouldSerializeHash() => IsValid;
+        
         [NotNull]
         [JsonProperty(HashPropertyName)]
         public string Hash => _Hash ?? throw new InvalidOperationException("This is not a valid key, reading Hash is not possible");
