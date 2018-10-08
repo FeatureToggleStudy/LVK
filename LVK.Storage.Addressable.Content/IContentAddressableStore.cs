@@ -1,6 +1,4 @@
-using System.Threading.Tasks;
-
-namespace LVK.ContentAddressableStorage
+namespace LVK.Storage.Addressable.Content
 {
     internal interface IContentAddressableStore : IContentAddressableObjectStore, IContentAddressableKeyStore
     {

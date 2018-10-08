@@ -16,6 +16,7 @@
       <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
       <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
       <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
+      <ProjectReference Include="..\LVK.Json\LVK.Json.csproj" />
       <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
       <ProjectReference Include="..\LVK.Security.Cryptography\LVK.Security.Cryptography.csproj" />
     </ItemGroup>

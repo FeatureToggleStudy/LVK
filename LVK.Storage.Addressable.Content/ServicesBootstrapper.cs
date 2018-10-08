@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 
 using LVK.DryIoc;
 
-namespace LVK.ContentAddressableStorage
+namespace LVK.Storage.Addressable.Content
 {
     [PublicAPI]
     public class ServicesBootstrapper : IServicesBootstrapper

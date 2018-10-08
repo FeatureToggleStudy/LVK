@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 
 using Newtonsoft.Json;
 
-namespace LVK.ContentAddressableStorage
+namespace LVK.Storage.Addressable.Content
 {
     [PublicAPI]
     public struct ContentAddressableKey

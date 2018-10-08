@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 
-namespace LVK.ContentAddressableStorage
+namespace LVK.Storage.Addressable.Content
 {
     [UsedImplicitly]
     internal class ContentAddressableStoreConfiguration

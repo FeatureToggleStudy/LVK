@@ -1,8 +1,4 @@
-using JetBrains.Annotations;
-
-using Newtonsoft.Json.Linq;
-
-namespace LVK.ContentAddressableStorage
+namespace LVK.Storage.Addressable.Content
 {
     // internal class ContentAddressableElement
     // {

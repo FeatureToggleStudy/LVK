@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,14 +8,11 @@ using Humanizer;
 
 using JetBrains.Annotations;
 
-using LVK.ContentAddressableStorage;
 using LVK.Core;
 using LVK.Logging;
 using LVK.Security.Cryptography;
 
-using Newtonsoft.Json;
-
-namespace LVK.ContentAddressableStorage
+namespace LVK.Storage.Addressable.Content
 {
     internal class ContentAddressableFileObjectStore : IContentAddressableObjectStore
     {

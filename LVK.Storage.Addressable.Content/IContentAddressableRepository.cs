@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
-namespace LVK.ContentAddressableStorage
+namespace LVK.Storage.Addressable.Content
 {
     [PublicAPI]
     public interface IContentAddressableRepository
