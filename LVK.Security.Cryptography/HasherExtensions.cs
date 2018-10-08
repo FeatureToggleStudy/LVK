@@ -8,6 +8,7 @@ namespace LVK.Security.Cryptography
     [PublicAPI]
     public static class HasherExtensions
     {
+        [NotNull]
         public static string Hash([NotNull] this IHasher hasher, [NotNull] string content)
         {
             if (hasher == null)

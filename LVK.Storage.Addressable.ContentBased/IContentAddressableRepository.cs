@@ -17,6 +17,7 @@ namespace LVK.Storage.Addressable.ContentBased
         ContentAddressableKey GetKey([NotNull] string name);
         void StoreKey([NotNull] string name, ContentAddressableKey key);
 
+        [NotNull]
         Task CollectGarbage(CancellationToken cancellationToken);
     }
 }

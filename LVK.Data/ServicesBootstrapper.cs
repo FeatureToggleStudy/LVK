@@ -16,6 +16,9 @@ namespace LVK.Data
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
+            container.Bootstrap<LVK.Configuration.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
+
             container.Register<IDatabaseConnectionFactory, DatabaseConnectionFactory>();
             container.Register<IDatabaseMigrator, DatabaseMigrator>();
         }

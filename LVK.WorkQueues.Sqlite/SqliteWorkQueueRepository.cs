@@ -14,7 +14,7 @@ using Microsoft.Data.Sqlite;
 
 namespace LVK.WorkQueues.Sqlite
 {
-    public class SqliteWorkQueueRepository : IWorkQueueRepository
+    internal class SqliteWorkQueueRepository : IWorkQueueRepository
     {
         private const int _SqliteConstraintViolationErrorCode = 19;
 
@@ -40,6 +40,8 @@ namespace LVK.WorkQueues.Sqlite
         [CanBeNull]
         private SqliteConnection TryCreateConnection() => _DatabaseConnectionFactory.TryCreate<SqliteConnection>("sqlite_workqueue", false);
 
+        // ReSharper disable once AnnotationRedundancyInHierarchy
+        [NotNull]
         public async Task EnqueueManyAsync(IEnumerable<WorkQueueItem> items)
         {
             using (var databaseConnection = TryCreateConnection())
@@ -80,6 +82,8 @@ namespace LVK.WorkQueues.Sqlite
             }
         }
 
+        // ReSharper disable once AnnotationRedundancyInHierarchy
+        [NotNull]
         public async Task FaultedAsync(WorkQueueItem item)
         {
             using (var databaseConnection = TryCreateConnection())
@@ -110,6 +114,8 @@ namespace LVK.WorkQueues.Sqlite
             }
         }
 
+        // ReSharper disable once AnnotationRedundancyInHierarchy
+        [NotNull]
         public async Task<WorkQueueItem?> DequeueAsync()
         {
             using (var databaseConnection = TryCreateConnection())

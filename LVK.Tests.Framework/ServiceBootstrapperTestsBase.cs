@@ -55,5 +55,11 @@ namespace LVK.Tests.Framework
             Assert.That(
                 isRegistered, Is.True, $"Dependency on assembly {servicesBootstrapperType.Assembly.GetName().Name} but services bootstrapper not called");
         }
+
+        public static IEnumerable<Type> BootstrapperTypes() => ServiceBootstrappersInReferencedAssemblies();
+
+        [Test]
+        [TestCaseSource(nameof(BootstrapperTypes))]
+        public void Bootstraper_InDependendentAssembly_IsBootstrapped(Type servicesBootstrapperType) => VerifyDependency(servicesBootstrapperType);
     }
 }
