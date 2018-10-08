@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 
 using LVK.Logging;
 
-namespace LVK.Storage.Addressable.Content
+namespace LVK.Storage.Addressable.ContentBased
 {
     internal class ContentAddressableRepositoryFactory : IContentAddressableRepositoryFactory
     {

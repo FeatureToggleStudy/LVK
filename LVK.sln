@@ -114,7 +114,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Commands.Tests", "LVK.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceSandbox", "PerformanceSandbox\PerformanceSandbox.csproj", "{16DFC09C-00A7-4D06-847A-954DA494EEF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Storage.Addressable.Content", "LVK.Storage.Addressable.Content\LVK.Storage.Addressable.Content.csproj", "{A70B51AB-0A4F-49F9-821A-6E75A5F63313}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Storage.Addressable.ContentBased", "LVK.Storage.Addressable.ContentBased\LVK.Storage.Addressable.ContentBased.csproj", "{A70B51AB-0A4F-49F9-821A-6E75A5F63313}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

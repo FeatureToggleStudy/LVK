@@ -7,7 +7,7 @@ using LVK.Configuration;
 using LVK.Logging;
 using LVK.Security.Cryptography;
 
-namespace LVK.Storage.Addressable.Content
+namespace LVK.Storage.Addressable.ContentBased
 {
     internal class ContentAddressableStoreFactory : IContentAddressableStoreFactory
     {

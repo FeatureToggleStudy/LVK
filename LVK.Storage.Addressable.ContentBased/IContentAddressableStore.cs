@@ -1,4 +1,4 @@
-namespace LVK.Storage.Addressable.Content
+namespace LVK.Storage.Addressable.ContentBased
 {
     internal interface IContentAddressableStore : IContentAddressableObjectStore, IContentAddressableKeyStore
     {

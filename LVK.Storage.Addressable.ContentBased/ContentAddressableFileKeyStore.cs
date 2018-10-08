@@ -9,7 +9,7 @@ using JetBrains.Annotations;
 using LVK.Core;
 using LVK.Logging;
 
-namespace LVK.Storage.Addressable.Content
+namespace LVK.Storage.Addressable.ContentBased
 {
     internal class ContentAddressableFileKeyStore : IContentAddressableKeyStore
     {

@@ -14,7 +14,7 @@ using LVK.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace LVK.Storage.Addressable.Content
+namespace LVK.Storage.Addressable.ContentBased
 {
     internal class ContentAddressableRepository : IContentAddressableRepository
     {

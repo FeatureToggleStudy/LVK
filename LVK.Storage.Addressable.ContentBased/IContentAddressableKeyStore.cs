@@ -2,7 +2,7 @@
 
 using JetBrains.Annotations;
 
-namespace LVK.Storage.Addressable.Content
+namespace LVK.Storage.Addressable.ContentBased
 {
     internal interface IContentAddressableKeyStore
     {
