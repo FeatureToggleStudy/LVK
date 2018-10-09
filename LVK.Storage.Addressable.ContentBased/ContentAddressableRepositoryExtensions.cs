@@ -10,7 +10,7 @@ namespace LVK.Storage.Addressable.ContentBased
     {
         [NotNull]
         public static Task<ContentAddressableKey> StoreObjectAsync<T>([NotNull] this IContentAddressableRepository repository, [NotNull] T content)
-            => repository.StoreObjectAsync<T>(content, CancellationToken.None);
+            => repository.StoreObjectAsync(content, CancellationToken.None);
 
         [NotNull, ItemCanBeNull]
         public static Task<T> GetObjectAsync<T>([NotNull] this IContentAddressableRepository repository, ContentAddressableKey key)
