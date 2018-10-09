@@ -20,7 +20,7 @@ namespace LVK.Storage.Addressable.ContentBased
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public IContentAddressableRepository Create(string name)
+        public IContentAddressableRepository TryCreate(string name)
         {
             var store = _ContentAddressableStoreFactory.Create(name);
             if (store == null)

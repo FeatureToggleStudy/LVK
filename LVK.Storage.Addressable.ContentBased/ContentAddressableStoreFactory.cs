@@ -29,7 +29,7 @@ namespace LVK.Storage.Addressable.ContentBased
 
         public IContentAddressableStore Create(string name)
         {
-            var configuration = _Configuration[$"ContentAddressable/Stores/{name}"]
+            var configuration = _Configuration[$"Storage/ContentAddressable/{name}"]
                .Element<ContentAddressableStoreConfiguration>()
                .ValueOrDefault(() => new ContentAddressableStoreConfiguration());
 

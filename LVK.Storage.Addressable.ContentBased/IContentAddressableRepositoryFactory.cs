@@ -6,6 +6,6 @@ namespace LVK.Storage.Addressable.ContentBased
     public interface IContentAddressableRepositoryFactory
     {
         [CanBeNull]
-        IContentAddressableRepository Create([NotNull] string name);
+        IContentAddressableRepository TryCreate([NotNull] string name);
     }
 }
