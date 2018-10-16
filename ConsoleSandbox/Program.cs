@@ -8,7 +8,7 @@ namespace ConsoleSandbox
     {
         static Task<int> Main(string[] args)
         {
-            return ConsoleAppBootstrapper.RunAsync<ServicesBootstrapper>();
+            return ConsoleAppBootstrapper.RunDaemonAsync<ServicesBootstrapper>();
         }
     }
 }

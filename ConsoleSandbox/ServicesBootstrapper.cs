@@ -10,7 +10,7 @@ namespace ConsoleSandbox
         public void Bootstrap(IContainer container)
         {
             container.Bootstrap<LVK.AppCore.Console.ServicesBootstrapper>();
-            container.Register<IApplicationEntryPoint, ApplicationEntryPoint>();
+            // container.Register<IApplicationEntryPoint, ApplicationEntryPoint>();
         }
     }
 }
