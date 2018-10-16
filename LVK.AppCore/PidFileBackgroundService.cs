@@ -10,11 +10,20 @@ using JetBrains.Annotations;
 
 using LVK.Core;
 using LVK.Core.Services;
+using LVK.Logging;
 
 namespace LVK.AppCore
 {
     internal class PidFileBackgroundService : PidFileBackgroundServiceBase, IBackgroundService
     {
+        [NotNull]
+        private readonly ILogger _Logger;
+
+        public PidFileBackgroundService([NotNull] ILogger logger)
+        {
+            _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+        
         public async Task Execute(CancellationToken cancellationToken)
         {
             using (Stream stream = CreatePidStream())
@@ -24,10 +33,9 @@ namespace LVK.AppCore
                     byte[] bytes = Encoding.Default.GetBytes(Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture));
                     stream.Write(bytes, 0, bytes.Length);
 
-                    while (!cancellationToken.IsCancellationRequested)
-                    {
-                        await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken).NotNull();
-                    }
+                    await cancellationToken.AsTask();
+
+                    _Logger.LogVerbose($"application terminating, deleting .pid file");
                 }
             }
         }
@@ -41,7 +49,9 @@ namespace LVK.AppCore
                 {
                     var folderPath = Path.GetDirectoryName(filename).NotNull();
                     Directory.CreateDirectory(folderPath);
-                    return new FileStream(filename, FileMode.Create, FileAccess.ReadWrite, FileShare.Read, 256, FileOptions.DeleteOnClose);
+                    var stream = new FileStream(filename, FileMode.Create, FileAccess.ReadWrite, FileShare.Read, 256, FileOptions.DeleteOnClose);
+                    _Logger.LogVerbose($"created .pid file in '{filename}'");
+                    return stream;
                 }
                 catch (DirectoryNotFoundException)
                 {

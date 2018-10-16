@@ -8,6 +8,7 @@ using JetBrains.Annotations;
 
 using LVK.Core;
 using LVK.Core.Services;
+using LVK.Logging;
 
 namespace LVK.AppCore
 {
@@ -16,9 +17,15 @@ namespace LVK.AppCore
         [NotNull]
         private readonly IApplicationLifetimeManager _ApplicationLifetimeManager;
 
-        public PidQuitFileMonitorBackgroundService([NotNull] IApplicationLifetimeManager applicationLifetimeManager)
+        [NotNull]
+        private readonly ILogger _Logger;
+
+        private bool _FirstRun = true;
+
+        public PidQuitFileMonitorBackgroundService([NotNull] IApplicationLifetimeManager applicationLifetimeManager, [NotNull] ILogger logger)
         {
             _ApplicationLifetimeManager = applicationLifetimeManager ?? throw new ArgumentNullException(nameof(applicationLifetimeManager));
+            _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task Execute(CancellationToken cancellationToken)
@@ -47,6 +54,9 @@ namespace LVK.AppCore
             {
                 try
                 {
+                    if (_FirstRun)
+                        _Logger.LogDebug($"looking for .quit file in '{filename}'");
+
                     if (File.Exists(filename))
                         File.Delete(filename);
                 }
@@ -59,6 +69,8 @@ namespace LVK.AppCore
                     // Ignore
                 }
             }
+
+            _FirstRun = false;
         }
     }
 }
