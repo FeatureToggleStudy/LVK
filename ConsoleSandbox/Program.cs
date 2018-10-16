@@ -6,7 +6,7 @@ namespace ConsoleSandbox
 {
     static class Program
     {
-        public static Task Main(string[] args)
+        static Task<int> Main(string[] args)
         {
             return ConsoleAppBootstrapper.RunAsync<ServicesBootstrapper>();
         }
