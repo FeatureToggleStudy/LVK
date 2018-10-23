@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -46,11 +47,14 @@ namespace LVK.AppCore
             }
         }
 
-        private bool AnyQuitFilesExists() => PidFilenames.Length > 0 && PidFilenames.Any(File.Exists);
+        [NotNull, ItemNotNull]
+        private IEnumerable<string> QuitFilenames => PidFilenames.Select(filename => Path.ChangeExtension(filename, ".quit"));
+
+        private bool AnyQuitFilesExists() => QuitFilenames.Any() && QuitFilenames.Any(File.Exists);
 
         private void DeleteQuitFiles()
         {
-            foreach (var filename in PidFilenames)
+            foreach (var filename in QuitFilenames)
             {
                 try
                 {
