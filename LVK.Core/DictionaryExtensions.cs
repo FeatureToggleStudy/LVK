@@ -10,7 +10,7 @@ namespace LVK.Core
     {
         [CanBeNull]
         public static TValue GetValueOrDefault<TKey, TValue>(
-            [NotNull] this IDictionary<TKey, TValue> dictionary, [NotNull] TKey key, TValue defaultValue = default)
+            [NotNull] this IDictionary<TKey, TValue> dictionary, [NotNull] TKey key, [CanBeNull] TValue defaultValue = default)
         {
             if (dictionary == null)
                 throw new ArgumentNullException(nameof(dictionary));

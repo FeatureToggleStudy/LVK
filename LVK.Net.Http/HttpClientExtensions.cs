@@ -71,13 +71,13 @@ namespace LVK.Net.Http
 
         [NotNull]
         public static Task<HttpResponseMessage> PostAsJsonAsync<T>([NotNull] this HttpClient httpClient,
-                                                                   [NotNull] string requestUri, T payload,
+                                                                   [NotNull] string requestUri, [NotNull] T payload,
                                                                    [CanBeNull] CancellationToken? cancellationToken = null)
             => PostAsJsonAsync(httpClient, new Uri(requestUri), payload, cancellationToken);
 
         [NotNull]
         public static Task<HttpResponseMessage> PostAsJsonAsync<T>([NotNull] this HttpClient httpClient,
-                                                                   [NotNull] Uri requestUri, T payload,
+                                                                   [NotNull] Uri requestUri, [NotNull] T payload,
                                                                    [CanBeNull] CancellationToken? cancellationToken = null)
             => PostOrPutAsJsonAsync(httpClient, HttpMethod.Post, requestUri, payload, cancellationToken);
 
@@ -95,7 +95,7 @@ namespace LVK.Net.Http
 
         [NotNull]
         private static async Task<HttpResponseMessage> PostOrPutAsJsonAsync<T>(
-            [NotNull] HttpClient httpClient, HttpMethod method, [NotNull] Uri requestUri, T payload,
+            [NotNull] HttpClient httpClient, HttpMethod method, [NotNull] Uri requestUri, [NotNull] T payload,
             [CanBeNull] CancellationToken? cancellationToken = null)
         {
             if (httpClient is null)
