@@ -4,6 +4,9 @@ using LVK.Core.Services;
 
 using NUnit.Framework;
 
+// ReSharper disable PossibleNullReferenceException
+// ReSharper disable AssignNullToNotNullAttribute
+
 namespace LVK.Data.Protection.Tests
 {
     [TestFixture]

@@ -48,7 +48,7 @@ namespace LVK.Storage.Addressable.ContentBased
                     using (var stream = File.OpenRead(filename))
                     {
                         byte[] result = new byte[stream.Length];
-                        int inResult = await stream.ReadAsync(result, 0, result.Length, cancellationToken);
+                        int inResult = await stream.ReadAsync(result, 0, result.Length, cancellationToken).NotNull();
 
                         if (inResult != result.Length)
                             throw new InvalidOperationException("Unable to read entire content");
@@ -77,9 +77,9 @@ namespace LVK.Storage.Addressable.ContentBased
             var filename = ComputeFilename(key);
 
             Directory.CreateDirectory(Path.GetDirectoryName(filename).NotNull());
-            using (var stream = File.Create(filename))
+            using (FileStream stream = File.Create(filename))
             {
-                await stream.WriteAsync(content, 0, content.Length, cancellationToken);
+                await stream.WriteAsync(content, 0, content.Length, cancellationToken).NotNull();
             }
 
             return key;
@@ -133,6 +133,7 @@ namespace LVK.Storage.Addressable.ContentBased
             return Task.CompletedTask;
         }
 
+        [NotNull]
         private string ComputeFilename(ContentAddressableKey key) => Path.Combine(_BasePath, key.Hash.Substring(0, 2), key.Hash.Substring(2));
     }
 }

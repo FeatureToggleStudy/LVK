@@ -8,6 +8,7 @@ using DryIoc;
 
 using JetBrains.Annotations;
 
+using LVK.Core;
 using LVK.Logging;
 
 namespace LVK.Data
@@ -49,7 +50,7 @@ namespace LVK.Data
             {
                 int version;
 
-                using (IDbTransaction transaction = connection.BeginTransaction())
+                using (IDbTransaction transaction = connection.BeginTransaction().NotNull())
                 {
                     version = await versionHandler.GetCurrentVersion(connection, transaction);
                     _Logger.Log(LogLevel.Verbose, $"database is version {version}");
@@ -64,7 +65,7 @@ namespace LVK.Data
                     {
                         await migration.PerformMigration(connection);
 
-                        using (IDbTransaction transaction = connection.BeginTransaction())
+                        using (IDbTransaction transaction = connection.BeginTransaction().NotNull())
                         {
                             await migration.PerformMigration(connection, transaction);
                             await versionHandler.SetCurrentVersion(connection, transaction, migration.To);
@@ -75,19 +76,20 @@ namespace LVK.Data
             }
         }
 
-        private List<IDatabaseMigration> WorkoutMigrations(string databaseName, int currentVersion)
+        [NotNull]
+        private List<IDatabaseMigration> WorkoutMigrations([NotNull] string databaseName, int currentVersion)
         {
             var migrationsBySourceVersion = (
                 from migration in _Migrations
                 where StringComparer.InvariantCultureIgnoreCase.Equals(databaseName, migration.DatabaseName)
-                select migration).ToLookup(migration => migration.From);
+                select migration).ToLookup(migration => migration.NotNull().From);
 
             var result = new List<IDatabaseMigration>();
 
             while (true)
             {
                 var nextMigration = migrationsBySourceVersion[currentVersion]
-                   .Where(migration => migration.To > migration.From)
+                   .Where(migration => migration.NotNull().To > migration.From)
                    .OrderByDescending(migration => migration.To)
                    .FirstOrDefault();
 

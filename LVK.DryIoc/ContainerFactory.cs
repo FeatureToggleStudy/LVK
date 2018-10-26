@@ -10,7 +10,7 @@ namespace LVK.DryIoc
         [NotNull]
         public static IContainer Create()
         {
-            return new Container(rules => rules.WithTrackingDisposableTransients());
+            return new Container(rules => rules?.WithTrackingDisposableTransients());
         }
     }
 }

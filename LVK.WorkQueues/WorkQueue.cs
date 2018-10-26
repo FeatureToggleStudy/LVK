@@ -31,7 +31,9 @@ namespace LVK.WorkQueues
             IEnumerable<WorkQueueItem> workQueueItems =
                 from item in items
                 where item != null
-                select new WorkQueueItem(item.GetType().FullName.NotNull(), JObject.FromObject(item), whenToProcess ?? DateTime.Now, 0);
+                let obj = JObject.FromObject(item)
+                where obj != null
+                select new WorkQueueItem(item.NotNull().GetType().FullName.NotNull(), obj.NotNull(), whenToProcess ?? DateTime.Now, 0);
 
             await _WorkQueueRepositoryManager.EnqueueManyAsync(workQueueItems);
 

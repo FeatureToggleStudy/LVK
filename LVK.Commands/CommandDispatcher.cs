@@ -7,6 +7,7 @@ using DryIoc;
 
 using JetBrains.Annotations;
 
+using LVK.Core;
 using LVK.Logging;
 using LVK.Reflection;
 
@@ -34,8 +35,7 @@ namespace LVK.Commands
         {
             using (_Logger.LogScope(LogLevel.Trace, nameof(CommandDispatcher) + "." + nameof(TryDispatch)))
             {
-                var handlers = _Container.Resolve<IEnumerable<ICommandHandler<TInput, TOutput>>>()
-                   .ToList();
+                var handlers = _Container.Resolve<IEnumerable<ICommandHandler<TInput, TOutput>>>().NotNull().ToList();
                 if (!handlers.Any())
                 {
                     _Logger.LogDebug($"no command handler for '{_TypeHelper.NameOf<TInput>()} -> {_TypeHelper.NameOf<TOutput>()}'");
@@ -60,8 +60,7 @@ namespace LVK.Commands
         {
             using (_Logger.LogScope(LogLevel.Trace, nameof(CommandDispatcher) + "." + nameof(TryDispatch)))
             {
-                var handlers = _Container.Resolve<IEnumerable<ICommandHandler<TInput>>>()
-                   .ToList();
+                var handlers = _Container.Resolve<IEnumerable<ICommandHandler<TInput>>>().NotNull().ToList();
                 if (!handlers.Any())
                 {
                     _Logger.LogDebug($"no command handler for '{_TypeHelper.NameOf<TInput>()}'");

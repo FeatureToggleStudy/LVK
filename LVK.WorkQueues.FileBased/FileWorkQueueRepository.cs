@@ -63,7 +63,8 @@ namespace LVK.WorkQueues.FileBased
             return Task.CompletedTask;
         }
 
-        private string WriteToFile(object obj, string extension)
+        [NotNull]
+        private string WriteToFile([NotNull] object obj, [NotNull] string extension)
         {
             var json = JsonConvert.SerializeObject(obj, Formatting.Indented).NotNull();
             var hash = _Hasher.Hash(json);

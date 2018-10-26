@@ -78,7 +78,7 @@ namespace LVK.Core.Services
                 }
             }
 
-            foreach (var subscriber in _Container.Resolve<IEnumerable<ISubscriber<T>>>())
+            foreach (var subscriber in _Container.Resolve<IEnumerable<ISubscriber<T>>>().NotNull())
                 subscriber.Notify(message);
         }
     }

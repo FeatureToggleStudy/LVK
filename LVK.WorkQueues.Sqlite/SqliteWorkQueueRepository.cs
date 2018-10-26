@@ -7,6 +7,7 @@ using Dapper;
 
 using JetBrains.Annotations;
 
+using LVK.Core;
 using LVK.Data;
 using LVK.Security.Cryptography;
 
@@ -52,7 +53,7 @@ namespace LVK.WorkQueues.Sqlite
                 databaseConnection.Open();
                 await _DatabaseMigrator.Migrate(databaseConnection, "SqliteWorkqueue");
 
-                using (var transaction = databaseConnection.BeginTransaction())
+                using (var transaction = databaseConnection.BeginTransaction().NotNull())
                 {
                     foreach (var item in items)
                     {
@@ -69,7 +70,7 @@ namespace LVK.WorkQueues.Sqlite
                                     Hash = hash,
                                     item.WhenToProcess,
                                     item.RetryCount
-                                }, transaction);
+                                }, transaction).NotNull();
                         }
                         catch (SqliteException ex) when (ex.SqliteErrorCode == _SqliteConstraintViolationErrorCode)
                         {
@@ -94,7 +95,7 @@ namespace LVK.WorkQueues.Sqlite
                 databaseConnection.Open();
                 await _DatabaseMigrator.Migrate(databaseConnection, "SqliteWorkqueue");
 
-                using (var transaction = databaseConnection.BeginTransaction())
+                using (var transaction = databaseConnection.BeginTransaction().NotNull())
                 {
                     var json = item.Payload.ToString();
                     var hash = _Hasher.Hash(json);
@@ -102,7 +103,7 @@ namespace LVK.WorkQueues.Sqlite
                     {
                         await databaseConnection.ExecuteAsync(
                             "INSERT INTO faulted (type, payload, hash) VALUES (@Type, @Payload, @Hash)", new { item.Type, Payload = json, Hash = hash },
-                            transaction);
+                            transaction).NotNull();
                     }
                     catch (SqliteException ex) when (ex.SqliteErrorCode == _SqliteConstraintViolationErrorCode)
                     {
@@ -126,14 +127,14 @@ namespace LVK.WorkQueues.Sqlite
                 databaseConnection.Open();
                 await _DatabaseMigrator.Migrate(databaseConnection, "SqliteWorkqueue");
 
-                using (var transaction = databaseConnection.BeginTransaction())
+                using (var transaction = databaseConnection.BeginTransaction().NotNull())
                 {
-                    var first = (await databaseConnection.QueryAsync<WorkQueueEntity>("SELECT * FROM queue WHERE when_to_process <= @cutoff ORDER BY when_to_process LIMIT 1", new { cutoff = DateTime.Now }, transaction)).FirstOrDefault();
+                    var first = (await databaseConnection.QueryAsync<WorkQueueEntity>("SELECT * FROM queue WHERE when_to_process <= @cutoff ORDER BY when_to_process LIMIT 1", new { cutoff = DateTime.Now }, transaction).NotNull()).FirstOrDefault();
 
                     if (first == null)
                         return null;
 
-                    await databaseConnection.ExecuteAsync("DELETE FROM queue WHERE id = @Id", first);
+                    await databaseConnection.ExecuteAsync("DELETE FROM queue WHERE id = @Id", first).NotNull();
                     transaction.Commit();
 
                     return first.ToItem();

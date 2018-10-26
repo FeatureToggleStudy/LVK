@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
+using static LVK.Core.JetBrainsHelpers;
+
 namespace LVK.Data.Caching
 {
     internal class WeakCache<TKey, TValue> : IWeakCache<TKey, TValue>
@@ -38,6 +40,8 @@ namespace LVK.Data.Caching
                     return value;
 
                 value = factory(key);
+                assume(value != null);
+                
                 _Cache[key] = new WeakReference(value);
                 return value;
             }

@@ -25,6 +25,6 @@ namespace LVK.Core.Services
         private readonly Func<T, Task> _Subscriber;
 
         public AsyncActionSubscriber([NotNull] Func<T, Task> subscriber) => _Subscriber = subscriber;
-        public Task Notify(T message) => _Subscriber(message);
+        public Task Notify(T message) => _Subscriber(message).NotNull();
     }
 }

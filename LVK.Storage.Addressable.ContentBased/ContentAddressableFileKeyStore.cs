@@ -24,7 +24,7 @@ namespace LVK.Storage.Addressable.ContentBased
             _BasePath = basePath ?? throw new ArgumentNullException(nameof(basePath));
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-        
+
         public ContentAddressableKey GetKey(string name)
         {
             var filename = ComputeFilename(name);
@@ -81,7 +81,10 @@ namespace LVK.Storage.Addressable.ContentBased
                     _Logger.LogDebug(
                         () =>
                         {
-                            string name = keyFilename.Substring(basePath.Length).Replace(Path.DirectorySeparatorChar, '/').TrimStart(Path.DirectorySeparatorChar);
+                            string name = keyFilename.Substring(basePath.Length)
+                               .Replace(Path.DirectorySeparatorChar, '/')
+                               .TrimStart(Path.DirectorySeparatorChar);
+
                             return $"discovered stored key '{key}' with name {name}";
                         });
 
@@ -90,7 +93,7 @@ namespace LVK.Storage.Addressable.ContentBased
             }
         }
 
-        private static void DeleteFile(string filename)
+        private static void DeleteFile([NotNull] string filename)
         {
             try
             {
@@ -106,6 +109,7 @@ namespace LVK.Storage.Addressable.ContentBased
             }
         }
 
-        private string ComputeFilename(string name) => Path.Combine(new[] { _BasePath }.Concat(name.Split('/')).ToArray());
+        [NotNull]
+        private string ComputeFilename([NotNull] string name) => Path.Combine(new[] { _BasePath }.Concat(name.Split('/')).ToArray());
     }
 }

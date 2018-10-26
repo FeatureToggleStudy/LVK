@@ -9,6 +9,7 @@ namespace LVK.WorkQueues.Messages
         {
         }
 
+        [NotNull]
         public static readonly WorkQueueEmptyMessage Instance = new WorkQueueEmptyMessage();
     }
 }

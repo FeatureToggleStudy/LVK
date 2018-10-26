@@ -14,6 +14,8 @@ using LVK.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+using static LVK.Core.JetBrainsHelpers;
+
 namespace LVK.Storage.Addressable.ContentBased
 {
     internal class ContentAddressableRepository : IContentAddressableRepository
@@ -85,7 +87,10 @@ namespace LVK.Storage.Addressable.ContentBased
         {
             var json = Encoding.UTF8.GetString(bytes, 1, bytes.Length - 1);
             _Logger.LogDebug($"json: {json}");
-            return JsonConvert.DeserializeObject<T>(json, _Settings);
+            var result = JsonConvert.DeserializeObject<T>(json, _Settings);
+            
+            assume(result != null);
+            return result;
         }
 
         [NotNull]
@@ -195,7 +200,7 @@ namespace LVK.Storage.Addressable.ContentBased
         {
             if (property.Name == ContentAddressableKey.HashPropertyName)
             {
-                var hash = property.Value.ToString();
+                var hash = property.Value?.ToString();
                 discoveredKeys.Add(new ContentAddressableKey(hash));
                 return;
             }

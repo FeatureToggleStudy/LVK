@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Security.Cryptography;
 
+using LVK.Core;
+
 namespace LVK.Security.Cryptography
 {
     internal class Hasher : IHasher
@@ -10,7 +12,7 @@ namespace LVK.Security.Cryptography
             if (content == null)
                 throw new ArgumentNullException(nameof(content));
 
-            using (var sha = SHA1.Create())
+            using (var sha = SHA1.Create().NotNull())
             {
                 var hash = sha.ComputeHash(content);
                 return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();

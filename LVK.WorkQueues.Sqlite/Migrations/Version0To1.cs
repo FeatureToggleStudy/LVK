@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 using Dapper;
 
+using LVK.Core;
 using LVK.Data;
 
 namespace LVK.WorkQueues.Sqlite.Migrations
@@ -15,7 +16,7 @@ namespace LVK.WorkQueues.Sqlite.Migrations
 
         public int To => 1;
 
-        public Task PerformMigration(IDbConnection connection) => connection.ExecuteAsync("PRAGMA journal_model=WAL");
+        public Task PerformMigration(IDbConnection connection) => connection.ExecuteAsync("PRAGMA journal_model=WAL").NotNull();
 
         public async Task PerformMigration(IDbConnection connection, IDbTransaction transaction)
         {
@@ -28,10 +29,10 @@ namespace LVK.WorkQueues.Sqlite.Migrations
                     hash TEXT NOT NULL,
                     when_to_process DATETIME NOT NULL,
                     retry_count INT NOT NULL
-                )", transaction);
+                )", transaction).NotNull();
 
-            await connection.ExecuteAsync(@"CREATE INDEX idx_when_to_process ON queue(when_to_process)", transaction);
-            await connection.ExecuteAsync(@"CREATE UNIQUE INDEX idx_queue_hash ON queue(hash)", transaction);
+            await connection.ExecuteAsync(@"CREATE INDEX idx_when_to_process ON queue(when_to_process)", transaction).NotNull();
+            await connection.ExecuteAsync(@"CREATE UNIQUE INDEX idx_queue_hash ON queue(hash)", transaction).NotNull();
 
             await connection.ExecuteAsync(
                 @"CREATE TABLE IF NOT EXISTS faulted
@@ -40,8 +41,8 @@ namespace LVK.WorkQueues.Sqlite.Migrations
                     type TEXT NOT NULL,
                     payload TEXT NOT NULL,
                     hash TEXT NOT NULL
-                )", transaction);
-            await connection.ExecuteAsync(@"CREATE UNIQUE INDEX idx_faulted_hash ON faulted(hash)", transaction);
+                )", transaction).NotNull();
+            await connection.ExecuteAsync(@"CREATE UNIQUE INDEX idx_faulted_hash ON faulted(hash)", transaction).NotNull();
         }
     }
 }
