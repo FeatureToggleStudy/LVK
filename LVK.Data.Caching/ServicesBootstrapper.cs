@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 
 using LVK.DryIoc;
 
-namespace LVK.Core.Services
+namespace LVK.Data.Caching
 {
     [PublicAPI]
     public class ServicesBootstrapper : IServicesBootstrapper
@@ -16,9 +16,7 @@ namespace LVK.Core.Services
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.Register<IApplicationLifetimeManager, ApplicationLifetimeManager>(Reuse.Singleton);
-            container.Register<IBus, Bus>(Reuse.Singleton);
-            container.Register<IDataEncoder, DataEncoder>();
+            container.Register(typeof(IWeakCache<,>), typeof(WeakCache<,>));
         }
     }
 }

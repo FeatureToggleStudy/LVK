@@ -6,6 +6,7 @@ using DryIoc;
 using JetBrains.Annotations;
 
 using LVK.Configuration;
+using LVK.Core;
 using LVK.Core.Services;
 using LVK.DryIoc;
 
@@ -35,15 +36,15 @@ namespace LVK.AppCore.Web
             var webHost = WebHost.CreateDefaultBuilder(arguments)
                .UseConfiguration(configuration)
                .UseStartup<WebApiStartup>()
-               .UseKestrel()
+               .UseKestrel().NotNull()
                .Build();
 
-            var bsm = WebApiStartup.Container.Resolve<IBackgroundServicesManager>();
-            var alm = WebApiStartup.Container.Resolve<IApplicationLifetimeManager>();
+            var bsm = WebApiStartup.Container.Resolve<IBackgroundServicesManager>().NotNull();
+            var alm = WebApiStartup.Container.Resolve<IApplicationLifetimeManager>().NotNull();
             bsm.StartBackgroundServices();
             try
             {
-                await webHost.RunAsync();
+                await webHost.RunAsync().NotNull();
                 alm.SignalGracefulTermination();
             }
             finally
@@ -55,16 +56,16 @@ namespace LVK.AppCore.Web
         [NotNull]
         private static IConfiguration CreateMicrosoftConfiguration([NotNull] IContainer container, [NotNull, ItemNotNull] string[] arguments)
         {
-            var builder = new ConfigurationBuilder().AddCommandLine(arguments);
+            var builder = new ConfigurationBuilder().AddCommandLine(arguments).NotNull();
 
             var target = new ConfigurationConfiguratorTarget();
-            foreach (var configurator in container.Resolve<IEnumerable<IConfigurationConfigurator>>())
+            foreach (var configurator in container.Resolve<IEnumerable<IConfigurationConfigurator>>().NotNull())
                 configurator.Configure(target);
 
             foreach (var jsonFile in target.JsonFiles)
                 builder.AddJsonFile(jsonFile.Filename, jsonFile.IsOptional);
 
-            return builder.Build();
+            return builder.Build().NotNull();
         }
     }
 }
