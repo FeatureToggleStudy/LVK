@@ -24,7 +24,7 @@ namespace LVK.Data.Protection
             _DataProtectionPasswordProviders = dataProtectionPasswordProviders.ToList();
         }
 
-        public byte[] Protect(string passwordName, byte[] unprotectedData)
+        public byte[] Protect(byte[] unprotectedData, string passwordName)
         {
             var password = TryGetPassword(passwordName);
             if (password == null)
@@ -33,7 +33,7 @@ namespace LVK.Data.Protection
             return _DataEncryption.Protect(unprotectedData, password);
         }
 
-        public byte[] Unprotect(string passwordName, byte[] protectedData)
+        public byte[] Unprotect(byte[] protectedData, string passwordName)
         {
             var password = TryGetPassword(passwordName);
             if (password == null)

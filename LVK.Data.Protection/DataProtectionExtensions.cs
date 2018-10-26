@@ -16,7 +16,7 @@ namespace LVK.Data.Protection
             if (dataProtection == null)
                 throw new ArgumentNullException(nameof(dataProtection));
 
-            return dataProtection.Protect(DefaultPasswordName, unprotectedData);
+            return dataProtection.Protect(unprotectedData, DefaultPasswordName);
         }
 
         [NotNull]
@@ -25,11 +25,11 @@ namespace LVK.Data.Protection
             if (dataProtection == null)
                 throw new ArgumentNullException(nameof(dataProtection));
 
-            return dataProtection.Unprotect(DefaultPasswordName, protectedData);
+            return dataProtection.Unprotect(protectedData, DefaultPasswordName);
         }
 
         [NotNull]
-        public static string Protect([NotNull] this IDataProtection dataProtection, [NotNull] string passwordName, [NotNull] string unprotectedString)
+        public static string Protect([NotNull] this IDataProtection dataProtection, [NotNull] string unprotectedString, [NotNull] string passwordName)
         {
             if (dataProtection == null)
                 throw new ArgumentNullException(nameof(dataProtection));
@@ -38,12 +38,12 @@ namespace LVK.Data.Protection
                 throw new ArgumentNullException(nameof(unprotectedString));
 
             var unprotectedBytes = Encoding.UTF8.GetBytes(unprotectedString);
-            var protectedBytes = dataProtection.Protect(passwordName, unprotectedBytes);
+            var protectedBytes = dataProtection.Protect(unprotectedBytes, passwordName);
             return Convert.ToBase64String(protectedBytes);
         }
 
         [NotNull]
-        public static string Unprotect([NotNull] this IDataProtection dataProtection, [NotNull] string passwordName, [NotNull] string protectedString)
+        public static string Unprotect([NotNull] this IDataProtection dataProtection, [NotNull] string protectedString, [NotNull] string passwordName)
         {
             if (dataProtection == null)
                 throw new ArgumentNullException(nameof(dataProtection));
@@ -51,8 +51,17 @@ namespace LVK.Data.Protection
             if (protectedString == null)
                 throw new ArgumentNullException(nameof(protectedString));
 
-            var protectedBytes = Convert.FromBase64String(protectedString);
-            var unprotectedBytes = dataProtection.Unprotect(passwordName, protectedBytes);
+            byte[] protectedBytes;
+            try
+            {
+                protectedBytes = Convert.FromBase64String(protectedString);
+            }
+            catch (FormatException ex)
+            {
+                throw new DataProtectionException($"Unable to unprotect data: {ex.Message}", ex);
+            }
+
+            var unprotectedBytes = dataProtection.Unprotect(protectedBytes, passwordName);
             return Encoding.UTF8.GetString(unprotectedBytes);
         }
 
@@ -65,7 +74,7 @@ namespace LVK.Data.Protection
             if (unprotectedString == null)
                 throw new ArgumentNullException(nameof(unprotectedString));
 
-            return Protect(dataProtection, DefaultPasswordName, unprotectedString);
+            return Protect(dataProtection, unprotectedString, DefaultPasswordName);
         }
 
         [NotNull]
@@ -77,7 +86,7 @@ namespace LVK.Data.Protection
             if (protectedString == null)
                 throw new ArgumentNullException(nameof(protectedString));
 
-            return Unprotect(dataProtection, DefaultPasswordName, protectedString);
+            return Unprotect(dataProtection, protectedString, DefaultPasswordName);
         }
     }
 }

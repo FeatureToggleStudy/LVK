@@ -1,5 +1,6 @@
 ﻿using DryIoc;
 
+using LVK.AppCore;
 using LVK.DryIoc;
 
 namespace ConsoleSandbox
@@ -9,7 +10,8 @@ namespace ConsoleSandbox
         public void Bootstrap(IContainer container)
         {
             container.Bootstrap<LVK.AppCore.Console.ServicesBootstrapper>();
-            // container.Register<IApplicationEntryPoint, ApplicationEntryPoint>();
+            container.Bootstrap<LVK.Data.Protection.ServicesBootstrapper>();
+            container.Register<IApplicationEntryPoint, ApplicationEntryPoint>();
         }
     }
 }

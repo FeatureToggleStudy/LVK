@@ -23,40 +23,54 @@ namespace LVK.Data.Protection
         {
             byte[] salt = CreateSalt();
 
-            using (RijndaelManaged algorithm = CreateAlgorithm(password, salt))
-            using (var targetStream = new MemoryStream())
-            using (ICryptoTransform encryptor = algorithm.CreateEncryptor())
-            using (var encryptionStream = new CryptoStream(targetStream, encryptor, CryptoStreamMode.Write))
+            try
             {
-                _DataEncoder.WriteInt32(targetStream, salt.Length);
-                targetStream.Write(salt, 0, salt.Length);
+                using (RijndaelManaged algorithm = CreateAlgorithm(password, salt))
+                using (var targetStream = new MemoryStream())
+                using (ICryptoTransform encryptor = algorithm.CreateEncryptor())
+                using (var encryptionStream = new CryptoStream(targetStream, encryptor, CryptoStreamMode.Write))
+                {
+                    _DataEncoder.WriteInt32(targetStream, salt.Length);
+                    targetStream.Write(salt, 0, salt.Length);
 
-                encryptionStream.Write(unprotectedData, 0, unprotectedData.Length);
-                encryptionStream.FlushFinalBlock();
+                    encryptionStream.Write(unprotectedData, 0, unprotectedData.Length);
+                    encryptionStream.FlushFinalBlock();
 
-                return targetStream.ToArray();
+                    return targetStream.ToArray();
+                }
+            }
+            catch (CryptographicException ex)
+            {
+                throw new DataProtectionException($"Unable to protect data: {ex.Message}", ex);
             }
         }
 
         public byte[] Unprotect(byte[] protectedData, string password)
         {
-            using (var sourceStream = new MemoryStream(protectedData))
+            try
             {
-                var saltLength = _DataEncoder.ReadInt32(sourceStream);
-                if (saltLength > 1024)
-                    throw new InvalidOperationException("Invalid salt length");
-
-                var salt = new byte[saltLength];
-                sourceStream.Read(salt, 0, salt.Length);
-
-                using (var algorithm = CreateAlgorithm(password, salt))
-                using (var decryptor = algorithm.CreateDecryptor())
-                using (var decryptionStream = new CryptoStream(sourceStream, decryptor, CryptoStreamMode.Read))
-                using (var targetStream = new MemoryStream())
+                using (var sourceStream = new MemoryStream(protectedData))
                 {
-                    decryptionStream.CopyTo(targetStream);
-                    return targetStream.ToArray();
+                    var saltLength = _DataEncoder.ReadInt32(sourceStream);
+                    if (saltLength > 1024)
+                        throw new InvalidOperationException("Invalid salt length");
+
+                    var salt = new byte[saltLength];
+                    sourceStream.Read(salt, 0, salt.Length);
+
+                    using (var algorithm = CreateAlgorithm(password, salt))
+                    using (var decryptor = algorithm.CreateDecryptor())
+                    using (var decryptionStream = new CryptoStream(sourceStream, decryptor, CryptoStreamMode.Read))
+                    using (var targetStream = new MemoryStream())
+                    {
+                        decryptionStream.CopyTo(targetStream);
+                        return targetStream.ToArray();
+                    }
                 }
+            }
+            catch (CryptographicException ex)
+            {
+                throw new DataProtectionException($"Unable to unprotect data: {ex.Message}", ex);
             }
         }
 

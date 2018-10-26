@@ -6,9 +6,9 @@ namespace LVK.Data.Protection
     public interface IDataProtection
     {
         [NotNull]
-        byte[] Protect([NotNull] string passwordName, [NotNull] byte[] unprotectedData);
+        byte[] Protect([NotNull] byte[] unprotectedData, [NotNull] string passwordName);
 
         [NotNull]
-        byte[] Unprotect([NotNull] string passwordName, [NotNull] byte[] protectedData);
+        byte[] Unprotect([NotNull] byte[] protectedData, [NotNull] string passwordName);
     }
 }

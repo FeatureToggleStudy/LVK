@@ -18,10 +18,12 @@ namespace LVK.Data.Protection
 
             container.Bootstrap<LVK.Core.Services.ServicesBootstrapper>();
             container.Bootstrap<LVK.Data.Caching.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Configuration.ServicesBootstrapper>();
 
             container.Register<IDataProtection, DataProtection>();
             container.Register<IDataEncryption, DataEncryption>();
             container.Register<IDataProtectionPasswordProvider, EnvironmentVariableDataProtectionPasswordProvider>();
+            container.Register<IDataProtectionPasswordProvider, ConfigurationDataProtectionPasswordProvider>();
         }
     }
 }

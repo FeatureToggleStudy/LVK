@@ -18,6 +18,7 @@ namespace LVK.Configuration
                 throw new ArgumentNullException(nameof(container));
 
             container.Bootstrap<LVK.Json.ServicesBootstrapper>();
+            container.Bootstrap<LVK.NodaTime.ServicesBootstrapper>();
 
             container.Register<IConfigurationBuilderFactory, ConfigurationBuilderFactory>();
             container.Register(Made.Of(r => ServiceInfo.Of<IConfigurationBuilderFactory>(), f => f.Create()));
