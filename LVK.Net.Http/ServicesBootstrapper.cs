@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Net.Http;
 
 using DryIoc;
 
 using JetBrains.Annotations;
 
 using LVK.DryIoc;
-using LVK.Logging;
 
 namespace LVK.Net.Http
 {
@@ -20,9 +18,8 @@ namespace LVK.Net.Http
 
             container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
 
-            container.Register(Made.Of(()
-                => HttpClientFactory.Create(Arg.Of<HttpMessageHandler>(IfUnresolved.ReturnDefaultIfNotRegistered),
-                    Arg.Of<ILogger>())));
+            container.Register<IHttpClientProvider, HttpClientProvider>(Reuse.Singleton);
+            container.Register(made: Made.Of(r => ServiceInfo.Of<IHttpClientProvider>(), hcp => hcp.Provide("Default")), reuse: Reuse.Singleton);
         }
     }
 }

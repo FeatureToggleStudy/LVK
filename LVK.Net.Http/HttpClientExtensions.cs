@@ -32,7 +32,7 @@ namespace LVK.Net.Http
                 throw new ArgumentNullException(nameof(requestUri));
 
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
-            request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+            request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse(MediaTypes.Json));
 
             var response = await httpClient.SendAsync(request, cancellationToken ?? CancellationToken.None);
             response.EnsureSuccessStatusCode();
@@ -56,14 +56,14 @@ namespace LVK.Net.Http
                 throw new ArgumentNullException(nameof(requestUri));
 
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
-            request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+            request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse(MediaTypes.Json));
 
             var response = await httpClient.SendAsync(request, cancellationToken ?? CancellationToken.None);
             response.EnsureSuccessStatusCode();
 
-            if (response.Content.Headers.ContentType.MediaType != "application/json")
+            if (response.Content.Headers.ContentType.MediaType != MediaTypes.Json)
                 throw new InvalidOperationException(
-                    $"Invalid media-type, expected 'application/json', got '{response.Content.Headers.ContentType.MediaType}'");
+                    $"Invalid media-type, expected '{MediaTypes.Json}', got '{response.Content.Headers.ContentType.MediaType}'");
 
             var json = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(json);
@@ -111,7 +111,7 @@ namespace LVK.Net.Http
 
             var request = new HttpRequestMessage(method, requestUri)
             {
-                Content = new StringContent(json, Encoding.UTF8, "application/json")
+                Content = new StringContent(json, Encoding.UTF8, MediaTypes.Json)
             };
 
             var response = await httpClient.SendAsync(request, cancellationToken ?? CancellationToken.None);
