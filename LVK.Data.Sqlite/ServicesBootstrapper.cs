@@ -21,6 +21,7 @@ namespace LVK.Data.Sqlite
             container.Bootstrap<LVK.Data.ServicesBootstrapper>();
             container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
             container.Bootstrap<LVK.Configuration.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Data.Protection.ServicesBootstrapper>();
 
             container.Register<IDatabaseConnectionProvider<SqliteConnection>, SqliteDatabaseConnectionProvider>();
             container.Register<IDatabaseVersionHandler<SqliteConnection>, SqliteDatabaseVersionHandler>();

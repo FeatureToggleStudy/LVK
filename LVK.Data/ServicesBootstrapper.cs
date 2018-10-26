@@ -18,6 +18,7 @@ namespace LVK.Data
 
             container.Bootstrap<LVK.Configuration.ServicesBootstrapper>();
             container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Data.Protection.ServicesBootstrapper>();
 
             container.Register<IDatabaseConnectionFactory, DatabaseConnectionFactory>();
             container.Register<IDatabaseMigrator, DatabaseMigrator>();
