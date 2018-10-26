@@ -6,6 +6,7 @@ using DryIoc;
 using JetBrains.Annotations;
 
 using LVK.Configuration;
+using LVK.Data.Protection;
 using LVK.Logging;
 
 namespace LVK.Data
@@ -24,13 +25,18 @@ namespace LVK.Data
         [NotNull]
         private readonly IDatabaseMigrator _DatabaseMigrator;
 
+        [NotNull]
+        private readonly IDataProtection _DataProtection;
+
         public DatabaseConnectionFactory(
-            [NotNull] IContainer container, [NotNull] IConfiguration configuration, [NotNull] ILogger logger, [NotNull] IDatabaseMigrator databaseMigrator)
+            [NotNull] IContainer container, [NotNull] IConfiguration configuration, [NotNull] ILogger logger, [NotNull] IDatabaseMigrator databaseMigrator,
+            [NotNull] IDataProtection dataProtection)
         {
             _Container = container ?? throw new ArgumentNullException(nameof(container));
             _Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _DatabaseMigrator = databaseMigrator ?? throw new ArgumentNullException(nameof(databaseMigrator));
+            _DataProtection = dataProtection ?? throw new ArgumentNullException(nameof(dataProtection));
         }
 
         public T TryCreate<T>(string name, bool autoMigrate)
@@ -39,6 +45,7 @@ namespace LVK.Data
             using (_Logger.LogScope(LogLevel.Trace, nameof(DatabaseConnectionFactory) + "." + nameof(TryCreate)))
             {
                 var connectionString = _Configuration.Element<string>($"Data/ConnectionStrings/{name}")
+                   .WithEncryption("ConnectionStrings", _DataProtection)
                    .Value();
 
                 if (connectionString == null)

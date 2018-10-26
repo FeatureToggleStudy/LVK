@@ -28,6 +28,7 @@
     <ItemGroup>
       <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
       <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+      <ProjectReference Include="..\LVK.Data.Protection\LVK.Data.Protection.csproj" />
       <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
       <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
     </ItemGroup>
