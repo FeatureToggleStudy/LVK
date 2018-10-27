@@ -22,10 +22,10 @@ namespace LVK.Processes
         }
 
         public async Task<int> SpawnAsync(
-            string executableFilename, string[] parameters, string workingDirectory, IEnumerable<IConsoleProcessMonitor> monitors)
+            string executableFilePath, string[] parameters, string workingDirectory, IEnumerable<IConsoleProcessMonitor> monitors)
         {
-            if (executableFilename == null)
-                throw new ArgumentNullException(nameof(executableFilename));
+            if (executableFilePath == null)
+                throw new ArgumentNullException(nameof(executableFilePath));
 
             if (parameters == null)
                 throw new ArgumentNullException(nameof(parameters));
@@ -34,15 +34,15 @@ namespace LVK.Processes
                 throw new ArgumentNullException(nameof(monitors));
 
             monitors = _DefaultProcessMonitors.Concat(monitors);
-            using (var process = new ConsoleProcess(CreateProcessStartInfo(executableFilename, parameters, workingDirectory), monitors.ToArray()))
+            using (var process = new ConsoleProcess(CreateProcessStartInfo(executableFilePath, parameters, workingDirectory), monitors.ToArray()))
             {
                 return await process.StartAsync();
             }
         }
 
         [NotNull]
-        private ProcessStartInfo CreateProcessStartInfo([NotNull] string executableFilename, [NotNull] string[] parameters, [CanBeNull] string workingDirectory)
-            => new ProcessStartInfo(executableFilename)
+        private ProcessStartInfo CreateProcessStartInfo([NotNull] string executableFilePath, [NotNull] string[] parameters, [CanBeNull] string workingDirectory)
+            => new ProcessStartInfo(executableFilePath)
             {
                 Arguments = string.Join(" ", parameters.Select(EscapeParameter)), WorkingDirectory = workingDirectory ?? String.Empty
             };

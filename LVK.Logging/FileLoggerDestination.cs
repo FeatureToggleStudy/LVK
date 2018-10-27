@@ -19,13 +19,13 @@ namespace LVK.Logging
 
         protected override void OutputLinesToLog(LogLevel level, IEnumerable<string> lines)
         {
-            File.AppendAllLines(GetLogFilename(), lines);
+            File.AppendAllLines(GetLogFilePath(), lines);
         }
 
         protected override bool IsEnabled(LogLevel level)
             => base.IsEnabled(level) && !string.IsNullOrWhiteSpace(Options.Filename);
 
         [NotNull]
-        private string GetLogFilename() => Path.Combine(Options.Path, string.Format(Options.Filename, DateTime.Now));
+        private string GetLogFilePath() => Path.Combine(Options.DirectoryPath, string.Format(Options.Filename, DateTime.Now));
     }
 }

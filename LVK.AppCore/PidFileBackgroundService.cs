@@ -43,14 +43,14 @@ namespace LVK.AppCore
         [CanBeNull]
         private Stream CreatePidStream()
         {
-            foreach (var filename in PidFilenames)
+            foreach (var filePath in PidFilePaths)
             {
                 try
                 {
-                    var folderPath = Path.GetDirectoryName(filename).NotNull();
+                    var folderPath = Path.GetDirectoryName(filePath).NotNull();
                     Directory.CreateDirectory(folderPath);
-                    var stream = new FileStream(filename, FileMode.Create, FileAccess.ReadWrite, FileShare.Read, 256, FileOptions.DeleteOnClose);
-                    _Logger.LogVerbose($"created .pid file in '{filename}'");
+                    var stream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read, 256, FileOptions.DeleteOnClose);
+                    _Logger.LogVerbose($"created .pid file in '{filePath}'");
                     return stream;
                 }
                 catch (DirectoryNotFoundException)
