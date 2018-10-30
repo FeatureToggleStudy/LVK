@@ -16,7 +16,7 @@ namespace LVK.Security.Cryptography
 
             if (content == null)
                 throw new ArgumentNullException(nameof(content));
-            
+
             return hasher.Hash(Encoding.UTF8.GetBytes(content.Normalize()));
         }
     }
