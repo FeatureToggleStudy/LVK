@@ -22,7 +22,7 @@
     <ItemGroup>
       <PackageReference Include="DryIoc.dll" Version="3.0.2" />
       <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
-      <PackageReference Include="NodaTime" Version="2.4.1" />
+      <PackageReference Include="NodaTime" Version="2.4.2" />
     </ItemGroup>
 
     <ItemGroup>
