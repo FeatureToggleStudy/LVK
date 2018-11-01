@@ -2,6 +2,7 @@ using System;
 
 using JetBrains.Annotations;
 
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using static LVK.Core.JetBrainsHelpers;
@@ -13,9 +14,13 @@ namespace LVK.Configuration
         [NotNull]
         private readonly Func<JToken> _GetElement;
 
-        public ConfigurationElement([NotNull] Func<JToken> getElement)
+        [NotNull]
+        private readonly JsonSerializer _Serializer;
+
+        public ConfigurationElement([NotNull] Func<JToken> getElement, [NotNull] JsonSerializer serializer)
         {
             _GetElement = getElement ?? throw new ArgumentNullException(nameof(getElement));
+            _Serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
         }
 
         public T Value()
@@ -29,15 +34,19 @@ namespace LVK.Configuration
             {
                 try
                 {
-                    result = obj.ToObject<T>();
+                    result = obj.ToObject<T>(_Serializer);
+                }
+                catch (JsonReaderException)
+                {
+                    return default;
                 }
                 catch (ArgumentException)
                 {
-                    return default(T);
+                    return default;
                 }
             }
             else
-                result = element.ToObject<T>();
+                result = element.ToObject<T>(_Serializer);
 
             assume(result != null);
             return result;

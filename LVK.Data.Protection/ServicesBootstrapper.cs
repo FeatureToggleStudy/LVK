@@ -4,6 +4,7 @@ using DryIoc;
 
 using JetBrains.Annotations;
 
+using LVK.Configuration;
 using LVK.DryIoc;
 
 namespace LVK.Data.Protection
@@ -24,6 +25,7 @@ namespace LVK.Data.Protection
             container.Register<IDataEncryption, DataEncryption>();
             container.Register<IDataProtectionPasswordProvider, EnvironmentVariableDataProtectionPasswordProvider>();
             container.Register<IDataProtectionPasswordProvider, ConfigurationDataProtectionPasswordProvider>();
+            container.Register<IConfigurationDecoder, EncryptedStringConfigurationDecoder>();
         }
     }
 }

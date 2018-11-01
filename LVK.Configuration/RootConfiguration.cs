@@ -2,6 +2,7 @@ using System;
 
 using JetBrains.Annotations;
 
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace LVK.Configuration
@@ -11,8 +12,10 @@ namespace LVK.Configuration
         [NotNull]
         private readonly IConfigurationProvider _ConfigurationProvider;
 
-        public RootConfiguration([NotNull] IConfigurationProvider configurationProvider, [NotNull] string path)
-            : base(path)
+        public RootConfiguration(
+            [NotNull] IConfigurationProvider configurationProvider, [NotNull] string path,
+            [NotNull] JsonSerializer serializer)
+            : base(path, serializer)
         {
             _ConfigurationProvider =
                 configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));

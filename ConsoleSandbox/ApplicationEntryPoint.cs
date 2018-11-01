@@ -20,7 +20,6 @@ namespace ConsoleSandbox
         {
             _Configuration = configuration["ConnectionStrings/Test"]
                .Element<string>()
-               .WithEncryption("ConnectionStrings", dataProtection)
                .WithDefault(() => "No connection string");
         }
 

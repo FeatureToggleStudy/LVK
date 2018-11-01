@@ -27,6 +27,7 @@ namespace LVK.Configuration
             container.Register<IConfigurationConfigurator, AppSettingsConfigurator>();
             container.Register<IConfigurationConfigurator, CommandLineArgumentsConfigurator>();
             container.Register<IConfigurationConfigurator, EnvironmentVariablesConfigurator>();
+            container.Register<IJsonSerializerFactory, JsonSerializerFactory>();
         }
     }
 }

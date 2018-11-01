@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 
 using LVK.Configuration.Helpers;
 
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace LVK.Configuration
@@ -17,10 +18,14 @@ namespace LVK.Configuration
 
         private JObject _PreviousRootElement;
         private JToken _PreviousElement;
+        
+        [NotNull]
+        private readonly JsonSerializer _Serializer;
 
-        protected BaseConfiguration([NotNull] string path)
+        protected BaseConfiguration([NotNull] string path, [NotNull] JsonSerializer serializer)
         {
             _Path = path ?? throw new ArgumentNullException(nameof(path));
+            _Serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
         }
 
         public IConfiguration this[string relativePath]
@@ -30,7 +35,7 @@ namespace LVK.Configuration
                 if (relativePath == null)
                     throw new ArgumentNullException(nameof(relativePath));
 
-                return new SubConfiguration(Root, ConfigurationPath.Combine(_Path, relativePath));
+                return new SubConfiguration(Root, ConfigurationPath.Combine(_Path, relativePath), _Serializer);
             }
         }
 
@@ -41,7 +46,7 @@ namespace LVK.Configuration
                 if (relativePaths == null)
                     throw new ArgumentNullException(nameof(relativePaths));
 
-                return new SubConfiguration(Root, ConfigurationPath.Combine(_Path, relativePaths));
+                return new SubConfiguration(Root, ConfigurationPath.Combine(_Path, relativePaths), _Serializer);
             }
         }
 
@@ -76,7 +81,7 @@ namespace LVK.Configuration
             return _PreviousElement;
         }
 
-        public IConfigurationElement<T> Element<T>() => new ConfigurationElement<T>(GetElement);
+        public IConfigurationElement<T> Element<T>() => new ConfigurationElement<T>(GetElement, _Serializer);
 
         [NotNull]
         protected abstract RootConfiguration Root { get; }

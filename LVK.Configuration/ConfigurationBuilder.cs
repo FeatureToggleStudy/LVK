@@ -26,9 +26,14 @@ namespace LVK.Configuration
         [NotNull]
         private readonly IClock _Clock;
 
-        public ConfigurationBuilder([NotNull] IClock clock)
+        [NotNull]
+        private readonly IJsonSerializerFactory _JsonSerializerFactory;
+
+        public ConfigurationBuilder([NotNull] IClock clock, [NotNull] IJsonSerializerFactory jsonSerializerFactory)
         {
             _Clock = clock ?? throw new ArgumentNullException(nameof(clock));
+            _JsonSerializerFactory =
+                jsonSerializerFactory ?? throw new ArgumentNullException(nameof(jsonSerializerFactory));
         }
 
         public void AddJsonFile(string filename, Encoding encoding = null, bool isOptional = false)
@@ -47,12 +52,17 @@ namespace LVK.Configuration
 
         public IConfiguration Build()
         {
-            var layers = from layerProvider in _LayerProviders from layer in layerProvider.Provide() select layer;
+            var layers =
+                from layerProvider in _LayerProviders
+                from layer in layerProvider.Provide()
+                select layer;
+
             var configurationProvider = new ConfigurationProvider(layers);
             var throttlingConfigurationProvider = new ThrottlingConfigurationProvider(
                 _Clock, Duration.FromSeconds(1), configurationProvider);
 
-            return new RootConfiguration(throttlingConfigurationProvider, string.Empty);
+            return new RootConfiguration(
+                throttlingConfigurationProvider, string.Empty, _JsonSerializerFactory.Create());
         }
     }
 }

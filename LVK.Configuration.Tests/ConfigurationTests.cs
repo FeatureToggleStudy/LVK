@@ -1,5 +1,6 @@
 ﻿using System;
 
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using NSubstitute;
@@ -16,24 +17,27 @@ namespace LVK.Configuration.Tests
     public class ConfigurationTests
     {
         private IConfigurationProvider _ConfigurationProvider;
+        private JsonSerializer _JsonSerializer;
 
         [SetUp]
         public void SetUp()
         {
             _ConfigurationProvider = Substitute.For<IConfigurationProvider>();
             _ConfigurationProvider.GetConfiguration().Returns(new JObject());
+
+            _JsonSerializer = new JsonSerializer();
         }
 
         [Test]
         public void Constructor_NullConfigurationProvider_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => new RootConfiguration(null, string.Empty));
+            Assert.Throws<ArgumentNullException>(() => new RootConfiguration(null, string.Empty, _JsonSerializer));
         }
 
         [Test]
         public void Constructor_NullPath_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => new RootConfiguration(_ConfigurationProvider, null));
+            Assert.Throws<ArgumentNullException>(() => new RootConfiguration(_ConfigurationProvider, null, _JsonSerializer));
         }
 
         [Test]
@@ -42,7 +46,7 @@ namespace LVK.Configuration.Tests
             JObject obj = JObject.Parse("{ }");
             _ConfigurationProvider.GetConfiguration().Returns(obj);
 
-            var configuration = new RootConfiguration(_ConfigurationProvider, string.Empty);
+            var configuration = new RootConfiguration(_ConfigurationProvider, string.Empty, _JsonSerializer);
 
             var value = configuration.Element<string>().ValueOrDefault();
 
@@ -55,7 +59,7 @@ namespace LVK.Configuration.Tests
             JObject obj = JObject.Parse("{ }");
             _ConfigurationProvider.GetConfiguration().Returns(obj);
 
-            var configuration = new RootConfiguration(_ConfigurationProvider, string.Empty);
+            var configuration = new RootConfiguration(_ConfigurationProvider, string.Empty, _JsonSerializer);
 
             Assert.Throws<ArgumentNullException>(() => GC.KeepAlive(configuration[(string)null]));
         }
@@ -66,7 +70,7 @@ namespace LVK.Configuration.Tests
             JObject obj = JObject.Parse("{ }");
             _ConfigurationProvider.GetConfiguration().Returns(obj);
 
-            var configuration = new RootConfiguration(_ConfigurationProvider, string.Empty);
+            var configuration = new RootConfiguration(_ConfigurationProvider, string.Empty, _JsonSerializer);
 
             Assert.Throws<ArgumentNullException>(() => GC.KeepAlive(configuration[(string[])null]));
         }
@@ -77,7 +81,7 @@ namespace LVK.Configuration.Tests
             JObject obj = JObject.Parse("{ }");
             _ConfigurationProvider.GetConfiguration().Returns(obj);
 
-            var configuration = new RootConfiguration(_ConfigurationProvider, string.Empty);
+            var configuration = new RootConfiguration(_ConfigurationProvider, string.Empty, _JsonSerializer);
             IConfiguration subConfiguration = configuration["path/to/non/existent/section"];
 
             Assert.That(subConfiguration, Is.Not.Null);
@@ -89,7 +93,7 @@ namespace LVK.Configuration.Tests
             JObject obj = JObject.Parse("{ }");
             _ConfigurationProvider.GetConfiguration().Returns(obj);
 
-            var configuration = new RootConfiguration(_ConfigurationProvider, string.Empty);
+            var configuration = new RootConfiguration(_ConfigurationProvider, string.Empty, _JsonSerializer);
             IConfiguration subConfiguration = configuration[new[] { "path", "to", "non", "existent", "section" }];
 
             Assert.That(subConfiguration, Is.Not.Null);
@@ -101,7 +105,7 @@ namespace LVK.Configuration.Tests
             JObject obj = JObject.Parse("{ \"Sub\": { \"Value\": 42 } }");
             _ConfigurationProvider.GetConfiguration().Returns(obj);
 
-            var configuration = new RootConfiguration(_ConfigurationProvider, string.Empty);
+            var configuration = new RootConfiguration(_ConfigurationProvider, string.Empty, _JsonSerializer);
             var value = configuration["Sub/Value"].Element<int>().Value();
 
             Assert.That(value, Is.EqualTo(42));
@@ -113,7 +117,7 @@ namespace LVK.Configuration.Tests
             JObject obj = JObject.Parse("{ \"Sub\": { \"Value\": 42 } }");
             _ConfigurationProvider.GetConfiguration().Returns(obj);
 
-            var configuration = new RootConfiguration(_ConfigurationProvider, string.Empty);
+            var configuration = new RootConfiguration(_ConfigurationProvider, string.Empty, _JsonSerializer);
             var value = configuration[new[] { "Sub", "Value" }].Element<int>().Value();
 
             Assert.That(value, Is.EqualTo(42));

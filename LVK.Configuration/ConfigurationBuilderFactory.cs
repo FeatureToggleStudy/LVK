@@ -16,20 +16,25 @@ namespace LVK.Configuration
         [NotNull]
         private readonly List<IConfigurationConfigurator> _Configurators;
 
+        [NotNull]
+        private readonly IJsonSerializerFactory _JsonSerializerFactory;
+
         public ConfigurationBuilderFactory(
-            [NotNull] IClock clock, [NotNull] IEnumerable<IConfigurationConfigurator> configurationConfigurators)
+            [NotNull] IClock clock, [NotNull] IEnumerable<IConfigurationConfigurator> configurationConfigurators,
+            [NotNull] IJsonSerializerFactory jsonSerializerFactory)
         {
             if (configurationConfigurators == null)
                 throw new ArgumentNullException(nameof(configurationConfigurators));
 
             _Clock = clock ?? throw new ArgumentNullException(nameof(clock));
+            _JsonSerializerFactory = jsonSerializerFactory ?? throw new ArgumentNullException(nameof(jsonSerializerFactory));
 
             _Configurators = configurationConfigurators.ToList();
         }
 
         public IConfigurationBuilder Create()
         {
-            var builder = new ConfigurationBuilder(_Clock);
+            var builder = new ConfigurationBuilder(_Clock, _JsonSerializerFactory);
             foreach (var configurator in _Configurators)
                 configurator.Configure(builder);
 
