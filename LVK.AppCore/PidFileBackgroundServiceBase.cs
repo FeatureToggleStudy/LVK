@@ -11,18 +11,18 @@ namespace LVK.AppCore
     internal abstract class PidFileBackgroundServiceBase
     {
         [NotNull, ItemNotNull]
-        private readonly Lazy<string[]> _PidFilenames;
+        private readonly Lazy<string[]> _PidFilePaths;
 
         protected PidFileBackgroundServiceBase()
         {
-            _PidFilenames = new Lazy<string[]>(() => GetPidFilenames().ToArray());
+            _PidFilePaths = new Lazy<string[]>(() => GetPidFilePaths().ToArray());
         }
 
         [NotNull]
-        protected string[] PidFilenames => _PidFilenames.Value;
+        protected string[] PidFilePaths => _PidFilePaths.Value;
 
         [NotNull, ItemNotNull]
-        private IEnumerable<string> GetPidFilenames()
+        private IEnumerable<string> GetPidFilePaths()
         {
             Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
 

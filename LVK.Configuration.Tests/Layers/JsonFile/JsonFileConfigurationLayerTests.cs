@@ -18,19 +18,19 @@ namespace LVK.Configuration.Tests.Layers.JsonFile
     [TestFixture]
     public class JsonFileConfigurationLayerTests
     {
-        private string _Filename;
+        private string _FilePath;
 
         [SetUp]
         public void SetUp()
         {
-            _Filename = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.json");
-            File.WriteAllText(_Filename, "{}", Encoding.UTF8);
+            _FilePath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.json");
+            File.WriteAllText(_FilePath, "{}", Encoding.UTF8);
         }
 
         public void TearDown()
         {
-            if (File.Exists(_Filename))
-                File.Delete(_Filename);
+            if (File.Exists(_FilePath))
+                File.Delete(_FilePath);
         }
 
         [Test]
@@ -48,9 +48,9 @@ namespace LVK.Configuration.Tests.Layers.JsonFile
         [Test]
         public void Configuration_WhenConfigurationFileDoesNotExistAndFileIsNotOptional_ThrowsInvalidOperationException()
         {
-            File.Delete(_Filename);
+            File.Delete(_FilePath);
 
-            var layer = new JsonFileConfigurationLayer(_Filename, Encoding.UTF8, false);
+            var layer = new JsonFileConfigurationLayer(_FilePath, Encoding.UTF8, false);
 
             Assert.Throws<InvalidOperationException>(() => _ = layer.Configuration);
         }
@@ -58,9 +58,9 @@ namespace LVK.Configuration.Tests.Layers.JsonFile
         [Test]
         public void Configuration_WhenConfigurationFileDoesNotExistAndFileIsOptional_ReturnsNull()
         {
-            File.Delete(_Filename);
+            File.Delete(_FilePath);
 
-            var layer = new JsonFileConfigurationLayer(_Filename, Encoding.UTF8, true);
+            var layer = new JsonFileConfigurationLayer(_FilePath, Encoding.UTF8, true);
             var configuration = layer.Configuration;
 
             Assert.That(configuration, Is.Null);
@@ -70,9 +70,9 @@ namespace LVK.Configuration.Tests.Layers.JsonFile
         public void Configuration_WhenConfigurationFileContainsValues_ContainsThoseValues()
         {
             var co = new ConfigurationObject { Value1 = "Test 123" };
-            File.WriteAllText(_Filename, JsonConvert.SerializeObject(co));
+            File.WriteAllText(_FilePath, JsonConvert.SerializeObject(co));
 
-            var layer = new JsonFileConfigurationLayer(_Filename, Encoding.UTF8, false);
+            var layer = new JsonFileConfigurationLayer(_FilePath, Encoding.UTF8, false);
 
             var configuration = layer.Configuration;
 
@@ -84,16 +84,16 @@ namespace LVK.Configuration.Tests.Layers.JsonFile
         [Test]
         public void Configuration_WhenConfigurationFileFirstDoesNotExistAndThenIsCreated_FirstReturnsNullThenReturnsConfiguration()
         {
-            var layer = new JsonFileConfigurationLayer(_Filename, Encoding.UTF8, true);
+            var layer = new JsonFileConfigurationLayer(_FilePath, Encoding.UTF8, true);
             
-            File.Delete(_Filename);
+            File.Delete(_FilePath);
             var configuration1 = layer.Configuration;
             
             var co = new ConfigurationObject { Value1 = "Test 123" };
-            File.WriteAllText(_Filename, JsonConvert.SerializeObject(co));
+            File.WriteAllText(_FilePath, JsonConvert.SerializeObject(co));
             var configuration2 = layer.Configuration;
 
-            File.Delete(_Filename);
+            File.Delete(_FilePath);
             var configuration3 = layer.Configuration;
 
             Assert.That(configuration1, Is.Null);
@@ -104,14 +104,14 @@ namespace LVK.Configuration.Tests.Layers.JsonFile
         [Test]
         public void Configuration_WhenConfigurationFileIsModified_ReturnsNewValues()
         {
-            var layer = new JsonFileConfigurationLayer(_Filename, Encoding.UTF8, true);
+            var layer = new JsonFileConfigurationLayer(_FilePath, Encoding.UTF8, true);
             
             var input1 = new ConfigurationObject { Value1 = "Test 123" };
-            File.WriteAllText(_Filename, JsonConvert.SerializeObject(input1));
+            File.WriteAllText(_FilePath, JsonConvert.SerializeObject(input1));
             var configuration1 = layer.Configuration;
 
             var input2 = new ConfigurationObject { Value1 = "Test 456" };
-            File.WriteAllText(_Filename, JsonConvert.SerializeObject(input2));
+            File.WriteAllText(_FilePath, JsonConvert.SerializeObject(input2));
             var configuration2 = layer.Configuration;
             
             Assert.That(JsonConvert.SerializeObject(configuration1), Is.EqualTo(JsonConvert.SerializeObject(input1)));

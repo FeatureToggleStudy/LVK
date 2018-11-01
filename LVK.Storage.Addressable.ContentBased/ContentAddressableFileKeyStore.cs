@@ -27,13 +27,13 @@ namespace LVK.Storage.Addressable.ContentBased
 
         public ContentAddressableKey GetKey(string name)
         {
-            var filename = ComputeFilename(name);
-            if (!File.Exists(filename))
+            var filePath = ComputeFilePath(name);
+            if (!File.Exists(filePath))
                 return default;
 
             try
             {
-                var hash = File.ReadAllText(filename, Encoding.UTF8);
+                var hash = File.ReadAllText(filePath, Encoding.UTF8);
                 return ContentAddressableKey.TryParse(hash);
             }
             catch (FileNotFoundException)
@@ -48,40 +48,40 @@ namespace LVK.Storage.Addressable.ContentBased
 
         public void PutKey(string name, ContentAddressableKey key)
         {
-            var filename = ComputeFilename(name);
+            var filePath = ComputeFilePath(name);
             if (!key.IsValid)
             {
-                DeleteFile(filename);
+                DeleteFile(filePath);
                 return;
             }
 
-            Directory.CreateDirectory(Path.GetDirectoryName(filename).NotNull());
-            File.WriteAllText(filename, key.Hash, Encoding.UTF8);
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath).NotNull());
+            File.WriteAllText(filePath, key.Hash, Encoding.UTF8);
         }
 
         public IEnumerable<ContentAddressableKey> GetStoredKeys()
         {
             string basePath = Path.GetFullPath(_BasePath);
-            string[] files;
+            string[] keyFilePaths;
             try
             {
-                files = Directory.GetFiles(basePath, "*.*", SearchOption.AllDirectories);
+                keyFilePaths = Directory.GetFiles(basePath, "*.*", SearchOption.AllDirectories);
             }
             catch (DirectoryNotFoundException)
             {
                 yield break;
             }
 
-            foreach (var keyFilename in files)
+            foreach (var keyFilePath in keyFilePaths)
             {
-                var hash = File.ReadAllText(keyFilename, Encoding.UTF8);
+                var hash = File.ReadAllText(keyFilePath, Encoding.UTF8);
                 var key = ContentAddressableKey.TryParse(hash);
                 if (key.IsValid)
                 {
                     _Logger.LogDebug(
                         () =>
                         {
-                            string name = keyFilename.Substring(basePath.Length)
+                            string name = keyFilePath.Substring(basePath.Length)
                                .Replace(Path.DirectorySeparatorChar, '/')
                                .TrimStart(Path.DirectorySeparatorChar);
 
@@ -93,11 +93,11 @@ namespace LVK.Storage.Addressable.ContentBased
             }
         }
 
-        private static void DeleteFile([NotNull] string filename)
+        private static void DeleteFile([NotNull] string filePath)
         {
             try
             {
-                File.Delete(filename);
+                File.Delete(filePath);
             }
             catch (DirectoryNotFoundException)
             {
@@ -110,6 +110,6 @@ namespace LVK.Storage.Addressable.ContentBased
         }
 
         [NotNull]
-        private string ComputeFilename([NotNull] string name) => Path.Combine(new[] { _BasePath }.Concat(name.Split('/')).ToArray());
+        private string ComputeFilePath([NotNull] string name) => Path.Combine(new[] { _BasePath }.Concat(name.Split('/')).ToArray());
     }
 }

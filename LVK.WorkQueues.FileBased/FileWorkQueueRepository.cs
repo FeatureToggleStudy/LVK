@@ -43,9 +43,9 @@ namespace LVK.WorkQueues.FileBased
 
             foreach (var item in items)
             {
-                string filename = WriteToFile(item, ".json");
-                File.SetCreationTime(filename, item.WhenToProcess);
-                File.SetLastWriteTime(filename, item.WhenToProcess);
+                string filePath = WriteToFile(item, ".json");
+                File.SetCreationTime(filePath, item.WhenToProcess);
+                File.SetLastWriteTime(filePath, item.WhenToProcess);
             }
 
             return Task.CompletedTask;
@@ -69,11 +69,11 @@ namespace LVK.WorkQueues.FileBased
             var json = JsonConvert.SerializeObject(obj, Formatting.Indented).NotNull();
             var hash = _Hasher.Hash(json);
 
-            var filename = Path.Combine(_Configuration.Value().Path, hash + extension);
-            if (!File.Exists(filename))
-                File.WriteAllText(filename, json, Encoding.UTF8);
+            var filePath = Path.Combine(_Configuration.Value().Path, hash + extension);
+            if (!File.Exists(filePath))
+                File.WriteAllText(filePath, json, Encoding.UTF8);
 
-            return filename;
+            return filePath;
         }
 
         Task<WorkQueueItem?> IWorkQueueRepository.DequeueAsync()

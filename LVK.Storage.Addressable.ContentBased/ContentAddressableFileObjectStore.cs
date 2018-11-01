@@ -36,16 +36,16 @@ namespace LVK.Storage.Addressable.ContentBased
         {
             using (_Logger.LogScope(LogLevel.Trace, $"{nameof(ContentAddressableFileObjectStore)}.{nameof(TryGetObjectAsync)}"))
             {
-                var filename = ComputeFilename(key);
-                if (!File.Exists(filename))
+                var filePath = ComputeFilePath(key);
+                if (!File.Exists(filePath))
                 {
-                    _Logger.LogDebug($"file '{filename}' not found, returning empty content for '{key}'");
+                    _Logger.LogDebug($"file '{filePath}' not found, returning empty content for '{key}'");
                     return null;
                 }
 
                 try
                 {
-                    using (var stream = File.OpenRead(filename))
+                    using (var stream = File.OpenRead(filePath))
                     {
                         byte[] result = new byte[stream.Length];
                         int inResult = await stream.ReadAsync(result, 0, result.Length, cancellationToken).NotNull();
@@ -60,12 +60,12 @@ namespace LVK.Storage.Addressable.ContentBased
                 }
                 catch (FileNotFoundException)
                 {
-                    _Logger.LogDebug($"file '{filename}' was not found, returning empty content for key '{key}'");
+                    _Logger.LogDebug($"file '{filePath}' was not found, returning empty content for key '{key}'");
                     return null;
                 }
                 catch (DirectoryNotFoundException)
                 {
-                    _Logger.LogDebug($"directory containing '{filename}' was not found, returning empty content for key '{key}'");
+                    _Logger.LogDebug($"directory containing '{filePath}' was not found, returning empty content for key '{key}'");
                     return null;
                 }
             }
@@ -74,10 +74,10 @@ namespace LVK.Storage.Addressable.ContentBased
         public async Task<ContentAddressableKey> StoreObjectAsync(byte[] content, CancellationToken cancellationToken)
         {
             var key = new ContentAddressableKey(_Hasher.Hash(content));
-            var filename = ComputeFilename(key);
+            var filePath = ComputeFilePath(key);
 
-            Directory.CreateDirectory(Path.GetDirectoryName(filename).NotNull());
-            using (FileStream stream = File.Create(filename))
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath).NotNull());
+            using (FileStream stream = File.Create(filePath))
             {
                 await stream.WriteAsync(content, 0, content.Length, cancellationToken).NotNull();
             }
@@ -115,12 +115,12 @@ namespace LVK.Storage.Addressable.ContentBased
 
         public Task DeleteObjectAsync(ContentAddressableKey key)
         {
-            var filename = ComputeFilename(key);
-            if (File.Exists(filename))
+            var filePath = ComputeFilePath(key);
+            if (File.Exists(filePath))
             {
                 try
                 {
-                    File.Delete(filename);
+                    File.Delete(filePath);
                 }
                 catch (FileNotFoundException)
                 {
@@ -134,6 +134,6 @@ namespace LVK.Storage.Addressable.ContentBased
         }
 
         [NotNull]
-        private string ComputeFilename(ContentAddressableKey key) => Path.Combine(_BasePath, key.Hash.Substring(0, 2), key.Hash.Substring(2));
+        private string ComputeFilePath(ContentAddressableKey key) => Path.Combine(_BasePath, key.Hash.Substring(0, 2), key.Hash.Substring(2));
     }
 }

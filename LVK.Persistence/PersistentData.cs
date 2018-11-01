@@ -25,7 +25,7 @@ namespace LVK.Persistence
         private readonly ILogger _Logger;
 
         [NotNull, ItemNotNull]
-        private readonly Lazy<string> _PersistentFilename;
+        private readonly Lazy<string> _PersistentFilePath;
 
         [NotNull]
         private readonly ITypeHelper _TypeHelper;
@@ -42,7 +42,7 @@ namespace LVK.Persistence
         {
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _TypeHelper = typeHelper ?? throw new ArgumentNullException(nameof(typeHelper));
-            _PersistentFilename = new Lazy<string>(GetPersistentFilename, LazyThreadSafetyMode.PublicationOnly);
+            _PersistentFilePath = new Lazy<string>(GetPersistentFilePath, LazyThreadSafetyMode.PublicationOnly);
         }
 
         public T Value
@@ -108,21 +108,21 @@ namespace LVK.Persistence
 
         private void SaveToStorage()
         {
-            string persistentFilename = _PersistentFilename.Value;
+            string persistentFilePath = _PersistentFilePath.Value;
             using (_Logger.LogScope(
-                LogLevel.Debug, $"Saving persistent value for '{_TypeHelper.NameOf<T>()}' to '{persistentFilename}'"))
+                LogLevel.Debug, $"Saving persistent value for '{_TypeHelper.NameOf<T>()}' to '{persistentFilePath}'"))
             {
                 var json = JsonConvert.SerializeObject(_Value);
 
-                Directory.CreateDirectory(Path.GetDirectoryName(persistentFilename).NotNull());
-                File.WriteAllText(persistentFilename, json, Encoding.UTF8);
+                Directory.CreateDirectory(Path.GetDirectoryName(persistentFilePath).NotNull());
+                File.WriteAllText(persistentFilePath, json, Encoding.UTF8);
             }
         }
 
         [CanBeNull]
         private T LoadFromStorage()
         {
-            string persistentFilename = _PersistentFilename.Value;
+            string persistentFilename = _PersistentFilePath.Value;
             using (_Logger.LogScope(
                 LogLevel.Debug,
                 $"Loading persistent value for '{_TypeHelper.NameOf<T>()}' from '{persistentFilename}'"))
@@ -140,7 +140,7 @@ namespace LVK.Persistence
         }
 
         [NotNull]
-        private string GetPersistentFilename()
+        private string GetPersistentFilePath()
         {
             string localApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string applicationName = Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location);

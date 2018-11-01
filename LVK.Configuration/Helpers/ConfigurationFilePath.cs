@@ -21,12 +21,12 @@ namespace LVK.Configuration.Helpers
         }
 
         [NotNull]
-        public static string GetFullPath([NotNull] string filename)
+        public static string GetFullPath([NotNull] string relativeFilePath)
         {
-            if (Path.IsPathRooted(filename))
-                return filename;
+            if (Path.IsPathRooted(relativeFilePath))
+                return relativeFilePath;
 
-            return Path.Combine(_AssemblyLocation.Value, filename);
+            return Path.Combine(_AssemblyLocation.Value, relativeFilePath);
         }
     }
 }

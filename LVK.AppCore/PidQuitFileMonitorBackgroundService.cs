@@ -31,7 +31,7 @@ namespace LVK.AppCore
 
         public async Task Execute(CancellationToken cancellationToken)
         {
-            if (PidFilenames.Length == 0)
+            if (PidFilePaths.Length == 0)
                 return;
 
             DeleteQuitFiles();
@@ -48,21 +48,21 @@ namespace LVK.AppCore
         }
 
         [NotNull, ItemNotNull]
-        private IEnumerable<string> QuitFilenames => PidFilenames.Select(filename => Path.ChangeExtension(filename, ".quit"));
+        private IEnumerable<string> QuitFilePaths => PidFilePaths.Select(filePath => Path.ChangeExtension(filePath, ".quit"));
 
-        private bool AnyQuitFilesExists() => QuitFilenames.Any() && QuitFilenames.Any(File.Exists);
+        private bool AnyQuitFilesExists() => QuitFilePaths.Any() && QuitFilePaths.Any(File.Exists);
 
         private void DeleteQuitFiles()
         {
-            foreach (var filename in QuitFilenames)
+            foreach (var filePath in QuitFilePaths)
             {
                 try
                 {
                     if (_FirstRun)
-                        _Logger.LogDebug($"looking for .quit file in '{filename}'");
+                        _Logger.LogDebug($"looking for .quit file in '{filePath}'");
 
-                    if (File.Exists(filename))
-                        File.Delete(filename);
+                    if (File.Exists(filePath))
+                        File.Delete(filePath);
                 }
                 catch (UnauthorizedAccessException)
                 {

@@ -29,21 +29,21 @@ namespace LVK.Storage.Addressable.PathBased
 
         public Task StoreObjectAsync<T>(string path, T content, CancellationToken cancellationToken)
         {
-            var filename = ComputeFilename(path);
-            Directory.CreateDirectory(Path.GetDirectoryName(filename).NotNull());
+            var filePath = ComputeFilePath(path);
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath).NotNull());
 
             if (content is byte[] bytes)
-                return StoreRawBytesAsync(filename, (byte)'B', bytes, cancellationToken);
+                return StoreRawBytesAsync(filePath, (byte)'B', bytes, cancellationToken);
 
             var json = JsonConvert.SerializeObject(content, _Settings).NotNull();
             var jsonBytes = Encoding.UTF8.GetBytes(json);
-            return StoreRawBytesAsync(filename, (byte)'J', jsonBytes, cancellationToken);
+            return StoreRawBytesAsync(filePath, (byte)'J', jsonBytes, cancellationToken);
         }
 
         [NotNull]
-        private async Task StoreRawBytesAsync([NotNull] string filename, byte type, [NotNull] byte[] bytes, CancellationToken cancellationToken)
+        private async Task StoreRawBytesAsync([NotNull] string filePath, byte type, [NotNull] byte[] bytes, CancellationToken cancellationToken)
         {
-            using (var stream = File.Create(filename))
+            using (var stream = File.Create(filePath))
             {
                 stream.WriteByte(type);
                 await stream.WriteAsync(bytes, 0, bytes.Length, cancellationToken).NotNull();
@@ -52,13 +52,13 @@ namespace LVK.Storage.Addressable.PathBased
 
         public async Task<T> TryGetObjectAsync<T>(string path, CancellationToken cancellationToken)
         {
-            var filename = ComputeFilename(path);
-            if (!File.Exists(filename))
+            var filePath = ComputeFilePath(path);
+            if (!File.Exists(filePath))
                 return default;
 
             try
             {
-                using (var stream = File.OpenRead(filename))
+                using (var stream = File.OpenRead(filePath))
                 {
                     byte type = (byte)stream.ReadByte();
                     var bytes = new byte[stream.Length - 1];
@@ -90,10 +90,10 @@ namespace LVK.Storage.Addressable.PathBased
 
         public void DeleteObject(string path)
         {
-            var filename = ComputeFilename(path);
+            var filePath = ComputeFilePath(path);
             try
             {
-                File.Delete(filename);
+                File.Delete(filePath);
             }
             catch (DirectoryNotFoundException)
             {
@@ -106,6 +106,6 @@ namespace LVK.Storage.Addressable.PathBased
         }
 
         [NotNull]
-        private string ComputeFilename([NotNull] string path) => Path.Combine(new[] { _BasePath }.Concat(path.Split('/')).ToArray());
+        private string ComputeFilePath([NotNull] string path) => Path.Combine(new[] { _BasePath }.Concat(path.Split('/')).ToArray());
     }
 }

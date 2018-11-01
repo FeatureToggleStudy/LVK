@@ -10,7 +10,7 @@ namespace LVK.Processes
     {
         [NotNull]
         Task<int> SpawnAsync(
-            [NotNull] string executableFilename, [NotNull, ItemNotNull] string[] parameters, [CanBeNull] string workingDirectory,
+            [NotNull] string executableFilePath, [NotNull, ItemNotNull] string[] parameters, [CanBeNull] string workingDirectory,
             [NotNull, ItemNotNull] IEnumerable<IConsoleProcessMonitor> monitors);
     }
 }

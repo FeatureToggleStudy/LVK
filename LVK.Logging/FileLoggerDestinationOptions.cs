@@ -6,7 +6,7 @@ namespace LVK.Logging
     internal class FileLoggerDestinationOptions : LoggerDestinationOptions
     {
         [NotNull]
-        public string Path { get; set; } = string.Empty;
+        public string DirectoryPath { get; set; } = string.Empty;
 
         [NotNull]
         public string Filename { get; set; } = string.Empty;
