@@ -16,8 +16,5 @@ namespace LVK.Core.Services
 
         [NotNull]
         Task PublishAsync<T>([NotNull] Func<T> getMessage);
-
-        void Publish<T>([NotNull] T message);
-        void Publish<T>([NotNull] Func<T> getMessage);
     }
 }

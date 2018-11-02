@@ -7,6 +7,7 @@ using NSubstitute;
 
 using NUnit.Framework;
 
+#pragma warning disable 4014
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable AssignNullToNotNullAttribute
 
@@ -20,7 +21,7 @@ namespace LVK.Core.Services.Tests
         {
             var container = ContainerFactory.Create();
             var bus = new Bus(container);
-            Assert.Throws<ArgumentNullException>(() => bus.Publish((string)null));
+            Assert.Throws<ArgumentNullException>(() => bus.PublishAsync((string)null));
         }
 
         [Test]
@@ -28,7 +29,7 @@ namespace LVK.Core.Services.Tests
         {
             var container = ContainerFactory.Create();
             var bus = new Bus(container);
-            Assert.Throws<ArgumentNullException>(() => bus.Publish((Func<string>)null));
+            Assert.Throws<ArgumentNullException>(() => bus.PublishAsync((Func<string>)null));
         }
 
         [Test]
@@ -36,7 +37,7 @@ namespace LVK.Core.Services.Tests
         {
             var container = ContainerFactory.Create();
             var bus = new Bus(container);
-            Assert.DoesNotThrow(() => bus.Publish(() => (string)null));
+            Assert.DoesNotThrow(() => bus.PublishAsync(() => (string)null));
         }
 
         [Test]
@@ -47,7 +48,7 @@ namespace LVK.Core.Services.Tests
             var subscriber = Substitute.For<ISubscriber<string>>();
             bus.Subscribe(subscriber);
 
-            Assert.Throws<InvalidOperationException>(() => bus.Publish(() => (string)null));
+            Assert.Throws<InvalidOperationException>(() => bus.PublishAsync(() => (string)null));
         }
         
         [Test]
@@ -56,37 +57,37 @@ namespace LVK.Core.Services.Tests
             var container = ContainerFactory.Create();
             var bus = new Bus(container);
             
-            Assert.DoesNotThrow(() => bus.Publish("test"));
+            Assert.DoesNotThrow(() => bus.PublishAsync("test"));
         }
 
         [Test]
-        public void Publish_OneSubscriber_CallsThatSubscriber()
+        public async Task Publish_OneSubscriber_CallsThatSubscriber()
         {
             var container = ContainerFactory.Create();
             var bus = new Bus(container);
             string message = null;
             bus.Subscribe<string>(m => message = m);
 
-            bus.Publish("Test");
+            await bus.PublishAsync("Test");
 
             Assert.That(message, Is.EqualTo("Test"));
         }
 
         [Test]
-        public void Publish_OneSubscriberThatHasBeenUnsubscribed_DoesNotCallThatSubscriber()
+        public async Task Publish_OneSubscriberThatHasBeenUnsubscribed_DoesNotCallThatSubscriber()
         {
             var container = ContainerFactory.Create();
             var bus = new Bus(container);
             string message = null;
             bus.Subscribe<string>(m => message = m).Dispose();
 
-            bus.Publish("Test");
+            await bus.PublishAsync("Test");
 
             Assert.That(message, Is.Null);
         }
 
         [Test]
-        public void Publish_SubscriberThatHasNotBeenCollected_CallsThatSubscriber()
+        public async Task Publish_SubscriberThatHasNotBeenCollected_CallsThatSubscriber()
         {
             var container = ContainerFactory.Create();
             var bus = new Bus(container);
@@ -98,14 +99,14 @@ namespace LVK.Core.Services.Tests
             GC.WaitForPendingFinalizers();
             GC.Collect();
 
-            bus.Publish("Test");
+            await bus.PublishAsync("Test");
 
             Assert.That(Subscriber.LastMessage, Is.EqualTo("Test"));
             GC.KeepAlive(subscriber);
         }
 
         [Test]
-        public void Publish_SubscriberThatHasNotBeenCollectedThroughSubscription_CallsThatSubscriber()
+        public async Task Publish_SubscriberThatHasNotBeenCollectedThroughSubscription_CallsThatSubscriber()
         {
             var container = ContainerFactory.Create();
             var bus = new Bus(container);
@@ -116,14 +117,14 @@ namespace LVK.Core.Services.Tests
             GC.WaitForPendingFinalizers();
             GC.Collect();
 
-            bus.Publish("Test");
+            await bus.PublishAsync("Test");
 
             Assert.That(Subscriber.LastMessage, Is.EqualTo("Test"));
             GC.KeepAlive(subscription);
         }
         
         [Test]
-        public void Publish_SubscriberThatHasBeenCollected_DoesNotCallThatSubscriber()
+        public async Task Publish_SubscriberThatHasBeenCollected_DoesNotCallThatSubscriber()
         {
             var container = ContainerFactory.Create();
             var bus = new Bus(container);
@@ -134,25 +135,25 @@ namespace LVK.Core.Services.Tests
             GC.WaitForPendingFinalizers();
             GC.Collect();
 
-            bus.Publish("Test");
+            await bus.PublishAsync("Test");
 
             Assert.That(Subscriber.LastMessage, Is.Null);
         }
 
         [Test]
-        public void Publish_GetMessageWhenNoSubscribers_IsNotCalled()
+        public async Task Publish_GetMessageWhenNoSubscribers_IsNotCalled()
         {
             var container = ContainerFactory.Create();
             var bus = new Bus(container);
             var getMessage = Substitute.For<Func<string>>();
 
-            bus.Publish(getMessage);
+            await bus.PublishAsync(getMessage);
 
             getMessage.DidNotReceive().Invoke();
         }
 
         [Test]
-        public void Publish_GetMessageWhenSubscribers_IsCalled()
+        public async Task Publish_GetMessageWhenSubscribers_IsCalled()
         {
             var container = ContainerFactory.Create();
             var bus = new Bus(container);
@@ -161,7 +162,7 @@ namespace LVK.Core.Services.Tests
             getMessage.Invoke().Returns("Message");
             bus.Subscribe(subscriber);
 
-            bus.Publish(getMessage);
+            await bus.PublishAsync(getMessage);
 
             getMessage.Received().Invoke();
             subscriber.Received().Notify("Message");

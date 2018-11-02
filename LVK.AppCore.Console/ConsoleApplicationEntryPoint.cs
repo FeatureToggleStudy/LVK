@@ -72,7 +72,7 @@ namespace LVK.AppCore.Console
                     e.Cancel = true;
 
                 userCancelKeyPressCancellationTokenSource.Cancel();
-                _Bus.Publish(new UserCancellationKeypressMessage());
+                _Bus.PublishAsync(new UserCancellationKeypressMessage());
             };
 
             using (_Logger.LogScope(LogLevel.Trace, $"{nameof(ConsoleApplicationEntryPoint)}.{nameof(RunAsync)}"))

@@ -83,7 +83,7 @@ namespace LVK.Core.Services
 
         [NotNull]
         private Task PublishToSubscribersAsync<T>([NotNull] T message, [NotNull, ItemNotNull] List<ISubscriber<T>> subscribers)
-            => Task.WhenAll(subscribers.Select(subscriber => Task.Run(() => subscriber.Notify(message)))).NotNull();
+            => Task.WhenAll(subscribers.Select(subscriber => subscriber.Notify(message))).NotNull();
 
         private void Cleanup([NotNull] HashSet<WeakReference> subscribers, [CanBeNull] object subscriber)
         {
@@ -112,33 +112,6 @@ namespace LVK.Core.Services
             result.AddRange(_Container.Resolve<IEnumerable<ISubscriber<T>>>().NotNull());
 
             return result;
-        }
-
-        public void Publish<T>(T message)
-        {
-            if (message == null)
-                throw new ArgumentNullException(nameof(message));
-
-            var subscribers = GetSubscribers<T>();
-            foreach (var subscriber in subscribers)
-                subscriber.Notify(message);
-        }
-
-        public void Publish<T>(Func<T> getMessage)
-        {
-            if (getMessage == null)
-                throw new ArgumentNullException(nameof(getMessage));
-
-            var subscribers = GetSubscribers<T>();
-            if (!subscribers.Any())
-                return;
-
-            var message = getMessage();
-            if (message == null)
-                throw new InvalidOperationException("null message constructed");
-
-            foreach (var subscriber in subscribers)
-                subscriber.Notify(message);
         }
     }
 }

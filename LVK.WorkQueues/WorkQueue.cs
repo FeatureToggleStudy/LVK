@@ -36,8 +36,7 @@ namespace LVK.WorkQueues
                 select new WorkQueueItem(item.NotNull().GetType().FullName.NotNull(), obj.NotNull(), whenToProcess ?? DateTime.Now, 0);
 
             await _WorkQueueRepositoryManager.EnqueueManyAsync(workQueueItems);
-
-            _Bus.Publish(new WorkQueueItemAddedMessage());
+            await _Bus.PublishAsync(new WorkQueueItemAddedMessage());
         }
     }
 }

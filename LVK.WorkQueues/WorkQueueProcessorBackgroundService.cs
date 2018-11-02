@@ -82,7 +82,7 @@ namespace LVK.WorkQueues
                             if (!workerQueueIsEmpty)
                             {
                                 workerQueueIsEmpty = true;
-                                _Bus.Publish(WorkQueueEmptyMessage.Instance);
+                                await _Bus.PublishAsync(WorkQueueEmptyMessage.Instance);
                             }
                         }
                     }
