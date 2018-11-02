@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using DryIoc;
 
@@ -35,6 +36,7 @@ namespace LVK.Core.Services
                     subscribers = new HashSet<WeakReference>();
                     _Subscribers[typeof(T)] = subscribers;
                 }
+
                 subscribers.Add(new WeakReference(subscriber));
             }
 
@@ -46,7 +48,7 @@ namespace LVK.Core.Services
                     assume(subscribers != null);
 
                     Cleanup(subscribers, subscriber);
-                    
+
                     if (subscribers.Count == 0)
                         _Subscribers.Remove(typeof(T));
                 }
@@ -54,6 +56,34 @@ namespace LVK.Core.Services
 
             return new ActionDisposable(unsubscribe);
         }
+
+        public Task PublishAsync<T>(T message)
+        {
+            if (message == null)
+                throw new ArgumentNullException(nameof(message));
+
+            return PublishToSubscribersAsync(message, GetSubscribers<T>());
+        }
+
+        public Task PublishAsync<T>(Func<T> getMessage)
+        {
+            if (getMessage == null)
+                throw new ArgumentNullException(nameof(getMessage));
+
+            var subscribers = GetSubscribers<T>();
+            if (!subscribers.Any())
+                return Task.CompletedTask;
+
+            var message = getMessage();
+            if (message == null)
+                throw new InvalidOperationException("null message constructed");
+
+            return PublishToSubscribersAsync(message, subscribers);
+        }
+
+        [NotNull]
+        private Task PublishToSubscribersAsync<T>([NotNull] T message, [NotNull, ItemNotNull] List<ISubscriber<T>> subscribers)
+            => Task.WhenAll(subscribers.Select(subscriber => Task.Run(() => subscriber.Notify(message)))).NotNull();
 
         private void Cleanup([NotNull] HashSet<WeakReference> subscribers, [CanBeNull] object subscriber)
         {
@@ -66,7 +96,7 @@ namespace LVK.Core.Services
         private List<ISubscriber<T>> GetSubscribers<T>()
         {
             var result = new List<ISubscriber<T>>();
-            
+
             lock (_Lock)
             {
                 if (_Subscribers.TryGetValue(typeof(T), out HashSet<WeakReference> subscribers))
@@ -74,11 +104,8 @@ namespace LVK.Core.Services
                     Cleanup(subscribers, null);
 
                     foreach (var subscriberReference in subscribers)
-                    {
-                        var subscriber = subscriberReference.Target as ISubscriber<T>;
-                        if (subscriber != null)
+                        if (subscriberReference.Target is ISubscriber<T> subscriber)
                             result.Add(subscriber);
-                    }
                 }
             }
 
@@ -109,7 +136,7 @@ namespace LVK.Core.Services
             var message = getMessage();
             if (message == null)
                 throw new InvalidOperationException("null message constructed");
-            
+
             foreach (var subscriber in subscribers)
                 subscriber.Notify(message);
         }
