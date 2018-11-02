@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 
 using LVK.DryIoc;
 
+using NSubstitute;
+
 using NUnit.Framework;
 
 // ReSharper disable PossibleNullReferenceException
@@ -18,9 +20,36 @@ namespace LVK.Core.Services.Tests
         {
             var container = ContainerFactory.Create();
             var bus = new Bus(container);
-            Assert.Throws<ArgumentNullException>(() => bus.Publish<string>(null));
+            Assert.Throws<ArgumentNullException>(() => bus.Publish((string)null));
         }
 
+        [Test]
+        public void Publish_NullGetMessage_ThrowsArgumentNullException()
+        {
+            var container = ContainerFactory.Create();
+            var bus = new Bus(container);
+            Assert.Throws<ArgumentNullException>(() => bus.Publish((Func<string>)null));
+        }
+
+        [Test]
+        public void Publish_NullMessageReturnedFromGetMessageButNoSubscribers_DoesNotThrow()
+        {
+            var container = ContainerFactory.Create();
+            var bus = new Bus(container);
+            Assert.DoesNotThrow(() => bus.Publish(() => (string)null));
+        }
+
+        [Test]
+        public void Publish_NullMessageReturnedFromGetMessage_ThrowsInvalidOperationException()
+        {
+            var container = ContainerFactory.Create();
+            var bus = new Bus(container);
+            var subscriber = Substitute.For<ISubscriber<string>>();
+            bus.Subscribe(subscriber);
+
+            Assert.Throws<InvalidOperationException>(() => bus.Publish(() => (string)null));
+        }
+        
         [Test]
         public void Publish_ActualMessageButNoSubscribers_DoesntThrownException()
         {
@@ -110,6 +139,34 @@ namespace LVK.Core.Services.Tests
             Assert.That(Subscriber.LastMessage, Is.Null);
         }
 
+        [Test]
+        public void Publish_GetMessageWhenNoSubscribers_IsNotCalled()
+        {
+            var container = ContainerFactory.Create();
+            var bus = new Bus(container);
+            var getMessage = Substitute.For<Func<string>>();
+
+            bus.Publish(getMessage);
+
+            getMessage.DidNotReceive().Invoke();
+        }
+
+        [Test]
+        public void Publish_GetMessageWhenSubscribers_IsCalled()
+        {
+            var container = ContainerFactory.Create();
+            var bus = new Bus(container);
+            var getMessage = Substitute.For<Func<string>>();
+            var subscriber = Substitute.For<ISubscriber<string>>();
+            getMessage.Invoke().Returns("Message");
+            bus.Subscribe(subscriber);
+
+            bus.Publish(getMessage);
+
+            getMessage.Received().Invoke();
+            subscriber.Received().Notify("Message");
+        }
+        
         private void Subscribe(Bus bus)
         {
             bus.Subscribe(new Subscriber());

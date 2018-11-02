@@ -62,11 +62,11 @@ namespace LVK.Core.Services
                 subscribers.Remove(match);
         }
 
-        public void Publish<T>(T message)
+        [NotNull, ItemNotNull]
+        private List<ISubscriber<T>> GetSubscribers<T>()
         {
-            if (message == null)
-                throw new ArgumentNullException(nameof(message));
-
+            var result = new List<ISubscriber<T>>();
+            
             lock (_Lock)
             {
                 if (_Subscribers.TryGetValue(typeof(T), out HashSet<WeakReference> subscribers))
@@ -74,11 +74,43 @@ namespace LVK.Core.Services
                     Cleanup(subscribers, null);
 
                     foreach (var subscriberReference in subscribers)
-                        (subscriberReference.Target as ISubscriber<T>)?.Notify(message);
+                    {
+                        var subscriber = subscriberReference.Target as ISubscriber<T>;
+                        if (subscriber != null)
+                            result.Add(subscriber);
+                    }
                 }
             }
 
-            foreach (var subscriber in _Container.Resolve<IEnumerable<ISubscriber<T>>>().NotNull())
+            result.AddRange(_Container.Resolve<IEnumerable<ISubscriber<T>>>().NotNull());
+
+            return result;
+        }
+
+        public void Publish<T>(T message)
+        {
+            if (message == null)
+                throw new ArgumentNullException(nameof(message));
+
+            var subscribers = GetSubscribers<T>();
+            foreach (var subscriber in subscribers)
+                subscriber.Notify(message);
+        }
+
+        public void Publish<T>(Func<T> getMessage)
+        {
+            if (getMessage == null)
+                throw new ArgumentNullException(nameof(getMessage));
+
+            var subscribers = GetSubscribers<T>();
+            if (!subscribers.Any())
+                return;
+
+            var message = getMessage();
+            if (message == null)
+                throw new InvalidOperationException("null message constructed");
+            
+            foreach (var subscriber in subscribers)
                 subscriber.Notify(message);
         }
     }

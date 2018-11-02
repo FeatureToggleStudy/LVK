@@ -11,5 +11,6 @@ namespace LVK.Core.Services
         IDisposable Subscribe<T>([NotNull] ISubscriber<T> subscriber);
 
         void Publish<T>([NotNull] T message);
+        void Publish<T>([NotNull] Func<T> getMessage);
     }
 }
