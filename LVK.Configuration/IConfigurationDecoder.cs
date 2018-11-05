@@ -8,8 +8,9 @@ namespace LVK.Configuration
     public interface IConfigurationDecoder
     {
         [NotNull]
-        object Decode([NotNull] object value);
+        Type SupportedType { get; }
 
-        bool CanDecode([NotNull] Type type);
+        [NotNull]
+        object Decode([NotNull] object value);
     }
 }

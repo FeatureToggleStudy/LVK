@@ -18,9 +18,9 @@ namespace ConsoleSandbox
 
         public ApplicationEntryPoint([NotNull] IDataProtection dataProtection, [NotNull] IConfiguration configuration)
         {
-            _Configuration = configuration["ConnectionStrings/Test"]
+            _Configuration = configuration["LoggingFilename"]
                .Element<string>()
-               .WithDefault(() => "No connection string");
+               .WithDefault(() => "No filename");
         }
 
         public Task<int> Execute(CancellationToken cancellationToken)

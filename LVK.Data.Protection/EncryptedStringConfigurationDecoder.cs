@@ -20,6 +20,8 @@ namespace LVK.Data.Protection
             _Container = container ?? throw new ArgumentNullException(nameof(container));
         }
 
+        public Type SupportedType => typeof(string);
+
         public object Decode(object value)
         {
             if (!(value is string protectedString))
@@ -52,7 +54,5 @@ namespace LVK.Data.Protection
                 return value;
             }
         }
-
-        public bool CanDecode(Type type) => type == typeof(string);
     }
 }

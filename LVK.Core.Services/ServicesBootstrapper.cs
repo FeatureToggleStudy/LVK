@@ -4,6 +4,7 @@ using DryIoc;
 
 using JetBrains.Annotations;
 
+using LVK.Core.Services.SystemConfigurationVariableProviders;
 using LVK.DryIoc;
 
 namespace LVK.Core.Services
@@ -19,6 +20,10 @@ namespace LVK.Core.Services
             container.Register<IApplicationLifetimeManager, ApplicationLifetimeManager>(Reuse.Singleton);
             container.Register<IBus, Bus>(Reuse.Singleton);
             container.Register<IDataEncoder, DataEncoder>();
+            container.Register<IConfigurationVariables, EnvironmentConfigurationVariables>();
+            container.Register<IConfigurationVariables, SystemConfigurationVariables>();
+            
+            container.Register<ISystemConfigurationVariablesProvider, ProcessSystemConfigurationVariablesProvider>();
         }
     }
 }

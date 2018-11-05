@@ -18,6 +18,7 @@ namespace LVK.Configuration
                 throw new ArgumentNullException(nameof(container));
 
             container.Bootstrap<LVK.Json.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Core.Services.ServicesBootstrapper>();
             container.Bootstrap<LVK.NodaTime.ServicesBootstrapper>();
 
             container.Register<IConfigurationBuilderFactory, ConfigurationBuilderFactory>();
@@ -28,6 +29,7 @@ namespace LVK.Configuration
             container.Register<IConfigurationConfigurator, CommandLineArgumentsConfigurator>();
             container.Register<IConfigurationConfigurator, EnvironmentVariablesConfigurator>();
             container.Register<IJsonSerializerFactory, JsonSerializerFactory>();
+            container.Register<IConfigurationDecoder, VariableConfigurationDecoder>();
         }
     }
 }

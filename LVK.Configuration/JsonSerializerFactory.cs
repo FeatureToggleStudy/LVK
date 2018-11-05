@@ -12,7 +12,7 @@ namespace LVK.Configuration
 {
     internal class JsonSerializerFactory : IJsonSerializerFactory
     {
-        [NotNull]
+        [NotNull, ItemNotNull]
         private readonly List<IConfigurationDecoder> _ConfigurationDecoders;
 
         public JsonSerializerFactory([NotNull] IEnumerable<IConfigurationDecoder> configurationDecoders)
@@ -28,8 +28,8 @@ namespace LVK.Configuration
             var serializer = JsonSerializer.CreateDefault();
             assume(serializer?.Converters != null);
 
-            foreach (var decoder in _ConfigurationDecoders)
-                serializer.Converters.Add(new JsonConfigurationDecoderConverter(decoder));
+            foreach (var decoders in _ConfigurationDecoders.GroupBy(decoder => decoder.SupportedType))
+                serializer.Converters.Add(new JsonConfigurationDecoderConverter(decoders));
 
             return serializer;
         }
