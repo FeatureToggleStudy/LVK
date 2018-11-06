@@ -39,7 +39,7 @@ namespace LVK.Commands
                 if (!handlers.Any())
                 {
                     _Logger.LogDebug($"no command handler for '{_TypeHelper.NameOf<TInput>()} -> {_TypeHelper.NameOf<TOutput>()}'");
-                    return (false, default(TOutput));
+                    return (false, default);
                 }
 
                 using (_Logger.LogScope(LogLevel.Debug, $"dispatch '{_TypeHelper.NameOf<TInput>()} -> {_TypeHelper.NameOf<TOutput>()}'"))
@@ -51,7 +51,7 @@ namespace LVK.Commands
                             return (true, output);
                     }
 
-                    return (false, default(TOutput));
+                    return (false, default);
                 }
             }
         }
