@@ -30,4 +30,10 @@
       <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="WeakCache.cs">
+        <DependentUpon>IWeakCache.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

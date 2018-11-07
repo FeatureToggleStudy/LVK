@@ -34,4 +34,31 @@
       <ProjectReference Include="..\LVK.NodaTime\LVK.NodaTime.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="BaseConfiguration.cs">
+        <DependentUpon>IConfiguration.cs</DependentUpon>
+      </Compile>
+      <Compile Update="RootConfiguration.cs">
+        <DependentUpon>BaseConfiguration.cs</DependentUpon>
+      </Compile>
+      <Compile Update="SubConfiguration.cs">
+        <DependentUpon>BaseConfiguration.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ConfigurationBuilder.cs">
+        <DependentUpon>IConfigurationBuilder.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ConfigurationBuilderFactory.cs">
+        <DependentUpon>IConfigurationBuilderFactory.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ConfigurationElementWithDefaultValue.cs">
+        <DependentUpon>IConfigurationElementWithDefault.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ConfigurationProvider.cs">
+        <DependentUpon>IConfigurationProvider.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ConfigurationElement.cs">
+        <DependentUpon>IConfigurationElement.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

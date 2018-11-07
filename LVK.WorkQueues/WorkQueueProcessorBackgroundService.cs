@@ -123,6 +123,7 @@ namespace LVK.WorkQueues
             return types.FirstOrDefault();
         }
 
+        [UsedImplicitly]
         private async Task Process<T>(WorkQueueItem item, CancellationToken cancellationToken)
             where T: class
         {

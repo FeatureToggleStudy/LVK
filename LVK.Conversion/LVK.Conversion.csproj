@@ -31,4 +31,10 @@
       <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="ValueConverter.cs">
+        <DependentUpon>IValueConverter.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

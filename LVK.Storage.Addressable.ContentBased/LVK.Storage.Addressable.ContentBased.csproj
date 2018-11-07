@@ -35,4 +35,13 @@
       <ProjectReference Include="..\LVK.Security.Cryptography\LVK.Security.Cryptography.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="ContentAddressableFileKeyStore.cs">
+        <DependentUpon>IContentAddressableKeyStore.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ContentAddressableFileObjectStore.cs">
+        <DependentUpon>IContentAddressableObjectStore.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

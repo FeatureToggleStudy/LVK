@@ -28,9 +28,6 @@ namespace LVK.WorkQueues.Sqlite
         [NotNull]
         private readonly IHasher _Hasher;
 
-        [NotNull]
-        private static readonly object _Lock = new object();
-
         public SqliteWorkQueueRepository([NotNull] IDatabaseConnectionFactory databaseConnectionFactory, [NotNull] IDatabaseMigrator databaseMigrator, [NotNull] IHasher hasher)
         {
             _DatabaseConnectionFactory = databaseConnectionFactory ?? throw new ArgumentNullException(nameof(databaseConnectionFactory));

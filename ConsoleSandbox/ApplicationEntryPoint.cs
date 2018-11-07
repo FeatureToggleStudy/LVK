@@ -5,28 +5,24 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 using LVK.AppCore;
-using LVK.Configuration;
-using LVK.Core;
-using LVK.Data.Protection;
+using LVK.Notifications;
 
 namespace ConsoleSandbox
 {
     internal class ApplicationEntryPoint : IApplicationEntryPoint
     {
         [NotNull]
-        private IConfigurationElementWithDefault<string> _Configuration;
+        private readonly INotificationDispatcher _NotificationDispatcher;
 
-        public ApplicationEntryPoint([NotNull] IDataProtection dataProtection, [NotNull] IConfiguration configuration)
+        public ApplicationEntryPoint([NotNull] INotificationDispatcher notificationDispatcher)
         {
-            _Configuration = configuration["LoggingFilename"]
-               .Element<string>()
-               .WithDefault(() => "No filename");
+            _NotificationDispatcher = notificationDispatcher ?? throw new ArgumentNullException(nameof(notificationDispatcher));
         }
 
-        public Task<int> Execute(CancellationToken cancellationToken)
+        public async Task<int> Execute(CancellationToken cancellationToken)
         {
-            Console.WriteLine(_Configuration.Value());
-            return Task.FromResult(0).NotNull();
+            await _NotificationDispatcher.NotifyAsync("Some subject", "Some body");
+            return 0;
         }
     }
 }

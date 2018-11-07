@@ -26,5 +26,10 @@
       <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
       <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="TopologicalSorter.cs">
+        <DependentUpon>ITopologicalSorter.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 
 </Project>

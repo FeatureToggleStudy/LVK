@@ -11,6 +11,9 @@ namespace ConsoleSandbox
         {
             container.Bootstrap<LVK.AppCore.Console.ServicesBootstrapper>();
             container.Bootstrap<LVK.Data.Protection.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Notifications.Email.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Notifications.PushBullet.ServicesBootstrapper>();
+
             container.Register<IApplicationEntryPoint, ApplicationEntryPoint>();
         }
     }

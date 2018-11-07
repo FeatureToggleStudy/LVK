@@ -28,4 +28,13 @@
       <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="TypeHelper.cs">
+        <DependentUpon>ITypeHelper.cs</DependentUpon>
+      </Compile>
+      <Compile Update="TypeHelperExtensions.cs">
+        <DependentUpon>ITypeHelper.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

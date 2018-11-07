@@ -29,4 +29,13 @@
       <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="Hasher.cs">
+        <DependentUpon>IHasher.cs</DependentUpon>
+      </Compile>
+      <Compile Update="HasherExtensions.cs">
+        <DependentUpon>IHasher.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

@@ -21,6 +21,10 @@
       <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
       <ProjectReference Include="..\LVK.Json\LVK.Json.csproj" />
       <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
+      <ProjectReference Include="..\LVK.Net.Smtp\LVK.Net.Smtp.csproj" />
+      <ProjectReference Include="..\LVK.Notifications.Email\LVK.Notifications.Email.csproj" />
+      <ProjectReference Include="..\LVK.Notifications.Pushbullet\LVK.Notifications.Pushbullet.csproj" />
+      <ProjectReference Include="..\LVK.Notifications\LVK.Notifications.csproj" />
       <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj" />
     </ItemGroup>
 

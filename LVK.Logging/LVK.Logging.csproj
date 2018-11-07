@@ -30,4 +30,25 @@
       <ProjectReference Include="..\LVK.NodaTime\LVK.NodaTime.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="Logger.cs">
+        <DependentUpon>ILogger.cs</DependentUpon>
+      </Compile>
+      <Compile Update="LoggerDestinationBase.cs">
+        <DependentUpon>ILoggerDestination.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ConsoleLoggerDestination.cs">
+        <DependentUpon>LoggerDestinationBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="FileLoggerDestination.cs">
+        <DependentUpon>LoggerDestinationBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="TextLogFormatter.cs">
+        <DependentUpon>ITextLogFormatter.cs</DependentUpon>
+      </Compile>
+      <Compile Update="LoggerExtensions.cs">
+        <DependentUpon>ILogger.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>
