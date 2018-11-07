@@ -13,7 +13,7 @@ will almost certainly not be the way everybody else wants to do it, and there
 may be decisions and methods used here that will clash with other peoples
 requirements.
 
-Some principles may applications follow:
+Some principles my applications follow:
 
 * Everything is async
 * I use DryIoc as a service container
