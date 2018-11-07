@@ -18,13 +18,4 @@ namespace LVK.Core.Services
             return Task.CompletedTask;
         }
     }
-
-    internal class AsyncActionSubscriber<T> : ISubscriber<T>
-    {
-        [NotNull]
-        private readonly Func<T, Task> _Subscriber;
-
-        public AsyncActionSubscriber([NotNull] Func<T, Task> subscriber) => _Subscriber = subscriber;
-        public Task Notify(T message) => _Subscriber(message).NotNull();
-    }
 }
