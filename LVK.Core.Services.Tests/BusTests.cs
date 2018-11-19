@@ -1,6 +1,8 @@
 using System;
 using System.Threading.Tasks;
 
+using DryIoc;
+
 using LVK.DryIoc;
 
 using NSubstitute;
@@ -13,13 +15,20 @@ using NUnit.Framework;
 
 namespace LVK.Core.Services.Tests
 {
+    public class EmptyServicesBootstrapper : IServicesBootstrapper
+    {
+        public void Bootstrap(IContainer container)
+        {
+        }
+    }
+
     [TestFixture]
     public class BusTests
     {
         [Test]
         public void Publish_NullMessage_ThrowsArgumentNullException()
         {
-            var container = ContainerFactory.Create();
+            var container = ContainerFactory.Bootstrap<EmptyServicesBootstrapper>();
             var bus = new Bus(container);
             Assert.Throws<ArgumentNullException>(() => bus.PublishAsync((string)null));
         }
@@ -27,7 +36,7 @@ namespace LVK.Core.Services.Tests
         [Test]
         public void Publish_NullGetMessage_ThrowsArgumentNullException()
         {
-            var container = ContainerFactory.Create();
+            var container = ContainerFactory.Bootstrap<EmptyServicesBootstrapper>();
             var bus = new Bus(container);
             Assert.Throws<ArgumentNullException>(() => bus.PublishAsync((Func<string>)null));
         }
@@ -35,7 +44,7 @@ namespace LVK.Core.Services.Tests
         [Test]
         public void Publish_NullMessageReturnedFromGetMessageButNoSubscribers_DoesNotThrow()
         {
-            var container = ContainerFactory.Create();
+            var container = ContainerFactory.Bootstrap<EmptyServicesBootstrapper>();
             var bus = new Bus(container);
             Assert.DoesNotThrow(() => bus.PublishAsync(() => (string)null));
         }
@@ -43,7 +52,7 @@ namespace LVK.Core.Services.Tests
         [Test]
         public void Publish_NullMessageReturnedFromGetMessage_ThrowsInvalidOperationException()
         {
-            var container = ContainerFactory.Create();
+            var container = ContainerFactory.Bootstrap<EmptyServicesBootstrapper>();
             var bus = new Bus(container);
             var subscriber = Substitute.For<ISubscriber<string>>();
             bus.Subscribe(subscriber);
@@ -54,7 +63,7 @@ namespace LVK.Core.Services.Tests
         [Test]
         public void Publish_ActualMessageButNoSubscribers_DoesntThrownException()
         {
-            var container = ContainerFactory.Create();
+            var container = ContainerFactory.Bootstrap<EmptyServicesBootstrapper>();
             var bus = new Bus(container);
             
             Assert.DoesNotThrow(() => bus.PublishAsync("test"));
@@ -63,7 +72,7 @@ namespace LVK.Core.Services.Tests
         [Test]
         public async Task Publish_OneSubscriber_CallsThatSubscriber()
         {
-            var container = ContainerFactory.Create();
+            var container = ContainerFactory.Bootstrap<EmptyServicesBootstrapper>();
             var bus = new Bus(container);
             string message = null;
             bus.Subscribe<string>(m => message = m);
@@ -76,7 +85,7 @@ namespace LVK.Core.Services.Tests
         [Test]
         public async Task Publish_OneSubscriberThatHasBeenUnsubscribed_DoesNotCallThatSubscriber()
         {
-            var container = ContainerFactory.Create();
+            var container = ContainerFactory.Bootstrap<EmptyServicesBootstrapper>();
             var bus = new Bus(container);
             string message = null;
             bus.Subscribe<string>(m => message = m).Dispose();
@@ -89,7 +98,7 @@ namespace LVK.Core.Services.Tests
         [Test]
         public async Task Publish_SubscriberThatHasNotBeenCollected_CallsThatSubscriber()
         {
-            var container = ContainerFactory.Create();
+            var container = ContainerFactory.Bootstrap<EmptyServicesBootstrapper>();
             var bus = new Bus(container);
             Subscriber.LastMessage = null;
             var subscriber = new Subscriber();
@@ -108,7 +117,7 @@ namespace LVK.Core.Services.Tests
         [Test]
         public async Task Publish_SubscriberThatHasNotBeenCollectedThroughSubscription_CallsThatSubscriber()
         {
-            var container = ContainerFactory.Create();
+            var container = ContainerFactory.Bootstrap<EmptyServicesBootstrapper>();
             var bus = new Bus(container);
             Subscriber.LastMessage = null;
             var subscription = SubscribeAndReturnSubscription(bus);
@@ -126,7 +135,7 @@ namespace LVK.Core.Services.Tests
         [Test]
         public async Task Publish_SubscriberThatHasBeenCollected_DoesNotCallThatSubscriber()
         {
-            var container = ContainerFactory.Create();
+            var container = ContainerFactory.Bootstrap<EmptyServicesBootstrapper>();
             var bus = new Bus(container);
             Subscriber.LastMessage = null;
             Subscribe(bus);
@@ -143,7 +152,7 @@ namespace LVK.Core.Services.Tests
         [Test]
         public async Task Publish_GetMessageWhenNoSubscribers_IsNotCalled()
         {
-            var container = ContainerFactory.Create();
+            var container = ContainerFactory.Bootstrap<EmptyServicesBootstrapper>();
             var bus = new Bus(container);
             var getMessage = Substitute.For<Func<string>>();
 
@@ -155,7 +164,7 @@ namespace LVK.Core.Services.Tests
         [Test]
         public async Task Publish_GetMessageWhenSubscribers_IsCalled()
         {
-            var container = ContainerFactory.Create();
+            var container = ContainerFactory.Bootstrap<EmptyServicesBootstrapper>();
             var bus = new Bus(container);
             var getMessage = Substitute.For<Func<string>>();
             var subscriber = Substitute.For<ISubscriber<string>>();

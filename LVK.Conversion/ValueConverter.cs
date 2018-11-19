@@ -56,7 +56,7 @@ namespace LVK.Conversion
                         if (_Instance is null)
                         {
                             // ReSharper disable once HeuristicUnreachableCode
-                            ContainerFactory.Create().Bootstrap<ServicesBootstrapper>().Resolve<IValueConverter>();
+                            ContainerFactory.Bootstrap<ServicesBootstrapper>().Resolve<IValueConverter>();
                         }
                     }
 

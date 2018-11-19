@@ -50,7 +50,7 @@ namespace LVK.Reflection
                         if (_Instance is null)
                         {
                             // ReSharper disable once HeuristicUnreachableCode
-                            ContainerFactory.Create().Bootstrap<ServicesBootstrapper>().Resolve<ITypeHelper>();
+                            ContainerFactory.Bootstrap<ServicesBootstrapper>().Resolve<ITypeHelper>();
                         }
                     }
 

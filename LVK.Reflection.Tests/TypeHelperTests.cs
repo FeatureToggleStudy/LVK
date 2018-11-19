@@ -34,8 +34,7 @@ namespace LVK.Reflection.Tests
         [TestCase(typeof(List<int?>), NameOfTypeOptions.Default, "System.Collections.Generic.List<int?>")]
         public void NameOf_SmokeTests(Type type, NameOfTypeOptions options, string expected)
         {
-            var container = ContainerFactory.Create();
-            new ServicesBootstrapper().Bootstrap(container);
+            var container = ContainerFactory.Bootstrap<ServicesBootstrapper>();
             var typeHelper = container.Resolve<ITypeHelper>();
 
             string output = typeHelper.TryGetNameOf(type, options);
