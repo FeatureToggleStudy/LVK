@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 using LVK.Configuration;
+using LVK.Core.Services;
+using LVK.Logging;
 
 namespace LVK.AppCore.Console.CommandBased
 {
-    internal class CommandBasedApplicationEntryPoint : IApplicationEntryPoint
+    internal class CommandBasedApplicationEntryPoint : ConsoleApplicationEntryPointBase, IApplicationEntryPoint
     {
         [NotNull]
         private readonly IConfiguration _Configuration;
@@ -23,7 +25,9 @@ namespace LVK.AppCore.Console.CommandBased
 
         public CommandBasedApplicationEntryPoint(
             [NotNull, ItemNotNull] IEnumerable<IApplicationCommand> commands, [NotNull] IConfiguration configuration,
-            [NotNull] IConsoleApplicationHelpTextPresenter helpTextPresenter)
+            [NotNull] IConsoleApplicationHelpTextPresenter helpTextPresenter,
+            [NotNull] ILogger logger, [NotNull] IBus bus, [NotNull] IApplicationLifetimeManager applicationLifetimeManager)
+            : base(logger, bus, applicationLifetimeManager)
         {
             if (commands == null)
                 throw new ArgumentNullException(nameof(commands));
@@ -42,6 +46,8 @@ namespace LVK.AppCore.Console.CommandBased
                 _HelpTextPresenter.Present();
                 return 1;
             }
+
+            HookCtrlC();
 
             foreach (var command in _Commands)
             {

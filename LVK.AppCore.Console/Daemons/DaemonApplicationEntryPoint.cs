@@ -1,27 +1,25 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
 using LVK.Core;
+using LVK.Core.Services;
 using LVK.Logging;
 
 namespace LVK.AppCore.Console.Daemons
 {
-    internal class DaemonApplicationEntryPoint : IApplicationEntryPoint
+    internal class DaemonApplicationEntryPoint : ConsoleApplicationEntryPointBase, IApplicationEntryPoint
     {
-        [NotNull]
-        private readonly ILogger _Logger;
-
-        public DaemonApplicationEntryPoint([NotNull] ILogger logger)
+        public DaemonApplicationEntryPoint([NotNull] ILogger logger, [NotNull] IBus bus, [NotNull] IApplicationLifetimeManager applicationLifetimeManager)
+            : base(logger, bus, applicationLifetimeManager)
         {
-            _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<int> Execute(CancellationToken cancellationToken)
         {
-            _Logger.WriteLine("daemon started, use Ctrl+C to halt");
+            Logger.WriteLine("daemon started, use Ctrl+C to halt");
+            HookCtrlC();
             
             var tcs = new TaskCompletionSource<bool>();
             cancellationToken.Register(s => ((TaskCompletionSource<bool>)s)?.SetResult(true), tcs);

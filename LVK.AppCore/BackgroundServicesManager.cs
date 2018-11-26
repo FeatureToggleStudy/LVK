@@ -28,6 +28,9 @@ namespace LVK.AppCore
         [NotNull, ItemNotNull]
         private readonly List<Task> _Tasks = new List<Task>();
 
+        [NotNull]
+        private readonly object _Lock = new object();
+
         public BackgroundServicesManager([NotNull, ItemNotNull] IEnumerable<IBackgroundService> backgroundServices,
                                          [NotNull] IApplicationLifetimeManager applicationLifetimeManager,
                                          [NotNull] ILogger logger, [NotNull] ITypeHelper typeHelper)
@@ -44,13 +47,26 @@ namespace LVK.AppCore
 
         public void StartBackgroundServices()
         {
-            foreach (IBackgroundService backgroundService in _BackgroundServices)
-                _Tasks.Add(RunBackgroundService(backgroundService));
+            lock (_Lock)
+            {
+                if (_Tasks.Any())
+                    throw new InvalidOperationException("Background services has already been started");
+
+                foreach (IBackgroundService backgroundService in _BackgroundServices)
+                    _Tasks.Add(RunBackgroundService(backgroundService));
+            }
         }
 
         public async Task WaitForBackgroundServicesToStop()
         {
-            foreach (var task in _Tasks)
+            List<Task> tasks;
+            lock (_Lock)
+            {
+                tasks = _Tasks.ToList();
+                _Tasks.Clear();
+            }
+
+            foreach (var task in tasks)
             {
                 try
                 {
