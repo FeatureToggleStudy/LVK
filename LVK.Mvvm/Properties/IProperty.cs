@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 
 namespace LVK.Mvvm.Properties
 {
+    [PublicAPI]
     public interface IProperty
     {
     }

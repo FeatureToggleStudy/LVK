@@ -1,6 +1,4 @@
-using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,7 +7,6 @@ using System.Windows.Input;
 using JetBrains.Annotations;
 
 using LVK.Mvvm;
-using LVK.Mvvm.Properties;
 using LVK.Mvvm.Properties.ListProperties;
 using LVK.Mvvm.Properties.Signals;
 using LVK.Mvvm.Wpf.ViewModels;
