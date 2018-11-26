@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
+using LVK.AppCore.Windows.Service.Configuration;
 using LVK.Core;
 using LVK.Core.Services;
 using LVK.Logging;

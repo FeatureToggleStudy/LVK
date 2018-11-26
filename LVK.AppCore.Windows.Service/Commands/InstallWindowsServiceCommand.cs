@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
+using LVK.AppCore.Windows.Service.Configuration;
+
 namespace LVK.AppCore.Windows.Service.Commands
 {
     internal class InstallWindowsServiceCommand : IApplicationCommand
@@ -32,7 +34,7 @@ namespace LVK.AppCore.Windows.Service.Commands
 
         public Task<int> TryExecute()
         {
-            var installer = new WindowsServiceInstaller(_Configuration.ServiceName) { Context = _InstallContextProvider.GetContext() };
+            var installer = new WindowsServiceInstaller(_Configuration) { Context = _InstallContextProvider.GetContext() };
 
             var state = new Hashtable();
             state[StateConstants.InstalledServiceName] = _Configuration.ServiceName;

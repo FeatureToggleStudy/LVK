@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
+using LVK.AppCore.Windows.Service.Configuration;
 using LVK.Core;
 
 namespace LVK.AppCore.Windows.Service.Commands
@@ -35,7 +36,7 @@ namespace LVK.AppCore.Windows.Service.Commands
         {
             var state = _PersistentInstallState.Load();
             var serviceName = (string)state[StateConstants.InstalledServiceName].NotNull();
-            var installer = new WindowsServiceInstaller(serviceName) { Context = _InstallContextProvider.GetContext() };
+            var installer = new WindowsServiceInstaller(new UninstallConfiguration(serviceName)) { Context = _InstallContextProvider.GetContext() };
 
             try
             {

@@ -1,6 +1,7 @@
 using DryIoc;
 
 using LVK.AppCore.Windows.Service.Commands;
+using LVK.AppCore.Windows.Service.Configuration;
 using LVK.Core.Services;
 using LVK.DryIoc;
 
