@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 
-namespace LVK.AppCore.Tray
+namespace LVK.AppCore.Windows.Tray
 {
     [PublicAPI]
     public interface ITrayIconMenuItem

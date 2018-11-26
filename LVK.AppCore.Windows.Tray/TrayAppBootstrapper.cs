@@ -7,7 +7,7 @@ using JetBrains.Annotations;
 using LVK.Core;
 using LVK.DryIoc;
 
-namespace LVK.AppCore.Tray
+namespace LVK.AppCore.Windows.Tray
 {
     [PublicAPI]
     public static class TrayAppBootstrapper

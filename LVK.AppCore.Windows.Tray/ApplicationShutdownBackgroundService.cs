@@ -10,7 +10,7 @@ using LVK.Logging;
 
 using Microsoft.Win32;
 
-namespace LVK.AppCore.Tray
+namespace LVK.AppCore.Windows.Tray
 {
     internal class ApplicationShutdownBackgroundService : IBackgroundService
     {

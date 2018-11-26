@@ -12,7 +12,7 @@ using JetBrains.Annotations;
 using LVK.Core.Services;
 using LVK.Logging;
 
-namespace LVK.AppCore.Tray
+namespace LVK.AppCore.Windows.Tray
 {
     internal class TrayIconBackgroundService : IBackgroundService
     {

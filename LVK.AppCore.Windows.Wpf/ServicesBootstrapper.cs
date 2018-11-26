@@ -1,6 +1,5 @@
 using DryIoc;
 
-using LVK.Core.Services;
 using LVK.DryIoc;
 
 namespace LVK.AppCore.Windows.Wpf
@@ -15,7 +14,6 @@ namespace LVK.AppCore.Windows.Wpf
             container.Bootstrap<LVK.Core.Services.ServicesBootstrapper>();
             container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
 
-            container.Register<IBackgroundService, CloseWpfApplicationBackgroundService>();
             container.Register<IWpfApplicationLifetimeManager, WpfApplicationLifetimeManager>();
         }
     }

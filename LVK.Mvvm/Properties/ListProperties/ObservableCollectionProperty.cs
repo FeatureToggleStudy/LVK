@@ -9,6 +9,7 @@ using JetBrains.Annotations;
 
 namespace LVK.Mvvm.Properties.ListProperties
 {
+    [PublicAPI]
     public class ObservableCollectionProperty<T> : ObservableCollection<T>, IProperty
     {
         [NotNull]
