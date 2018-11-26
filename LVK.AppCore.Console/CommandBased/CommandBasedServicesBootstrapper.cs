@@ -11,6 +11,7 @@ namespace LVK.AppCore.Console.CommandBased
         public void Bootstrap(IContainer container)
         {
             container.Bootstrap<T>();
+            
             container.Register<IApplicationEntryPoint, CommandBasedApplicationEntryPoint>();
             container.Register<IOptionsHelpTextProvider, CommandsHelpTextProvider>();
         }

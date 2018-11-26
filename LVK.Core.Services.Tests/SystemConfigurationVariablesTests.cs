@@ -23,8 +23,7 @@ namespace LVK.Core.Services.Tests
         [TestCase("sys.UserDomainName")]
         public void TryGetValue_ExistingVariables_ReturnsSuccessTrue(string key)
         {
-            var container = ContainerFactory.Create();
-            container.Bootstrap<ServicesBootstrapper>();
+            var container = ContainerFactory.Bootstrap<ServicesBootstrapper>();
             var scv = container.Resolve<IEnumerable<IConfigurationVariables>>().OfType<SystemConfigurationVariables>().First();
 
             var (success, _) = scv.TryGetValue(key);

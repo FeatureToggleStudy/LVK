@@ -13,6 +13,13 @@ using NUnit.Framework;
 
 namespace LVK.NodaTime.Tests
 {
+    public class EmptyServicesBootstrapper : IServicesBootstrapper
+    {
+        public void Bootstrap(IContainer container)
+        {
+        }
+    }
+
     [TestFixture]
     public class ServicesBootstrapperTests
     {
@@ -27,7 +34,7 @@ namespace LVK.NodaTime.Tests
         public void Register_WithContainer_RegistersClock()
         {
             var bootstrapper = new ServicesBootstrapper();
-            var container = ContainerFactory.Create();
+            var container = ContainerFactory.Bootstrap<EmptyServicesBootstrapper>();
 
             bootstrapper.Bootstrap(container);
 

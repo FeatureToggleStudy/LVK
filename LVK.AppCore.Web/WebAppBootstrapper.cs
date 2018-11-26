@@ -26,8 +26,7 @@ namespace LVK.AppCore.Web
         public static async Task RunWebApiAsync<T>([NotNull] string[] arguments)
             where T: class, IServicesBootstrapper
         {
-            var container = ContainerFactory.Create()
-               .Bootstrap<WebApiApplicationBootstrapper<T>>();
+            var container = ContainerFactory.Bootstrap<WebApiApplicationBootstrapper<T>>();
 
             WebApiStartup.Container = container;
 

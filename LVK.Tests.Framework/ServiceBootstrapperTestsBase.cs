@@ -50,7 +50,7 @@ namespace LVK.Tests.Framework
 
         protected void VerifyDependency(Type servicesBootstrapperType)
         {
-            var container = ContainerFactory.Create().Bootstrap<T>();
+            var container = ContainerFactory.Bootstrap<T>();
 
             var register = container.Resolve<IServicesBootstrapperRegister>();
             bool isRegistered = register.IsRegistered(servicesBootstrapperType);
