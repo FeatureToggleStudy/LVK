@@ -158,8 +158,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Notifications.Pushbulle
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Extensibility.Plugins", "LVK.Extensibility.Plugins\LVK.Extensibility.Plugins.csproj", "{DEAA1256-4924-4548-883B-AFD700266879}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlSandbox", "XamlSandbox\XamlSandbox.csproj", "{FA78CEE5-27BD-43DD-8234-BF5BCB03628B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore.Windows.Wpf", "LVK.AppCore.Windows.Wpf\LVK.AppCore.Windows.Wpf.csproj", "{AF4CAAFF-B530-4E77-AAD7-43F6DED3B755}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore.Windows.Wpf.Tests", "LVK.AppCore.Windows.Wpf.Tests\LVK.AppCore.Windows.Wpf.Tests.csproj", "{51EFF37C-1498-47DB-BFBC-F3D14462B8F6}"
@@ -460,10 +458,6 @@ Global
 		{DEAA1256-4924-4548-883B-AFD700266879}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEAA1256-4924-4548-883B-AFD700266879}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEAA1256-4924-4548-883B-AFD700266879}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FA78CEE5-27BD-43DD-8234-BF5BCB03628B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA78CEE5-27BD-43DD-8234-BF5BCB03628B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA78CEE5-27BD-43DD-8234-BF5BCB03628B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA78CEE5-27BD-43DD-8234-BF5BCB03628B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AF4CAAFF-B530-4E77-AAD7-43F6DED3B755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AF4CAAFF-B530-4E77-AAD7-43F6DED3B755}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF4CAAFF-B530-4E77-AAD7-43F6DED3B755}.Release|Any CPU.ActiveCfg = Release|Any CPU
