@@ -23,6 +23,7 @@ namespace LVK.AppCore.Windows.Service
             container.Register<IApplicationCommand, StartWindowsServiceCommand>();
             container.Register<IApplicationCommand, StopWindowsServiceCommand>();
             container.Register<IApplicationCommand, QueryWindowsServiceCommand>();
+            container.Register<IApplicationCommand, RunCommand>();
             container.Register<IOptionsHelpTextProvider, WindowsServiceOptionsHelpTextProvider>();
             
             container.Register<IWindowsServiceConfiguration, WindowsServiceConfiguration>();
