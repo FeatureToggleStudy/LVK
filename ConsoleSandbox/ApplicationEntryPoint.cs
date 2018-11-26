@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 using LVK.AppCore;
+using LVK.Configuration;
 using LVK.Mvvm;
 using LVK.Mvvm.Properties;
 using LVK.Mvvm.ViewModels;
@@ -14,28 +15,20 @@ namespace ConsoleSandbox
     internal class ApplicationEntryPoint : IApplicationEntryPoint
     {
         [NotNull]
-        private readonly IMvvmContext _MvvmContext;
+        private readonly IConfiguration _Configuration;
 
-        public ApplicationEntryPoint([NotNull] IMvvmContext mvvmContext)
+        public ApplicationEntryPoint([NotNull] IConfiguration configuration)
         {
-            _MvvmContext = mvvmContext ?? throw new ArgumentNullException(nameof(mvvmContext));
+            _Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
         public async Task<int> Execute(CancellationToken cancellationToken)
         {
             await Task.Yield();
 
-            var vm = new TestViewModel(_MvvmContext);
-            vm.PropertyChanged += (s, e) => Console.WriteLine($"PropertyChanged: {e?.PropertyName}");
+            string s = _Configuration["Email/Smtp/Default/Server/Address"].Element<string>().Value();
+            Console.WriteLine(s);
 
-            vm.A = 10;
-            vm.B = 32;
-
-            Console.WriteLine(vm);
-
-            vm.B = 40;
-            Console.WriteLine(vm);
-            
             return 0;
         }
     }
