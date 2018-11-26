@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using LVK.Core.Services;
 using LVK.DryIoc;
 
-namespace LVK.AppCore.Tray
+namespace LVK.AppCore.Windows.Tray
 {
     [PublicAPI]
     public class ServicesBootstrapper : IServicesBootstrapper

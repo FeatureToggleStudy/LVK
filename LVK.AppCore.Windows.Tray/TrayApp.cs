@@ -7,7 +7,7 @@ using LVK.Core;
 using LVK.Core.Services;
 using LVK.Logging;
 
-namespace LVK.AppCore.Tray
+namespace LVK.AppCore.Windows.Tray
 {
     [UsedImplicitly]
     internal class TrayApp

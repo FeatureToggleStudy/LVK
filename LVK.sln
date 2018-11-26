@@ -70,9 +70,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Conversion", "LVK.Conve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Conversion.Tests", "LVK.Conversion.Tests\LVK.Conversion.Tests.csproj", "{F7C43775-1A58-4944-8BCA-E7D805B200D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.AppCore.Tray", "LVK.AppCore.Tray\LVK.AppCore.Tray.csproj", "{64F99343-BBE5-4273-ABF4-7F32EF77E021}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.AppCore.Windows.Tray", "LVK.AppCore.Windows.Tray\LVK.AppCore.Windows.Tray.csproj", "{64F99343-BBE5-4273-ABF4-7F32EF77E021}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore.Tray.Tests", "LVK.AppCore.Tray.Tests\LVK.AppCore.Tray.Tests.csproj", "{79CB18AE-CABC-439E-A721-B8DB9E1198FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore.Windows.Tray.Tests", "LVK.AppCore.Windows.Tray.Tests\LVK.AppCore.Windows.Tray.Tests.csproj", "{79CB18AE-CABC-439E-A721-B8DB9E1198FE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Persistence", "LVK.Persistence\LVK.Persistence.csproj", "{7762A3EF-F74B-45A1-8F9D-82F871EC4977}"
 EndProject

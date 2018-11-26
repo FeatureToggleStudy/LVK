@@ -2,7 +2,7 @@ using LVK.Tests.Framework;
 
 using NUnit.Framework;
 
-namespace LVK.AppCore.Tray.Tests
+namespace LVK.AppCore.Windows.Tray.Tests
 {
     [TestFixture]
     public class PublicApiTests : PublicApiTestsBase<ServicesBootstrapper>

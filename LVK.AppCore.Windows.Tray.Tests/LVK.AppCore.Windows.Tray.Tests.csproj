@@ -11,8 +11,8 @@
     <ProjectGuid>{79CB18AE-CABC-439E-A721-B8DB9E1198FE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LVK.AppCore.Tray.Tests</RootNamespace>
-    <AssemblyName>LVK.AppCore.Tray.Tests</AssemblyName>
+    <RootNamespace>LVK.AppCore.Windows.Tray.Tests</RootNamespace>
+    <AssemblyName>LVK.AppCore.Windows.Tray.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>latest</LangVersion>
@@ -58,9 +58,9 @@
     <Compile Include="ServiceBootstrapperTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LVK.AppCore.Tray\LVK.AppCore.Tray.csproj">
+    <ProjectReference Include="..\LVK.AppCore.Windows.Tray\LVK.AppCore.Windows.Tray.csproj">
       <Project>{64f99343-bbe5-4273-abf4-7f32ef77e021}</Project>
-      <Name>LVK.AppCore.Tray</Name>
+      <Name>LVK.AppCore.Windows.Tray</Name>
     </ProjectReference>
     <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj">
       <Project>{9bc04ffe-95c2-4810-9009-14c9a810eb30}</Project>
