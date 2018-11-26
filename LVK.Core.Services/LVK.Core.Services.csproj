@@ -4,7 +4,7 @@
 
     <PackageId>LVK.Core.Services</PackageId>
     <Description>LVK Core services</Description>
-    <PackageLicenseFile>content\LICENSE</PackageLicenseFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/lassevk/LVK</PackageProjectUrl>
     <Version>1.0.0.0</Version>
     <Authors>Lasse Vågsæther Karlsen</Authors>
@@ -12,12 +12,6 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  <ItemGroup>
-    <Content Include="..\LICENSE">
-      <Pack>true</Pack>
-      <Link>LICENSE</Link>
-    </Content>
-  </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DefineConstants>TRACE;DEBUG;NETSTANDARD;NETSTANDARD2_0;JETBRAINS_ANNOTATIONS</DefineConstants>
   </PropertyGroup>
