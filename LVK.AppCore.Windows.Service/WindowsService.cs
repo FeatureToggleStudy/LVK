@@ -1,6 +1,7 @@
 using System;
 using System.ServiceProcess;
 using System.Threading;
+using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 
@@ -44,10 +45,12 @@ namespace LVK.AppCore.Windows.Service
             CanStop = true;
         }
 
-        private void GracefulTerminationRequested()
+        private async void GracefulTerminationRequested()
         {
             if (Interlocked.Exchange(ref _StopAlreadyRequested, 1) == 1)
                 return;
+
+            await Task.Yield();
 
             lock (_Lock)
             {
@@ -81,6 +84,7 @@ namespace LVK.AppCore.Windows.Service
             using (_Logger.LogScope(LogLevel.Debug, $"Stopping background services in '{ServiceName}'"))
             {
                 _Logger.LogInformation($"Stopping background services in '{ServiceName}'");
+
                 lock (_Lock)
                 {
                     _CancellationTokenRegistration?.Dispose();
@@ -89,6 +93,7 @@ namespace LVK.AppCore.Windows.Service
 
                 _ApplicationLifetimeManager.SignalGracefulTermination();
                 _BackgroundServicesManager.WaitForBackgroundServicesToStop().ConfigureAwait(false).GetAwaiter().GetResult();
+                
                 _Logger.LogInformation($"Background services in '{ServiceName}' stopped successfully");
             }
 
