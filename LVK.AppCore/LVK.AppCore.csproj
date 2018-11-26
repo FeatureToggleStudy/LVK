@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>LVK.AppCore</PackageId>
     <Description>LVK Core application framework classes and extensions</Description>
-    <PackageLicenseFile>content\LICENSE</PackageLicenseFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/lassevk/LVK</PackageProjectUrl>
     <Version>1.0.0.0</Version>
     <Authors>Lasse Vågsæther Karlsen</Authors>
@@ -11,12 +11,6 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  <ItemGroup>
-    <Content Include="..\LICENSE">
-      <Pack>true</Pack>
-      <Link>LICENSE</Link>
-    </Content>
-  </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DefineConstants>TRACE;DEBUG;NETSTANDARD;NETSTANDARD2_0;JETBRAINS_ANNOTATIONS</DefineConstants>
   </PropertyGroup>
@@ -35,13 +29,5 @@
     <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
     <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
     <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="LICENSE" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Daemon.cs">
-      <DependentUpon>IDaemon.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
 </Project>
