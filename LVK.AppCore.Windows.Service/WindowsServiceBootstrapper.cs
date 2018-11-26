@@ -11,7 +11,7 @@ namespace LVK.AppCore.Windows.Service
     public static class WindowsServiceBootstrapper
     {
         [NotNull]
-        public static async Task Run<T>()
+        public static async Task RunAsync<T>()
             where T: class, IServicesBootstrapper
             => await ConsoleAppBootstrapper.RunCommandAsync<ServicesBootstrapper<T>>();
     }

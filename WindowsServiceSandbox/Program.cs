@@ -6,6 +6,6 @@ namespace WindowsServiceSandbox
 {
     internal static class Program
     {
-        public static async Task Main() => await WindowsServiceBootstrapper.Run<ServicesBootstrapper>();
+        public static async Task Main() => await WindowsServiceBootstrapper.RunAsync<ServicesBootstrapper>();
     }
 }
