@@ -1,6 +1,6 @@
 ﻿using DryIoc;
 
-using LVK.Core.Services;
+using LVK.AppCore;
 using LVK.DryIoc;
 
 namespace ConsoleSandbox
@@ -15,8 +15,7 @@ namespace ConsoleSandbox
             container.Bootstrap<LVK.Notifications.PushBullet.ServicesBootstrapper>();
             container.Bootstrap<LVK.Mvvm.ServicesBootstrapper>();
 
-            container.Register<ICounterHolder, CounterHolder>(Reuse.Singleton);
-            container.Register<IBackgroundService, CounterService>();
+            container.Register<IApplicationEntryPoint, ApplicationEntryPoint>();
         }
     }
 }
