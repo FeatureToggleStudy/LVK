@@ -42,6 +42,7 @@ namespace LVK.AppCore.Web
             }
 
             // app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }
