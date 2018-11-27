@@ -13,10 +13,12 @@
     <ItemGroup>
       <PackageReference Include="DryIoc.dll" Version="3.0.2" />
       <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.1.2" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\LVK.AppCore.Console\LVK.AppCore.Console.csproj" />
+      <ProjectReference Include="..\LVK.AppCore.Web\LVK.AppCore.Web.csproj" />
       <ProjectReference Include="..\LVK.AppCore\LVK.AppCore.csproj" />
       <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
       <ProjectReference Include="..\LVK.Core.Services\LVK.Core.Services.csproj" />
