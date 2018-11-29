@@ -23,15 +23,15 @@ namespace LVK.AppCore.Console
         [NotNull]
         public static Task<int> RunCommandAsync<T>()
             where T: class, IServicesBootstrapper
-            => RunAsync<CommandBasedServicesBootstrapper<T>>();
+            => RunAsync<CommandBasedServicesBootstrapper<T>>(false);
         
         [NotNull]
         public static Task<int> RunDaemonAsync<T>()
             where T: class, IServicesBootstrapper
-            => RunAsync<DaemonServicesBootstrapper<T>>();
+            => RunAsync<DaemonServicesBootstrapper<T>>(true);
 
         [NotNull]
-        public static async Task<int> RunAsync<T>()
+        public static async Task<int> RunAsync<T>(bool useBackgroundServices)
             where T: class, IServicesBootstrapper
         {
             IConsoleApplicationEntryPoint entryPoint;
@@ -53,7 +53,8 @@ namespace LVK.AppCore.Console
 
             try
             {
-                backgroundServicesManager.StartBackgroundServices();
+                if (useBackgroundServices)
+                    backgroundServicesManager.StartBackgroundServices();
                 try
                 {
                     return await entryPoint.RunAsync().NotNull();
@@ -61,7 +62,9 @@ namespace LVK.AppCore.Console
                 finally
                 {
                     applicationLifetimeManager.SignalGracefulTermination();
-                    await backgroundServicesManager.WaitForBackgroundServicesToStop();
+
+                    if (useBackgroundServices)
+                        await backgroundServicesManager.WaitForBackgroundServicesToStop();
                 }
             }
             catch (TaskCanceledException)
