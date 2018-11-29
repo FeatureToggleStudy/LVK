@@ -12,8 +12,8 @@ namespace WindowsServiceSandbox
         {
             container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
             container.Bootstrap<LVK.Net.Http.Server.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Storage.Addressable.PathBased.ServicesBootstrapper>();
 
-            container.Register<IBackgroundService, TestService>();
             container.Register<IBackgroundService, WebServerBackgroundService>();
         }
     }

@@ -34,12 +34,20 @@
     <ProjectReference Include="..\LVK.Notifications.Pushbullet\LVK.Notifications.Pushbullet.csproj" />
     <ProjectReference Include="..\LVK.Notifications\LVK.Notifications.csproj" />
     <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj" />
+    <ProjectReference Include="..\LVK.Storage.Addressable.PathBased\LVK.Storage.Addressable.PathBased.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
