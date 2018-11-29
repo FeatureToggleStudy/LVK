@@ -42,6 +42,7 @@ namespace LVK.Net.Http.Server
             }
 
             // app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }
