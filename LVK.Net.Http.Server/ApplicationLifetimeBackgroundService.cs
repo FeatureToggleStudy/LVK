@@ -10,7 +10,7 @@ using LVK.Logging;
 
 using Microsoft.Extensions.Hosting;
 
-namespace LVK.AppCore.Web
+namespace LVK.Net.Http.Server
 {
     internal class ApplicationLifetimeBackgroundService : IBackgroundService
     {

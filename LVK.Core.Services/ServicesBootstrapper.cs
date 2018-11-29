@@ -24,6 +24,7 @@ namespace LVK.Core.Services
             container.Register<IConfigurationVariables, SystemConfigurationVariables>();
             
             container.Register<ISystemConfigurationVariablesProvider, ProcessSystemConfigurationVariablesProvider>();
+            container.Register<IApplicationContext, ApplicationContext>(Reuse.Singleton);
         }
     }
 }

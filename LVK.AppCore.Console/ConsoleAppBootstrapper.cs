@@ -12,6 +12,7 @@ using LVK.AppCore.Console.Daemons;
 using static LVK.Core.JetBrainsHelpers;
 
 using LVK.Core;
+using LVK.Core.Services;
 using LVK.DryIoc;
 
 namespace LVK.AppCore.Console
@@ -22,24 +23,27 @@ namespace LVK.AppCore.Console
         [NotNull]
         public static Task<int> RunCommandAsync<T>()
             where T: class, IServicesBootstrapper
-            => RunAsync<CommandBasedServicesBootstrapper<T>>();
+            => RunAsync<CommandBasedServicesBootstrapper<T>>(false);
         
         [NotNull]
         public static Task<int> RunDaemonAsync<T>()
             where T: class, IServicesBootstrapper
-            => RunAsync<DaemonServicesBootstrapper<T>>();
+            => RunAsync<DaemonServicesBootstrapper<T>>(true);
 
         [NotNull]
-        public static async Task<int> RunAsync<T>()
+        public static async Task<int> RunAsync<T>(bool useBackgroundServices)
             where T: class, IServicesBootstrapper
         {
             IConsoleApplicationEntryPoint entryPoint;
+            IBackgroundServicesManager backgroundServicesManager;
+            IApplicationLifetimeManager applicationLifetimeManager;
             try
             {
                 var container = ContainerFactory.Bootstrap<ServicesBootstrapper, T>();
 
-                entryPoint = container.Resolve<IConsoleApplicationEntryPoint>();
-                assume(entryPoint != null);
+                backgroundServicesManager = container.Resolve<IBackgroundServicesManager>().NotNull();
+                entryPoint = container.Resolve<IConsoleApplicationEntryPoint>().NotNull();
+                applicationLifetimeManager = container.Resolve<IApplicationLifetimeManager>().NotNull();
             }
             catch (Exception ex) when (!Debugger.IsAttached)
             {
@@ -49,7 +53,19 @@ namespace LVK.AppCore.Console
 
             try
             {
-                return await entryPoint.RunAsync().NotNull();
+                if (useBackgroundServices)
+                    backgroundServicesManager.StartBackgroundServices();
+                try
+                {
+                    return await entryPoint.RunAsync().NotNull();
+                }
+                finally
+                {
+                    applicationLifetimeManager.SignalGracefulTermination();
+
+                    if (useBackgroundServices)
+                        await backgroundServicesManager.WaitForBackgroundServicesToStop();
+                }
             }
             catch (TaskCanceledException)
             {
