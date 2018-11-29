@@ -2,7 +2,7 @@ using LVK.Tests.Framework;
 
 using NUnit.Framework;
 
-namespace LVK.AppCore.Web.Tests
+namespace LVK.Net.Http.Server.Tests
 {
     [TestFixture]
     public class PublicApiTests : PublicApiTestsBase<ServicesBootstrapper>

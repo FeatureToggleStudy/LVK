@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 
-using LVK.AppCore.Web;
+using LVK.AppCore.Console;
 
 namespace ConsoleSandbox
 {
     static class Program
     {
-        static Task Main() => WebAppBootstrapper.RunWebApiAsync<ServicesBootstrapper>(new string[0]);
+        static Task Main() => ConsoleAppBootstrapper.RunDaemonAsync<ServicesBootstrapper>();
     }
 }

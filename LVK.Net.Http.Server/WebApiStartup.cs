@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LVK.AppCore.Web
+namespace LVK.Net.Http.Server
 {
     internal class WebApiStartup
     {

@@ -1,4 +1,4 @@
-namespace LVK.AppCore.Web
+namespace LVK.Net.Http.Server.Configuration
 {
     internal class JsonConfigurationFile
     {

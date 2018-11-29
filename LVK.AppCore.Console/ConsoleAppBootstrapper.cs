@@ -12,6 +12,7 @@ using LVK.AppCore.Console.Daemons;
 using static LVK.Core.JetBrainsHelpers;
 
 using LVK.Core;
+using LVK.Core.Services;
 using LVK.DryIoc;
 
 namespace LVK.AppCore.Console
@@ -34,12 +35,15 @@ namespace LVK.AppCore.Console
             where T: class, IServicesBootstrapper
         {
             IConsoleApplicationEntryPoint entryPoint;
+            IBackgroundServicesManager backgroundServicesManager;
+            IApplicationLifetimeManager applicationLifetimeManager;
             try
             {
                 var container = ContainerFactory.Bootstrap<ServicesBootstrapper, T>();
 
-                entryPoint = container.Resolve<IConsoleApplicationEntryPoint>();
-                assume(entryPoint != null);
+                backgroundServicesManager = container.Resolve<IBackgroundServicesManager>().NotNull();
+                entryPoint = container.Resolve<IConsoleApplicationEntryPoint>().NotNull();
+                applicationLifetimeManager = container.Resolve<IApplicationLifetimeManager>().NotNull();
             }
             catch (Exception ex) when (!Debugger.IsAttached)
             {
@@ -49,7 +53,16 @@ namespace LVK.AppCore.Console
 
             try
             {
-                return await entryPoint.RunAsync().NotNull();
+                backgroundServicesManager.StartBackgroundServices();
+                try
+                {
+                    return await entryPoint.RunAsync().NotNull();
+                }
+                finally
+                {
+                    applicationLifetimeManager.SignalGracefulTermination();
+                    await backgroundServicesManager.WaitForBackgroundServicesToStop();
+                }
             }
             catch (TaskCanceledException)
             {
