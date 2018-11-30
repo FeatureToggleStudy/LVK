@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <PackageId>LVK.AppCore.Tray</PackageId>
+        <Description>LVK core tray application framework classes and extensions</Description>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\LVK.AppCore\LVK.AppCore.csproj"/>
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj"/>
+        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj"/>
+        <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="System.Windows.Forms"/>
+    </ItemGroup>
+</Project>

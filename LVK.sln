@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Core", "LVK.Core\LVK.Core.csproj", "{9CBDE988-B78F-44F1-87DE-FB73953E0397}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Core", "src\LVK.Core\LVK.Core.csproj", "{9CBDE988-B78F-44F1-87DE-FB73953E0397}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.DryIoc", "LVK.DryIoc\LVK.DryIoc.csproj", "{9BC04FFE-95C2-4810-9009-14C9A810EB30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.DryIoc", "src\LVK.DryIoc\LVK.DryIoc.csproj", "{9BC04FFE-95C2-4810-9009-14C9A810EB30}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.AppCore.Console", "LVK.AppCore.Console\LVK.AppCore.Console.csproj", "{E72D6CEF-B111-434F-AB49-3D9D3D60E88D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.AppCore.Console", "src\LVK.AppCore.Console\LVK.AppCore.Console.csproj", "{E72D6CEF-B111-434F-AB49-3D9D3D60E88D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.AppCore", "LVK.AppCore\LVK.AppCore.csproj", "{E3AC27AD-92D3-4330-8271-F95DEDE7B2B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.AppCore", "src\LVK.AppCore\LVK.AppCore.csproj", "{E3AC27AD-92D3-4330-8271-F95DEDE7B2B9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Core.Services", "LVK.Core.Services\LVK.Core.Services.csproj", "{A612668F-44F1-4369-875F-54F6C06D400B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Core.Services", "src\LVK.Core.Services\LVK.Core.Services.csproj", "{A612668F-44F1-4369-875F-54F6C06D400B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Core.Tests", "LVK.Core.Tests\LVK.Core.Tests.csproj", "{98B4E7D0-ABBC-4AAE-BAA1-0ABCD73C0DBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Core.Tests", "tests\LVK.Core.Tests\LVK.Core.Tests.csproj", "{98B4E7D0-ABBC-4AAE-BAA1-0ABCD73C0DBB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Core.Services.Tests", "LVK.Core.Services.Tests\LVK.Core.Services.Tests.csproj", "{1938A250-A05F-41D2-A527-5B02B1CACE8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Core.Services.Tests", "tests\LVK.Core.Services.Tests\LVK.Core.Services.Tests.csproj", "{1938A250-A05F-41D2-A527-5B02B1CACE8B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{948AB602-9EAA-4EDC-8BCB-D2A9596A5B62}"
 	ProjectSection(SolutionItems) = preProject
@@ -30,151 +30,159 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		run.bat = run.bat
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Net", "LVK.Net\LVK.Net.csproj", "{50ED9450-26B5-4C8E-BD4F-19DFC26073B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Net", "src\LVK.Net\LVK.Net.csproj", "{50ED9450-26B5-4C8E-BD4F-19DFC26073B3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Net.Http", "LVK.Net.Http\LVK.Net.Http.csproj", "{29755D4D-5010-417C-A041-274AA315F5B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Net.Http", "src\LVK.Net.Http\LVK.Net.Http.csproj", "{29755D4D-5010-417C-A041-274AA315F5B0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Configuration", "LVK.Configuration\LVK.Configuration.csproj", "{BFF3EEF6-DE18-46B9-B088-E76F89A45802}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Configuration", "src\LVK.Configuration\LVK.Configuration.csproj", "{BFF3EEF6-DE18-46B9-B088-E76F89A45802}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Logging", "LVK.Logging\LVK.Logging.csproj", "{72AB113E-EBBB-4EA7-99B7-7884748D8AEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Logging", "src\LVK.Logging\LVK.Logging.csproj", "{72AB113E-EBBB-4EA7-99B7-7884748D8AEA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.DryIoc.Tests", "LVK.DryIoc.Tests\LVK.DryIoc.Tests.csproj", "{FC8EF8AE-29FC-46CC-916A-EC9721656AAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.DryIoc.Tests", "tests\LVK.DryIoc.Tests\LVK.DryIoc.Tests.csproj", "{FC8EF8AE-29FC-46CC-916A-EC9721656AAE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Logging.Tests", "LVK.Logging.Tests\LVK.Logging.Tests.csproj", "{E0DA05B8-8B53-4D03-B6E7-90083A45BE3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Logging.Tests", "tests\LVK.Logging.Tests\LVK.Logging.Tests.csproj", "{E0DA05B8-8B53-4D03-B6E7-90083A45BE3E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Configuration.Tests", "LVK.Configuration.Tests\LVK.Configuration.Tests.csproj", "{9B69693E-5A25-4688-9319-E12970360505}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Configuration.Tests", "tests\LVK.Configuration.Tests\LVK.Configuration.Tests.csproj", "{9B69693E-5A25-4688-9319-E12970360505}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Tests.Framework", "LVK.Tests.Framework\LVK.Tests.Framework.csproj", "{D4169787-C6F8-4DBA-BEB1-D82115F3F47F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Tests.Framework", "tests\LVK.Tests.Framework\LVK.Tests.Framework.csproj", "{D4169787-C6F8-4DBA-BEB1-D82115F3F47F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0BE3EA12-B77B-40AE-99D1-7EBB9A158E5C}"
+ProjectSection(SolutionItems) = preProject
+	src\Directory.Build.props = src\Directory.Build.props
+EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{BEE78C2B-1920-4AF3-B6AA-8FB81299663A}"
+ProjectSection(SolutionItems) = preProject
+	tests\Directory.Build.props = tests\Directory.Build.props
+EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.AppCore.Tests", "LVK.AppCore.Tests\LVK.AppCore.Tests.csproj", "{30AAE914-63B6-445D-888C-E6A11FA1ACD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.AppCore.Tests", "tests\LVK.AppCore.Tests\LVK.AppCore.Tests.csproj", "{30AAE914-63B6-445D-888C-E6A11FA1ACD0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.AppCore.Console.Tests", "LVK.AppCore.Console.Tests\LVK.AppCore.Console.Tests.csproj", "{13C26C86-1DC5-4591-ABF8-CFA446CB257A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.AppCore.Console.Tests", "tests\LVK.AppCore.Console.Tests\LVK.AppCore.Console.Tests.csproj", "{13C26C86-1DC5-4591-ABF8-CFA446CB257A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Net.Tests", "LVK.Net.Tests\LVK.Net.Tests.csproj", "{BE5F6B15-3A11-4D18-B84F-84675582BEDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Net.Tests", "tests\LVK.Net.Tests\LVK.Net.Tests.csproj", "{BE5F6B15-3A11-4D18-B84F-84675582BEDB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Net.Http.Tests", "LVK.Net.Http.Tests\LVK.Net.Http.Tests.csproj", "{E9C84DC7-C205-4D43-BB90-E1C300949FEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Net.Http.Tests", "tests\LVK.Net.Http.Tests\LVK.Net.Http.Tests.csproj", "{E9C84DC7-C205-4D43-BB90-E1C300949FEA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Reflection", "LVK.Reflection\LVK.Reflection.csproj", "{B7D00DA4-6C09-44C8-ACC8-7E5844491F68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Reflection", "src\LVK.Reflection\LVK.Reflection.csproj", "{B7D00DA4-6C09-44C8-ACC8-7E5844491F68}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Reflection.Tests", "LVK.Reflection.Tests\LVK.Reflection.Tests.csproj", "{35BCF0EC-3D43-4B5A-9FAC-5D003608B09E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Reflection.Tests", "tests\LVK.Reflection.Tests\LVK.Reflection.Tests.csproj", "{35BCF0EC-3D43-4B5A-9FAC-5D003608B09E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.NodaTime", "LVK.NodaTime\LVK.NodaTime.csproj", "{6B730412-68D8-4847-97EF-1BB0570EEB1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.NodaTime", "src\LVK.NodaTime\LVK.NodaTime.csproj", "{6B730412-68D8-4847-97EF-1BB0570EEB1A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.NodaTime.Tests", "LVK.NodaTime.Tests\LVK.NodaTime.Tests.csproj", "{57CB898D-67B6-4C93-9494-6A898F6C8CDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.NodaTime.Tests", "tests\LVK.NodaTime.Tests\LVK.NodaTime.Tests.csproj", "{57CB898D-67B6-4C93-9494-6A898F6C8CDB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Conversion", "LVK.Conversion\LVK.Conversion.csproj", "{1813CE67-CE5C-4366-91FF-C2B4DF0B0EB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Conversion", "src\LVK.Conversion\LVK.Conversion.csproj", "{1813CE67-CE5C-4366-91FF-C2B4DF0B0EB9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Conversion.Tests", "LVK.Conversion.Tests\LVK.Conversion.Tests.csproj", "{F7C43775-1A58-4944-8BCA-E7D805B200D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Conversion.Tests", "tests\LVK.Conversion.Tests\LVK.Conversion.Tests.csproj", "{F7C43775-1A58-4944-8BCA-E7D805B200D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.AppCore.Windows.Tray", "LVK.AppCore.Windows.Tray\LVK.AppCore.Windows.Tray.csproj", "{64F99343-BBE5-4273-ABF4-7F32EF77E021}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.AppCore.Windows.Tray", "src\LVK.AppCore.Windows.Tray\LVK.AppCore.Windows.Tray.csproj", "{64F99343-BBE5-4273-ABF4-7F32EF77E021}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore.Windows.Tray.Tests", "LVK.AppCore.Windows.Tray.Tests\LVK.AppCore.Windows.Tray.Tests.csproj", "{79CB18AE-CABC-439E-A721-B8DB9E1198FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore.Windows.Tray.Tests", "tests\LVK.AppCore.Windows.Tray.Tests\LVK.AppCore.Windows.Tray.Tests.csproj", "{79CB18AE-CABC-439E-A721-B8DB9E1198FE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Persistence", "LVK.Persistence\LVK.Persistence.csproj", "{7762A3EF-F74B-45A1-8F9D-82F871EC4977}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Persistence", "src\LVK.Persistence\LVK.Persistence.csproj", "{7762A3EF-F74B-45A1-8F9D-82F871EC4977}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Json", "LVK.Json\LVK.Json.csproj", "{6E361F31-795B-4EDC-8CED-C03CD4C5A065}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Json", "src\LVK.Json\LVK.Json.csproj", "{6E361F31-795B-4EDC-8CED-C03CD4C5A065}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Persistence.Tests", "LVK.Persistence.Tests\LVK.Persistence.Tests.csproj", "{73C11279-795F-403C-8DFA-02EE6F2F4ADC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Persistence.Tests", "tests\LVK.Persistence.Tests\LVK.Persistence.Tests.csproj", "{73C11279-795F-403C-8DFA-02EE6F2F4ADC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Json.Tests", "LVK.Json.Tests\LVK.Json.Tests.csproj", "{6FEF893E-F561-4D71-9DEB-CB3380F4820A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Json.Tests", "tests\LVK.Json.Tests\LVK.Json.Tests.csproj", "{6FEF893E-F561-4D71-9DEB-CB3380F4820A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Processes", "LVK.Processes\LVK.Processes.csproj", "{01BCDE35-8E54-4F32-A598-DC235BC151E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Processes", "src\LVK.Processes\LVK.Processes.csproj", "{01BCDE35-8E54-4F32-A598-DC235BC151E6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Processes.Tests", "LVK.Processes.Tests\LVK.Processes.Tests.csproj", "{3E639EEA-435F-4F58-ACF5-173AEB41E145}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Processes.Tests", "tests\LVK.Processes.Tests\LVK.Processes.Tests.csproj", "{3E639EEA-435F-4F58-ACF5-173AEB41E145}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.WorkQueues", "LVK.WorkQueues\LVK.WorkQueues.csproj", "{6B496D2A-6632-47F5-85F3-DAC040D76D08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.WorkQueues", "src\LVK.WorkQueues\LVK.WorkQueues.csproj", "{6B496D2A-6632-47F5-85F3-DAC040D76D08}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.WorkQueues.FileBased", "LVK.WorkQueues.FileBased\LVK.WorkQueues.FileBased.csproj", "{CA9368A4-E664-4A1F-BE72-F0CCD5FB8493}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.WorkQueues.FileBased", "src\LVK.WorkQueues.FileBased\LVK.WorkQueues.FileBased.csproj", "{CA9368A4-E664-4A1F-BE72-F0CCD5FB8493}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.WorkQueues.Tests", "LVK.WorkQueues.Tests\LVK.WorkQueues.Tests.csproj", "{677D5927-981F-4A63-AC4F-3F954BF13B13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.WorkQueues.Tests", "tests\LVK.WorkQueues.Tests\LVK.WorkQueues.Tests.csproj", "{677D5927-981F-4A63-AC4F-3F954BF13B13}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.WorkQueues.FileBased.Tests", "LVK.WorkQueues.FileBased.Tests\LVK.WorkQueues.FileBased.Tests.csproj", "{5F438EEB-F3E6-4A0C-98FB-34B98EF7DDF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.WorkQueues.FileBased.Tests", "tests\LVK.WorkQueues.FileBased.Tests\LVK.WorkQueues.FileBased.Tests.csproj", "{5F438EEB-F3E6-4A0C-98FB-34B98EF7DDF0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Data", "LVK.Data\LVK.Data.csproj", "{340DD593-C654-4FF5-9100-6F0282EDB818}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Data", "src\LVK.Data\LVK.Data.csproj", "{340DD593-C654-4FF5-9100-6F0282EDB818}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Data.Sqlite", "LVK.Data.Sqlite\LVK.Data.Sqlite.csproj", "{3C4DF1EB-2CC2-4A6A-9EF8-D9503395CCB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Data.Sqlite", "src\LVK.Data.Sqlite\LVK.Data.Sqlite.csproj", "{3C4DF1EB-2CC2-4A6A-9EF8-D9503395CCB6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.WorkQueues.Sqlite", "LVK.WorkQueues.Sqlite\LVK.WorkQueues.Sqlite.csproj", "{117C4FA4-D215-4C25-812D-7BB612CFE484}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.WorkQueues.Sqlite", "src\LVK.WorkQueues.Sqlite\LVK.WorkQueues.Sqlite.csproj", "{117C4FA4-D215-4C25-812D-7BB612CFE484}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Security.Cryptography", "LVK.Security.Cryptography\LVK.Security.Cryptography.csproj", "{1B6171B9-3D35-45A3-B394-DCBD3F5F409E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Security.Cryptography", "src\LVK.Security.Cryptography\LVK.Security.Cryptography.csproj", "{1B6171B9-3D35-45A3-B394-DCBD3F5F409E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Commands", "LVK.Commands\LVK.Commands.csproj", "{CB05719A-F805-4393-85A8-8881FC7BD76A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Commands", "src\LVK.Commands\LVK.Commands.csproj", "{CB05719A-F805-4393-85A8-8881FC7BD76A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Commands.Tests", "LVK.Commands.Tests\LVK.Commands.Tests.csproj", "{66C89727-F144-4B09-9B3F-BAF50CB3EC91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.Commands.Tests", "tests\LVK.Commands.Tests\LVK.Commands.Tests.csproj", "{66C89727-F144-4B09-9B3F-BAF50CB3EC91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Storage.Addressable.ContentBased", "LVK.Storage.Addressable.ContentBased\LVK.Storage.Addressable.ContentBased.csproj", "{A70B51AB-0A4F-49F9-821A-6E75A5F63313}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Storage.Addressable.ContentBased", "src\LVK.Storage.Addressable.ContentBased\LVK.Storage.Addressable.ContentBased.csproj", "{A70B51AB-0A4F-49F9-821A-6E75A5F63313}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Security.Cryptography.Tests", "LVK.Security.Cryptography.Tests\LVK.Security.Cryptography.Tests.csproj", "{0B90DEDC-20BC-45E2-A1FE-2FE4B0226D4F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Security.Cryptography.Tests", "tests\LVK.Security.Cryptography.Tests\LVK.Security.Cryptography.Tests.csproj", "{0B90DEDC-20BC-45E2-A1FE-2FE4B0226D4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Storage.Addressable.ContentBased.Tests", "LVK.Storage.Addressable.ContentBased.Tests\LVK.Storage.Addressable.ContentBased.Tests.csproj", "{8F4714A5-4E88-490E-BCED-DD8CFB7D7B00}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Storage.Addressable.ContentBased.Tests", "tests\LVK.Storage.Addressable.ContentBased.Tests\LVK.Storage.Addressable.ContentBased.Tests.csproj", "{8F4714A5-4E88-490E-BCED-DD8CFB7D7B00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.WorkQueues.Sqlite.Tests", "LVK.WorkQueues.Sqlite.Tests\LVK.WorkQueues.Sqlite.Tests.csproj", "{3CE87873-E1E8-45BF-866B-482167D2BCDD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.WorkQueues.Sqlite.Tests", "tests\LVK.WorkQueues.Sqlite.Tests\LVK.WorkQueues.Sqlite.Tests.csproj", "{3CE87873-E1E8-45BF-866B-482167D2BCDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Data.Tests", "LVK.Data.Tests\LVK.Data.Tests.csproj", "{33F934F9-46A2-4C37-947D-9D085E71A346}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Data.Tests", "tests\LVK.Data.Tests\LVK.Data.Tests.csproj", "{33F934F9-46A2-4C37-947D-9D085E71A346}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Data.Sqlite.Tests", "LVK.Data.Sqlite.Tests\LVK.Data.Sqlite.Tests.csproj", "{B6BCE766-D701-4A39-BA07-82A74F2EEB4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Data.Sqlite.Tests", "tests\LVK.Data.Sqlite.Tests\LVK.Data.Sqlite.Tests.csproj", "{B6BCE766-D701-4A39-BA07-82A74F2EEB4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Storage.Addressable.PathBased", "LVK.Storage.Addressable.PathBased\LVK.Storage.Addressable.PathBased.csproj", "{3B1F9908-DB85-4486-A2F1-DABE27691D79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Storage.Addressable.PathBased", "src\LVK.Storage.Addressable.PathBased\LVK.Storage.Addressable.PathBased.csproj", "{3B1F9908-DB85-4486-A2F1-DABE27691D79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Storage.Addressable.PathBased.Tests", "LVK.Storage.Addressable.PathBased.Tests\LVK.Storage.Addressable.PathBased.Tests.csproj", "{FBC39A0A-F96A-484C-93EE-807D4925137D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Storage.Addressable.PathBased.Tests", "tests\LVK.Storage.Addressable.PathBased.Tests\LVK.Storage.Addressable.PathBased.Tests.csproj", "{FBC39A0A-F96A-484C-93EE-807D4925137D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleSandbox", "ConsoleSandbox\ConsoleSandbox.csproj", "{85279E8E-56E0-4FF1-9059-087A9AD03C0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Data.Protection", "LVK.Data.Protection\LVK.Data.Protection.csproj", "{4244C1BB-2A08-4F43-B689-3432C87C3818}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Data.Protection", "src\LVK.Data.Protection\LVK.Data.Protection.csproj", "{4244C1BB-2A08-4F43-B689-3432C87C3818}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Data.Protection.Tests", "LVK.Data.Protection.Tests\LVK.Data.Protection.Tests.csproj", "{03D2E9E5-3D84-416D-8690-64C13EAB4F61}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Data.Protection.Tests", "tests\LVK.Data.Protection.Tests\LVK.Data.Protection.Tests.csproj", "{03D2E9E5-3D84-416D-8690-64C13EAB4F61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Data.Caching", "LVK.Data.Caching\LVK.Data.Caching.csproj", "{74A51A9E-81EF-4512-AC9E-5651BF440941}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Data.Caching", "src\LVK.Data.Caching\LVK.Data.Caching.csproj", "{74A51A9E-81EF-4512-AC9E-5651BF440941}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Data.Caching.Tests", "LVK.Data.Caching.Tests\LVK.Data.Caching.Tests.csproj", "{DE38EC0D-2BF9-4F9B-BB4E-B600E3FB6F5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Data.Caching.Tests", "tests\LVK.Data.Caching.Tests\LVK.Data.Caching.Tests.csproj", "{DE38EC0D-2BF9-4F9B-BB4E-B600E3FB6F5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.DataStructures", "LVK.DataStructures\LVK.DataStructures.csproj", "{9DEAD898-7FB5-4BF4-B1A7-19D8C01CFC8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.DataStructures", "src\LVK.DataStructures\LVK.DataStructures.csproj", "{9DEAD898-7FB5-4BF4-B1A7-19D8C01CFC8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.DataStructures.Tests", "LVK.DataStructures.Tests\LVK.DataStructures.Tests.csproj", "{89B77E30-9A82-4DD1-8B92-1DFAED5195DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.DataStructures.Tests", "tests\LVK.DataStructures.Tests\LVK.DataStructures.Tests.csproj", "{89B77E30-9A82-4DD1-8B92-1DFAED5195DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Net.Smtp", "LVK.Net.Smtp\LVK.Net.Smtp.csproj", "{1069DC07-95D0-4294-8A00-A9D9FD1628DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Net.Smtp", "src\LVK.Net.Smtp\LVK.Net.Smtp.csproj", "{1069DC07-95D0-4294-8A00-A9D9FD1628DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Notifications", "LVK.Notifications\LVK.Notifications.csproj", "{504E38CC-4FE5-4F2C-A9BA-0EB98F9631B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Notifications", "src\LVK.Notifications\LVK.Notifications.csproj", "{504E38CC-4FE5-4F2C-A9BA-0EB98F9631B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Notifications.Email", "LVK.Notifications.Email\LVK.Notifications.Email.csproj", "{EB2D3ACD-DAB3-4057-8AE5-DA8F22D9CFF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Notifications.Email", "src\LVK.Notifications.Email\LVK.Notifications.Email.csproj", "{EB2D3ACD-DAB3-4057-8AE5-DA8F22D9CFF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Notifications.Pushbullet", "LVK.Notifications.Pushbullet\LVK.Notifications.Pushbullet.csproj", "{5FECE7CE-0375-485E-82D4-52EB71622B03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Notifications.Pushbullet", "src\LVK.Notifications.Pushbullet\LVK.Notifications.Pushbullet.csproj", "{5FECE7CE-0375-485E-82D4-52EB71622B03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Net.Smtp.Tests", "LVK.Net.Smtp.Tests\LVK.Net.Smtp.Tests.csproj", "{6C9FF1A5-F1CF-4753-882C-BF3D0919ADB2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Net.Smtp.Tests", "tests\LVK.Net.Smtp.Tests\LVK.Net.Smtp.Tests.csproj", "{6C9FF1A5-F1CF-4753-882C-BF3D0919ADB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Notifications.Tests", "LVK.Notifications.Tests\LVK.Notifications.Tests.csproj", "{74A5F68C-D064-4623-AF35-A93B9CF5C157}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Notifications.Tests", "tests\LVK.Notifications.Tests\LVK.Notifications.Tests.csproj", "{74A5F68C-D064-4623-AF35-A93B9CF5C157}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Notifications.Email.Tests", "LVK.Notifications.Email.Tests\LVK.Notifications.Email.Tests.csproj", "{162AF7C5-EB80-41D3-B700-7ADA1105578C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Notifications.Email.Tests", "tests\LVK.Notifications.Email.Tests\LVK.Notifications.Email.Tests.csproj", "{162AF7C5-EB80-41D3-B700-7ADA1105578C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Notifications.Pushbullet.Tests", "LVK.Notifications.Pushbullet.Tests\LVK.Notifications.Pushbullet.Tests.csproj", "{997D2DCB-7814-4E38-BBD8-57B542E13A69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Notifications.Pushbullet.Tests", "tests\LVK.Notifications.Pushbullet.Tests\LVK.Notifications.Pushbullet.Tests.csproj", "{997D2DCB-7814-4E38-BBD8-57B542E13A69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Extensibility.Plugins", "LVK.Extensibility.Plugins\LVK.Extensibility.Plugins.csproj", "{DEAA1256-4924-4548-883B-AFD700266879}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Extensibility.Plugins", "src\LVK.Extensibility.Plugins\LVK.Extensibility.Plugins.csproj", "{DEAA1256-4924-4548-883B-AFD700266879}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore.Windows.Wpf", "LVK.AppCore.Windows.Wpf\LVK.AppCore.Windows.Wpf.csproj", "{AF4CAAFF-B530-4E77-AAD7-43F6DED3B755}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore.Windows.Wpf", "src\LVK.AppCore.Windows.Wpf\LVK.AppCore.Windows.Wpf.csproj", "{AF4CAAFF-B530-4E77-AAD7-43F6DED3B755}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore.Windows.Wpf.Tests", "LVK.AppCore.Windows.Wpf.Tests\LVK.AppCore.Windows.Wpf.Tests.csproj", "{51EFF37C-1498-47DB-BFBC-F3D14462B8F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore.Windows.Wpf.Tests", "tests\LVK.AppCore.Windows.Wpf.Tests\LVK.AppCore.Windows.Wpf.Tests.csproj", "{51EFF37C-1498-47DB-BFBC-F3D14462B8F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Mvvm", "LVK.Mvvm\LVK.Mvvm.csproj", "{0989F8C5-4054-4D68-91D2-7737CDEA6385}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Mvvm", "src\LVK.Mvvm\LVK.Mvvm.csproj", "{0989F8C5-4054-4D68-91D2-7737CDEA6385}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Mvvm.Tests", "LVK.Mvvm.Tests\LVK.Mvvm.Tests.csproj", "{BA40D25C-7AA2-446D-AC82-11D402714047}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Mvvm.Tests", "tests\LVK.Mvvm.Tests\LVK.Mvvm.Tests.csproj", "{BA40D25C-7AA2-446D-AC82-11D402714047}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Extensibility.Plugins.Tests", "LVK.Extensibility.Plugins.Tests\LVK.Extensibility.Plugins.Tests.csproj", "{F045847F-D7B4-488D-B433-A4BC87D23D52}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Extensibility.Plugins.Tests", "tests\LVK.Extensibility.Plugins.Tests\LVK.Extensibility.Plugins.Tests.csproj", "{F045847F-D7B4-488D-B433-A4BC87D23D52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Mvvm.Wpf", "LVK.Mvvm.Wpf\LVK.Mvvm.Wpf.csproj", "{09953330-A2C5-4C87-8361-D33ADC2879E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Mvvm.Wpf", "src\LVK.Mvvm.Wpf\LVK.Mvvm.Wpf.csproj", "{09953330-A2C5-4C87-8361-D33ADC2879E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore.Windows.Service", "LVK.AppCore.Windows.Service\LVK.AppCore.Windows.Service.csproj", "{C49093D3-E23C-46B5-AC47-DA82EF4C3FDC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore.Windows.Service", "src\LVK.AppCore.Windows.Service\LVK.AppCore.Windows.Service.csproj", "{C49093D3-E23C-46B5-AC47-DA82EF4C3FDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore.Windows.Service.Tests", "LVK.AppCore.Windows.Service.Tests\LVK.AppCore.Windows.Service.Tests.csproj", "{72BE0575-C694-47CD-898E-38BE7F45BFB2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.AppCore.Windows.Service.Tests", "tests\LVK.AppCore.Windows.Service.Tests\LVK.AppCore.Windows.Service.Tests.csproj", "{72BE0575-C694-47CD-898E-38BE7F45BFB2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsServiceSandbox", "WindowsServiceSandbox\WindowsServiceSandbox.csproj", "{7C07BCE9-A443-4D87-BC9A-9FEE921E084C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Net.Http.Server", "LVK.Net.Http.Server\LVK.Net.Http.Server.csproj", "{5A24E2BD-A244-4916-9961-2806533CA38F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Net.Http.Server", "src\LVK.Net.Http.Server\LVK.Net.Http.Server.csproj", "{5A24E2BD-A244-4916-9961-2806533CA38F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Net.Http.Server.Tests", "LVK.Net.Http.Server.Tests\LVK.Net.Http.Server.Tests.csproj", "{BBA81BED-A4EC-420C-BE71-D9FE8CA338FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Net.Http.Server.Tests", "tests\LVK.Net.Http.Server.Tests\LVK.Net.Http.Server.Tests.csproj", "{BBA81BED-A4EC-420C-BE71-D9FE8CA338FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionQualityAssuranceTests", "SolutionQualityAssuranceTests\SolutionQualityAssuranceTests.csproj", "{C33C4F5E-8EE6-47BA-AB7C-FD87E52BC51F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -494,6 +502,10 @@ Global
 		{BBA81BED-A4EC-420C-BE71-D9FE8CA338FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBA81BED-A4EC-420C-BE71-D9FE8CA338FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBA81BED-A4EC-420C-BE71-D9FE8CA338FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C33C4F5E-8EE6-47BA-AB7C-FD87E52BC51F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C33C4F5E-8EE6-47BA-AB7C-FD87E52BC51F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C33C4F5E-8EE6-47BA-AB7C-FD87E52BC51F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C33C4F5E-8EE6-47BA-AB7C-FD87E52BC51F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -24,8 +24,11 @@ namespace WindowsServiceSandbox.Controllers
 
         [HttpGet]
         [Route("/content/{id}")]
-        public async Task<string> GetContent(string id)
+        public async Task<string> GetContent([NotNull] string id)
         {
+            if (id == null)
+                throw new ArgumentNullException(nameof(id));
+
             if (_Repository is null)
                 throw new InvalidOperationException("No repository configured");
 
@@ -34,8 +37,14 @@ namespace WindowsServiceSandbox.Controllers
 
         [HttpPost]
         [Route("/content/{id}")]
-        public Task PostContent(string id, [FromBody] string contents)
+        public Task PostContent([NotNull] string id, [NotNull, FromBody] string contents)
         {
+            if (id == null)
+                throw new ArgumentNullException(nameof(id));
+
+            if (contents == null)
+                throw new ArgumentNullException(nameof(contents));
+
             if (_Repository is null)
                 throw new InvalidOperationException("No repository configured");
 

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>LVK.Conversion</PackageId>
+        <Description>LVK value conversion framework classes and extensions</Description>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\LVK.Core.Services\LVK.Core.Services.csproj"/>
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj"/>
+        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj"/>
+        <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Update="ValueConverter.cs">
+            <DependentUpon>IValueConverter.cs</DependentUpon>
+        </Compile>
+    </ItemGroup>
+</Project>

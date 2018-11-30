@@ -1,44 +1,38 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp2.1</TargetFramework>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
-
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <Prefer32bit>true</Prefer32bit>
+        <Prefer32bit>true</Prefer32bit>
     </PropertyGroup>
-
     <ItemGroup>
-      <PackageReference Include="DryIoc.dll" Version="3.0.2" />
-      <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
-      <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.1.2" />
+        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.1.2"/>
     </ItemGroup>
-
     <ItemGroup>
-      <ProjectReference Include="..\LVK.AppCore.Console\LVK.AppCore.Console.csproj" />
-      <ProjectReference Include="..\LVK.AppCore\LVK.AppCore.csproj" />
-      <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
-      <ProjectReference Include="..\LVK.Core.Services\LVK.Core.Services.csproj" />
-      <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
-      <ProjectReference Include="..\LVK.Data.Protection\LVK.Data.Protection.csproj" />
-      <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
-      <ProjectReference Include="..\LVK.Json\LVK.Json.csproj" />
-      <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
-      <ProjectReference Include="..\LVK.Mvvm\LVK.Mvvm.csproj" />
-      <ProjectReference Include="..\LVK.Net.Http.Server\LVK.Net.Http.Server.csproj" />
-      <ProjectReference Include="..\LVK.Net.Smtp\LVK.Net.Smtp.csproj" />
-      <ProjectReference Include="..\LVK.Notifications.Email\LVK.Notifications.Email.csproj" />
-      <ProjectReference Include="..\LVK.Notifications.Pushbullet\LVK.Notifications.Pushbullet.csproj" />
-      <ProjectReference Include="..\LVK.Notifications\LVK.Notifications.csproj" />
-      <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj" />
+        <ProjectReference Include="..\src\LVK.AppCore.Console\LVK.AppCore.Console.csproj"/>
+        <ProjectReference Include="..\src\LVK.AppCore\LVK.AppCore.csproj"/>
+        <ProjectReference Include="..\src\LVK.Configuration\LVK.Configuration.csproj"/>
+        <ProjectReference Include="..\src\LVK.Core.Services\LVK.Core.Services.csproj"/>
+        <ProjectReference Include="..\src\LVK.Core\LVK.Core.csproj"/>
+        <ProjectReference Include="..\src\LVK.Data.Protection\LVK.Data.Protection.csproj"/>
+        <ProjectReference Include="..\src\LVK.DryIoc\LVK.DryIoc.csproj"/>
+        <ProjectReference Include="..\src\LVK.Json\LVK.Json.csproj"/>
+        <ProjectReference Include="..\src\LVK.Logging\LVK.Logging.csproj"/>
+        <ProjectReference Include="..\src\LVK.Mvvm\LVK.Mvvm.csproj"/>
+        <ProjectReference Include="..\src\LVK.Net.Http.Server\LVK.Net.Http.Server.csproj"/>
+        <ProjectReference Include="..\src\LVK.Net.Smtp\LVK.Net.Smtp.csproj"/>
+        <ProjectReference Include="..\src\LVK.Notifications.Email\LVK.Notifications.Email.csproj"/>
+        <ProjectReference Include="..\src\LVK.Notifications.Pushbullet\LVK.Notifications.Pushbullet.csproj"/>
+        <ProjectReference Include="..\src\LVK.Notifications\LVK.Notifications.csproj"/>
+        <ProjectReference Include="..\src\LVK.Reflection\LVK.Reflection.csproj"/>
     </ItemGroup>
-
     <ItemGroup>
-      <None Update="appsettings.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
-
 </Project>
