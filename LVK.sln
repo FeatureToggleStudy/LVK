@@ -182,6 +182,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Net.Http.Server", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Net.Http.Server.Tests", "tests\LVK.Net.Http.Server.Tests\LVK.Net.Http.Server.Tests.csproj", "{BBA81BED-A4EC-420C-BE71-D9FE8CA338FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionQualityAssuranceTests", "SolutionQualityAssuranceTests\SolutionQualityAssuranceTests.csproj", "{C33C4F5E-8EE6-47BA-AB7C-FD87E52BC51F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -500,6 +502,10 @@ Global
 		{BBA81BED-A4EC-420C-BE71-D9FE8CA338FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBA81BED-A4EC-420C-BE71-D9FE8CA338FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBA81BED-A4EC-420C-BE71-D9FE8CA338FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C33C4F5E-8EE6-47BA-AB7C-FD87E52BC51F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C33C4F5E-8EE6-47BA-AB7C-FD87E52BC51F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C33C4F5E-8EE6-47BA-AB7C-FD87E52BC51F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C33C4F5E-8EE6-47BA-AB7C-FD87E52BC51F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
