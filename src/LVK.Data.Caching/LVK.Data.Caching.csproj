@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>LVK.Data.Caching</PackageId>
+        <Description>LVK Data Caching framework</Description>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\LVK.Core.Services\LVK.Core.Services.csproj"/>
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj"/>
+        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Update="WeakCache.cs">
+            <DependentUpon>IWeakCache.cs</DependentUpon>
+        </Compile>
+    </ItemGroup>
+</Project>

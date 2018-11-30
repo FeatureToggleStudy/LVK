@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>LVK.DryIoc</PackageId>
+        <Description>LVK DryIoc helper classes</Description>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Update="ServicesBootstrapperRegister.cs">
+            <DependentUpon>IServicesBootstrapperRegister.cs</DependentUpon>
+        </Compile>
+    </ItemGroup>
+</Project>

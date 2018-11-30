@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>LVK.Net.Http</PackageId>
+        <Description>LVK Http Networking framework</Description>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+        <PackageReference Include="Newtonsoft.Json" Version="11.0.2"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj"/>
+        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj"/>
+        <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Update="RepositoryWebApiClient.cs">
+            <DependentUpon>IRepositoryWebApiClient.cs</DependentUpon>
+        </Compile>
+    </ItemGroup>
+</Project>

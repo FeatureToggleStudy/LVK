@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>LVK.WorkQueues.Sqlite</PackageId>
+        <Description>LVK Sqlite-based WorkQueues</Description>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\LVK.Data.Sqlite\LVK.Data.Sqlite.csproj"/>
+        <ProjectReference Include="..\LVK.Data\LVK.Data.csproj"/>
+        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj"/>
+        <ProjectReference Include="..\LVK.Security.Cryptography\LVK.Security.Cryptography.csproj"/>
+        <ProjectReference Include="..\LVK.WorkQueues\LVK.WorkQueues.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Dapper" Version="1.50.5"/>
+        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="2.1.0"/>
+    </ItemGroup>
+</Project>

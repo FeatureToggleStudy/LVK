@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0"/>
+        <PackageReference Include="NUnit" Version="3.11.0"/>
+        <PackageReference Include="NUnit3TestAdapter" Version="3.11.2"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\LVK.Core\LVK.Core.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.DryIoc\LVK.DryIoc.csproj"/>
+        <ProjectReference Include="..\..\src\LVK.Net.Http.Server\LVK.Net.Http.Server.csproj"/>
+        <ProjectReference Include="..\LVK.Tests.Framework\LVK.Tests.Framework.csproj"/>
+    </ItemGroup>
+</Project>

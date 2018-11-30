@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>LVK.Logging</PackageId>
+        <Description>LVK logging framework classes and extensions</Description>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+        <PackageReference Include="Newtonsoft.Json" Version="11.0.2"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj"/>
+        <ProjectReference Include="..\LVK.NodaTime\LVK.NodaTime.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Update="Logger.cs">
+            <DependentUpon>ILogger.cs</DependentUpon>
+        </Compile>
+        <Compile Update="LoggerDestinationBase.cs">
+            <DependentUpon>ILoggerDestination.cs</DependentUpon>
+        </Compile>
+        <Compile Update="ConsoleLoggerDestination.cs">
+            <DependentUpon>LoggerDestinationBase.cs</DependentUpon>
+        </Compile>
+        <Compile Update="FileLoggerDestination.cs">
+            <DependentUpon>LoggerDestinationBase.cs</DependentUpon>
+        </Compile>
+        <Compile Update="TextLogFormatter.cs">
+            <DependentUpon>ITextLogFormatter.cs</DependentUpon>
+        </Compile>
+        <Compile Update="LoggerExtensions.cs">
+            <DependentUpon>ILogger.cs</DependentUpon>
+        </Compile>
+    </ItemGroup>
+</Project>
