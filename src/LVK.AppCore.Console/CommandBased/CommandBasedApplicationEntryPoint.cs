@@ -54,7 +54,7 @@ namespace LVK.AppCore.Console.CommandBased
                 if (!command.CommandNames.Any(cn => StringComparer.InvariantCultureIgnoreCase.Equals(cn, commandName)))
                     continue;
 
-                var result = await command.TryExecute();
+                var result = await command.TryExecute(GetParameters().ToArray());
                 return result;
             }
 
@@ -62,13 +62,34 @@ namespace LVK.AppCore.Console.CommandBased
             return 1;
         }
 
+        [NotNull, ItemNotNull]
+        private IEnumerable<string> GetCommandLineArguments() => _Configuration["CommandLineArguments"].Element<string[]>().WithDefault(new string[0]).Value();
+
+        private bool IsCommandArgument([NotNull] string arg) => !arg.StartsWith("-");
+
         [CanBeNull]
         private string GetCommandName()
         {
             return (
-                from arg in _Configuration["CommandLineArguments"].Element<string[]>().WithDefault(new string[0]).Value()
-                where !arg.StartsWith("-")
+                from arg in GetCommandLineArguments()
+                where IsCommandArgument(arg)
                 select arg).FirstOrDefault();
+        }
+
+        [NotNull, ItemNotNull]
+        private List<string> GetParameters()
+        {
+            var result = new List<string>();
+            bool commandFound = false;
+            foreach (string arg in GetCommandLineArguments())
+            {
+                if (!commandFound && IsCommandArgument(arg))
+                    commandFound = true;
+                else
+                    result.Add(arg);
+            }
+
+            return result;
         }
     }
 }

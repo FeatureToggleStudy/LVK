@@ -19,7 +19,7 @@ namespace LVK.AppCore.Windows.Service.Commands
 
         public string Description => "Query Windows Service Status";
 
-        public Task<int> TryExecute()
+        public Task<int> TryExecute(string[] arguments)
         {
             _WindowsServiceController.QueryStatus();
             return Task.FromResult(0);

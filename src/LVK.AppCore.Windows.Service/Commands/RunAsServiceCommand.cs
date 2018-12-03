@@ -39,7 +39,7 @@ namespace LVK.AppCore.Windows.Service.Commands
 
         public string Description => "Run as a Windows Service";
 
-        public Task<int> TryExecute()
+        public Task<int> TryExecute(string[] arguments)
         {
             ServiceBase.Run(new WindowsService(_Configuration, _ApplicationLifetimeManager, _BackgroundServicesManager, _Logger));
             return Task.FromResult(0);

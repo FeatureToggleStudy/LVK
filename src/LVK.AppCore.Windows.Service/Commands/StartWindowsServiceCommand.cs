@@ -19,7 +19,7 @@ namespace LVK.AppCore.Windows.Service.Commands
 
         public string Description => "Start Windows Service";
 
-        public Task<int> TryExecute()
+        public Task<int> TryExecute(string[] arguments)
         {
             _WindowsServiceController.Start();
             return Task.FromResult(0);

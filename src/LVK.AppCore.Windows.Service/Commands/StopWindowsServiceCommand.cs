@@ -33,7 +33,7 @@ namespace LVK.AppCore.Windows.Service.Commands
 
         public string Description => "Stop Windows Service";
 
-        public async Task<int> TryExecute()
+        public async Task<int> TryExecute(string[] arguments)
         {
             _WindowsServiceController.Stop();
 

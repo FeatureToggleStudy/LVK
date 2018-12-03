@@ -32,7 +32,7 @@ namespace LVK.AppCore.Windows.Service.Commands
 
         public string Description => "install windows service";
 
-        public Task<int> TryExecute()
+        public Task<int> TryExecute(string[] arguments)
         {
             var installer = new WindowsServiceInstaller(_Configuration) { Context = _InstallContextProvider.GetContext() };
 
