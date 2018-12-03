@@ -14,6 +14,6 @@ namespace LVK.AppCore
         string Description { get; }
 
         [NotNull]
-        Task<int> TryExecute();
+        Task<int> TryExecute([NotNull, ItemNotNull] string[] arguments);
     }
 }

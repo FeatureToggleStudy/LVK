@@ -39,7 +39,7 @@ namespace LVK.AppCore.Windows.Service.Commands
 
         public string Description => "Run the service code outside a windows service";
 
-        public async Task<int> TryExecute()
+        public async Task<int> TryExecute(string[] arguments)
         {
             _BackgroundServicesManager.StartBackgroundServices();
             await _ApplicationLifetimeManager.GracefulTerminationCancellationToken.AsTask();

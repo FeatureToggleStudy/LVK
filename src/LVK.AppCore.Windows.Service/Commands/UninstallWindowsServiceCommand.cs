@@ -32,7 +32,7 @@ namespace LVK.AppCore.Windows.Service.Commands
 
         public string Description => "uninstall windows service";
 
-        public Task<int> TryExecute()
+        public Task<int> TryExecute(string[] arguments)
         {
             var state = _PersistentInstallState.Load();
             var serviceName = (string)state[StateConstants.InstalledServiceName].NotNull();
