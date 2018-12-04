@@ -68,6 +68,10 @@ namespace LVK.Data.Protection
                     }
                 }
             }
+            catch (OverflowException ex)
+            {
+                throw new DataProtectionException($"Unable to unprotect data: {ex.Message}", ex);
+            }
             catch (InvalidOperationException ex)
             {
                 throw new DataProtectionException($"Unable to unprotect data: {ex.Message}", ex);
