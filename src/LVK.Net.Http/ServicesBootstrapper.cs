@@ -18,8 +18,7 @@ namespace LVK.Net.Http
 
             container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
 
-            container.Register<IHttpClientProvider, HttpClientProvider>(Reuse.Singleton);
-            container.Register(made: Made.Of(r => ServiceInfo.Of<IHttpClientProvider>(), hcp => hcp.Provide("Default")), reuse: Reuse.Singleton);
+            container.Register<IHttpClient, HttpClient>(Reuse.Singleton);
         }
     }
 }

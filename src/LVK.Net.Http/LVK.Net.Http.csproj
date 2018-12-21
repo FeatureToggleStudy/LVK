@@ -18,5 +18,8 @@
         <Compile Update="RepositoryWebApiClient.cs">
             <DependentUpon>IRepositoryWebApiClient.cs</DependentUpon>
         </Compile>
+        <Compile Update="HttpClient.cs">
+          <DependentUpon>IHttpClient.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
 </Project>
