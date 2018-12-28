@@ -23,12 +23,12 @@ namespace LVK.Net.Http
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<HttpResponseMessage> SendRequestAsync([NotNull] HttpRequestMessage request, CancellationToken? cancellationToken)
+        public async Task<HttpResponseMessage> SendRequestAsync(HttpRequestMessage request, CancellationToken? cancellationToken)
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            using (_Logger.LogScope(LogLevel.Debug, $"HttpClient.{request?.Method}: {request?.RequestUri}"))
+            using (_Logger.LogScope(LogLevel.Debug, $"HttpClient.{request.Method}: {request.RequestUri}"))
             {
                 return await _Client.SendAsync(
                         request, HttpCompletionOption.ResponseHeadersRead, cancellationToken ?? CancellationToken.None)

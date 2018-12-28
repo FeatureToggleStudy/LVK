@@ -10,6 +10,7 @@ namespace LVK.Net.Http
     public interface IHttpClient
     {
         [NotNull, ItemNotNull]
-        Task<HttpResponseMessage> SendRequestAsync([NotNull] HttpRequestMessage request, CancellationToken? cancellationToken = null);
+        Task<HttpResponseMessage> SendRequestAsync(
+            [NotNull] HttpRequestMessage request, [CanBeNull] CancellationToken? cancellationToken = null);
     }
 }

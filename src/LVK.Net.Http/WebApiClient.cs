@@ -48,7 +48,7 @@ namespace LVK.Net.Http
             => _HttpClient.PutAsJsonAsync(_BaseUri.Append(query), payload, cancellationToken);
 
         [NotNull, ItemNotNull]
-        protected Task<HttpResponseMessage> DeleteAsync([NotNull] string query, CancellationToken? cancellationToken = null)
+        protected Task<HttpResponseMessage> DeleteAsync([NotNull] string query, [CanBeNull] CancellationToken? cancellationToken = null)
             => _HttpClient.DeleteAsync(_BaseUri.Append(query).ToString(), cancellationToken ?? CancellationToken.None).NotNull();
     }
 }

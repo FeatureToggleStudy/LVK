@@ -18,7 +18,7 @@ namespace LVK.Net.Http
     {
         [NotNull, ItemNotNull]
         public static Task<HttpResponseMessage> DeleteAsync(
-            [NotNull] this IHttpClient httpClient, [NotNull] string requestUri, CancellationToken? cancellationToken = null)
+            [NotNull] this IHttpClient httpClient, [NotNull] string requestUri, [CanBeNull] CancellationToken? cancellationToken = null)
         {
             if (httpClient == null)
                 throw new ArgumentNullException(nameof(httpClient));
