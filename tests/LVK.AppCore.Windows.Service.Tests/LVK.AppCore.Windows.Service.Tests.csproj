@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
+        <IsTestProject>false</IsTestProject>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="DryIoc.dll" Version="3.0.2" />
