@@ -18,7 +18,7 @@ namespace LVK.Configuration
 
         private JObject _PreviousRootElement;
         private JToken _PreviousElement;
-        
+
         [NotNull]
         private readonly JsonSerializer _Serializer;
 
@@ -59,7 +59,13 @@ namespace LVK.Configuration
             JToken current = root;
             foreach (var element in path)
             {
-                var child = current[element];
+                JToken child;
+
+                if (current is JObject obj)
+                    child = obj.GetValue(element, StringComparison.InvariantCultureIgnoreCase);
+                else
+                    child = current[element];
+
                 if (child == null)
                     return new JObject();
 
@@ -77,7 +83,7 @@ namespace LVK.Configuration
 
             _PreviousRootElement = currentRootElement;
             _PreviousElement = GetSubElement(currentRootElement, _Path.Split('/'));
-            
+
             return _PreviousElement;
         }
 
