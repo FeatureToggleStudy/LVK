@@ -75,7 +75,7 @@ namespace LVK.AppCore
                 {
                     try
                     {
-                        using (_Logger.LogScope(LogLevel.Debug, "Waiting for {task} to complete"))
+                        using (_Logger.LogScope(LogLevel.Debug, $"Waiting for {task} to complete"))
                         {
                             await task;
                         }
