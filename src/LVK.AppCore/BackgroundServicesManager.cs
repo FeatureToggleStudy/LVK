@@ -71,18 +71,18 @@ namespace LVK.AppCore
                     _Tasks.Clear();
                 }
 
-                foreach (var task in tasks)
+                using (_Logger.LogScope(LogLevel.Debug, "Waiting for background tasks to complete"))
                 {
-                    try
+                    foreach (Task task in tasks)
                     {
-                        using (_Logger.LogScope(LogLevel.Debug, $"Waiting for {task} to complete"))
+                        try
                         {
                             await task;
                         }
-                    }
-                    catch (Exception)
-                    {
-                        // Logged as part of RunBackgroundService
+                        catch (Exception)
+                        {
+                            // Logged as part of RunBackgroundService
+                        }
                     }
                 }
             }
