@@ -1,17 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>LVK.Data.Sqlite</PackageId>
         <Description>LVK Sqlite Data Framework</Description>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
-        <PackageReference Include="Microsoft.Data.Sqlite" Version="2.1.0"/>
+        <PackageReference Include="DryIoc.dll" Version="3.0.2" />
+        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="2.1.0" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj"/>
-        <ProjectReference Include="..\LVK.Data\LVK.Data.csproj"/>
-        <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj"/>
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+        <ProjectReference Include="..\LVK.Data\LVK.Data.csproj" />
+        <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="SQLitePclInitializer.cs">
+        <DependentUpon>ISQLitePCLInitializer.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>
