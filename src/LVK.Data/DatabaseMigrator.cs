@@ -63,6 +63,8 @@ namespace LVK.Data
                 {
                     using (_Logger.LogScope(LogLevel.Information, $"migrating database from version {migration.From} to {migration.To}"))
                     {
+                        await migration.PerformMigration(connection);
+
                         using (IDbTransaction transaction = connection.BeginTransaction().NotNull())
                         {
                             await migration.PerformMigration(connection, transaction);
