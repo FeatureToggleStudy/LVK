@@ -25,6 +25,9 @@ namespace LVK.Data.Sqlite
 
             container.Register<IDatabaseConnectionProvider<SqliteConnection>, SqliteDatabaseConnectionProvider>();
             container.Register<IDatabaseVersionHandler<SqliteConnection>, SqliteDatabaseVersionHandler>();
+
+            container.Register<IContainerFinalizer, SqliteContainerFinalizer>();
+            container.Register<ISQLitePCLInitializer, SQLitePclInitializer>(Reuse.Singleton);
         }
     }
 }

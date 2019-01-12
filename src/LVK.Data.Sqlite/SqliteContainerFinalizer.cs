@@ -1,25 +1,26 @@
 using System;
 
+using DryIoc;
+
 using JetBrains.Annotations;
 
-using Microsoft.Data.Sqlite;
+using LVK.DryIoc;
 
 namespace LVK.Data.Sqlite
 {
-    internal class SqliteDatabaseConnectionProvider : IDatabaseConnectionProvider<SqliteConnection>
+    internal class SqliteContainerFinalizer : IContainerFinalizer
     {
         [NotNull]
         private readonly ISQLitePCLInitializer _SqLitePclInitializer;
 
-        public SqliteDatabaseConnectionProvider([NotNull] ISQLitePCLInitializer sqLitePclInitializer)
+        public SqliteContainerFinalizer([NotNull] ISQLitePCLInitializer sqLitePclInitializer)
         {
             _SqLitePclInitializer = sqLitePclInitializer ?? throw new ArgumentNullException(nameof(sqLitePclInitializer));
         }
 
-        public SqliteConnection Create(string connectionString)
+        public void Finalize(IContainer container)
         {
             _SqLitePclInitializer.InitializeOnce();
-            return new SqliteConnection(connectionString);
         }
     }
 }
