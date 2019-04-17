@@ -11,8 +11,8 @@ namespace LVK.AppCore.Windows.Wpf
         {
             container.Bootstrap<T>();
             container.Bootstrap<ServicesBootstrapper>();
-            container.Bootstrap<LVK.Core.Services.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
+            container.Bootstrap<Core.Services.ServicesBootstrapper>();
+            container.Bootstrap<Logging.ServicesBootstrapper>();
 
             container.Register<IWpfApplicationLifetimeManager, WpfApplicationLifetimeManager>();
         }

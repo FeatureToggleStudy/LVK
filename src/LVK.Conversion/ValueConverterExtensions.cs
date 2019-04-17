@@ -30,7 +30,7 @@ namespace LVK.Conversion
             [CanBeNull] IFormatProvider formatProvider = null)
         {
             if (!TryConvert(valueConverter, sourceValue, out TTarget targetValue, formatProvider))
-                return (false, default(TTarget));
+                return (false, default);
 
             return (true, targetValue);
         }
@@ -45,7 +45,7 @@ namespace LVK.Conversion
             var converter = valueConverter.TryGetConverter<TSource, TTarget>();
             if (converter == null)
             {
-                targetValue = default(TTarget);
+                targetValue = default;
                 return false;
             }
 

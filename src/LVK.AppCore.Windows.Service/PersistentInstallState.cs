@@ -27,7 +27,7 @@ namespace LVK.AppCore.Windows.Service
             var filename = GetInstallStatePath();
             Directory.CreateDirectory(Path.GetDirectoryName(filename).NotNull());
 
-            var writerSettings = new XmlWriterSettings() { Encoding = Encoding.UTF8, CheckCharacters = false, CloseOutput = false };
+            var writerSettings = new XmlWriterSettings { Encoding = Encoding.UTF8, CheckCharacters = false, CloseOutput = false };
             using (var stream = new FileStream(filename, FileMode.Create))
             using (var writer = XmlWriter.Create(stream, writerSettings))
             {

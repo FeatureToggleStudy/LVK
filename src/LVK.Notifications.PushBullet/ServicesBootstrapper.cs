@@ -16,10 +16,10 @@ namespace LVK.Notifications.PushBullet
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Configuration.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Core.Services.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Notifications.ServicesBootstrapper>();
+            container.Bootstrap<Logging.ServicesBootstrapper>();
+            container.Bootstrap<Configuration.ServicesBootstrapper>();
+            container.Bootstrap<Core.Services.ServicesBootstrapper>();
+            container.Bootstrap<Notifications.ServicesBootstrapper>();
 
             container.Register<INotificationChannel, PushbulletNotificationChannel>();
         }

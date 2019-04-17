@@ -9,8 +9,8 @@ using DryIoc;
 
 using JetBrains.Annotations;
 
-using LVK.Core;
 using LVK.Configuration;
+using LVK.Core;
 using LVK.Core.Services;
 using LVK.Logging;
 using LVK.WorkQueues.Messages;

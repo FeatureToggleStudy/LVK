@@ -26,6 +26,8 @@ namespace LVK.Configuration
             try
             {
                 result = _Element.Value();
+                
+                // ReSharper disable once ConvertIfStatementToNullCoalescingExpression
                 if (result == null)
                     result = _GetDefaultValue();
             }

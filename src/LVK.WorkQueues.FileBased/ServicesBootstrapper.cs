@@ -16,12 +16,12 @@ namespace LVK.WorkQueues.FileBased
             if (container is null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.Bootstrap<LVK.WorkQueues.ServicesBootstrapper>()
-               .Bootstrap<LVK.Logging.ServicesBootstrapper>()
-               .Bootstrap<LVK.Configuration.ServicesBootstrapper>()
-               .Bootstrap<LVK.Json.ServicesBootstrapper>()
-               .Bootstrap<LVK.Core.Services.ServicesBootstrapper>()
-               .Bootstrap<LVK.Security.Cryptography.ServicesBootstrapper>();
+            container.Bootstrap<WorkQueues.ServicesBootstrapper>()
+               .Bootstrap<Logging.ServicesBootstrapper>()
+               .Bootstrap<Configuration.ServicesBootstrapper>()
+               .Bootstrap<Json.ServicesBootstrapper>()
+               .Bootstrap<Core.Services.ServicesBootstrapper>()
+               .Bootstrap<Security.Cryptography.ServicesBootstrapper>();
 
             container.Register<IWorkQueueRepository, FileWorkQueueRepository>();
         }

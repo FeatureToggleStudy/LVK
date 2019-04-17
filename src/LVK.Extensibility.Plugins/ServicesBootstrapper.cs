@@ -16,7 +16,7 @@ namespace LVK.Extensibility.Plugins
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.Bootstrap<LVK.Configuration.ServicesBootstrapper>();
+            container.Bootstrap<Configuration.ServicesBootstrapper>();
 
             container.Register<IContainerFinalizer, PluginContainerFinalizer>();
         }

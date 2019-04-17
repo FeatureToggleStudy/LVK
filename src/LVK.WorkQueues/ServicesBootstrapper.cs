@@ -17,10 +17,10 @@ namespace LVK.WorkQueues
             if (container is null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.Bootstrap<LVK.Configuration.ServicesBootstrapper>()
-               .Bootstrap<LVK.Logging.ServicesBootstrapper>()
-               .Bootstrap<LVK.Json.ServicesBootstrapper>()
-               .Bootstrap<LVK.Core.Services.ServicesBootstrapper>();
+            container.Bootstrap<Configuration.ServicesBootstrapper>()
+               .Bootstrap<Logging.ServicesBootstrapper>()
+               .Bootstrap<Json.ServicesBootstrapper>()
+               .Bootstrap<Core.Services.ServicesBootstrapper>();
 
             container.Register<IWorkQueueRepositoryManager, WorkQueueRepositoryManager>(Reuse.Singleton);
             container.Register<IWorkQueue, WorkQueue>(Reuse.Singleton);

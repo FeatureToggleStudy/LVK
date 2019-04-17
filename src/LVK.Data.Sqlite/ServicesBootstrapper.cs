@@ -18,10 +18,10 @@ namespace LVK.Data.Sqlite
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.Bootstrap<LVK.Data.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Configuration.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Data.Protection.ServicesBootstrapper>();
+            container.Bootstrap<Data.ServicesBootstrapper>();
+            container.Bootstrap<Logging.ServicesBootstrapper>();
+            container.Bootstrap<Configuration.ServicesBootstrapper>();
+            container.Bootstrap<Protection.ServicesBootstrapper>();
 
             container.Register<IDatabaseConnectionProvider<SqliteConnection>, SqliteDatabaseConnectionProvider>();
             container.Register<IDatabaseVersionHandler<SqliteConnection>, SqliteDatabaseVersionHandler>();

@@ -1,5 +1,7 @@
 using JetBrains.Annotations;
 
+using SQLitePCL;
+
 namespace LVK.Data.Sqlite
 {
     internal class SQLitePclInitializer : ISQLitePCLInitializer
@@ -16,7 +18,7 @@ namespace LVK.Data.Sqlite
             
             lock (_Lock)
             {
-                SQLitePCL.Batteries.Init();
+                Batteries.Init();
                 _IsInitialized = true;
             }
         }

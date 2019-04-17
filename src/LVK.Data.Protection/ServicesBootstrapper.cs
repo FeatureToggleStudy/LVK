@@ -17,9 +17,9 @@ namespace LVK.Data.Protection
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.Bootstrap<LVK.Core.Services.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Data.Caching.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Configuration.ServicesBootstrapper>();
+            container.Bootstrap<Core.Services.ServicesBootstrapper>();
+            container.Bootstrap<Caching.ServicesBootstrapper>();
+            container.Bootstrap<Configuration.ServicesBootstrapper>();
 
             container.Register<IDataProtection, DataProtection>();
             container.Register<IDataEncryption, DataEncryption>();

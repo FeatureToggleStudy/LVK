@@ -36,8 +36,7 @@ namespace LVK.AppCore.Windows.Service.Commands
         {
             var installer = new WindowsServiceInstaller(_Configuration) { Context = _InstallContextProvider.GetContext() };
 
-            var state = new Hashtable();
-            state[StateConstants.InstalledServiceName] = _Configuration.ServiceName;
+            var state = new Hashtable { [StateConstants.InstalledServiceName] = _Configuration.ServiceName };
             try
             {
                 installer.Install(state);

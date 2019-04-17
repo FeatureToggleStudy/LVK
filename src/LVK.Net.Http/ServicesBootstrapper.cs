@@ -16,7 +16,7 @@ namespace LVK.Net.Http
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
+            container.Bootstrap<Logging.ServicesBootstrapper>();
 
             container.Register<IHttpClient, HttpClient>(Reuse.Singleton);
         }

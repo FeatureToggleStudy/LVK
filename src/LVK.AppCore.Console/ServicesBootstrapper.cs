@@ -17,8 +17,8 @@ namespace LVK.AppCore.Console
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.Bootstrap<LVK.AppCore.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
+            container.Bootstrap<AppCore.ServicesBootstrapper>();
+            container.Bootstrap<Logging.ServicesBootstrapper>();
 
             container.Register<IConsoleApplicationEntryPoint, ConsoleApplicationEntryPoint>();
             container.Register<IOptionsHelpTextProvider, ConsoleApplicationEntryPointOptionsHelpTextProvider>();
