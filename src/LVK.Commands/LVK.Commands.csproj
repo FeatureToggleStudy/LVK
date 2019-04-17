@@ -5,14 +5,14 @@
         <Description>LVK command dispatching framework</Description>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+        <PackageReference Include="DryIoc.dll" Version="4.0.3" />
+        <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj"/>
-        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj"/>
-        <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj"/>
-        <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj"/>
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
+        <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
+        <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj" />
     </ItemGroup>
     <ItemGroup>
         <Compile Update="CommandDispatcher.cs">

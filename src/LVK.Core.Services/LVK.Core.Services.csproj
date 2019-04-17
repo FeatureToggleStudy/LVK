@@ -5,11 +5,11 @@
         <Description>LVK Core services</Description>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+        <PackageReference Include="DryIoc.dll" Version="4.0.3" />
+        <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj"/>
+        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
     </ItemGroup>
     <ItemGroup>
         <Compile Update="Bus.cs">

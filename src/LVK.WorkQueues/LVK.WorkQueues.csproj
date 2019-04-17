@@ -5,15 +5,15 @@
         <Description>LVK Work Queues Framework</Description>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+        <PackageReference Include="DryIoc.dll" Version="4.0.3" />
+        <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj"/>
-        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj"/>
-        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj"/>
-        <ProjectReference Include="..\LVK.Json\LVK.Json.csproj"/>
-        <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj"/>
+        <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
+        <ProjectReference Include="..\LVK.Json\LVK.Json.csproj" />
+        <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
     </ItemGroup>
     <ItemGroup>
         <Compile Update="WorkQueue.cs">

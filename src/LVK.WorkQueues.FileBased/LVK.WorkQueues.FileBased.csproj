@@ -5,18 +5,18 @@
         <Description>LVK File Based Work Queues Implementation</Description>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+        <PackageReference Include="DryIoc.dll" Version="4.0.3" />
+        <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj"/>
-        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj"/>
-        <ProjectReference Include="..\LVK.Data.Sqlite\LVK.Data.Sqlite.csproj"/>
-        <ProjectReference Include="..\LVK.Data\LVK.Data.csproj"/>
-        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj"/>
-        <ProjectReference Include="..\LVK.Json\LVK.Json.csproj"/>
-        <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj"/>
-        <ProjectReference Include="..\LVK.Security.Cryptography\LVK.Security.Cryptography.csproj"/>
-        <ProjectReference Include="..\LVK.WorkQueues\LVK.WorkQueues.csproj"/>
+        <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+        <ProjectReference Include="..\LVK.Data.Sqlite\LVK.Data.Sqlite.csproj" />
+        <ProjectReference Include="..\LVK.Data\LVK.Data.csproj" />
+        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
+        <ProjectReference Include="..\LVK.Json\LVK.Json.csproj" />
+        <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
+        <ProjectReference Include="..\LVK.Security.Cryptography\LVK.Security.Cryptography.csproj" />
+        <ProjectReference Include="..\LVK.WorkQueues\LVK.WorkQueues.csproj" />
     </ItemGroup>
 </Project>
