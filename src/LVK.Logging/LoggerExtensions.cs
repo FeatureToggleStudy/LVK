@@ -57,6 +57,18 @@ namespace LVK.Logging
 
         public static void LogError([NotNull] this ILogger logger, [NotNull] Func<string> getMessage) => Log(logger, LogLevel.Error, getMessage);
 
+        public static bool ExceptionLoggerFilter([NotNull] this ILogger logger, [NotNull] Exception ex)
+        {
+            if (logger == null)
+                throw new ArgumentNullException(nameof(logger));
+
+            if (ex == null)
+                throw new ArgumentNullException(nameof(ex));
+
+            LogException(logger, ex);
+            return false;
+        }
+
         public static void LogException([NotNull] this ILogger logger, [NotNull] Exception ex)
         {
             var sb = new StringBuilder();
