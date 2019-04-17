@@ -17,14 +17,14 @@ namespace LVK.WorkQueues.Sqlite
             if (container is null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.Bootstrap<LVK.WorkQueues.ServicesBootstrapper>()
-               .Bootstrap<LVK.Logging.ServicesBootstrapper>()
-               .Bootstrap<LVK.Configuration.ServicesBootstrapper>()
-               .Bootstrap<LVK.Json.ServicesBootstrapper>()
-               .Bootstrap<LVK.Core.Services.ServicesBootstrapper>()
-               .Bootstrap<LVK.Data.Sqlite.ServicesBootstrapper>()
-               .Bootstrap<LVK.Data.ServicesBootstrapper>()
-               .Bootstrap<LVK.Security.Cryptography.ServicesBootstrapper>();
+            container.Bootstrap<WorkQueues.ServicesBootstrapper>()
+               .Bootstrap<Logging.ServicesBootstrapper>()
+               .Bootstrap<Configuration.ServicesBootstrapper>()
+               .Bootstrap<Json.ServicesBootstrapper>()
+               .Bootstrap<Core.Services.ServicesBootstrapper>()
+               .Bootstrap<Data.Sqlite.ServicesBootstrapper>()
+               .Bootstrap<Data.ServicesBootstrapper>()
+               .Bootstrap<Security.Cryptography.ServicesBootstrapper>();
 
             container.RegisterAll<IDatabaseMigration>(GetType().Assembly);
             container.Register<IWorkQueueRepository, SqliteWorkQueueRepository>();

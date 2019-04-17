@@ -5,32 +5,22 @@
         <Description>LVK Windows Service framework</Description>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
-        <PackageReference Include="DryIoc.Microsoft.DependencyInjection" Version="2.1.0"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+        <PackageReference Include="DryIoc.dll" Version="4.0.3" />
+        <PackageReference Include="DryIoc.Microsoft.DependencyInjection" Version="3.0.3" />
+        <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\LVK.AppCore.Console\LVK.AppCore.Console.csproj"/>
-        <ProjectReference Include="..\LVK.AppCore\LVK.AppCore.csproj"/>
-        <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj"/>
-        <ProjectReference Include="..\LVK.Core.Services\LVK.Core.Services.csproj"/>
-        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj"/>
-        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj"/>
-        <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj"/>
+        <ProjectReference Include="..\LVK.AppCore.Console\LVK.AppCore.Console.csproj" />
+        <ProjectReference Include="..\LVK.AppCore\LVK.AppCore.csproj" />
+        <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
+        <ProjectReference Include="..\LVK.Core.Services\LVK.Core.Services.csproj" />
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
+        <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <Reference Include="System.Configuration.Install"/>
-        <Reference Include="System.ServiceProcess"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="InstallerContextProvider.cs">
-            <DependentUpon>IInstallContextProvider.cs</DependentUpon>
-        </Compile>
-        <Compile Update="PersistentInstallState.cs">
-            <DependentUpon>IPersistentInstallState.cs</DependentUpon>
-        </Compile>
-        <Compile Update="WindowsServiceController.cs">
-            <DependentUpon>IWindowsServiceController.cs</DependentUpon>
-        </Compile>
+        <Reference Include="System.Configuration.Install" />
+        <Reference Include="System.ServiceProcess" />
     </ItemGroup>
 </Project>

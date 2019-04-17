@@ -16,7 +16,7 @@ namespace LVK.Storage.Addressable.PathBased
             if (container is null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.Bootstrap<LVK.Configuration.ServicesBootstrapper>();
+            container.Bootstrap<Configuration.ServicesBootstrapper>();
 
             container.Register<IPathAddressableRepositoryFactory, FileBasedPathAddressableRepositoryFactory>();
         }

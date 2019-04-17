@@ -8,7 +8,7 @@ using LVK.Core;
 
 namespace LVK.Configuration.Helpers
 {
-    internal class ConfigurationFilePath
+    internal static class ConfigurationFilePath
     {
         [NotNull, ItemNotNull]
         private static readonly Lazy<string> _AssemblyLocation = new Lazy<string>(GetAssemblyLocation);

@@ -1,29 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>LVK.Storage.Addressable.PathBased</PackageId>
         <Description>LVK Path Based Addressable Storage</Description>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+        <PackageReference Include="DryIoc.dll" Version="4.0.3" />
+        <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj"/>
-        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj"/>
-        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj"/>
-        <ProjectReference Include="..\LVK.Json\LVK.Json.csproj"/>
-        <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="FileBasedPathAddressableRepository.cs">
-            <DependentUpon>IPathAddressableRepository.cs</DependentUpon>
-        </Compile>
-        <Compile Update="FileBasedPathAddressableRepositoryFactory.cs">
-            <DependentUpon>IPathAddressableRepositoryFactory.cs</DependentUpon>
-        </Compile>
-        <Compile Update="PathAddressableRepositoryExtensions.cs">
-            <DependentUpon>IPathAddressableRepository.cs</DependentUpon>
-        </Compile>
+        <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
+        <ProjectReference Include="..\LVK.Json\LVK.Json.csproj" />
+        <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
     </ItemGroup>
 </Project>

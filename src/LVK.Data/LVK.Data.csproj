@@ -1,30 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>LVK.Data</PackageId>
         <Description>LVK Data framework</Description>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Dapper" Version="1.50.5"/>
-        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+        <PackageReference Include="Dapper" Version="1.60.6" />
+        <PackageReference Include="DryIoc.dll" Version="4.0.3" />
+        <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj"/>
-        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj"/>
-        <ProjectReference Include="..\LVK.Data.Protection\LVK.Data.Protection.csproj"/>
-        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj"/>
-        <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="DatabaseConnectionFactory.cs">
-            <DependentUpon>IDatabaseConnectionFactory.cs</DependentUpon>
-        </Compile>
-        <Compile Update="DatabaseConnectionFactoryExtensions.cs">
-            <DependentUpon>IDatabaseConnectionFactory.cs</DependentUpon>
-        </Compile>
-        <Compile Update="DatabaseMigrator.cs">
-            <DependentUpon>IDatabaseMigrator.cs</DependentUpon>
-        </Compile>
+        <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+        <ProjectReference Include="..\LVK.Data.Protection\LVK.Data.Protection.csproj" />
+        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
+        <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
     </ItemGroup>
 </Project>

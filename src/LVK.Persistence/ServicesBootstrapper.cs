@@ -11,8 +11,8 @@ namespace LVK.Persistence
     {
         public void Bootstrap(IContainer container)
         {
-            container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Reflection.ServicesBootstrapper>();
+            container.Bootstrap<Logging.ServicesBootstrapper>();
+            container.Bootstrap<Reflection.ServicesBootstrapper>();
             
             container.Register(typeof(IPersistentData<>), typeof(PersistentData<>));
         }

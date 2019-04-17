@@ -19,11 +19,11 @@ namespace LVK.AppCore
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
-            container.Bootstrap<LVK.Configuration.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Reflection.ServicesBootstrapper>();
+            container.Bootstrap<Configuration.ServicesBootstrapper>();
+            container.Bootstrap<Logging.ServicesBootstrapper>();
+            container.Bootstrap<Reflection.ServicesBootstrapper>();
             container.Bootstrap<LVK.Commands.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Core.Services.ServicesBootstrapper>();
+            container.Bootstrap<Core.Services.ServicesBootstrapper>();
 
             container.Register<IBackgroundServicesManager, BackgroundServicesManager>(Reuse.Singleton);
             container.Register<ICommandHandler<StopApplicationCommand>, StopApplicationCommandHandler>();

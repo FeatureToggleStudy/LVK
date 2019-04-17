@@ -17,8 +17,8 @@ namespace LVK.Net.Http.Server
                 throw new ArgumentNullException(nameof(container));
 
             container.Bootstrap<LVK.Configuration.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Core.Services.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
+            container.Bootstrap<Core.Services.ServicesBootstrapper>();
+            container.Bootstrap<Logging.ServicesBootstrapper>();
 
             container.Register<IWebServer, WebServer>(Reuse.Singleton);
         }

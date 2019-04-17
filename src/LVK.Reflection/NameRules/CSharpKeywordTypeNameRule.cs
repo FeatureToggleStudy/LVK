@@ -22,7 +22,7 @@ namespace LVK.Reflection.NameRules
             [typeof(string)] = "string",
             [typeof(double)] = "double",
             [typeof(float)] = "float",
-            [typeof(bool)] = "bool",
+            [typeof(bool)] = "bool"
         };
         
         public int Priority => 1;

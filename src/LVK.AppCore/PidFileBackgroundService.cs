@@ -35,7 +35,7 @@ namespace LVK.AppCore
 
                     await cancellationToken.AsTask();
 
-                    _Logger.LogVerbose($"application terminating, deleting .pid file");
+                    _Logger.LogVerbose("application terminating, deleting .pid file");
                 }
             }
         }

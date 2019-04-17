@@ -12,8 +12,8 @@ namespace LVK.Processes
     {
         public void Bootstrap(IContainer container)
         {
-            container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Configuration.ServicesBootstrapper>();
+            container.Bootstrap<Logging.ServicesBootstrapper>();
+            container.Bootstrap<Configuration.ServicesBootstrapper>();
             
             container.Register<IConsoleProcessFactory, ConsoleProcessFactory>();
             container.Register<IConsoleProcessMonitor, LoggingConsoleProcessMonitor>();

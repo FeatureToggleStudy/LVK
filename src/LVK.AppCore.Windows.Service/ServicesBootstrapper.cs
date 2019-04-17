@@ -14,9 +14,9 @@ namespace LVK.AppCore.Windows.Service
         {
             container.Bootstrap<T>();
             container.Bootstrap<ServicesBootstrapper>();
-            container.Bootstrap<LVK.AppCore.Console.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Core.Services.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
+            container.Bootstrap<Console.ServicesBootstrapper>();
+            container.Bootstrap<Core.Services.ServicesBootstrapper>();
+            container.Bootstrap<Logging.ServicesBootstrapper>();
 
             container.Register<IApplicationCommand, InstallWindowsServiceCommand>();
             container.Register<IApplicationCommand, UninstallWindowsServiceCommand>();

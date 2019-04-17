@@ -9,7 +9,6 @@ using DryIoc;
 using JetBrains.Annotations;
 
 using LVK.Configuration;
-using LVK.Core;
 using LVK.Core.Services;
 using LVK.Net.Http.Server.Configuration;
 
@@ -17,9 +16,9 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
-
 using static LVK.Core.JetBrainsHelpers;
+
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace LVK.Net.Http.Server
 {

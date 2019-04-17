@@ -1,32 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>LVK.Data.Protection</PackageId>
         <Description>LVK Data Protection framework</Description>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="DryIoc.dll" Version="3.0.2"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1"/>
+        <PackageReference Include="DryIoc.dll" Version="4.0.3" />
+        <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj"/>
-        <ProjectReference Include="..\LVK.Core.Services\LVK.Core.Services.csproj"/>
-        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj"/>
-        <ProjectReference Include="..\LVK.Data.Caching\LVK.Data.Caching.csproj"/>
-        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="DataEncryption.cs">
-            <DependentUpon>IDataEncryption.cs</DependentUpon>
-        </Compile>
-        <Compile Update="DataProtection.cs">
-            <DependentUpon>IDataProtection.cs</DependentUpon>
-        </Compile>
-        <Compile Update="ConfigurationDataProtectionPasswordProvider.cs">
-            <DependentUpon>IDataProtectionPasswordProvider.cs</DependentUpon>
-        </Compile>
-        <Compile Update="EnvironmentVariableDataProtectionPasswordProvider.cs">
-            <DependentUpon>IDataProtectionPasswordProvider.cs</DependentUpon>
-        </Compile>
+        <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
+        <ProjectReference Include="..\LVK.Core.Services\LVK.Core.Services.csproj" />
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+        <ProjectReference Include="..\LVK.Data.Caching\LVK.Data.Caching.csproj" />
+        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
     </ItemGroup>
 </Project>

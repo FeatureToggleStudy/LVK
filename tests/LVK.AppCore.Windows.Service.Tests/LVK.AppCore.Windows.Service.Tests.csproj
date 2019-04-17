@@ -4,10 +4,10 @@
         <IsTestProject>false</IsTestProject>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="DryIoc.dll" Version="3.0.2" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+        <PackageReference Include="DryIoc.dll" Version="4.0.3" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
         <PackageReference Include="NUnit" Version="3.11.0" />
-        <PackageReference Include="NUnit3TestAdapter" Version="3.11.2" />
+        <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\src\LVK.AppCore.Windows.Service\LVK.AppCore.Windows.Service.csproj" />

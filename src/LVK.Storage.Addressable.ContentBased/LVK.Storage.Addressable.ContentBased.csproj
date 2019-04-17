@@ -1,13 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>LVK.Storage.Addressable.ContentBased</PackageId>
         <Description>LVK Content Based Addressable Storage implementation</Description>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="DryIoc.dll" Version="3.0.2" />
-        <PackageReference Include="Humanizer.Core" Version="2.5.16" />
-        <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
+        <PackageReference Include="DryIoc.dll" Version="4.0.3" />
+        <PackageReference Include="Humanizer.Core" Version="2.6.2" />
+        <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     </ItemGroup>
     <ItemGroup>
@@ -17,13 +17,5 @@
         <ProjectReference Include="..\LVK.Json\LVK.Json.csproj" />
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
         <ProjectReference Include="..\LVK.Security.Cryptography\LVK.Security.Cryptography.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="ContentAddressableFileKeyStore.cs">
-            <DependentUpon>IContentAddressableKeyStore.cs</DependentUpon>
-        </Compile>
-        <Compile Update="ContentAddressableFileObjectStore.cs">
-            <DependentUpon>IContentAddressableObjectStore.cs</DependentUpon>
-        </Compile>
     </ItemGroup>
 </Project>

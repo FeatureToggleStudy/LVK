@@ -46,7 +46,7 @@ namespace LVK.DataStructures.Tests
         {
             var sorter = new TopologicalSorter();
 
-            var dependencies = new[] { (before: 1, after: 2), (before: 2, after: 3), (before: 3, after: 1), };
+            var dependencies = new[] { (before: 1, after: 2), (before: 2, after: 3), (before: 3, after: 1) };
 
             Assert.Throws<CyclicDependenciesException>(() => sorter.Sort(dependencies).ToList());
         }
