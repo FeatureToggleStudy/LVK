@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>LVK.Commands</PackageId>
@@ -13,10 +13,5 @@
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
         <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="CommandDispatcher.cs">
-            <DependentUpon>ICommandDispatcher.cs</DependentUpon>
-        </Compile>
     </ItemGroup>
 </Project>

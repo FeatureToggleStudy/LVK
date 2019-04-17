@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>LVK.Reflection</PackageId>
@@ -11,13 +11,5 @@
     <ItemGroup>
         <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="TypeHelper.cs">
-            <DependentUpon>ITypeHelper.cs</DependentUpon>
-        </Compile>
-        <Compile Update="TypeHelperExtensions.cs">
-            <DependentUpon>ITypeHelper.cs</DependentUpon>
-        </Compile>
     </ItemGroup>
 </Project>

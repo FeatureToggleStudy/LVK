@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>LVK.Storage.Addressable.PathBased</PackageId>
@@ -14,16 +14,5 @@
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
         <ProjectReference Include="..\LVK.Json\LVK.Json.csproj" />
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="FileBasedPathAddressableRepository.cs">
-            <DependentUpon>IPathAddressableRepository.cs</DependentUpon>
-        </Compile>
-        <Compile Update="FileBasedPathAddressableRepositoryFactory.cs">
-            <DependentUpon>IPathAddressableRepositoryFactory.cs</DependentUpon>
-        </Compile>
-        <Compile Update="PathAddressableRepositoryExtensions.cs">
-            <DependentUpon>IPathAddressableRepository.cs</DependentUpon>
-        </Compile>
     </ItemGroup>
 </Project>

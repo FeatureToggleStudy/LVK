@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>LVK.Net.Smtp</PackageId>
@@ -15,31 +15,5 @@
         <ProjectReference Include="..\LVK.Data.Protection\LVK.Data.Protection.csproj" />
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="SmtpClientConfigurationProvider.cs">
-            <DependentUpon>ISmtpClientConfigurationProvider.cs</DependentUpon>
-        </Compile>
-        <Compile Update="SmtpClientProvider.cs">
-            <DependentUpon>ISmtpClientProvider.cs</DependentUpon>
-        </Compile>
-        <Compile Update="SmtpClient.cs">
-            <DependentUpon>ISmtpClient.cs</DependentUpon>
-        </Compile>
-        <Compile Update="SmtpEmailMessageBuilder.cs">
-            <DependentUpon>ISmtpEmailMessageBuilder.cs</DependentUpon>
-        </Compile>
-        <Compile Update="SmtpEmailMessage.cs">
-            <DependentUpon>ISmtpEmailMessage.cs</DependentUpon>
-        </Compile>
-        <Compile Update="SmtpClientConfiguration.cs">
-            <DependentUpon>ISmtpClient.cs</DependentUpon>
-        </Compile>
-        <Compile Update="SmtpClientServerConfiguration.cs">
-            <DependentUpon>SmtpClientConfiguration.cs</DependentUpon>
-        </Compile>
-        <Compile Update="SmtpClientAuthenticationConfiguration.cs">
-            <DependentUpon>SmtpClientConfiguration.cs</DependentUpon>
-        </Compile>
     </ItemGroup>
 </Project>

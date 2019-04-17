@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>LVK.Processes</PackageId>
@@ -12,16 +12,5 @@
         <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="ConsoleProcess.cs">
-            <DependentUpon>IConsoleProcess.cs</DependentUpon>
-        </Compile>
-        <Compile Update="ConsoleProcessFactory.cs">
-            <DependentUpon>IConsoleProcessFactory.cs</DependentUpon>
-        </Compile>
-        <Compile Update="ConsoleProcessFactoryExtensions.cs">
-            <DependentUpon>IConsoleProcessFactory.cs</DependentUpon>
-        </Compile>
     </ItemGroup>
 </Project>

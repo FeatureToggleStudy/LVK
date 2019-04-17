@@ -17,12 +17,4 @@
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
         <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj" />
     </ItemGroup>
-    <ItemGroup>
-        <Compile Update="BackgroundServicesManager.cs">
-            <DependentUpon>IBackgroundServicesManager.cs</DependentUpon>
-        </Compile>
-        <Compile Update="BackgroundServicesManagerExtensions.cs">
-            <DependentUpon>IBackgroundServicesManager.cs</DependentUpon>
-        </Compile>
-    </ItemGroup>
 </Project>

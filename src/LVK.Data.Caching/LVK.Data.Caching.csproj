@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>LVK.Data.Caching</PackageId>
@@ -12,10 +12,5 @@
         <ProjectReference Include="..\LVK.Core.Services\LVK.Core.Services.csproj" />
         <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="WeakCache.cs">
-            <DependentUpon>IWeakCache.cs</DependentUpon>
-        </Compile>
     </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>LVK.Notifications</PackageId>
@@ -14,10 +14,5 @@
         <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
         <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="NotificationDispatcher.cs">
-            <DependentUpon>INotificationDispatcher.cs</DependentUpon>
-        </Compile>
     </ItemGroup>
 </Project>

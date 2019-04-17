@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>LVK.Mvvm</PackageId>
@@ -13,22 +13,5 @@
         <ProjectReference Include="..\LVK.Core.Services\LVK.Core.Services.csproj" />
         <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="MvvmContext.cs">
-            <DependentUpon>IMvvmContext.cs</DependentUpon>
-        </Compile>
-        <Compile Update="DataScopeInternal.cs">
-            <DependentUpon>IDataScopeInternal.cs</DependentUpon>
-        </Compile>
-        <Compile Update="Scopes\PropertyReadScope.cs">
-            <DependentUpon>IPropertyReadScope.cs</DependentUpon>
-        </Compile>
-        <Compile Update="Commands\Command.cs">
-            <DependentUpon>ICommand.cs</DependentUpon>
-        </Compile>
-        <Compile Update="Properties\Signals\Signal.cs">
-            <DependentUpon>ISignal.cs</DependentUpon>
-        </Compile>
     </ItemGroup>
 </Project>

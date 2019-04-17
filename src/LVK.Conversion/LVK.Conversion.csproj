@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>LVK.Conversion</PackageId>
@@ -13,10 +13,5 @@
         <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
         <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="ValueConverter.cs">
-            <DependentUpon>IValueConverter.cs</DependentUpon>
-        </Compile>
     </ItemGroup>
 </Project>

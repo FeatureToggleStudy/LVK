@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>LVK.Storage.Addressable.ContentBased</PackageId>
@@ -17,13 +17,5 @@
         <ProjectReference Include="..\LVK.Json\LVK.Json.csproj" />
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
         <ProjectReference Include="..\LVK.Security.Cryptography\LVK.Security.Cryptography.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="ContentAddressableFileKeyStore.cs">
-            <DependentUpon>IContentAddressableKeyStore.cs</DependentUpon>
-        </Compile>
-        <Compile Update="ContentAddressableFileObjectStore.cs">
-            <DependentUpon>IContentAddressableObjectStore.cs</DependentUpon>
-        </Compile>
     </ItemGroup>
 </Project>

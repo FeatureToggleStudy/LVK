@@ -14,9 +14,4 @@
         <ProjectReference Include="..\LVK.Data\LVK.Data.csproj" />
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
     </ItemGroup>
-    <ItemGroup>
-      <Compile Update="SQLitePclInitializer.cs">
-        <DependentUpon>ISQLitePCLInitializer.cs</DependentUpon>
-      </Compile>
-    </ItemGroup>
 </Project>

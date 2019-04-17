@@ -11,21 +11,4 @@
     <ItemGroup>
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
     </ItemGroup>
-    <ItemGroup>
-        <Compile Update="Bus.cs">
-            <DependentUpon>IBus.cs</DependentUpon>
-        </Compile>
-        <Compile Update="BusExtensions.cs">
-            <DependentUpon>IBus.cs</DependentUpon>
-        </Compile>
-        <Compile Update="ApplicationLifetimeManager.cs">
-            <DependentUpon>IApplicationLifetimeManager.cs</DependentUpon>
-        </Compile>
-        <Compile Update="DataEncoder.cs">
-            <DependentUpon>IDataEncoder.cs</DependentUpon>
-        </Compile>
-        <Compile Update="ApplicationContext.cs">
-            <DependentUpon>IApplicationContext.cs</DependentUpon>
-        </Compile>
-    </ItemGroup>
 </Project>
