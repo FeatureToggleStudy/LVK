@@ -29,6 +29,7 @@ namespace LVK.Logging
 
             container.Register<ILoggerDestination, ConsoleLoggerDestination>();
             container.Register<ILoggerDestination, FileLoggerDestination>();
+            container.Register<ILoggerDestination, DebugOutputLoggerDestination>();
         }
     }
 }
