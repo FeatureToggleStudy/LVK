@@ -28,8 +28,7 @@ namespace LVK.Processes
 
             Encoding standardOutputEncoding = Encoding.GetEncoding(850);
 
-            _Process = new Process();
-            _Process.StartInfo = processStartInfo;
+            _Process = new Process { StartInfo = processStartInfo };
             _Process.StartInfo.UseShellExecute = false;
             _Process.StartInfo.RedirectStandardError = true;
             _Process.StartInfo.StandardErrorEncoding = standardOutputEncoding;

@@ -32,7 +32,7 @@ namespace LVK.DryIoc
         [NotNull]
         private static IContainer Bootstrap([NotNull, ItemNotNull] params Type[] servicesBootstrapperTypes)
         {
-            IContainer container = new Container(rules => rules?.WithTrackingDisposableTransients());
+            IContainer container = new Container(rules => rules?.WithTrackingDisposableTransients().WithAutoConcreteTypeResolution());
             foreach (var servicesBootstrapperType in servicesBootstrapperTypes)
                 container = container.Bootstrap(servicesBootstrapperType);
 
