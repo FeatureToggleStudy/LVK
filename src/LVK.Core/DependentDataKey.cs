@@ -18,7 +18,7 @@ namespace LVK.Core
         [NotNull]
         public string Name { get; }
 
-        public bool Equals(DependentDataKey other) => Type.Equals(other.Type) && string.Equals(Name, other.Name);
+        public bool Equals(DependentDataKey other) => Type == other.Type && string.Equals(Name, other.Name);
 
         public override bool Equals(object obj)
         {

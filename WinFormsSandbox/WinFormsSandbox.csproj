@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <ApplicationIcon />
+        <OutputType>WinExe</OutputType>
+        <StartupObject />
+    </PropertyGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\src\LVK.AppCore.Windows.Forms\LVK.AppCore.Windows.Forms.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="System.Windows.Forms" />
+    </ItemGroup>
+</Project>

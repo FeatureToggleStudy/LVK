@@ -11,10 +11,7 @@ namespace LVK.Processes.Events
         protected ConsoleProcessOutputEvent(TimeSpan relativeTimestamp, DateTime timestamp, [NotNull] string line)
             : base(relativeTimestamp, timestamp)
         {
-            if (line == null)
-                throw new ArgumentNullException(nameof(line));
-
-            Line = line;
+            Line = line ?? throw new ArgumentNullException(nameof(line));
         }
 
         [PublicAPI, NotNull]
