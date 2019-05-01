@@ -1,4 +1,6 @@
-﻿using DryIoc;
+﻿using System.Windows.Forms;
+
+using DryIoc;
 
 using LVK.AppCore;
 using LVK.AppCore.Windows.Forms;
@@ -12,7 +14,7 @@ namespace WinFormsSandbox
         {
             container.Bootstrap<LVK.Logging.ServicesBootstrapper>();
 
-            container.Register<IApplicationEntryPoint, WinFormsApplicationEntryPoint<MainForm>>();
+            container.Register<Form, MainForm>(serviceKey: "MainForm");
         }
     }
 }
