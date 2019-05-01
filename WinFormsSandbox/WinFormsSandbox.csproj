@@ -4,6 +4,7 @@
         <ApplicationIcon />
         <OutputType>WinExe</OutputType>
         <StartupObject />
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <ItemGroup>
       <ProjectReference Include="..\src\LVK.AppCore.Windows.Forms\LVK.AppCore.Windows.Forms.csproj" />
