@@ -8,6 +8,6 @@ namespace WinFormsSandbox
     static class Program
     {
         [STAThread]
-        static Task<int> Main() => WinFormsAppBootstrapper.RunWinFormsMainWindowAsync<ServicesBootstrapper>(true);
+        static int Main() => WinFormsAppBootstrapper.RunWinFormsMainWindow<ServicesBootstrapper>(true);
     }
 }

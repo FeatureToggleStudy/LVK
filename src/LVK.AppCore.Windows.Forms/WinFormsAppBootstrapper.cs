@@ -16,7 +16,7 @@ namespace LVK.AppCore.Windows.Forms
     [PublicAPI]
     public static class WinFormsAppBootstrapper
     {
-        public static async Task<int> RunWinFormsMainWindowAsync<T>(bool useBackgroundServices)
+        public static int RunWinFormsMainWindow<T>(bool useBackgroundServices)
             where T: class, IServicesBootstrapper
         {
             var container = ContainerFactory.Bootstrap<ServicesBootstrapper<T>>();
@@ -33,8 +33,7 @@ namespace LVK.AppCore.Windows.Forms
                 Application.SetCompatibleTextRenderingDefault(false);
 
                 var entryPoint = container.Resolve<IApplicationEntryPoint>().NotNull();
-                await entryPoint.Execute(applicationLifetimeManager.GracefulTerminationCancellationToken);
-                return 0;
+                return entryPoint.Execute(applicationLifetimeManager.GracefulTerminationCancellationToken).GetAwaiter().GetResult();
             }
             catch (Exception) when (!Debugger.IsAttached)
             {
@@ -46,7 +45,7 @@ namespace LVK.AppCore.Windows.Forms
                 applicationLifetimeManager.SignalGracefulTermination();
 
                 if (useBackgroundServices)
-                    await backgroundServicesManager.WaitForBackgroundServicesToStop();
+                    backgroundServicesManager.WaitForBackgroundServicesToStop().GetAwaiter().GetResult();
             }
         }
     }
