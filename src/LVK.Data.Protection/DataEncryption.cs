@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 
 using JetBrains.Annotations;
 
@@ -52,8 +53,8 @@ namespace LVK.Data.Protection
                 using (var sourceStream = new MemoryStream(protectedData))
                 {
                     var saltLength = _DataEncoder.ReadInt32(sourceStream);
-                    if (saltLength > 1024)
-                        throw new InvalidOperationException("Invalid salt length");
+                    if (saltLength < 8 || saltLength > 1024)
+                        throw new InvalidOperationException($"Invalid salt length, must be in the range 8..1024, but was {saltLength}");
 
                     var salt = new byte[saltLength];
                     sourceStream.Read(salt, 0, salt.Length);
@@ -67,6 +68,10 @@ namespace LVK.Data.Protection
                         return targetStream.ToArray();
                     }
                 }
+            }
+            catch (ArgumentException ex)
+            {
+                throw new DataProtectionException($"Unable to unprotect data: {ex.Message}", ex);
             }
             catch (OverflowException ex)
             {
