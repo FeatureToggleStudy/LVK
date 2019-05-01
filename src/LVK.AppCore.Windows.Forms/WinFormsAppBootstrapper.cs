@@ -16,7 +16,7 @@ namespace LVK.AppCore.Windows.Forms
     [PublicAPI]
     public static class WinFormsAppBootstrapper
     {
-        public static int RunWinFormsMainWindow<T>(bool useBackgroundServices)
+        public static void RunWinFormsMainWindow<T>(bool useBackgroundServices)
             where T: class, IServicesBootstrapper
         {
             var container = ContainerFactory.Bootstrap<ServicesBootstrapper<T>>();
@@ -32,8 +32,30 @@ namespace LVK.AppCore.Windows.Forms
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
-                var entryPoint = container.Resolve<IApplicationEntryPoint>().NotNull();
-                return entryPoint.Execute(applicationLifetimeManager.GracefulTerminationCancellationToken).GetAwaiter().GetResult();
+                Form mainForm = container.Resolve<Form>(serviceKey: "MainForm");
+
+                bool closingHasBeenHandled = true;
+                applicationLifetimeManager.GracefulTerminationCancellationToken.Register(
+                    () =>
+                    {
+                        if (closingHasBeenHandled)
+                            return;
+
+                        closingHasBeenHandled = true;
+                        var close = new Action(() => mainForm.Close());
+                        if (mainForm.InvokeRequired)
+                            mainForm.BeginInvoke(close);
+                        else
+                            close();
+                    });
+
+                mainForm.FormClosed += (s, e) =>
+                {
+                    closingHasBeenHandled = true;
+                    applicationLifetimeManager.SignalGracefulTermination();
+                };
+
+                Application.Run(mainForm);
             }
             catch (Exception) when (!Debugger.IsAttached)
             {
@@ -42,8 +64,6 @@ namespace LVK.AppCore.Windows.Forms
             }
             finally
             {
-                applicationLifetimeManager.SignalGracefulTermination();
-
                 if (useBackgroundServices)
                     backgroundServicesManager.WaitForBackgroundServicesToStop().GetAwaiter().GetResult();
             }
