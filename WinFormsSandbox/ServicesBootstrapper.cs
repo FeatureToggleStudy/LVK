@@ -2,8 +2,6 @@
 
 using DryIoc;
 
-using LVK.AppCore;
-using LVK.AppCore.Windows.Forms;
 using LVK.DryIoc;
 
 namespace WinFormsSandbox
