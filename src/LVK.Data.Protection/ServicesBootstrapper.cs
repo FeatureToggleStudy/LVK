@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 
 using LVK.Configuration;
 using LVK.DryIoc;
+using LVK.Json;
 
 namespace LVK.Data.Protection
 {
@@ -26,6 +27,8 @@ namespace LVK.Data.Protection
             container.Register<IDataProtectionPasswordProvider, EnvironmentVariableDataProtectionPasswordProvider>();
             container.Register<IDataProtectionPasswordProvider, ConfigurationDataProtectionPasswordProvider>();
             container.Register<IConfigurationDecoder, EncryptedStringConfigurationDecoder>();
+
+            container.Register<IJsonStringDecoder, DataProtectionJsonStringDecoder>();
         }
     }
 }

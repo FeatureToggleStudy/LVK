@@ -2,9 +2,10 @@ using JetBrains.Annotations;
 
 using Newtonsoft.Json;
 
-namespace LVK.Configuration
+namespace LVK.Json
 {
-    internal interface IJsonSerializerFactory
+    [PublicAPI]
+    public interface IJsonSerializerFactory
     {
         [NotNull]
         JsonSerializer Create();
