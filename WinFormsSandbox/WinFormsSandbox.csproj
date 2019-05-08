@@ -8,8 +8,15 @@
     </PropertyGroup>
     <ItemGroup>
       <ProjectReference Include="..\src\LVK.AppCore.Windows.Forms\LVK.AppCore.Windows.Forms.csproj" />
+      <ProjectReference Include="..\src\LVK.Data.Protection\LVK.Data.Protection.csproj" />
     </ItemGroup>
     <ItemGroup>
         <Reference Include="System.Windows.Forms" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="appsettings.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 </Project>
