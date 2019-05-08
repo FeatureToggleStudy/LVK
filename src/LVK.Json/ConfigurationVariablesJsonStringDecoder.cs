@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -8,9 +7,9 @@ using JetBrains.Annotations;
 using LVK.Core;
 using LVK.Core.Services;
 
-namespace LVK.Configuration
+namespace LVK.Json
 {
-    internal class VariableConfigurationDecoder : IConfigurationDecoder
+    internal class ConfigurationVariablesJsonStringDecoder : IJsonStringDecoder
     {
         [NotNull]
         private readonly Regex _Pattern;
@@ -18,22 +17,14 @@ namespace LVK.Configuration
         [NotNull, ItemNotNull]
         private ILookup<string, IConfigurationVariables> _ConfigurationVariablesByKey;
 
-        public VariableConfigurationDecoder([NotNull, ItemNotNull] IEnumerable<IConfigurationVariables> configurationVariables)
+        public ConfigurationVariablesJsonStringDecoder([NotNull, ItemNotNull] IEnumerable<IConfigurationVariables> configurationVariables)
         {
             _ConfigurationVariablesByKey = configurationVariables.ToLookup(cv => cv.Prefix);
             var prefixes = string.Join("|", _ConfigurationVariablesByKey.Select(cv => cv.NotNull().Key));
             _Pattern = new Regex($@"\$\{{(?<key>(?<prefix>{prefixes})\.[^}}]+)\}}");
         }
 
-        public Type SupportedType => typeof(string);
-
-        public object Decode(object value)
-        {
-            if (!(value is string input))
-                return value;
-
-            return _Pattern.Replace(input, ReplaceVariable);
-        }
+        public string Decode(string value) => _Pattern.Replace(value, ReplaceVariable);
 
         private string ReplaceVariable([NotNull] Match match)
         {

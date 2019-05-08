@@ -17,6 +17,12 @@ namespace LVK.Configuration
         [NotNull]
         private readonly JsonSerializer _Serializer;
 
+        [CanBeNull]
+        private JToken _LastElement;
+
+        [CanBeNull]
+        private T _LastValue;
+
         public ConfigurationElement([NotNull] Func<JToken> getElement, [NotNull] JsonSerializer serializer)
         {
             _GetElement = getElement ?? throw new ArgumentNullException(nameof(getElement));
@@ -28,7 +34,10 @@ namespace LVK.Configuration
             JToken element = _GetElement();
             if (element == null)
                 return default;
-                
+
+            if (ReferenceEquals(element, _LastElement))
+                return _LastValue;
+            
             T result;
             if (element is JObject obj)
             {
@@ -47,6 +56,9 @@ namespace LVK.Configuration
             }
             else
                 result = element.ToObject<T>(_Serializer);
+
+            _LastElement = element;
+            _LastValue = result;
 
             assume(result != null);
             return result;

@@ -9,10 +9,10 @@ using NUnit.Framework;
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable AssignNullToNotNullAttribute
 
-namespace LVK.Configuration.Tests
+namespace LVK.Json.Tests
 {
     [TestFixture]
-    public class VariableConfigurationDecoderTests
+    public class ConfigurationVariablesJsonStringDecoderTests
     {
         [Test]
         [TestCase("this is a test")]
@@ -20,7 +20,7 @@ namespace LVK.Configuration.Tests
         [TestCase("This is a test with an invalid key ${test}")]
         public void Decode_StringWithoutVariables_ReturnsStringUnmodified(string input)
         {
-            var vcd = new VariableConfigurationDecoder(Enumerable.Empty<IConfigurationVariables>());
+            var vcd = new ConfigurationVariablesJsonStringDecoder(Enumerable.Empty<IConfigurationVariables>());
 
             var output = vcd.Decode(input);
 
@@ -37,7 +37,7 @@ namespace LVK.Configuration.Tests
             cv1.Prefix.Returns("sys");
             cv1.TryGetValue("sys.Variable1").Returns((true, "Value1"));
             cv1.TryGetValue("sys.Variable2").Returns((true, "Value2"));
-            var vcd = new VariableConfigurationDecoder(new[] { cv1 });
+            var vcd = new ConfigurationVariablesJsonStringDecoder(new[] { cv1 });
 
             var output = vcd.Decode(input);
 

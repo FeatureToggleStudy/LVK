@@ -14,7 +14,6 @@ namespace ConsoleSandbox
             container.Bootstrap<LVK.Data.Protection.ServicesBootstrapper>();
             container.Bootstrap<LVK.Notifications.Email.ServicesBootstrapper>();
             container.Bootstrap<LVK.Notifications.PushBullet.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Mvvm.ServicesBootstrapper>();
             container.Bootstrap<LVK.Net.Http.Server.ServicesBootstrapper>();
 
             container.Register<IBackgroundService, WebServerBackgroundService>();
