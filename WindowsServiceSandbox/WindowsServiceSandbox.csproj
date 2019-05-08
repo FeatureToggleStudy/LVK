@@ -23,7 +23,6 @@
         <ProjectReference Include="..\src\LVK.DryIoc\LVK.DryIoc.csproj" />
         <ProjectReference Include="..\src\LVK.Json\LVK.Json.csproj" />
         <ProjectReference Include="..\src\LVK.Logging\LVK.Logging.csproj" />
-        <ProjectReference Include="..\src\LVK.Mvvm\LVK.Mvvm.csproj" />
         <ProjectReference Include="..\src\LVK.Net.Http.Server\LVK.Net.Http.Server.csproj" />
         <ProjectReference Include="..\src\LVK.Net.Smtp\LVK.Net.Smtp.csproj" />
         <ProjectReference Include="..\src\LVK.Notifications.Email\LVK.Notifications.Email.csproj" />
