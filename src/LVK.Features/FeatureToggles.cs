@@ -21,7 +21,10 @@ namespace LVK.Features
 
         public IFeatureToggle GetByKey(string key)
         {
-            return new FeatureToggle(_Providers, key);
+            if (_Providers.Count == 1)
+                return new SingleFeatureToggle(_Providers[0], key);
+
+            return new MultiFeatureToggle(_Providers, key);
         }
     }
 }

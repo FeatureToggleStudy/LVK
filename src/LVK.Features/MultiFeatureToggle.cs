@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 
 namespace LVK.Features
 {
-    internal class FeatureToggle : IFeatureToggle
+    internal class MultiFeatureToggle : IFeatureToggle
     {
         [NotNull]
         private readonly List<IFeatureTogglesProvider> _Providers;
@@ -13,7 +13,7 @@ namespace LVK.Features
         [NotNull]
         private readonly string _Key;
 
-        public FeatureToggle([NotNull] List<IFeatureTogglesProvider> providers, [NotNull] string key)
+        public MultiFeatureToggle([NotNull] List<IFeatureTogglesProvider> providers, [NotNull] string key)
         {
             _Providers = providers;
             _Key = key;
