@@ -24,6 +24,7 @@ namespace LVK.AppCore
             container.Bootstrap<Reflection.ServicesBootstrapper>();
             container.Bootstrap<LVK.Commands.ServicesBootstrapper>();
             container.Bootstrap<Core.Services.ServicesBootstrapper>();
+            container.Bootstrap<Features.ServicesBootstrapper>();
 
             container.Register<IBackgroundServicesManager, BackgroundServicesManager>(Reuse.Singleton);
             container.Register<ICommandHandler<StopApplicationCommand>, StopApplicationCommandHandler>();

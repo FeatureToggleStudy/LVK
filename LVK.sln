@@ -190,6 +190,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.AppCore.Windows.Forms.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Syncfusion", "LVK.Syncfusion\LVK.Syncfusion.csproj", "{8DD74AA4-0B94-4925-9263-8032C7620692}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Features", "src\LVK.Features\LVK.Features.csproj", "{818B4C3A-B29B-45E7-BD6A-97249CAE5F1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -524,6 +526,10 @@ Global
 		{8DD74AA4-0B94-4925-9263-8032C7620692}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DD74AA4-0B94-4925-9263-8032C7620692}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DD74AA4-0B94-4925-9263-8032C7620692}.Release|Any CPU.Build.0 = Release|Any CPU
+		{818B4C3A-B29B-45E7-BD6A-97249CAE5F1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{818B4C3A-B29B-45E7-BD6A-97249CAE5F1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{818B4C3A-B29B-45E7-BD6A-97249CAE5F1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{818B4C3A-B29B-45E7-BD6A-97249CAE5F1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -607,6 +613,7 @@ Global
 		{E85F4B41-0682-44F4-866F-9D122D89CB0D} = {0BE3EA12-B77B-40AE-99D1-7EBB9A158E5C}
 		{A6B0B765-284C-4A96-92FA-B77557C2922F} = {BEE78C2B-1920-4AF3-B6AA-8FB81299663A}
 		{8DD74AA4-0B94-4925-9263-8032C7620692} = {0BE3EA12-B77B-40AE-99D1-7EBB9A158E5C}
+		{818B4C3A-B29B-45E7-BD6A-97249CAE5F1A} = {0BE3EA12-B77B-40AE-99D1-7EBB9A158E5C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C44BDD37-D901-4F19-A6E6-8DB64AF3B71A}
