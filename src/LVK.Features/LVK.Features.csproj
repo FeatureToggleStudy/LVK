@@ -2,6 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>LVK.Features</PackageId>
+        <Description>LVK Feature toggles classes and extensions</Description>
     </PropertyGroup>
 
     <ItemGroup>
