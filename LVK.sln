@@ -188,9 +188,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.AppCore.Windows.Forms",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LVK.AppCore.Windows.Forms.Tests", "tests\LVK.AppCore.Windows.Forms.Tests\LVK.AppCore.Windows.Forms.Tests.csproj", "{A6B0B765-284C-4A96-92FA-B77557C2922F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Syncfusion", "LVK.Syncfusion\LVK.Syncfusion.csproj", "{8DD74AA4-0B94-4925-9263-8032C7620692}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Syncfusion", "src\LVK.Syncfusion\LVK.Syncfusion.csproj", "{8DD74AA4-0B94-4925-9263-8032C7620692}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Features", "src\LVK.Features\LVK.Features.csproj", "{818B4C3A-B29B-45E7-BD6A-97249CAE5F1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Features.Tests", "tests\LVK.Features.Tests\LVK.Features.Tests.csproj", "{21049198-DF79-4A42-824C-37267BDB29DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Syncfusion.Tests", "tests\LVK.Syncfusion.Tests\LVK.Syncfusion.Tests.csproj", "{F5EAC5F0-D45F-418A-87AE-162CC452873B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -530,6 +534,14 @@ Global
 		{818B4C3A-B29B-45E7-BD6A-97249CAE5F1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{818B4C3A-B29B-45E7-BD6A-97249CAE5F1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{818B4C3A-B29B-45E7-BD6A-97249CAE5F1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21049198-DF79-4A42-824C-37267BDB29DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21049198-DF79-4A42-824C-37267BDB29DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21049198-DF79-4A42-824C-37267BDB29DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21049198-DF79-4A42-824C-37267BDB29DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5EAC5F0-D45F-418A-87AE-162CC452873B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5EAC5F0-D45F-418A-87AE-162CC452873B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5EAC5F0-D45F-418A-87AE-162CC452873B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5EAC5F0-D45F-418A-87AE-162CC452873B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -614,6 +626,8 @@ Global
 		{A6B0B765-284C-4A96-92FA-B77557C2922F} = {BEE78C2B-1920-4AF3-B6AA-8FB81299663A}
 		{8DD74AA4-0B94-4925-9263-8032C7620692} = {0BE3EA12-B77B-40AE-99D1-7EBB9A158E5C}
 		{818B4C3A-B29B-45E7-BD6A-97249CAE5F1A} = {0BE3EA12-B77B-40AE-99D1-7EBB9A158E5C}
+		{21049198-DF79-4A42-824C-37267BDB29DB} = {BEE78C2B-1920-4AF3-B6AA-8FB81299663A}
+		{F5EAC5F0-D45F-418A-87AE-162CC452873B} = {BEE78C2B-1920-4AF3-B6AA-8FB81299663A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C44BDD37-D901-4F19-A6E6-8DB64AF3B71A}

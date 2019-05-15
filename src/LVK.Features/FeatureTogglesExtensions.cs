@@ -5,6 +5,7 @@ namespace LVK.Features
     [PublicAPI]
     public static class FeatureTogglesExtensions
     {
+        [CanBeNull]
         public static bool? IsEnabled([NotNull] this IFeatureToggles featureToggles, [NotNull] string key)
             => featureToggles.GetByKey(key).IsEnabled;
 
