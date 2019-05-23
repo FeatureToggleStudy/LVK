@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>LVK.Extensibility.Plugins</PackageId>
         <Description>LVK Plugin framework</Description>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="DryIoc.dll" Version="4.0.3" />
+        <PackageReference Include="DryIoc.dll" Version="4.0.4" />
         <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
     </ItemGroup>
     <ItemGroup>

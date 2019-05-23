@@ -5,7 +5,7 @@
         <Description>LVK Sqlite Data Framework</Description>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="DryIoc.dll" Version="4.0.3" />
+        <PackageReference Include="DryIoc.dll" Version="4.0.4" />
         <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
         <PackageReference Include="Microsoft.Data.Sqlite" Version="2.2.4" />
     </ItemGroup>
