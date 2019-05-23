@@ -2,7 +2,7 @@ using System;
 
 using LVK.Core;
 
-namespace LVK.Reflection.NameRules
+namespace LVK.Reflection
 {
     internal class NullableTypeNameRule : ITypeNameRule
     {

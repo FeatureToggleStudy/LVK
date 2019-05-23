@@ -21,8 +21,6 @@ namespace LVK.AppCore
         [NotNull]
         private readonly ILogger _Logger;
 
-        private bool _FirstRun = true;
-
         public PidQuitFileMonitorBackgroundService([NotNull] IApplicationLifetimeManager applicationLifetimeManager, [NotNull] ILogger logger)
         {
             _ApplicationLifetimeManager = applicationLifetimeManager ?? throw new ArgumentNullException(nameof(applicationLifetimeManager));
@@ -58,11 +56,12 @@ namespace LVK.AppCore
             {
                 try
                 {
-                    if (_FirstRun)
-                        _Logger.LogDebug($"looking for .quit file in '{filePath}'");
 
                     if (File.Exists(filePath))
+                    {
+                        _Logger.LogDebug($"deleting existing .quit file in '{filePath}'");
                         File.Delete(filePath);
+                    }
                 }
                 catch (UnauthorizedAccessException)
                 {
@@ -73,8 +72,6 @@ namespace LVK.AppCore
                     // Ignore
                 }
             }
-
-            _FirstRun = false;
         }
     }
 }

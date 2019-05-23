@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 
-namespace LVK.Processes
+namespace LVK.Processes.Monitors
 {
     [PublicAPI]
     public interface IConsoleProcessMonitor

@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>LVK.Features</PackageId>
+        <Description>LVK Feature toggles classes and extensions</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="DryIoc.dll" Version="4.0.3" />
+      <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
+      <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+      <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="FeatureToggles.cs">
+        <DependentUpon>IFeatureToggles.cs</DependentUpon>
+      </Compile>
+      <Compile Update="MultiFeatureToggle.cs">
+        <DependentUpon>IFeatureToggle.cs</DependentUpon>
+      </Compile>
+      <Compile Update="SingleFeatureToggle.cs">
+        <DependentUpon>IFeatureToggle.cs</DependentUpon>
+      </Compile>
+      <Compile Update="FeatureToggleWithDefault.cs">
+        <DependentUpon>IFeatureToggleWithDefault.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ConfigurationFeatureTogglesProvider.cs">
+        <DependentUpon>IFeatureTogglesProvider.cs</DependentUpon>
+      </Compile>
+      <Compile Update="FeatureTogglesExtensions.cs">
+        <DependentUpon>IFeatureToggles.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+</Project>

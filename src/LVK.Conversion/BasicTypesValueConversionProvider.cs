@@ -2,7 +2,7 @@ using System;
 
 // ReSharper disable AssignNullToNotNullAttribute
 
-namespace LVK.Conversion.ValueConversionProviders
+namespace LVK.Conversion
 {
     internal class BasicTypesValueConversionProvider : SimpleConversionProviderBase
     {

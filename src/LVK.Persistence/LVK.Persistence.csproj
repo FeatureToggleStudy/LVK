@@ -15,4 +15,9 @@
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
         <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="PersistentData.cs">
+        <DependentUpon>IPersistentData.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

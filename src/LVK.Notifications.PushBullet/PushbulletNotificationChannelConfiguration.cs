@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 
-namespace LVK.Notifications.PushBullet
+namespace LVK.Notifications.Pushbullet
 {
     [UsedImplicitly]
     internal class PushbulletNotificationChannelConfiguration

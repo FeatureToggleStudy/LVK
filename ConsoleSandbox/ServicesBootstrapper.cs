@@ -2,7 +2,6 @@
 
 using LVK.Core.Services;
 using LVK.DryIoc;
-using LVK.Net.Http.Server;
 
 namespace ConsoleSandbox
 {
@@ -13,10 +12,11 @@ namespace ConsoleSandbox
             container.Bootstrap<LVK.AppCore.Console.ServicesBootstrapper>();
             container.Bootstrap<LVK.Data.Protection.ServicesBootstrapper>();
             container.Bootstrap<LVK.Notifications.Email.ServicesBootstrapper>();
-            container.Bootstrap<LVK.Notifications.PushBullet.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Notifications.Pushbullet.ServicesBootstrapper>();
             container.Bootstrap<LVK.Net.Http.Server.ServicesBootstrapper>();
 
-            container.Register<IBackgroundService, WebServerBackgroundService>();
+            container.Register<IBackgroundService, FirstBackgroundService>();
+            container.Register<IBackgroundService, SecondBackgroundService>();
         }
     }
 }

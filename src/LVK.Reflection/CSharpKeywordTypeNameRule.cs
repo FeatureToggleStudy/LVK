@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
-namespace LVK.Reflection.NameRules
+namespace LVK.Reflection
 {
     internal class CSharpKeywordTypeNameRule : ITypeNameRule
     {

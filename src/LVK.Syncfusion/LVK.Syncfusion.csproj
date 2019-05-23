@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+      <PackageId>LVK.Syncfusion</PackageId>
+      <Description>LVK Syncfusion licensing registration support</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="DryIoc.dll" Version="4.0.3" />
+    <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
+    <PackageReference Include="Syncfusion.Licensing" Version="17.1.0.43" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
+    <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+    <ProjectReference Include="..\LVK.Data.Protection\LVK.Data.Protection.csproj" />
+    <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
+  </ItemGroup>
+</Project>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 using LVK.Core.Services;
+using LVK.Features;
 using LVK.Logging;
 using LVK.Reflection;
 
@@ -23,6 +24,9 @@ namespace LVK.AppCore
         private readonly ITypeHelper _TypeHelper;
 
         [NotNull]
+        private readonly IFeatureToggles _FeatureToggles;
+
+        [NotNull]
         private readonly List<IBackgroundService> _BackgroundServices;
 
         [NotNull, ItemNotNull]
@@ -33,7 +37,8 @@ namespace LVK.AppCore
 
         public BackgroundServicesManager(
             [NotNull, ItemNotNull] IEnumerable<IBackgroundService> backgroundServices,
-            [NotNull] IApplicationLifetimeManager applicationLifetimeManager, [NotNull] ILogger logger, [NotNull] ITypeHelper typeHelper)
+            [NotNull] IApplicationLifetimeManager applicationLifetimeManager, [NotNull] ILogger logger, [NotNull] ITypeHelper typeHelper,
+            [NotNull] IFeatureToggles featureToggles)
         {
             if (backgroundServices == null)
                 throw new ArgumentNullException(nameof(backgroundServices));
@@ -41,6 +46,7 @@ namespace LVK.AppCore
             _ApplicationLifetimeManager = applicationLifetimeManager ?? throw new ArgumentNullException(nameof(applicationLifetimeManager));
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _TypeHelper = typeHelper ?? throw new ArgumentNullException(nameof(typeHelper));
+            _FeatureToggles = featureToggles ?? throw new ArgumentNullException(nameof(featureToggles));
 
             _BackgroundServices = backgroundServices.ToList();
         }
@@ -55,7 +61,16 @@ namespace LVK.AppCore
                         return;
 
                     foreach (IBackgroundService backgroundService in _BackgroundServices)
-                        _Tasks.Add(RunBackgroundService(backgroundService));
+                    {
+                        Type backgroundServiceType = backgroundService.GetType();
+                        IFeatureToggleWithDefault featureToggle =
+                            _FeatureToggles.GetByKey($"Services/{backgroundServiceType.FullName}").WithDefault(true);
+
+                        var monitor = new BackgroundServiceMonitor(
+                            featureToggle, backgroundService, _ApplicationLifetimeManager, _Logger, _TypeHelper);
+
+                        _Tasks.Add(monitor.RunAsync());
+                    }
                 }
             }
         }
@@ -85,28 +100,6 @@ namespace LVK.AppCore
                         }
                     }
                 }
-            }
-        }
-
-        private async Task RunBackgroundService([NotNull] IBackgroundService backgroundService)
-        {
-            await Task.Yield();
-            try
-            {
-                await backgroundService.Execute(_ApplicationLifetimeManager.GracefulTerminationCancellationToken);
-            }
-            catch (TaskCanceledException)
-            {
-            }
-            catch (Exception ex)
-            {
-                _Logger.LogException(ex);
-                _Logger.LogError(
-                    $"background service '{_TypeHelper.NameOf(backgroundService.GetType())}' threw an exception, terminating program");
-
-                _Logger.LogException(ex);
-
-                _ApplicationLifetimeManager.SignalGracefulTermination();
             }
         }
     }

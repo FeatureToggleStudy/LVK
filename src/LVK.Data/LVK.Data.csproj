@@ -16,4 +16,15 @@
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="DatabaseConnectionFactory.cs">
+        <DependentUpon>IDatabaseConnectionFactory.cs</DependentUpon>
+      </Compile>
+      <Compile Update="DatabaseConnectionFactoryExtensions.cs">
+        <DependentUpon>IDatabaseConnectionFactory.cs</DependentUpon>
+      </Compile>
+      <Compile Update="DatabaseMigrator.cs">
+        <DependentUpon>IDatabaseMigrator.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

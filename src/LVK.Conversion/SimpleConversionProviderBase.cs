@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
-namespace LVK.Conversion.ValueConversionProviders
+namespace LVK.Conversion
 {
     internal class SimpleConversionProviderBase : IValueConversionProvider
     {

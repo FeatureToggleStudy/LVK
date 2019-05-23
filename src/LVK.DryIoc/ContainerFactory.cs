@@ -4,6 +4,8 @@ using DryIoc;
 
 using JetBrains.Annotations;
 
+using LVK.Core;
+
 namespace LVK.DryIoc
 {
     [PublicAPI]
@@ -32,7 +34,7 @@ namespace LVK.DryIoc
         [NotNull]
         private static IContainer Bootstrap([NotNull, ItemNotNull] params Type[] servicesBootstrapperTypes)
         {
-            IContainer container = new Container(rules => rules?.WithTrackingDisposableTransients().WithAutoConcreteTypeResolution());
+            IContainer container = new Container(rules => rules?.WithTrackingDisposableTransients().NotNull().WithAutoConcreteTypeResolution());
             foreach (var servicesBootstrapperType in servicesBootstrapperTypes)
                 container = container.Bootstrap(servicesBootstrapperType);
 

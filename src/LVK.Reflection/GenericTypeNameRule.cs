@@ -5,7 +5,7 @@ using System.Text;
 
 using LVK.Core;
 
-namespace LVK.Reflection.NameRules
+namespace LVK.Reflection
 {
     internal class GenericTypeNameRule : ITypeNameRule
     {

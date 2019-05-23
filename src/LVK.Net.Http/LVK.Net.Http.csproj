@@ -14,4 +14,9 @@
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="RepositoryWebApiClient.cs">
+        <DependentUpon>IRepositoryWebApiClient.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>
