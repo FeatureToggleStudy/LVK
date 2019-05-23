@@ -11,6 +11,7 @@ namespace LVK.DryIoc
     [PublicAPI]
     public static class ContainerFactory
     {
+        [NotNull]
         public static IContainer Bootstrap<T1, T2>()
             where T1: class, IServicesBootstrapper
             where T2: class, IServicesBootstrapper
@@ -18,6 +19,7 @@ namespace LVK.DryIoc
             return Bootstrap(typeof(T1), typeof(T2));
         }
 
+        [NotNull]
         public static IContainer Bootstrap<T1, T2, T3>()
             where T1: class, IServicesBootstrapper
             where T2: class, IServicesBootstrapper

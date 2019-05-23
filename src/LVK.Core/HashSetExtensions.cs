@@ -9,7 +9,7 @@ namespace LVK.Core
     public static class HashSetExtensions
     {
         [NotNull]
-        public static HashSet<T> ToHashSet<T>([NotNull] this IEnumerable<T> collection, IEqualityComparer<T> equalityComparer = null)
+        public static HashSet<T> ToHashSet<T>([NotNull] this IEnumerable<T> collection, [CanBeNull] IEqualityComparer<T> equalityComparer = null)
             => new HashSet<T>(collection, equalityComparer ?? EqualityComparer<T>.Default);
 
         public static int AddRange<T>([NotNull] this HashSet<T> hashSet, [NotNull, ItemNotNull] IEnumerable<T> values)
