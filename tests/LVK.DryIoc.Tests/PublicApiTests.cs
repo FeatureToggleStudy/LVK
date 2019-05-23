@@ -1,3 +1,5 @@
+using System.Linq;
+
 using LVK.Tests.Framework;
 
 using NUnit.Framework;

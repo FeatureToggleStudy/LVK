@@ -9,6 +9,7 @@ namespace LVK.Persistence
     [PublicAPI]
     public static class PersistentDataExtensions
     {
+        [NotNull]
         public static IDisposable UpdateScope<T>([NotNull] this IPersistentData<T> persistentData)
             where T : class, new()
         {

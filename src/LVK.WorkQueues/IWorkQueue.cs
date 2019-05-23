@@ -10,6 +10,6 @@ namespace LVK.WorkQueues
     public interface IWorkQueue
     {
         [NotNull]
-        Task EnqueueManyAsync(IEnumerable<object> items, [CanBeNull] DateTime? whenToProcess = null);
+        Task EnqueueManyAsync([NotNull] IEnumerable<object> items, [CanBeNull] DateTime? whenToProcess = null);
     }
 }
