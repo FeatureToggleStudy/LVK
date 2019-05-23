@@ -109,6 +109,7 @@ namespace LVK.Logging
         public static IDisposable LogScope([NotNull] this ILogger logger, LogLevel logLevel, [NotNull] string scopeName)
             => LogScope(logger, logLevel, () => scopeName);
 
+        [NotNull]
         public static IDisposable LogScope([NotNull] this ILogger logger, LogLevel logLevel, [NotNull] Func<string> getScopeName)
         {
             if (logger == null)

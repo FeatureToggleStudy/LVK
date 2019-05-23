@@ -5,7 +5,7 @@
         <Description>LVK Windows Service framework</Description>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="DryIoc.dll" Version="4.0.3" />
+        <PackageReference Include="DryIoc.dll" Version="4.0.4" />
         <PackageReference Include="DryIoc.Microsoft.DependencyInjection" Version="3.0.3" />
         <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />

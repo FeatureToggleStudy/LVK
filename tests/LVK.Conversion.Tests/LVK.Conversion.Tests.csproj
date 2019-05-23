@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
     </PropertyGroup>
@@ -8,9 +8,9 @@
       <ProjectReference Include="..\LVK.Tests.Framework\LVK.Tests.Framework.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="DryIoc.dll" Version="4.0.3" />
-      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
-      <PackageReference Include="NUnit" Version="3.11.0" />
+      <PackageReference Include="DryIoc.dll" Version="4.0.4" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.0" />
+      <PackageReference Include="NUnit" Version="3.12.0" />
       <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
     </ItemGroup>
 </Project>
