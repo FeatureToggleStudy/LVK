@@ -23,4 +23,15 @@
         <Reference Include="System.Configuration.Install" />
         <Reference Include="System.ServiceProcess" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="InstallContextProvider.cs">
+        <DependentUpon>IInstallContextProvider.cs</DependentUpon>
+      </Compile>
+      <Compile Update="WindowsServiceController.cs">
+        <DependentUpon>IWindowsServiceController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="PersistentInstallState.cs">
+        <DependentUpon>IPersistentInstallState.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

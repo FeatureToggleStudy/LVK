@@ -16,4 +16,21 @@
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="SmtpClient.cs">
+        <DependentUpon>ISmtpClient.cs</DependentUpon>
+      </Compile>
+      <Compile Update="SmtpClientConfigurationProvider.cs">
+        <DependentUpon>ISmtpClientConfigurationProvider.cs</DependentUpon>
+      </Compile>
+      <Compile Update="SmtpClientProvider.cs">
+        <DependentUpon>ISmtpClientProvider.cs</DependentUpon>
+      </Compile>
+      <Compile Update="SmtpEmailMessage.cs">
+        <DependentUpon>ISmtpEmailMessage.cs</DependentUpon>
+      </Compile>
+      <Compile Update="SmtpEmailMessageBuilder.cs">
+        <DependentUpon>ISmtpEmailMessageBuilder.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

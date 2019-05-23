@@ -13,8 +13,8 @@ namespace LVK.Features
             => featureToggles.IsEnabled(key) ?? defaultIfUnspecified;
 
         [NotNull]
-        public static IFeatureToggleWithDefaultValue WithDefault(
+        public static IFeatureToggleWithDefault WithDefault(
             [NotNull] this IFeatureToggle featureToggle, bool defaultIfUnspecified)
-            => new FeatureToggleWithDefaultValue(featureToggle, defaultIfUnspecified);
+            => new FeatureToggleWithDefault(featureToggle, defaultIfUnspecified);
     }
 }

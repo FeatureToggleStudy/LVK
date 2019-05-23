@@ -11,4 +11,9 @@
     <ItemGroup>
         <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="ServicesBootstrapperRegister.cs">
+        <DependentUpon>IServicesBootstrapperRegister.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

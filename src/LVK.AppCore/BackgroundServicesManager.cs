@@ -63,7 +63,7 @@ namespace LVK.AppCore
                     foreach (IBackgroundService backgroundService in _BackgroundServices)
                     {
                         Type backgroundServiceType = backgroundService.GetType();
-                        IFeatureToggleWithDefaultValue featureToggle =
+                        IFeatureToggleWithDefault featureToggle =
                             _FeatureToggles.GetByKey($"Services/{backgroundServiceType.FullName}").WithDefault(true);
 
                         var monitor = new BackgroundServiceMonitor(

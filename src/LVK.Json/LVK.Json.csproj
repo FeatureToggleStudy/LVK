@@ -14,4 +14,21 @@
         <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="JsonSerializerFactory.cs">
+        <DependentUpon>IJsonSerializerFactory.cs</DependentUpon>
+      </Compile>
+      <Compile Update="JsonConvertersSerializerSettingsConfigurator.cs">
+        <DependentUpon>IJsonSerializerSettingsConfigurator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="JsonStringDecoderConverterProvider.cs">
+        <DependentUpon>IJsonConvertersProvider.cs</DependentUpon>
+      </Compile>
+      <Compile Update="JsonSerializerSettingsFactory.cs">
+        <DependentUpon>IJsonSerializerSettingsFactory.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ConfigurationVariablesJsonStringDecoder.cs">
+        <DependentUpon>IJsonStringDecoder.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

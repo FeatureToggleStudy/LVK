@@ -13,4 +13,21 @@
         <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
         <ProjectReference Include="..\LVK.NodaTime\LVK.NodaTime.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Logger.cs">
+        <DependentUpon>ILogger.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ConsoleLoggerDestination.cs">
+        <DependentUpon>ILoggerDestination.cs</DependentUpon>
+      </Compile>
+      <Compile Update="DebugOutputLoggerDestination.cs">
+        <DependentUpon>ILoggerDestination.cs</DependentUpon>
+      </Compile>
+      <Compile Update="FileLoggerDestination.cs">
+        <DependentUpon>ILoggerDestination.cs</DependentUpon>
+      </Compile>
+      <Compile Update="TextLogFormatter.cs">
+        <DependentUpon>ITextLogFormatter.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

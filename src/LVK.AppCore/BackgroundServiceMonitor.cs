@@ -14,7 +14,7 @@ namespace LVK.AppCore
     internal class BackgroundServiceMonitor
     {
         [NotNull]
-        private readonly IFeatureToggleWithDefaultValue _FeatureToggle;
+        private readonly IFeatureToggleWithDefault _FeatureToggle;
 
         [NotNull]
         private readonly IBackgroundService _BackgroundService;
@@ -29,7 +29,7 @@ namespace LVK.AppCore
         private readonly ITypeHelper _TypeHelper;
 
         public BackgroundServiceMonitor(
-            [NotNull] IFeatureToggleWithDefaultValue featureToggle, [NotNull] IBackgroundService backgroundService,
+            [NotNull] IFeatureToggleWithDefault featureToggle, [NotNull] IBackgroundService backgroundService,
             [NotNull] IApplicationLifetimeManager applicationLifetimeManager, [NotNull] ILogger logger, [NotNull] ITypeHelper typeHelper)
         {
             _FeatureToggle = featureToggle ?? throw new ArgumentNullException(nameof(featureToggle));

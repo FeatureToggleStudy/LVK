@@ -17,4 +17,25 @@
       <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="FeatureToggles.cs">
+        <DependentUpon>IFeatureToggles.cs</DependentUpon>
+      </Compile>
+      <Compile Update="MultiFeatureToggle.cs">
+        <DependentUpon>IFeatureToggle.cs</DependentUpon>
+      </Compile>
+      <Compile Update="SingleFeatureToggle.cs">
+        <DependentUpon>IFeatureToggle.cs</DependentUpon>
+      </Compile>
+      <Compile Update="FeatureToggleWithDefault.cs">
+        <DependentUpon>IFeatureToggleWithDefault.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ConfigurationFeatureTogglesProvider.cs">
+        <DependentUpon>IFeatureTogglesProvider.cs</DependentUpon>
+      </Compile>
+      <Compile Update="FeatureTogglesExtensions.cs">
+        <DependentUpon>IFeatureToggles.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>
