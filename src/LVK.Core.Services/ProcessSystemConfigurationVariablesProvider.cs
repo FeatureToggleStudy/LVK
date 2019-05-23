@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 
-namespace LVK.Core.Services.SystemConfigurationVariableProviders
+namespace LVK.Core.Services
 {
     internal class ProcessSystemConfigurationVariablesProvider : ISystemConfigurationVariablesProvider
     {

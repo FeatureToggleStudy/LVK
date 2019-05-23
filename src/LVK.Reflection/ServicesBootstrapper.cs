@@ -5,7 +5,6 @@ using DryIoc;
 using JetBrains.Annotations;
 
 using LVK.DryIoc;
-using LVK.Reflection.NameRules;
 
 namespace LVK.Reflection
 {

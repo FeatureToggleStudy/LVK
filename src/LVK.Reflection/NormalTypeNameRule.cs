@@ -1,6 +1,6 @@
 using System;
 
-namespace LVK.Reflection.NameRules
+namespace LVK.Reflection
 {
     internal class NormalTypeNameRule : ITypeNameRule
     {

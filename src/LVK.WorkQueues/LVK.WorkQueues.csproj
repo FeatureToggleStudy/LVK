@@ -15,4 +15,18 @@
         <ProjectReference Include="..\LVK.Json\LVK.Json.csproj" />
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="WorkQueue.cs">
+        <DependentUpon>IWorkQueue.cs</DependentUpon>
+      </Compile>
+      <Compile Update="WorkQueueExtensions.cs">
+        <DependentUpon>IWorkQueue.cs</DependentUpon>
+      </Compile>
+      <Compile Update="WorkQueueRepositoryManager.cs">
+        <DependentUpon>IWorkQueueRepositoryManager.cs</DependentUpon>
+      </Compile>
+      <Compile Update="WorkQueueRetryPolicy.cs">
+        <DependentUpon>IWorkQueueRetryPolicy.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

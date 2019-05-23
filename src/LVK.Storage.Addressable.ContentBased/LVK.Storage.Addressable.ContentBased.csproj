@@ -18,4 +18,27 @@
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
         <ProjectReference Include="..\LVK.Security.Cryptography\LVK.Security.Cryptography.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="ContentAddressableStore.cs">
+        <DependentUpon>IContentAddressableStore.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ContentAddressableFileKeyStore.cs">
+        <DependentUpon>IContentAddressableKeyStore.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ContentAddressableFileObjectStore.cs">
+        <DependentUpon>IContentAddressableObjectStore.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ContentAddressableRepository.cs">
+        <DependentUpon>IContentAddressableRepository.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ContentAddressableRepositoryExtensions.cs">
+        <DependentUpon>IContentAddressableRepository.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ContentAddressableRepositoryFactory.cs">
+        <DependentUpon>IContentAddressableRepositoryFactory.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ContentAddressableStoreFactory.cs">
+        <DependentUpon>IContentAddressableStoreFactory.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

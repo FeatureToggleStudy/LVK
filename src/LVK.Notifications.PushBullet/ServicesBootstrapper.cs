@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 
 using LVK.DryIoc;
 
-namespace LVK.Notifications.PushBullet
+namespace LVK.Notifications.Pushbullet
 {
     [PublicAPI]
     public class ServicesBootstrapper : IServicesBootstrapper

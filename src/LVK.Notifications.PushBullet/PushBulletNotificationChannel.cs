@@ -9,7 +9,7 @@ using LVK.Logging;
 
 using PushBulletNet;
 
-namespace LVK.Notifications.PushBullet
+namespace LVK.Notifications.Pushbullet
 {
     internal class PushbulletNotificationChannel : INotificationChannel
     {

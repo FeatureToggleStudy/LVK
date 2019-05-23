@@ -1,7 +1,5 @@
 using System;
 
-using LVK.Reflection.NameRules;
-
 using NSubstitute;
 
 using NUnit.Framework;

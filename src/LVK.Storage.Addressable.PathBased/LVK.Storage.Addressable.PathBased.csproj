@@ -15,4 +15,12 @@
         <ProjectReference Include="..\LVK.Json\LVK.Json.csproj" />
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="FileBasedPathAddressableRepository.cs">
+        <DependentUpon>IPathAddressableRepository.cs</DependentUpon>
+      </Compile>
+      <Compile Update="FileBasedPathAddressableRepositoryFactory.cs">
+        <DependentUpon>IPathAddressableRepositoryFactory.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>
