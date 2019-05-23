@@ -12,4 +12,9 @@
         <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Hasher.cs">
+        <DependentUpon>IHasher.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

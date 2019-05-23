@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 namespace LVK.Features
 {
     [PublicAPI]
-    public interface IFeatureToggleWithDefaultValue
+    public interface IFeatureToggleWithDefault
     {
         bool IsEnabled { get; }
     }

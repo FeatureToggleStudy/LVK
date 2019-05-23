@@ -14,4 +14,15 @@
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
         <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="ValueConverter.cs">
+        <DependentUpon>IValueConverter.cs</DependentUpon>
+      </Compile>
+      <Compile Update="SimpleConversionProviderBase.cs">
+        <DependentUpon>IValueConversionProvider.cs</DependentUpon>
+      </Compile>
+      <Compile Update="BasicTypesValueConversionProvider.cs">
+        <DependentUpon>IValueConversionProvider.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

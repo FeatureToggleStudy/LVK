@@ -15,4 +15,12 @@
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="ConsoleApplicationEntryPoint.cs">
+        <DependentUpon>IConsoleApplicationEntryPoint.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ConsoleApplicationHelpTextPresenter.cs">
+        <DependentUpon>IConsoleApplicationHelpTextPresenter.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

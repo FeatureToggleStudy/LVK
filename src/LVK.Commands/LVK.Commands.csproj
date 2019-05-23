@@ -14,4 +14,9 @@
         <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
         <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="CommandDispatcher.cs">
+        <DependentUpon>ICommandDispatcher.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

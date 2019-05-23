@@ -12,4 +12,24 @@
         <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
         <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="TypeHelper.cs">
+        <DependentUpon>ITypeHelper.cs</DependentUpon>
+      </Compile>
+      <Compile Update="TypeHelperExtensions.cs">
+        <DependentUpon>ITypeHelper.cs</DependentUpon>
+      </Compile>
+      <Compile Update="CSharpKeywordTypeNameRule.cs">
+        <DependentUpon>ITypeNameRule.cs</DependentUpon>
+      </Compile>
+      <Compile Update="NormalTypeNameRule.cs">
+        <DependentUpon>ITypeNameRule.cs</DependentUpon>
+      </Compile>
+      <Compile Update="NullableTypeNameRule.cs">
+        <DependentUpon>ITypeNameRule.cs</DependentUpon>
+      </Compile>
+      <Compile Update="GenericTypeNameRule.cs">
+        <DependentUpon>ITypeNameRule.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>
