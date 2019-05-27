@@ -20,7 +20,8 @@ namespace LVK.Configuration.StandardConfigurators
             yield return new[] { Environment.UserDomainName };
             yield return new[] { "domain", Environment.UserDomainName };
             
-            yield return new[] { Environment.MachineName };
+            if (Environment.UserDomainName != Environment.MachineName)
+                yield return new[] { Environment.MachineName };
             yield return new[] { "machine", Environment.MachineName };
             
             yield return new[] { Environment.UserName };
@@ -69,7 +70,6 @@ namespace LVK.Configuration.StandardConfigurators
                 configurationBuilder.AddJsonFile($"{filename}.debug.json", isOptional: true);
                 if (environmentName != null)
                     configurationBuilder.AddJsonFile($"{filename}.{environmentName}.debug.json", isOptional: true);
-                
             }
         }
     }
