@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
-using LVK.Configuration;
-
 namespace LVK.Logging
 {
     internal class Logger : ILogger

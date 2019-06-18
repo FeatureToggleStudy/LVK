@@ -35,6 +35,7 @@ namespace ConsoleSandbox
                     Console.WriteLine("GC: " + perfCounter.Value);
 
                     for (int index = 0; index < 10000; index++)
+                        // ReSharper disable once ObjectCreationAsStatement
                         new string(' ', 80);
                     await Task.Delay(50, cancellationToken);
                 }

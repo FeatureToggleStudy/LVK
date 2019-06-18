@@ -7,7 +7,6 @@ namespace LVK.Performance.Counters
 {
     internal class PerformanceCounter : IPerformanceCounter
     {
-        [NotNull]
         public string Key { get; }
 
         private long _Value;
