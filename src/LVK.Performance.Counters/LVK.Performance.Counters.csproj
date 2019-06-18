@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="DryIoc.dll" Version="4.0.4" />
+        <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+      <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
+      <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="PerformanceCounter.cs">
+        <DependentUpon>IPerformanceCounter.cs</DependentUpon>
+      </Compile>
+      <Compile Update="PerformanceCounters.cs">
+        <DependentUpon>IPerformanceCounters.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+</Project>
