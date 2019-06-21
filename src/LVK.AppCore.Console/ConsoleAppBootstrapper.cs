@@ -32,6 +32,8 @@ namespace LVK.AppCore.Console
         public static async Task<int> RunAsync<T>(bool useBackgroundServices)
             where T: class, IServicesBootstrapper
         {
+            ConsoleAppConfigurator.Configure();
+            
             IConsoleApplicationEntryPoint entryPoint;
             IBackgroundServicesManager backgroundServicesManager;
             IApplicationLifetimeManager applicationLifetimeManager;

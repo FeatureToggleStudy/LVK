@@ -1,7 +1,13 @@
-﻿using DryIoc;
+﻿using System;
+
+using DryIoc;
 
 using LVK.Core.Services;
 using LVK.DryIoc;
+using LVK.Net.Http.Server;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace ConsoleSandbox
 {
@@ -16,8 +22,16 @@ namespace ConsoleSandbox
             container.Bootstrap<LVK.Net.Http.Server.ServicesBootstrapper>();
             container.Bootstrap<LVK.Performance.Counters.ServicesBootstrapper>();
 
-            container.Register<IBackgroundService, FirstBackgroundService>();
-            container.Register<IBackgroundService, SecondBackgroundService>();
+            container.Register<IBackgroundService, WebServerBackgroundService>();
+            container.Register<IAuthorizationFilter, MyAuthorizationFilter>();
+        }
+    }
+
+    internal class MyAuthorizationFilter : IAuthorizationFilter
+    {
+        public void OnAuthorization(AuthorizationFilterContext context)
+        {
+            context.Result = new OkResult();
         }
     }
 }
