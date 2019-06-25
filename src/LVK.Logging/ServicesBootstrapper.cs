@@ -25,7 +25,6 @@ namespace LVK.Logging
             container.Register<IOptionsHelpTextProvider, LoggingOptionsHelpTextProvider>();
 
             container.Register<ILogger, Logger>(Reuse.Singleton);
-            container.Register(typeof(ILogger<>), typeof(Logger<>));
 
             container.Register<ILoggerDestination, ConsoleLoggerDestination>();
             container.Register<ILoggerDestination, FileLoggerDestination>();

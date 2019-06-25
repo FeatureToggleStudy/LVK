@@ -27,5 +27,7 @@ namespace LVK.Configuration.Layers.JsonFile
         {
             yield return new JsonFileConfigurationLayer(_Filename, _Encoding, _IsOptional);
         }
+
+        public override string ToString() => $"JsonFile ({_Filename}{(_IsOptional ? ", optional" : "")})";
     }
 }

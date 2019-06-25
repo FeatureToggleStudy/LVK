@@ -27,6 +27,7 @@
         <ProjectReference Include="..\src\LVK.Notifications.Email\LVK.Notifications.Email.csproj" />
         <ProjectReference Include="..\src\LVK.Notifications.Pushbullet\LVK.Notifications.Pushbullet.csproj" />
         <ProjectReference Include="..\src\LVK.Notifications\LVK.Notifications.csproj" />
+        <ProjectReference Include="..\src\LVK.Performance.Counters\LVK.Performance.Counters.csproj" />
         <ProjectReference Include="..\src\LVK.Reflection\LVK.Reflection.csproj" />
     </ItemGroup>
     <ItemGroup>
