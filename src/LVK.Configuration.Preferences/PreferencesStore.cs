@@ -40,7 +40,10 @@ namespace LVK.Configuration.Preferences
             {
                 var preferences = Load();
 
-                preferences[key] = JToken.FromObject(value);
+                if (value == null)
+                    preferences[key] = null;
+                else
+                    preferences[key] = JToken.FromObject(value);
                 
                 Save();
             }
