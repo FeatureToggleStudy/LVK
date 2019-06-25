@@ -31,6 +31,8 @@ namespace LVK.AppCore
 
             container.Register<IBackgroundService, PidFileBackgroundService>();
             container.Register<IBackgroundService, PidQuitFileMonitorBackgroundService>();
+
+            container.Register<IApplicationDataFolder, ApplicationDataFolder>(Reuse.Singleton);
         }
     }
 }

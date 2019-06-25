@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>LVK.Performance.Counters</PackageId>
+        <Description>LVK performance counters framework classes and extensions</Description>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="DryIoc.dll" Version="4.0.4" />

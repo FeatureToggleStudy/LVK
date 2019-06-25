@@ -21,6 +21,7 @@ namespace ConsoleSandbox
             container.Bootstrap<LVK.Notifications.Pushbullet.ServicesBootstrapper>();
             container.Bootstrap<LVK.Net.Http.Server.ServicesBootstrapper>();
             container.Bootstrap<LVK.Performance.Counters.ServicesBootstrapper>();
+            container.Bootstrap<LVK.Configuration.Preferences.ServicesBootstrapper>();
 
             container.Register<IBackgroundService, WebServerBackgroundService>();
             container.Register<IAuthorizationFilter, MyAuthorizationFilter>();

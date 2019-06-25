@@ -1,6 +1,10 @@
 using System;
 using System.Net;
 
+using JetBrains.Annotations;
+
+using LVK.Configuration.Preferences;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,12 +12,36 @@ namespace ConsoleSandbox.Controllers
 {
     public class ApiController : Controller
     {
-        [ClaimRequirement]
-        [Route("api/test")]
-        public IActionResult Index()
+        [NotNull]
+        private readonly IPreferencesManager _Preferences;
+
+        public ApiController([NotNull] IPreferencesManager preferences)
         {
-            Console.WriteLine("Nhập Chuỗi Ký Tự :");
-            return Ok(new { a = 42, b = "Meaning of life" });
+            _Preferences = preferences ?? throw new ArgumentNullException(nameof(preferences));
+        }
+
+        [HttpGet]
+        [Route("api/customer")]
+        public IActionResult GetCustomerName()
+        {
+            var pref = _Preferences.GetPreference<string>("CustomerName");
+            return Ok(pref.Value);
+        }
+
+        [HttpPost]
+        [Route("api/customer/{name}")]
+        public IActionResult SetCustomerName(string name)
+        {
+            var pref = _Preferences.GetPreference<string>("CustomerName");
+            if (name == $"-")
+                pref.Reset();
+            else
+            {
+                pref.Value = name;
+                pref.Save();
+            }
+
+            return Ok(pref.Value);
         }
     }
 }

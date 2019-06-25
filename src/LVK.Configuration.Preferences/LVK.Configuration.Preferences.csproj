@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>LVK.Configuration.Preferences</PackageId>
+        <Description>LVK preferences framework classes and extensions</Description>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="DryIoc.dll" Version="4.0.4" />
+        <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\LVK.AppCore\LVK.AppCore.csproj" />
+        <ProjectReference Include="..\LVK.Configuration\LVK.Configuration.csproj" />
+        <ProjectReference Include="..\LVK.Core.Services\LVK.Core.Services.csproj" />
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+        <ProjectReference Include="..\LVK.Data.Caching\LVK.Data.Caching.csproj" />
+        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
+        <ProjectReference Include="..\LVK.Json\LVK.Json.csproj" />
+        <ProjectReference Include="..\LVK.NodaTime\LVK.NodaTime.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="PreferencesStore.cs">
+        <DependentUpon>IPreferencesStore.cs</DependentUpon>
+      </Compile>
+      <Compile Update="PreferencesFile.cs">
+        <DependentUpon>IPreferencesFile.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Preference.cs">
+        <DependentUpon>IPreference.cs</DependentUpon>
+      </Compile>
+      <Compile Update="PreferencesManager.cs">
+        <DependentUpon>IPreferencesManager.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+</Project>

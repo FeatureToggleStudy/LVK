@@ -76,7 +76,8 @@ namespace LVK.Logging
             return false;
         }
 
-        public static void LogException([NotNull] this ILogger logger, [NotNull] Exception ex)
+        public static void LogException([NotNull] this ILogger logger, [NotNull] Exception ex) => LogException(logger, LogLevel.Error, ex);
+        public static void LogException([NotNull] this ILogger logger, LogLevel level, [NotNull] Exception ex)
         {
             var sb = new StringBuilder();
 
@@ -94,7 +95,7 @@ namespace LVK.Logging
                     sb.AppendLine();
             }
 
-            Log(logger, LogLevel.Error, sb.ToString());
+            Log(logger, level, sb.ToString());
         }
 
         private static void Log([NotNull] ILogger logger, LogLevel logLevel, [NotNull] string message)
