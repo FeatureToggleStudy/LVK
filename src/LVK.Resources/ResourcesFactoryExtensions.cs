@@ -16,20 +16,11 @@ namespace LVK.Resources
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            return resourcesFactory.GetResources(type.Assembly, type.FullName + ".");
+            return resourcesFactory.GetResources(type.Assembly, type.Namespace + ".");
         }
 
         [NotNull]
         public static IResources GetResources<T>([NotNull] this IResourcesFactory resourcesFactory)
             => GetResources(resourcesFactory, typeof(T));
-
-        [NotNull]
-        public static IResources GetResourcesForInstance([NotNull] this IResourcesFactory resourcesFactory, [NotNull] object instance)
-        {
-            if (instance == null)
-                throw new ArgumentNullException(nameof(instance));
-
-            return GetResources(resourcesFactory, instance.GetType());
-        }
     }
 }
