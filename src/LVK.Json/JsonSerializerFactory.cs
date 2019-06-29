@@ -15,7 +15,8 @@ namespace LVK.Json
 
         public JsonSerializerFactory([NotNull] IJsonSerializerSettingsFactory jsonSerializerSettingsFactory)
         {
-            _JsonSerializerSettingsFactory = jsonSerializerSettingsFactory ?? throw new ArgumentNullException(nameof(jsonSerializerSettingsFactory));
+            _JsonSerializerSettingsFactory =
+                jsonSerializerSettingsFactory ?? throw new ArgumentNullException(nameof(jsonSerializerSettingsFactory));
         }
 
         public JsonSerializer Create()
