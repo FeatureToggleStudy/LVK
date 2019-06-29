@@ -16,7 +16,9 @@
         <ProjectReference Include="..\LVK.Tests.Framework\LVK.Tests.Framework.csproj" />
     </ItemGroup>
     <ItemGroup>
+      <EmbeddedResource Include="Resources\ExistingFile.json" />
+      <EmbeddedResource Include="Resources\OtherFile.json" />
       <None Remove="ResourcesTests.ExistingFile.json" />
-      <EmbeddedResource Include="ResourcesTests.ExistingFile.json" />
+      <None Remove="ResourcesTests.OtherFile.json" />
     </ItemGroup>
 </Project>

@@ -50,9 +50,9 @@ namespace LVK.Resources.Tests
         {
             IContainer container = ContainerFactory.Bootstrap<ServicesBootstrapper>();
             var resourcesFactory = container.Resolve<IResourcesFactory>();
-            var resources = resourcesFactory.GetResourcesForInstance(this);
+            var resources = resourcesFactory.GetResources<ResourcesTests>();
 
-            var obj = resources.DeserializeJson<TestObject>("ExistingFile.json");
+            var obj = resources.DeserializeJson<TestObject>("Resources.ExistingFile.json");
 
             Assert.That(obj.Value, Is.EqualTo(42));
         }
@@ -62,9 +62,9 @@ namespace LVK.Resources.Tests
         {
             IContainer container = ContainerFactory.Bootstrap<ServicesBootstrapper>();
             var resourcesFactory = container.Resolve<IResourcesFactory>();
-            var resources = resourcesFactory.GetResourcesForInstance(this);
+            var resources = resourcesFactory.GetResources<ResourcesTests>();
 
-            Assert.Throws<MissingManifestResourceException>(() => resources.DeserializeJson<TestObject>("MissingFile.json"));
+            Assert.Throws<MissingManifestResourceException>(() => resources.DeserializeJson<TestObject>("Resources.MissingFile.json"));
         }
     }
 
