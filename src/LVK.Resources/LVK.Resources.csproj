@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>LVK.Resources</PackageId>
+        <Description>LVK resource management helper classes and methods</Description>
+    </PropertyGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+      <ProjectReference Include="..\LVK.Data.Caching\LVK.Data.Caching.csproj" />
+      <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
+      <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Resources.cs">
+        <DependentUpon>IResources.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ResourcesFactory.cs">
+        <DependentUpon>IResourcesFactory.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ResourcesFactoryExtensions.cs">
+        <DependentUpon>IResourcesFactory.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ResourcesExtensions.cs">
+        <DependentUpon>IResources.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+</Project>
