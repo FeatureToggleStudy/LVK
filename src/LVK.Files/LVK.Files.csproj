@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\LVK.Core.Services\LVK.Core.Services.csproj" />
+      <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+      <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
+      <ProjectReference Include="..\LVK.Logging\LVK.Logging.csproj" />
+      <ProjectReference Include="..\LVK.Reflection\LVK.Reflection.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="FileMover.cs">
+        <DependentUpon>IFileMover.cs</DependentUpon>
+      </Compile>
+      <Compile Update="FileCopier.cs">
+        <DependentUpon>IFileCopier.cs</DependentUpon>
+      </Compile>
+      <Compile Update="StreamComparer.cs">
+        <DependentUpon>IStreamComparer.cs</DependentUpon>
+      </Compile>
+      <Compile Update="StreamComparerExtensions.cs">
+        <DependentUpon>IStreamComparer.cs</DependentUpon>
+      </Compile>
+      <Compile Update="FileServices.cs">
+        <DependentUpon>IFileServices.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+</Project>
