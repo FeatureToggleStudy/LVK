@@ -10,17 +10,17 @@ using LVK.Logging;
 
 namespace LVK.Files
 {
-    internal class FileMover : IFileMover
+    internal class FileMover : IFileMover, IProgress<string>
     {
         [NotNull]
-        private readonly IFileCopier _FileCopier;
+        private readonly IFileContentsCopier _FileContentsCopier;
 
         [NotNull]
         private readonly ILogger _Logger;
 
-        public FileMover([NotNull] IFileCopier fileCopier, [NotNull] ILogger logger)
+        public FileMover([NotNull] IFileContentsCopier fileCopier, [NotNull] ILogger logger)
         {
-            _FileCopier = fileCopier ?? throw new ArgumentNullException(nameof(fileCopier));
+            _FileContentsCopier = fileCopier ?? throw new ArgumentNullException(nameof(fileCopier));
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -44,7 +44,7 @@ namespace LVK.Files
             {
                 try
                 {
-                    await _FileCopier.CopyAsync(sourceFilePath, targetFilePath, cancellationToken);
+                    await _FileContentsCopier.CopyFileContentsAsync(sourceFilePath, targetFilePath, this, cancellationToken);
                     cancellationToken.ThrowIfCancellationRequested();
                     File.Delete(sourceFilePath);
                 }
@@ -79,5 +79,7 @@ namespace LVK.Files
                 return true;
             }
         }
+        
+        public void Report(string value) => _Logger.LogVerbose($"Copied {value}");
     }
 }

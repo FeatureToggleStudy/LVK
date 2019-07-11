@@ -22,6 +22,7 @@ namespace LVK.Files
             container.Register<IFileMover, FileMover>();
             container.Register<IStreamComparer, StreamComparer>();
             container.Register<IFileServices, FileServices>();
+            container.Register<IFileContentsCopier, FileContentsCopier>();
         }
     }
 }
