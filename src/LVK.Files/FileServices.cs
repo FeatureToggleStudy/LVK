@@ -68,11 +68,11 @@ namespace LVK.Files
             }
         }
 
-        public Task CopyFileAsync(string filePath1, string filePath2, CancellationToken cancellationToken)
-            => _FileCopier.CopyAsync(filePath1, filePath2, cancellationToken);
+        public Task CopyFileAsync(string sourceFilePath, string targetFilePath, CancellationToken cancellationToken)
+            => _FileCopier.CopyAsync(sourceFilePath, targetFilePath, cancellationToken);
 
-        public Task MoveFileAsync(string filePath1, string filePath2, CancellationToken cancellationToken)
-            => _FileMover.MoveAsync(filePath1, filePath2, cancellationToken);
+        public Task MoveFileAsync(string sourceFilePath, string targetFilePath, CancellationToken cancellationToken)
+            => _FileMover.MoveAsync(sourceFilePath, targetFilePath, cancellationToken);
 
         public Task<bool> CompareAsync(string filePath1, string filePath2, CancellationToken cancellationToken)
             => _StreamComparer.CompareAsync(filePath1, filePath2, cancellationToken);

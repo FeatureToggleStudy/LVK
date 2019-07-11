@@ -22,28 +22,28 @@ namespace LVK.Files
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task CopyAsync(string filePath1, string filePath2, CancellationToken cancellationToken)
+        public async Task CopyAsync(string sourceFilePath, string targetFilePath, CancellationToken cancellationToken)
         {
             const int bufferSize = 65536;
 
-            using (_Logger.LogScope(LogLevel.Verbose, $"Copying '{filePath1}' to '{filePath2}'"))
+            using (_Logger.LogScope(LogLevel.Verbose, $"Copying '{sourceFilePath}' to '{targetFilePath}'"))
             {
-                await CopyFileContentsAsync(filePath1, filePath2, cancellationToken, bufferSize);
+                await CopyFileContentsAsync(sourceFilePath, targetFilePath, cancellationToken, bufferSize);
 
-                File.SetAttributes(filePath2, File.GetAttributes(filePath1));
-                File.SetCreationTimeUtc(filePath2, File.GetCreationTimeUtc(filePath1));
-                File.SetLastWriteTimeUtc(filePath2, File.GetLastWriteTimeUtc(filePath1));
-                File.SetLastAccessTimeUtc(filePath2, File.GetLastAccessTimeUtc(filePath1));
+                File.SetAttributes(targetFilePath, File.GetAttributes(sourceFilePath));
+                File.SetCreationTimeUtc(targetFilePath, File.GetCreationTimeUtc(sourceFilePath));
+                File.SetLastWriteTimeUtc(targetFilePath, File.GetLastWriteTimeUtc(sourceFilePath));
+                File.SetLastAccessTimeUtc(targetFilePath, File.GetLastAccessTimeUtc(sourceFilePath));
             }
         }
 
         [NotNull]
-        private async Task CopyFileContentsAsync([NotNull] string filePath1, [NotNull] string filePath2, CancellationToken cancellationToken, int bufferSize)
+        private async Task CopyFileContentsAsync([NotNull] string sourceFilePath, [NotNull] string targetFilePath, CancellationToken cancellationToken, int bufferSize)
         {
             try
             {
-                using (var stream1 = File.OpenRead(filePath1))
-                using (var stream2 = File.Create(filePath2))
+                using (var stream1 = File.OpenRead(sourceFilePath))
+                using (var stream2 = File.Create(targetFilePath))
                 {
                     var buffer1 = new byte[65536];
                     var buffer2 = new byte[65536];
@@ -97,8 +97,8 @@ namespace LVK.Files
             }
             catch (Exception)
             {
-                if (File.Exists(filePath2))
-                    File.Delete(filePath2);
+                if (File.Exists(targetFilePath))
+                    File.Delete(targetFilePath);
 
                 throw;
             }

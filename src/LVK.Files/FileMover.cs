@@ -24,57 +24,58 @@ namespace LVK.Files
             _Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public Task MoveAsync(string filePath1, string filePath2, CancellationToken cancellationToken)
+        public Task MoveAsync(string sourceFilePath, string targetFilePath, CancellationToken cancellationToken)
         {
-            if (filePath1 == null)
-                throw new ArgumentNullException(nameof(filePath1));
+            if (sourceFilePath == null)
+                throw new ArgumentNullException(nameof(sourceFilePath));
 
-            if (filePath2 == null)
-                throw new ArgumentNullException(nameof(filePath2));
+            if (targetFilePath == null)
+                throw new ArgumentNullException(nameof(targetFilePath));
 
-            if (TryFastMove(filePath1, filePath2))
+            if (TryFastMove(sourceFilePath, targetFilePath))
                 return Task.CompletedTask;
 
-            return SlowMove(filePath1, filePath2, cancellationToken);
+            return SlowMove(sourceFilePath, targetFilePath, cancellationToken);
         }
 
-        private async Task SlowMove([NotNull] string filePath1, [NotNull] string filePath2, CancellationToken cancellationToken)
+        private async Task SlowMove([NotNull] string sourceFilePath, [NotNull] string targetFilePath, CancellationToken cancellationToken)
         {
-            using (_Logger.LogScope(LogLevel.Verbose, $"Moving '{filePath1}' to '{filePath2}'"))
+            using (_Logger.LogScope(LogLevel.Verbose, $"Moving '{sourceFilePath}' to '{targetFilePath}'"))
             {
                 try
                 {
-                    await _FileCopier.CopyAsync(filePath1, filePath2, cancellationToken);
+                    await _FileCopier.CopyAsync(sourceFilePath, targetFilePath, cancellationToken);
                     cancellationToken.ThrowIfCancellationRequested();
+                    File.Delete(sourceFilePath);
                 }
                 catch (Exception ex)
                 {
                     _Logger.LogException(ex);
-                    if (File.Exists(filePath2))
-                        File.Delete(filePath2);
+                    if (File.Exists(targetFilePath))
+                        File.Delete(targetFilePath);
 
                     throw;
                 }
             }
         }
 
-        private bool TryFastMove([NotNull] string filePath1, [NotNull] string filePath2)
+        private bool TryFastMove([NotNull] string sourceFilePath, [NotNull] string targetFilePath)
         {
-            if (string.IsNullOrWhiteSpace(filePath1) || string.IsNullOrWhiteSpace(filePath2))
+            if (string.IsNullOrWhiteSpace(sourceFilePath) || string.IsNullOrWhiteSpace(targetFilePath))
                 return false;
             
-            filePath1 = Path.GetFullPath(filePath1);
-            filePath2 = Path.GetFullPath(filePath2);
+            sourceFilePath = Path.GetFullPath(sourceFilePath);
+            targetFilePath = Path.GetFullPath(targetFilePath);
             
-            if (!Regex.IsMatch(filePath1, @"^[A-Z]:\\"))
+            if (!Regex.IsMatch(sourceFilePath, @"^[A-Z]:\\"))
                 return false;
 
-            if (filePath1[0] != filePath2[0])
+            if (sourceFilePath[0] != targetFilePath[0])
                 return false;
 
-            using (_Logger.LogScope(LogLevel.Verbose, $"Moving '{filePath1}' to '{filePath2}'"))
+            using (_Logger.LogScope(LogLevel.Verbose, $"Moving '{sourceFilePath}' to '{targetFilePath}'"))
             {
-                File.Move(filePath1, filePath2);
+                File.Move(sourceFilePath, targetFilePath);
                 return true;
             }
         }
