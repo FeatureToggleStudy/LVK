@@ -58,14 +58,28 @@ namespace LVK.Files
 
                     long totalWritten = 0;
                     long total = leftToWrite;
+                    var nextReport = DateTime.Now;
+
+                    void report()
+                    {
+                        if (DateTime.Now < nextReport)
+                            return;
+
+                        _Logger.LogDebug($"Copied {totalWritten} / {total}");
+                        nextReport = DateTime.Now.AddSeconds(5);
+                    }
+
+                    report();
+
                     while (leftToWrite > 0)
                     {
                         cancellationToken.ThrowIfCancellationRequested();
                         var writeTask = stream2.WriteAsync(buffer1, 0, inBuffer1, cancellationToken).NotNull();
                         int inBuffer2 = await stream1.ReadAsync(buffer2, 0, bufferSize, cancellationToken).NotNull();
                         await writeTask;
+                        totalWritten += inBuffer1;
 
-                        _Logger.LogDebug($"Copied {totalWritten} / {total}");
+                        report();
 
                         leftToWrite -= inBuffer1;
 
