@@ -72,7 +72,7 @@ namespace LVK.Files
                             percent = 100;
                         else
                             percent = totalWritten * 100.0 / total;
-                        _Logger.LogDebug($"Copied {totalWritten.Bytes().ToString("0.0")} / {total.Bytes().ToString("0.0")} ({percent:0}%)");
+                        _Logger.LogDebug($"Copied {totalWritten.Bytes().ToString("0.#")} / {total.Bytes().ToString("0.#")} ({percent:0}%)");
                         nextReport = DateTime.Now.AddSeconds(5);
                     }
 
