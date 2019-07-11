@@ -80,6 +80,6 @@ namespace LVK.Files
             }
         }
         
-        public void Report(string value) => _Logger.LogVerbose($"Copied {value}");
+        public void Report(string value) => _Logger.LogVerbose($"Moved {value}");
     }
 }
