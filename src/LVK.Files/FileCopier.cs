@@ -3,6 +3,8 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Humanizer;
+
 using JetBrains.Annotations;
 
 using LVK.Core;
@@ -65,7 +67,7 @@ namespace LVK.Files
                         if (DateTime.Now < nextReport)
                             return;
 
-                        _Logger.LogDebug($"Copied {totalWritten} / {total}");
+                        _Logger.LogDebug($"Copied {totalWritten.Bytes():0.0} / {total.Bytes():0.0}");
                         nextReport = DateTime.Now.AddSeconds(5);
                     }
 
@@ -93,7 +95,7 @@ namespace LVK.Files
                         throw new InvalidOperationException("Unable to complete file copy");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 if (File.Exists(filePath2))
                     File.Delete(filePath2);
