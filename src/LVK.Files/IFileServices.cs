@@ -10,10 +10,10 @@ namespace LVK.Files
         bool Delete([NotNull] string filePath);
 
         [NotNull]
-        Task CopyFileAsync([NotNull] string filePath1, [NotNull] string filePath2, CancellationToken cancellationToken);
+        Task CopyFileAsync([NotNull] string sourceFilePath, [NotNull] string targetFilePath, CancellationToken cancellationToken);
 
         [NotNull]
-        Task MoveFileAsync([NotNull] string filePath1, [NotNull] string filePath2, CancellationToken cancellationToken);
+        Task MoveFileAsync([NotNull] string sourceFilePath, [NotNull] string targetFilePath, CancellationToken cancellationToken);
 
         [NotNull]
         Task<bool> CompareAsync([NotNull] string filePath1, [NotNull] string filePath2, CancellationToken cancellationToken);

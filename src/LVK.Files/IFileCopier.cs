@@ -9,6 +9,6 @@ namespace LVK.Files
     public interface IFileCopier
     {
         [NotNull]
-        Task CopyAsync([NotNull] string filePath1, [NotNull] string filePath2, CancellationToken cancellationToken);
+        Task CopyAsync([NotNull] string sourceFilePath, [NotNull] string targetFilePath, CancellationToken cancellationToken);
     }
 }
