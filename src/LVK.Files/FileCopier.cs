@@ -67,7 +67,12 @@ namespace LVK.Files
                         if (DateTime.Now < nextReport)
                             return;
 
-                        _Logger.LogDebug($"Copied {totalWritten.Bytes().ToString("0.0")} / {total.Bytes().ToString("0.0")}");
+                        double percent;
+                        if (total == 0)
+                            percent = 100;
+                        else
+                            percent = totalWritten * 100.0 / total;
+                        _Logger.LogDebug($"Copied {totalWritten.Bytes().ToString("0.0")} / {total.Bytes().ToString("0.0")} ({percent:0}%)");
                         nextReport = DateTime.Now.AddSeconds(5);
                     }
 
@@ -90,6 +95,9 @@ namespace LVK.Files
                         if (inBuffer1 == 0)
                             break;
                     }
+
+                    nextReport = DateTime.Now;
+                    report();
 
                     if (leftToWrite > 0)
                         throw new InvalidOperationException("Unable to complete file copy");
