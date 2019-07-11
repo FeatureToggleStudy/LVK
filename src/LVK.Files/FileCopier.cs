@@ -67,7 +67,7 @@ namespace LVK.Files
                         if (DateTime.Now < nextReport)
                             return;
 
-                        _Logger.LogDebug($"Copied {totalWritten.Bytes():0.0} / {total.Bytes():0.0}");
+                        _Logger.LogDebug($"Copied {totalWritten.Bytes().ToString("0.0")} / {total.Bytes().ToString("0.0")}");
                         nextReport = DateTime.Now.AddSeconds(5);
                     }
 
