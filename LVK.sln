@@ -208,6 +208,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Resources", "src\LVK.Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Resources.Tests", "tests\LVK.Resources.Tests\LVK.Resources.Tests.csproj", "{7B71ABCE-2F51-406A-BD1D-B059C0916221}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Files", "src\LVK.Files\LVK.Files.csproj", "{B9CEF549-5CD7-4B8C-87FF-3A8C63AD17B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -578,6 +580,10 @@ Global
 		{7B71ABCE-2F51-406A-BD1D-B059C0916221}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B71ABCE-2F51-406A-BD1D-B059C0916221}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B71ABCE-2F51-406A-BD1D-B059C0916221}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9CEF549-5CD7-4B8C-87FF-3A8C63AD17B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9CEF549-5CD7-4B8C-87FF-3A8C63AD17B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9CEF549-5CD7-4B8C-87FF-3A8C63AD17B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9CEF549-5CD7-4B8C-87FF-3A8C63AD17B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -670,6 +676,7 @@ Global
 		{590EF895-1AF9-4F90-9DC0-342BBFE9C6C3} = {BEE78C2B-1920-4AF3-B6AA-8FB81299663A}
 		{8E4960DF-9E2E-47F9-9340-C44655752FE5} = {0BE3EA12-B77B-40AE-99D1-7EBB9A158E5C}
 		{7B71ABCE-2F51-406A-BD1D-B059C0916221} = {BEE78C2B-1920-4AF3-B6AA-8FB81299663A}
+		{B9CEF549-5CD7-4B8C-87FF-3A8C63AD17B2} = {0BE3EA12-B77B-40AE-99D1-7EBB9A158E5C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C44BDD37-D901-4F19-A6E6-8DB64AF3B71A}
