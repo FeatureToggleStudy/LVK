@@ -2,8 +2,6 @@ using System;
 using System.IO;
 using System.Reflection;
 
-using JetBrains.Annotations;
-
 using static LVK.Core.JetBrainsHelpers;
 
 namespace LVK.AppCore
