@@ -3,11 +3,8 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Humanizer;
-
 using JetBrains.Annotations;
 
-using LVK.Core;
 using LVK.Logging;
 
 namespace LVK.Files

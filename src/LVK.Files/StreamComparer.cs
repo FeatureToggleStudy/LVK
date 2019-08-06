@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-using ImTools;
+using JetBrains.Annotations;
 
 using LVK.Core;
 
@@ -19,13 +19,19 @@ namespace LVK.Files
             if (stream2 == null)
                 throw new ArgumentNullException(nameof(stream2));
 
-            const int bufferSize = 65536;
-
             if (ReferenceEquals(stream1, stream2))
                 return true;
 
             if (stream1.Length != stream2.Length)
                 return false;
+
+            return await CompareStreamContentsAsync(stream1, stream2, cancellationToken);
+        }
+
+        private static async Task<bool> CompareStreamContentsAsync([NotNull] Stream stream1, [NotNull] Stream stream2,
+                                                             CancellationToken cancellationToken)
+        {
+            const int bufferSize = 65536;
 
             var buffer1 = new byte[bufferSize];
             var buffer2 = new byte[bufferSize];
@@ -40,9 +46,6 @@ namespace LVK.Files
                 if (inBuffer1 != inBuffer2)
                     return false;
 
-                if (inBuffer1 == 0)
-                    return true;
-                
                 for (int index = 0; index < inBuffer1; index++)
                     if (buffer1[index] != buffer2[index])
                         return false;

@@ -1,11 +1,9 @@
 using System;
-using System.Net;
 
 using JetBrains.Annotations;
 
 using LVK.Configuration.Preferences;
 
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConsoleSandbox.Controllers
