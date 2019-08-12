@@ -20,11 +20,11 @@ namespace LVK.Data.Encoding
             container.RegisterMapping<IVarintEncoder, IVarintCodec>();
             container.RegisterMapping<IVarintDecoder, IVarintCodec>();
 
-            container.Register<IBigEndianBinaryCodec, BigEndianCodec>();
+            container.Register<IBigEndianBinaryCodec, BigEndianBinaryCodec>();
             container.RegisterMapping<IBigEndianBinaryEncoder, IBigEndianBinaryCodec>();
             container.RegisterMapping<IBigEndianBinaryDecoder, IBigEndianBinaryCodec>();
 
-            container.Register<ILittleEndianBinaryCodec, LittleEndianCodec>();
+            container.Register<ILittleEndianBinaryCodec, LittleEndianBinaryCodec>();
             container.RegisterMapping<ILittleEndianBinaryEncoder, ILittleEndianBinaryCodec>();
             container.RegisterMapping<ILittleEndianBinaryDecoder, ILittleEndianBinaryCodec>();
 

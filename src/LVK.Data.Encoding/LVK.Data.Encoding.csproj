@@ -11,4 +11,39 @@
     <ItemGroup>
       <PackageReference Include="System.Memory" Version="4.5.3" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="VarintCodec.cs">
+        <DependentUpon>IVarintCodec.cs</DependentUpon>
+      </Compile>
+      <Compile Update="IVarintEncoder.cs">
+        <DependentUpon>IVarintCodec.cs</DependentUpon>
+      </Compile>
+      <Compile Update="IVarintDecoder.cs">
+        <DependentUpon>IVarintCodec.cs</DependentUpon>
+      </Compile>
+      <Compile Update="BigEndianBinaryCodec.cs">
+        <DependentUpon>IBigEndianBinaryCodec.cs</DependentUpon>
+      </Compile>
+      <Compile Update="IBigEndianBinaryDecoder.cs">
+        <DependentUpon>IBigEndianBinaryCodec.cs</DependentUpon>
+      </Compile>
+      <Compile Update="IBigEndianBinaryEncoder.cs">
+        <DependentUpon>IBigEndianBinaryCodec.cs</DependentUpon>
+      </Compile>
+      <Compile Update="LittleEndianBinaryCodec.cs">
+        <DependentUpon>ILittleEndianBinaryCodec.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ILittleEndianBinaryDecoder.cs">
+        <DependentUpon>ILittleEndianBinaryCodec.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ILittleEndianBinaryEncoder.cs">
+        <DependentUpon>ILittleEndianBinaryCodec.cs</DependentUpon>
+      </Compile>
+      <Compile Update="IPlatformBinaryDecoder.cs">
+        <DependentUpon>IPlatformBinaryCodec.cs</DependentUpon>
+      </Compile>
+      <Compile Update="IPlatformBinaryEncoder.cs">
+        <DependentUpon>IPlatformBinaryCodec.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>
