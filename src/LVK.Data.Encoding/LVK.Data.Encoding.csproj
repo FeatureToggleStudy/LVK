@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>LVK.Data.Encoding</PackageId>
+        <Description>LVK Data Encoding framework</Description>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\LVK.Core\LVK.Core.csproj" />
+        <ProjectReference Include="..\LVK.DryIoc\LVK.DryIoc.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="System.Memory" Version="4.5.3" />
+    </ItemGroup>
+</Project>
